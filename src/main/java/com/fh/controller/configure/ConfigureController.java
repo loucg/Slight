@@ -507,7 +507,7 @@ public class ConfigureController extends BaseController{
 		List<PageData> poleList = configureService.getPoleList(page);
 		List<PageData> simList = configureService.getSimList(page);
 		List<PageData> sensorList = configureService.getSensorList(page);
-		mv.addObject("nList",nPList);
+		mv.addObject("nPList",nPList);
 		mv.addObject("lampList", lampList);
 		mv.addObject("poleList", poleList);
 		mv.addObject("simList", simList);
