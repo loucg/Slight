@@ -36,6 +36,11 @@ public class ConfigureController extends BaseController{
 	private String simJsp = "foundation/npower/npower_list";    //Sim卡杆查询jsp
 	private String simEditJsp = "";  							//Sim卡修改jsp
 	private String simCreateJsp = "";  							//Sim卡新增jsp
+	
+	private String deviceJsp = "";
+	private String deviceEditJsp = "";
+	private String deviceCreateJsp="";
+	
 	private String saveRsultJsp = "save_result";  				//保存修改jsp
 	
 	
@@ -469,44 +474,77 @@ public class ConfigureController extends BaseController{
 		pd = this.getPageData();
 		page.setPd(pd);
 		List<PageData> deviceList = null;
-		if((Integer)pd.get("itype")==1){
+		int type = (Integer)pd.get("itype");
+		if(type==1){
 			//终端
 			deviceList = configureService.getDeviceList(page);
 			
-		}else if((Integer)pd.get("itype")==2){
+		}else if(type==2){
 			//网关、断路器
 			deviceList = configureService.getDeviceList(page);
-		}else if((Integer)pd.get("itype")==3){
+		}else if(type==3){
 			//组合
-			
 			deviceList = configureService.getDeviceList(page);
 			deviceList.addAll(configureService.getGatewayList(page));
 		}
-		List<PageData> nPList = configureService.getSimList(page);
+		
 		mv.addObject("deviceList", deviceList);
-		switch((Integer)pd.get("typeid")){
-		case 1:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 2:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 3:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 4:
-			mv.setViewName(nPowerJsp);
-			break;	
-		case 5:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 6:
-			mv.setViewName(nPowerJsp);
-			break;
-		}
 		return mv;
 	}
 	
+	
+	/**
+	 * 跳转终端修改页面
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/goDeviceEdit")
+	public ModelAndView goDeviceEdit(Page page) throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		List<PageData> nPList = configureService.getNPowerList(page);
+		List<PageData> lampList = configureService.getLampList(page);
+		List<PageData> poleList = configureService.getPoleList(page);
+		List<PageData> simList = configureService.getSimList(page);
+		List<PageData> sensorList = configureService.getSensorList(page);
+		mv.addObject("nList",nPList);
+		mv.addObject("lampList", lampList);
+		mv.addObject("poleList", poleList);
+		mv.addObject("simList", simList);
+		mv.addObject("sensorList", sensorList);
+		
+		mv.addObject("msg", "editDevice");
+		mv.setViewName(deviceEditJsp);
+		return mv;
+	
+	}
+	
+	/**
+	 * 跳转Sim卡新增页面
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/goSimCreate")
+	public ModelAndView goDeviceCreate(Page page) throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		List<PageData> nPList = configureService.getNPowerList(page);
+		List<PageData> lampList = configureService.getLampList(page);
+		List<PageData> poleList = configureService.getPoleList(page);
+		List<PageData> simList = configureService.getSimList(page);
+		List<PageData> sensorList = configureService.getSensorList(page);
+		mv.addObject("nList",nPList);
+		mv.addObject("lampList", lampList);
+		mv.addObject("poleList", poleList);
+		mv.addObject("simList", simList);
+		mv.addObject("sensorList", sensorList);
+		
+		
+		mv.addObject("msg", "createDevice");
+		mv.setViewName(deviceCreateJsp);
+		return mv;
+	}
+
 	@RequestMapping("/editDevice")
 	public ModelAndView editDevice() throws Exception{
 		ModelAndView mv = this.getModelAndView();
@@ -517,26 +555,7 @@ public class ConfigureController extends BaseController{
 		}else if((Integer)pd.get("itype")==2){
 			configureService.editGateway(pd);
 		}
-		switch((Integer)pd.get("typeid")){
-		case 1:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 2:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 3:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 4:
-			mv.setViewName(nPowerJsp);
-			break;	
-		case 5:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 6:
-			mv.setViewName(nPowerJsp);
-			break;
-		}
+		mv.setViewName(saveRsultJsp);
 		return mv;
 		
 		
@@ -553,26 +572,7 @@ public class ConfigureController extends BaseController{
 		}else if((Integer)pd.get("itype")==2){
 			configureService.createGateway(pd);
 		}
-		switch((Integer)pd.get("typeid")){
-		case 1:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 2:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 3:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 4:
-			mv.setViewName(nPowerJsp);
-			break;	
-		case 5:
-			mv.setViewName(nPowerJsp);
-			break;
-		case 6:
-			mv.setViewName(nPowerJsp);
-			break;
-		}
+		mv.setViewName(saveRsultJsp);
 		return mv;
 	}
 }
