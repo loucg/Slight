@@ -445,11 +445,13 @@
 	</insert>
 	
 	<!-- 终端类型查询 -->
-	<select id="getDeviceType" parameterType="pd" resultType="pd">
+	<select id="getDeviceType" resultType="pd">
 		SELECT a.id, a.`name`
 		FROM c_client_type AS a
 		UNION SELECT b.id, b.`name`
 		FROM c_gateway_type AS b	
 	</select>
 	
+	
+	<!-- 获取 -->
 </mapper>
