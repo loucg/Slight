@@ -181,5 +181,38 @@ public interface ConfigureService {
 	 */
 	public List<PageData> getDeviceType(PageData pd) throws Exception;
 	
+	/**
+	 * 获取所有普通电源
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> getAllNPower() throws Exception;
 	
+	/**
+	 * 获取所有灯
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> getAllLamp() throws Exception;
+	
+	/**
+	 * 获取所有灯杆
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> getAllPole() throws Exception;
+	
+	/**
+	 * 获取所有传感器
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> getAllSensor() throws Exception;
+	
+	/**
+	 * 获取所有sim卡
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> getAllSim() throws Exception;
 }

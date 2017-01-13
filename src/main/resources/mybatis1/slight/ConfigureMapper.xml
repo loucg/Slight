@@ -453,5 +453,30 @@
 	</select>
 	
 	
-	<!-- 获取所有 -->
+	<!-- 获取所有普通电源 -->
+	<select id="getAllNPower" resultType="pd">
+		SELECT *
+		FROM <include refid="nPowerTableName"/>
+	</select>
+	<!-- 获取所有灯 -->
+	<select id="getAllLamp" resultType="pd">
+		SELECT *
+		FROM <include refid="lampTableName"/>
+	</select>
+	<!-- 获取所有灯杆 -->
+	<select id="getAllPole" resultType="pd">
+		SELECT *
+		FROM <include refid="poleTableName"/>
+	</select>
+	<!-- 获取所有传感器 -->
+	<select id="getAllSensor" resultType="pd">
+		SELECT *
+		FROM <include refid="sensorTableName"/>
+	</select>
+	<!-- 获取所有Sim卡 -->
+	<select id="getAllSim" resultType="pd">
+		SELECT *
+		FROM <include refid="simTableName"/>
+	</select>
+	<!-- end -->
 </mapper>

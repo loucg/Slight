@@ -502,11 +502,11 @@ public class ConfigureController extends BaseController{
 	@RequestMapping("/goDeviceEdit")
 	public ModelAndView goDeviceEdit(Page page) throws Exception{
 		ModelAndView mv = this.getModelAndView();
-		List<PageData> nPList = configureService.getNPowerList(page);
-		List<PageData> lampList = configureService.getLampList(page);
-		List<PageData> poleList = configureService.getPoleList(page);
-		List<PageData> simList = configureService.getSimList(page);
-		List<PageData> sensorList = configureService.getSensorList(page);
+		List<PageData> nPList = configureService.getAllNPower();
+		List<PageData> lampList = configureService.getAllLamp();
+		List<PageData> poleList = configureService.getAllPole();
+		List<PageData> simList = configureService.getAllSim();
+		List<PageData> sensorList = configureService.getAllSensor();
 		mv.addObject("nPList",nPList);
 		mv.addObject("lampList", lampList);
 		mv.addObject("poleList", poleList);
@@ -520,78 +520,24 @@ public class ConfigureController extends BaseController{
 	}
 	
 	/**
-	 * 跳转Sim卡新增页面
+	 * 跳转终端新增页面
 	 * @param page
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/goSimCreate")
-	public ModelAndView goDeviceCreate(Page page) throws Exception{
+	@RequestMapping("/goDeviceCreate")
+	public ModelAndView goDeviceCreate() throws Exception{
 		ModelAndView mv = this.getModelAndView();
-		List<PageData> nPList = configureService.getNPowerList(page);
-		List<PageData> lampList = configureService.getLampList(page);
-		List<PageData> poleList = configureService.getPoleList(page);
-		List<PageData> simList = configureService.getSimList(page);
-		List<PageData> sensorList = configureService.getSensorList(page);
-		mv.addObject("nList",nPList);
+		List<PageData> nPList = configureService.getAllNPower();
+		List<PageData> lampList = configureService.getAllLamp();
+		List<PageData> poleList = configureService.getAllPole();
+		List<PageData> simList = configureService.getAllSim();
+		List<PageData> sensorList = configureService.getAllSensor();
+		mv.addObject("nPList",nPList);
 		mv.addObject("lampList", lampList);
 		mv.addObject("poleList", poleList);
 		mv.addObject("simList", simList);
 		mv.addObject("sensorList", sensorList);
-		
-		
-		mv.addObject("msg", "createDevice");
-		mv.setViewName(deviceCreateJsp);
-		return mv;
-	}
-
-	
-	/**
-	 * 跳转终端修改页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goDeviceEdit")
-	public ModelAndView goDeviceEdit(Page page) throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		List<PageData> nPList = configureService.getNPowerList(page);
-		List<PageData> lampList = configureService.getLampList(page);
-		List<PageData> poleList = configureService.getPoleList(page);
-		List<PageData> simList = configureService.getSimList(page);
-		List<PageData> sensorList = configureService.getSensorList(page);
-		mv.addObject("nList",nPList);
-		mv.addObject("lampList", lampList);
-		mv.addObject("poleList", poleList);
-		mv.addObject("simList", simList);
-		mv.addObject("sensorList", sensorList);
-		
-		mv.addObject("msg", "editDevice");
-		mv.setViewName(deviceEditJsp);
-		return mv;
-	
-	}
-	
-	/**
-	 * 跳转Sim卡新增页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goSimCreate")
-	public ModelAndView goDeviceCreate(Page page) throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		List<PageData> nPList = configureService.getNPowerList(page);
-		List<PageData> lampList = configureService.getLampList(page);
-		List<PageData> poleList = configureService.getPoleList(page);
-		List<PageData> simList = configureService.getSimList(page);
-		List<PageData> sensorList = configureService.getSensorList(page);
-		mv.addObject("nList",nPList);
-		mv.addObject("lampList", lampList);
-		mv.addObject("poleList", poleList);
-		mv.addObject("simList", simList);
-		mv.addObject("sensorList", sensorList);
-		
 		
 		mv.addObject("msg", "createDevice");
 		mv.setViewName(deviceCreateJsp);
