@@ -173,6 +173,41 @@ public class ConfigureSerivceImpl implements ConfigureService{
 		// TODO Auto-generated method stub
 		return (List<PageData>)dao.findForList("ConfigureMapper.getDeviceType", pd);
 	}
+
+
+	@Override
+	public List<PageData> getAllNPower() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<PageData> getAllLamp() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<PageData> getAllPole() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<PageData> getAllSensor() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<PageData> getAllSim() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
