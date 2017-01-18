@@ -186,33 +186,89 @@ public interface ConfigureService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<PageData> getAllNPower() throws Exception;
+	public List<PageData> getAllNPower(PageData pd) throws Exception;
 	
 	/**
 	 * 获取所有灯
 	 * @return
 	 * @throws Exception
 	 */
-	public List<PageData> getAllLamp() throws Exception;
+	public List<PageData> getAllLamp(PageData pd) throws Exception;
 	
 	/**
 	 * 获取所有灯杆
 	 * @return
 	 * @throws Exception
 	 */
-	public List<PageData> getAllPole() throws Exception;
+	public List<PageData> getAllPole(PageData pd) throws Exception;
 	
 	/**
 	 * 获取所有传感器
 	 * @return
 	 * @throws Exception
 	 */
-	public List<PageData> getAllSensor() throws Exception;
+	public List<PageData> getAllSensor(PageData pd) throws Exception;
 	
 	/**
 	 * 获取所有sim卡
 	 * @return
 	 * @throws Exception
 	 */
-	public List<PageData> getAllSim() throws Exception;
+	public List<PageData> getAllSim(PageData pd) throws Exception;
+	
+	/**
+	 * 根据id获取灯
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData getLampById(PageData pd) throws Exception;
+	
+	/**
+	 * 根据id获取普通电源
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData getNPowerById(PageData pd) throws Exception;
+	
+	/**
+	 * 根据id获取灯杆
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData getPoleById(PageData pd) throws Exception;
+	
+	/**
+	 * 根据id获取传感器
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData getSensorById(PageData pd) throws Exception;
+	
+	/**
+	 * 根据id获取Sim卡
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData getSimById(PageData pd) throws Exception;
+	
+	/**
+	 * 根据id获取网关断路器
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData getGatewayAndBreakById(PageData pd) throws Exception;
+
+	/**
+	 * 根据id获取终端
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData getDeviceById(PageData pd) throws Exception;
 }

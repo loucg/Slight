@@ -24,40 +24,40 @@
 	<!-- 字段 -->
 	<!-- 普通电源 -->
 	<sql id="Field">
-		id,name,vendor,type,power,image,comment
+		name,vendor,type,power,image,comment
 	</sql>
 	<sql id="FieldValue">
-		#{id},#{name},#{vendor},#{type},#{power},#{image},#{comment}
+		#{name},#{vendor},#{type},#{power},#{image},#{comment}
 	</sql>
 	<!-- 灯 -->
 	<sql id="lampField">
-		id,name,vendor,type,image,comment
+		name,vendor,type,image,comment
 	</sql>
 	
 	<sql id="lampFieldValue">
-		#{id},#{name},#{vendor},#{type},#{image},#{comment}
+		#{name},#{vendor},#{type},#{image},#{comment}
 	</sql>
 	
 	<!-- 传感器 -->
 	<sql id="sensorField">
-		id,name,vendor,type,image,comment
+		name,vendor,type,image,comment
 	</sql>
 	<sql id="sensorFieldValue">
-		#{id},#{name},#{vendor},#{type},#{image},#{comment}
+		#{name},#{vendor},#{type},#{image},#{comment}
 	</sql>
 	<!-- 灯杆 -->
 	<sql id="poleField">
-		id,name,vendor,type,image,comment
+		name,vendor,type,image,comment
 	</sql>
 	<sql id="poleFieldValue">
-		#{id},#{name},#{vendor},#{type},#{image},#{comment}
+		#{name},#{vendor},#{type},#{image},#{comment}
 	</sql>
 	<!-- sim卡 -->
 	<sql id="simField">
-		id,iccid,phone_number,status,type,money
+		iccid,phone_number,status,type,money,comment
 	</sql>
 	<sql id="simFieldValue">
-		#{id},#{iccid},#{mobile},#{status},#{type},#{money}
+		#{iccid},#{mobile},#{status},#{type},#{money},#{comment}
 	</sql>
 	
 	
@@ -70,8 +70,9 @@
 			AND name LIKE CONCAT(CONCAT('%', #{pd.name}),'%')
 		</if>
 		<if test="pd.vendor!=null and pd.vendor!=''">
-			AND vendor LIKE CONCAT(CONCAT('%', #{pd.vendor})
+			AND vendor LIKE CONCAT(CONCAT('%', #{pd.vendor}, '%')
 		</if>
+
 	</select>
 	
 	<!-- 普通电源修改 -->
@@ -104,8 +105,9 @@
 			AND name LIKE CONCAT(CONCAT('%', #{pd.name}),'%')
 		</if>
 		<if test="pd.vendor!=null and pd.vendor!=''">
-			AND vendor LIKE CONCAT(CONCAT('%', #{pd.vendor})
+			AND vendor LIKE CONCAT(CONCAT('%', #{pd.vendor}),'%')
 		</if>
+
 	</select>
 	<!-- 灯修改 -->
 	<update id="editLamp" parameterType="pd">
@@ -134,7 +136,7 @@
 			AND name LIKE CONCAT(CONCAT('%', #{pd.name}),'%')
 		</if>
 		<if test="pd.vendor!=null and pd.vendor!=''">
-			AND vendor LIKE CONCAT(CONCAT('%', #{pd.vendor})
+			AND vendor LIKE CONCAT(CONCAT('%', #{pd.vendor}), '%')
 		</if>
 	</select>
 	<!-- 传感器修改 -->
@@ -164,7 +166,7 @@
 			AND name LIKE CONCAT(CONCAT('%', #{pd.name}),'%')
 		</if>
 		<if test="pd.vendor!=null and pd.vendor!=''">
-			AND vendor LIKE CONCAT(CONCAT('%', #{pd.vendor})
+			AND vendor LIKE CONCAT(CONCAT('%', #{pd.vendor}),'%')
 		</if>
 	</select>
 	<!-- 灯杆修改 -->
@@ -191,19 +193,19 @@
 		SELECT a.id,a.iccid,a.phone_number AS mobile,a.type,b.`value` AS `status`,b.`name` AS statusname,a.money,a.`comment`
 		FROM c_sim AS a
 		LEFT JOIN b_status AS b ON a.`status` = b.`value`
+		WHERE 1=1
 		<if test="pd.iccid!=null and pd.iccid!=''">
 			AND a.iccid LIKE CONCAT(CONCAT('%', #{pd.iccid}),'%')
 		</if>
 		<if test="pd.mobile!=null and pd.mobile!=''">
-			AND a.phone_number LIKE CONCAT(CONCAT('%', #{pd.mobile})
+			AND a.phone_number LIKE CONCAT(CONCAT('%', #{pd.mobile}), '%')
 		</if>
-		<if test="pd.type!=0">
-			AND a.type = #{pd.type}
+		<if test="pd.type!=null or pd.type=''">
+			AND a.type = #{pd.type, jdbcType=INTEGER}
 		</if>
-		<if test="pd.status!=0">
-			AND b.value = #{pd.status}
+		<if test="pd.status!=null or pd.status=''">
+			AND b.value = #{pd.status, jdbcType=INTEGER}
 		</if>
-		
 	</select>
 	<!-- sim卡修改 -->
 	<update id="editSim" parameterType="pd">
@@ -228,61 +230,76 @@
 	
 	<!-- 普通终端查询 -->
 	<select id="getDevicelistPage" parameterType="page" resultType="pd">
-		SELECT b.client_code AS id, a.`name`,a.c_client_type_id AS typeid,
+		SELECT a.c_client_id AS id, b.client_code AS number, a.`name`,a.c_client_type_id AS typeid,
 			d.`name` AS type,a.location,a.coordinate,a.`comment`,h.`name` AS statename,
 			h.`value` AS state,e.`name` AS power, f.`name` AS lamp, g.`name` AS pole,
 			a.`password`, a.lamp_pole_num AS polenumber
 		FROM c_client_attr1 AS a
-			JOIN c_client AS b ON a.c_client_id = b.id
-			JOIN c_client_attr2 AS c ON a.c_client_id = c.c_client_id
+			LEFT JOIN c_client AS b ON a.c_client_id = b.id
+			LEFT JOIN c_client_attr2 AS c ON a.c_client_id = c.c_client_id
 			LEFT JOIN c_client_type AS d ON a.c_client_type_id = d.id
 			LEFT JOIN c_power_type AS e ON c.c_power_type_id = e.id
 			LEFT JOIN c_lamp_type AS f ON c.c_lamp_type_id = f.id
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
 		
-		WHERE a.b_user_id = 1
+		WHERE 1=1 
+		<!-- a.b_user_id = 1 -->
 		<if test="pd.number!=null and pd.number!=''">
 			AND b.client_code LIKE CONCAT(CONCAT('%', #{pd.number}),'%')
 		</if>
 		<if test="pd.name!=null and pd.name!=''">
-			AND a.name LIKE CONCAT(CONCAT('%', #{pd.vendor})
+			AND a.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
 		</if>
-		<if test="pd.type!=0">
-			AND d.id = #{pd.type}
+		<if test="pd.type==null or pd.type==''">
+			<if test="pd.itype!=null and pd.itype==1">
+				AND d.id = 1
+			</if>
+			<if test="pd.itype!=null and pd.itype==2">
+				AND d.id = 2
+			</if>
 		</if>
-		<if test="pd.status!=0">
-			AND h.value = #{pd.status}
+		<if test="pd.type!=null and pd.type!=''">
+			AND d.id = #{pd.type, jdbcType=INTEGER}
 		</if>
 	</select>
 	
 	<!-- 网关断路器终端查询 -->
 	<select id="getGatewaylistPage" parameterType="page" resultType="pd">
-		SELECT b.gateway_code AS id, a.`name`,a.c_gateway_type_id AS typeid,
+		SELECT a.c_gateway_id AS id, b.gateway_code AS number, a.`name`,a.c_gateway_type_id AS typeid,
 			d.`name` AS type,a.location,a.coordinate,a.`comment`,h.`name` AS statename,
 			h.`value` AS state,e.phone_number AS mobile, f.`name` AS sensor, g.`name` AS pole,
 			a.`password`, a.lamp_pole_num AS polenumber
 		FROM c_gateway_attr1 AS a
-			JOIN c_gateway AS b ON a.c_gateway_id = b.id
-			JOIN c_gateway_attr2 AS c ON a.c_gateway_id = c.c_gateway_id
+			LEFT JOIN c_gateway AS b ON a.c_gateway_id = b.id
+			LEFT JOIN c_gateway_attr2 AS c ON a.c_gateway_id = c.c_gateway_id
 			LEFT JOIN c_gateway_type AS d ON a.c_gateway_type_id = d.id
 			LEFT JOIN c_sim AS e ON c.c_sim_id = e.id
 			LEFT JOIN c_sensor_type AS f ON c.c_sensor_type_id = f.id
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
 		
-		WHERE a.b_user_id = 1
+		WHERE 1=1
+		<!-- a.b_user_id = 1 -->
 		<if test="pd.number!=null and pd.number!=''">
 			AND b.gateway_code LIKE CONCAT(CONCAT('%', #{pd.number}),'%')
 		</if>
 		<if test="pd.name!=null and pd.name!=''">
-			AND a.name LIKE CONCAT(CONCAT('%', #{pd.vendor})
+			AND a.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
 		</if>
-		<if test="pd.type!=0">
-			AND d.id = #{pd.type}
+		<if test="pd.type==null or pd.type==''">
+			<if test="pd.itype!=null and pd.itype==1">
+				AND d.id = 1
+			</if>
+			<if test="pd.itype!=null and pd.itype==2">
+				AND d.id = 2
+			</if>
+			<if test="pd.itype!=null and pd.itype==3">
+				AND (d.id = 3 OR 4 OR 5)
+			</if>
 		</if>
-		<if test="pd.status!=0">
-			AND h.value = #{pd.status}
+		<if test="pd.type!=null and pd.type!=''">
+			AND d.id = #{pd.type, jdbcType=INTEGER}
 		</if>
 	</select>
 	
@@ -305,7 +322,7 @@
 			b.comment               =#{comment},
 			b.staus		  			=#{status},
 			b.lamp_pole_num	  		=#{polenumber},
-			b.b_user_id       		=#{userid},
+		<!-- 	b.b_user_id       		=#{userid}, -->
 			c.c_lamp_type_id  		=#{lamp},
 			c.c_lamp_pole_type_id   =#{pole},
 			c.c_power_type_id		=#{power}
@@ -431,10 +448,10 @@
 		c_gateway_attr2
 	</sql>
 	<sql id="gatewayAttr2Field">
-		c_gateway_id,c_power_type_id,c_lamp_pole_type_id,c_lamp_type_id
+		c_gateway_id,c_sim_id,c_lamp_pole_type_id,c_sensor_type_id
 	</sql>
 	<sql id="gatewayAttr2FieldValue">
-		#{id, jdbcType=BIGINT},#{power, jdbcType=INTEGER},#{pole,jdbcType=INTEGER},#{lamp,jdbcType=INTEGER}
+		#{id, jdbcType=BIGINT},#{sim, jdbcType=INTEGER},#{pole,jdbcType=INTEGER},#{sensor,jdbcType=INTEGER}
 	</sql>
 	<insert id="insertGatewayAttr2" parameterType="pd">
 		insert into <include refid="gatewayAttr2Table"/>(
@@ -454,29 +471,97 @@
 	
 	
 	<!-- 获取所有普通电源 -->
-	<select id="getAllNPower" resultType="pd">
+	<select id="getAllNPower" resultType="pd" parameterType="pd">
 		SELECT *
 		FROM <include refid="nPowerTableName"/>
 	</select>
+	<!-- 根据id获取普通电源 -->
+	<select id="getNPowerById" resultType="pd" parameterType="pd">
+		SELECT *
+		FROM <include refid="nPowerTableName"/>
+		WHERE id=#{id, jdbcType=INTEGER}
+	</select>
 	<!-- 获取所有灯 -->
-	<select id="getAllLamp" resultType="pd">
+	<select id="getAllLamp" resultType="pd" parameterType="pd">
 		SELECT *
 		FROM <include refid="lampTableName"/>
+	</select>
+	<!-- 根据id获取灯 -->
+	<select id="getLampById" resultType="pd" parameterType="pd">
+		SELECT *
+		FROM <include refid="lampTableName"/>
+		WHERE id=#{id, jdbcType=INTEGER}
 	</select>
 	<!-- 获取所有灯杆 -->
 	<select id="getAllPole" resultType="pd">
 		SELECT *
 		FROM <include refid="poleTableName"/>
 	</select>
+	<!-- 根据id获取灯杆 -->
+	<select id="getPoleById" resultType="pd">
+		SELECT *
+		FROM <include refid="poleTableName"/>
+		WHERE id=#{id, jdbcType=INTEGER}
+	</select>
 	<!-- 获取所有传感器 -->
 	<select id="getAllSensor" resultType="pd">
 		SELECT *
 		FROM <include refid="sensorTableName"/>
 	</select>
+	<!-- 根据id获取传感器 -->
+	<select id="getSensorById" resultType="pd">
+		SELECT *
+		FROM <include refid="sensorTableName"/>
+		WHERE id=#{id, jdbcType=INTEGER}
+	</select>
 	<!-- 获取所有Sim卡 -->
 	<select id="getAllSim" resultType="pd">
-		SELECT *
+		SELECT id,iccid,phone_number as mobile, status, type,money,comment
 		FROM <include refid="simTableName"/>
 	</select>
+	<!-- 根据id获取Sim卡 -->
+	<select id="getSimById" resultType="pd">
+		SELECT id,iccid,phone_number as mobile, status, type,money,comment
+		FROM <include refid="simTableName"/>
+		WHERE id=#{id, jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据id获取网关/断路器 -->
+	<select id="getGatewayAndBreakById" resultType="pd">
+		SELECT a.c_gateway_id AS id, b.gateway_code AS number, a.`name`,a.c_gateway_type_id AS typeid,
+			d.`name` AS type,a.location,a.coordinate,a.`comment`,h.`name` AS statename,
+			h.`value` AS state,e.id AS mobile, f.id AS sensor, g.id AS pole,
+			a.`password`, a.lamp_pole_num AS polenumber
+		FROM c_gateway_attr1 AS a
+			LEFT JOIN c_gateway AS b ON a.c_gateway_id = b.id
+			LEFT JOIN c_gateway_attr2 AS c ON a.c_gateway_id = c.c_gateway_id
+			LEFT JOIN c_gateway_type AS d ON a.c_gateway_type_id = d.id
+			LEFT JOIN c_sim AS e ON c.c_sim_id = e.id
+			LEFT JOIN c_sensor_type AS f ON c.c_sensor_type_id = f.id
+			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
+			LEFT JOIN b_status AS h ON a.staus = h.`value`
+		WHERE a.c_gateway_id = #{id ,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据id获取终端 -->
+	<select id="getDeviceById" resultType="pd">
+	SELECT a.c_client_id AS id, b.client_code AS number, a.`name`,a.c_client_type_id AS typeid,
+			d.`name` AS type,a.location,a.coordinate,a.`comment`,h.`name` AS statename,
+			h.`value` AS state,e.`name` AS power, f.`name` AS lamp, g.`name` AS pole,
+			a.`password`, a.lamp_pole_num AS polenumber
+		FROM c_client_attr1 AS a
+			LEFT JOIN c_client AS b ON a.c_client_id = b.id
+			LEFT JOIN c_client_attr2 AS c ON a.c_client_id = c.c_client_id
+			LEFT JOIN c_client_type AS d ON a.c_client_type_id = d.id
+			LEFT JOIN c_power_type AS e ON c.c_power_type_id = e.id
+			LEFT JOIN c_lamp_type AS f ON c.c_lamp_type_id = f.id
+			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
+			LEFT JOIN b_status AS h ON a.staus = h.`value`
+		WHERE a.c_client_id = #{id ,jdbcType=INTEGER}
+	</select>
+	
+	
 	<!-- end -->
+	
+	
 </mapper>

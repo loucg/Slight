@@ -21,7 +21,7 @@ public class ConfigureSerivceImpl implements ConfigureService{
 	@Override
 	public List<PageData> getNPowerList(Page page) throws Exception {
 		// TODO Auto-generated method stub
-		return (List<PageData>)dao.findForList("ConfigureMapper.getNPowerPage", page);
+		return (List<PageData>)dao.findForList("ConfigureMapper.getNPowerlistPage", page);
 	}
 
 
@@ -42,7 +42,7 @@ public class ConfigureSerivceImpl implements ConfigureService{
 	@Override
 	public List<PageData> getLampList(Page page) throws Exception {
 		// TODO Auto-generated method stub
-		return (List<PageData>)dao.findForList("ConfigureMapper.getLampPage", page);
+		return (List<PageData>)dao.findForList("ConfigureMapper.getLamplistPage", page);
 	}
 
 
@@ -63,7 +63,7 @@ public class ConfigureSerivceImpl implements ConfigureService{
 	@Override
 	public List<PageData> getSensorList(Page page) throws Exception {
 		// TODO Auto-generated method stub
-		return (List<PageData>)dao.findForList("ConfigureMapper.getSensorPage", page);
+		return (List<PageData>)dao.findForList("ConfigureMapper.getSensorlistPage", page);
 	}
 
 
@@ -84,7 +84,7 @@ public class ConfigureSerivceImpl implements ConfigureService{
 	@Override
 	public List<PageData> getPoleList(Page page) throws Exception {
 		// TODO Auto-generated method stub
-		return (List<PageData>)dao.findForList("ConfigureMapper.getPolePage", page);
+		return (List<PageData>)dao.findForList("ConfigureMapper.getPolelistPage", page);
 	}
 
 
@@ -105,7 +105,7 @@ public class ConfigureSerivceImpl implements ConfigureService{
 	@Override
 	public List<PageData> getSimList(Page page) throws Exception {
 		// TODO Auto-generated method stub
-		return (List<PageData>)dao.findForList("ConfigureMapper.getSimPage", page);
+		return (List<PageData>)dao.findForList("ConfigureMapper.getSimlistPage", page);
 	}
 
 
@@ -172,6 +172,90 @@ public class ConfigureSerivceImpl implements ConfigureService{
 	public List<PageData> getDeviceType(PageData pd) throws Exception {
 		// TODO Auto-generated method stub
 		return (List<PageData>)dao.findForList("ConfigureMapper.getDeviceType", pd);
+	}
+
+
+	@Override
+	public List<PageData> getAllNPower(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<PageData>)dao.findForList("ConfigureMapper.getAllNPower", pd);
+	}
+
+
+	@Override
+	public List<PageData> getAllLamp(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<PageData>)dao.findForList("ConfigureMapper.getAllLamp", pd);
+	}
+
+
+	@Override
+	public List<PageData> getAllPole(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<PageData>)dao.findForList("ConfigureMapper.getAllPole", pd);
+	}
+
+
+	@Override
+	public List<PageData> getAllSensor(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<PageData>)dao.findForList("ConfigureMapper.getAllSensor", pd);
+	}
+
+
+	@Override
+	public List<PageData> getAllSim(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<PageData>)dao.findForList("ConfigureMapper.getAllSim", pd);
+	}
+
+
+	@Override
+	public PageData getLampById(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (PageData)dao.findForObject("ConfigureMapper.getLampById", pd);
+	}
+
+
+	@Override
+	public PageData getNPowerById(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (PageData)dao.findForObject("ConfigureMapper.getNPowerById", pd);
+	}
+
+
+	@Override
+	public PageData getPoleById(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (PageData)dao.findForObject("ConfigureMapper.getPoleById", pd);
+	}
+
+
+	@Override
+	public PageData getSensorById(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (PageData)dao.findForObject("ConfigureMapper.getSensorById", pd);
+	}
+
+
+	@Override
+	public PageData getSimById(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (PageData)dao.findForObject("ConfigureMapper.getSimById", pd);
+	}
+
+
+	@Override
+	public PageData getGatewayAndBreakById(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (PageData)dao.findForObject("ConfigureMapper.getGatewayAndBreakById", pd);
+	}
+
+
+	@Override
+	public PageData getDeviceById(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (PageData)dao.findForObject("ConfigureMapper.getDeviceById", pd);
 	}
 	
 	

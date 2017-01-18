@@ -15,6 +15,8 @@ import com.fh.service.configure.ConfigureService;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
 
+import net.sf.ehcache.config.generator.ConfigurationUtil;
+
 @Controller
 @RequestMapping("/config")
 public class ConfigureController extends BaseController{
@@ -24,22 +26,22 @@ public class ConfigureController extends BaseController{
 	private String nPowerJsp = "foundation/npower/npower_list"; //普通电源查询jsp
 	private String nPowerEditJsp = "";  						//普通电源修改jsp
 	private String nPowerCreateJsp = "";  						//普通电源新增jsp
-	private String lampJsp = "foundation/npower/npower_list";  	//灯查询jsp
-	private String lampEditJsp = "";  							//灯修改jsp
-	private String lampCreateJsp = "";  						//灯新增jsp
-	private String poleJsp = "foundation/npower/npower_list";   //灯杆杆查询jsp
-	private String poleEditJsp = "";  							//灯杆修改jsp
-	private String poleCreateJsp = "";  						//灯杆新增jsp
-	private String sensorJsp = "foundation/npower/npower_list"; //传感器杆查询jsp
-	private String sensorEditJsp = "";  						//传感器修改jsp
-	private String sensorCreateJsp = "";  						//传感器新增jsp
-	private String simJsp = "foundation/npower/npower_list";    //Sim卡杆查询jsp
-	private String simEditJsp = "";  							//Sim卡修改jsp
-	private String simCreateJsp = "";  							//Sim卡新增jsp
+	private String lampJsp = "foundation/light/light_list";  	//灯查询jsp
+	private String lampEditJsp = "foundation/light/light_edit";  							//灯修改jsp
+	private String lampCreateJsp = "foundation/light/light_edit";  						//灯新增jsp
+	private String poleJsp = "foundation/pole/pole_list";       //灯杆杆查询jsp
+	private String poleEditJsp = "foundation/pole/pole_edit";  							//灯杆修改jsp
+	private String poleCreateJsp = "foundation/pole/pole_edit";  						//灯杆新增jsp
+	private String sensorJsp = "foundation/sensor/sensor_list"; //传感器杆查询jsp
+	private String sensorEditJsp = "foundation/sensor/sensor_edit";  						//传感器修改jsp
+	private String sensorCreateJsp = "foundation/sensor/sensor_edit";  						//传感器新增jsp
+	private String simJsp = "foundation/simcard/simcard_list";    //Sim卡杆查询jsp
+	private String simEditJsp = "foundation/simcard/simcard_edit";  							//Sim卡修改jsp
+	private String simCreateJsp = "foundation/simcard/simcard_edit";  							//Sim卡新增jsp
 	
-	private String deviceJsp = "";
-	private String deviceEditJsp = "";
-	private String deviceCreateJsp="";
+	private String deviceJsp = "foundation/combination/combination_list";
+	private String deviceEditJsp = "foundation/combination/combination_edit";
+	private String deviceCreateJsp="foundation/combination/combination_edit";
 	
 	private String saveRsultJsp = "save_result";  				//保存修改jsp
 	
@@ -63,6 +65,7 @@ public class ConfigureController extends BaseController{
 		pd = this.getPageData();
 		page.setPd(pd);
 		List<PageData> nPList = configureService.getNPowerList(page);
+		mv.addObject("pd", pd);
 		mv.addObject("nPowerList", nPList);
 		mv.setViewName(nPowerJsp);
 		return mv;
@@ -77,6 +80,10 @@ public class ConfigureController extends BaseController{
 	@RequestMapping("/goNPowerEdit")
 	public ModelAndView goNPowerEdit() throws Exception{
 		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd = configureService.getNPowerById(pd);
+		mv.addObject("pd", pd);
 		mv.addObject("msg", "editNPower");
 		mv.setViewName(nPowerEditJsp);
 		return mv;
@@ -144,7 +151,9 @@ public class ConfigureController extends BaseController{
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		page.setPd(pd);
-		List<PageData> nPList = configureService.getNPowerList(page);
+		List<PageData> nPList = configureService.getLampList(page);
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		mv.addObject("lampList", nPList);
 		mv.setViewName(lampJsp);
 		return mv;
@@ -159,6 +168,10 @@ public class ConfigureController extends BaseController{
 	@RequestMapping("/goLampEdit")
 	public ModelAndView goLampEdit() throws Exception{
 		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd = configureService.getLampById(pd);
+		mv.addObject("pd", pd);
 		mv.addObject("msg", "editLamp");
 		mv.setViewName(lampEditJsp);
 		return mv;
@@ -209,7 +222,7 @@ public class ConfigureController extends BaseController{
 		pd = this.getPageData();
 		configureService.createLamp(pd);
 		mv.addObject("msg", "success");
-		mv.setViewName(nPowerJsp);
+		mv.setViewName(saveRsultJsp);
 		return mv;
 		
 	}
@@ -229,8 +242,10 @@ public class ConfigureController extends BaseController{
 		pd = this.getPageData();
 		page.setPd(pd);
 		List<PageData> nPList = configureService.getSensorList(page);
+		mv.addObject("pd", pd);
 		mv.addObject("sensorList", nPList);
-		mv.setViewName(nPowerJsp);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		mv.setViewName(sensorJsp);
 		return mv;
 	}
 	
@@ -243,6 +258,10 @@ public class ConfigureController extends BaseController{
 	@RequestMapping("/goSensorEdit")
 	public ModelAndView goSensorEdit() throws Exception{
 		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd = configureService.getSensorById(pd);
+		mv.addObject("pd", pd);
 		mv.addObject("msg", "editSensor");
 		mv.setViewName(sensorEditJsp);
 		return mv;
@@ -311,8 +330,10 @@ public class ConfigureController extends BaseController{
 		pd = this.getPageData();
 		page.setPd(pd);
 		List<PageData> nPList = configureService.getPoleList(page);
+		mv.addObject("pd", pd);
 		mv.addObject("poleList", nPList);
-		mv.setViewName(nPowerJsp);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		mv.setViewName(poleJsp);
 		return mv;
 	}
 	
@@ -325,6 +346,10 @@ public class ConfigureController extends BaseController{
 	@RequestMapping("/goPoleEdit")
 	public ModelAndView goPoleEdit() throws Exception{
 		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd = configureService.getPoleById(pd);
+		mv.addObject("pd", pd);
 		mv.addObject("msg", "editPole");
 		mv.setViewName(poleEditJsp);
 		return mv;
@@ -393,12 +418,14 @@ public class ConfigureController extends BaseController{
 		pd = this.getPageData();
 		page.setPd(pd);
 		List<PageData> nPList = configureService.getSimList(page);
+		mv.addObject("pd", pd);
 		mv.addObject("simList", nPList);
-		mv.setViewName(nPowerJsp);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		mv.setViewName(simJsp);
 		return mv;
 	}
 	
-	/**
+	/**get
 	 * 跳转Sim卡修改页面
 	 * @param page
 	 * @return
@@ -407,10 +434,13 @@ public class ConfigureController extends BaseController{
 	@RequestMapping("/goSimEdit")
 	public ModelAndView goSimEdit() throws Exception{
 		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd = configureService.getSimById(pd);
+		mv.addObject("pd", pd);
 		mv.addObject("msg", "editSim");
 		mv.setViewName(simEditJsp);
 		return mv;
-	
 	}
 	
 	/**
@@ -462,7 +492,95 @@ public class ConfigureController extends BaseController{
 	}
 	
 	/**
-	 * 获取终端列表
+	 * 跳转一体化电源页面
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/goYTHPower")
+	public ModelAndView goYTHPower(Page page) throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		page.setPd(pd);
+		pd.put("itype", 1);
+		List<PageData> list = configureService.getDeviceList(page);
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		mv.addObject("deviceList", list);
+		mv.setViewName(deviceJsp);
+		return mv;
+	}
+	
+	
+	/**
+	 * 跳转单灯控制器
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/goDDController")
+	public ModelAndView goDDController(Page page) throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd.put("itype", 2);
+		page.setPd(pd);
+		List<PageData> list = configureService.getDeviceList(page);
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		mv.addObject("deviceList", list);
+		mv.setViewName(deviceJsp);
+		return mv;
+		
+	}
+	
+	/**
+	 * 跳转网关断路器页面
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/goGatewayAndBreak")
+	public ModelAndView goGatewayAndBreak(Page page) throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd.put("itype", 3);
+		page.setPd(pd);
+		List<PageData> list = configureService.getGatewayList(page);
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		mv.addObject("deviceList", list);
+		mv.setViewName(deviceJsp);
+		return mv;
+		
+	}
+	
+	/**
+	 * 跳转组合终端
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/goCombination")
+	public ModelAndView goCombination(Page page) throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd.put("itype", 4);
+		page.setPd(pd);
+		List<PageData> deviceList = configureService.getDeviceList(page);
+		deviceList.addAll(configureService.getGatewayList(page));
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		mv.addObject("deviceList", deviceList);
+		mv.setViewName(deviceJsp);
+		return mv;
+		
+	}
+	
+	/**
+	 * 终端查询
 	 * @param page
 	 * @return
 	 * @throws Exception
@@ -474,22 +592,28 @@ public class ConfigureController extends BaseController{
 		pd = this.getPageData();
 		page.setPd(pd);
 		List<PageData> deviceList = null;
-		int type = (Integer)pd.get("itype");
-		if(type==1){
-			//终端
-			deviceList = configureService.getDeviceList(page);
-			
-		}else if(type==2){
-			//网关、断路器
-			deviceList = configureService.getDeviceList(page);
-		}else if(type==3){
-			//组合
+		String typeString = (String)pd.get("type");
+		if(typeString.equals("")){
 			deviceList = configureService.getDeviceList(page);
 			deviceList.addAll(configureService.getGatewayList(page));
+			pd.put("itype", 4);
+			
+		}else{
+			int type = Integer.valueOf(typeString);
+			if(type==1||type==2){
+				deviceList = configureService.getDeviceList(page);
+				pd.put("itype", type);
+			}else if(type==3||type==4||type==5){
+				deviceList = configureService.getGatewayList(page);
+				pd.put("itype", 3);
+			}
 		}
-		
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		mv.addObject("deviceList", deviceList);
+		mv.setViewName(deviceJsp);
 		return mv;
+		
 	}
 	
 	
@@ -502,12 +626,25 @@ public class ConfigureController extends BaseController{
 	@RequestMapping("/goDeviceEdit")
 	public ModelAndView goDeviceEdit(Page page) throws Exception{
 		ModelAndView mv = this.getModelAndView();
-		List<PageData> nPList = configureService.getAllNPower();
-		List<PageData> lampList = configureService.getAllLamp();
-		List<PageData> poleList = configureService.getAllPole();
-		List<PageData> simList = configureService.getAllSim();
-		List<PageData> sensorList = configureService.getAllSensor();
-		mv.addObject("nPList",nPList);
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		List<PageData> nPList = configureService.getAllNPower(pd);
+		List<PageData> lampList = configureService.getAllLamp(pd);
+		List<PageData> poleList = configureService.getAllPole(pd);
+		List<PageData> simList = configureService.getAllSim(pd);
+		List<PageData> sensorList = configureService.getAllSensor(pd);
+		
+		int typeid = Integer.valueOf((String)pd.get("typeid"));
+		if(typeid==1||typeid==2){
+			pd = configureService.getDeviceById(pd);
+			System.out.println("getDeviceById :name"+pd.get("name"));
+			
+		}else if(typeid==3||typeid==4||typeid==5){
+			pd = configureService.getGatewayAndBreakById(pd);
+			System.out.println("getGatewayById :name"+pd.get("name"));
+		}
+		mv.addObject("pd", pd);
+		mv.addObject("powerList",nPList);
 		mv.addObject("lampList", lampList);
 		mv.addObject("poleList", poleList);
 		mv.addObject("simList", simList);
@@ -528,12 +665,15 @@ public class ConfigureController extends BaseController{
 	@RequestMapping("/goDeviceCreate")
 	public ModelAndView goDeviceCreate() throws Exception{
 		ModelAndView mv = this.getModelAndView();
-		List<PageData> nPList = configureService.getAllNPower();
-		List<PageData> lampList = configureService.getAllLamp();
-		List<PageData> poleList = configureService.getAllPole();
-		List<PageData> simList = configureService.getAllSim();
-		List<PageData> sensorList = configureService.getAllSensor();
-		mv.addObject("nPList",nPList);
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		List<PageData> powerList = configureService.getAllNPower(pd);
+		List<PageData> lampList = configureService.getAllLamp(pd);
+		List<PageData> poleList = configureService.getAllPole(pd);
+		List<PageData> simList = configureService.getAllSim(pd);
+		List<PageData> sensorList = configureService.getAllSensor(pd);
+		
+		mv.addObject("powerList",powerList);
 		mv.addObject("lampList", lampList);
 		mv.addObject("poleList", poleList);
 		mv.addObject("simList", simList);
@@ -549,10 +689,12 @@ public class ConfigureController extends BaseController{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		if((Integer)pd.get("itype")==1){
+		int typeid = Integer.valueOf((String)pd.get("typeid"));
+		if(typeid==1||typeid==2){
 			configureService.editDevice(pd);
-		}else if((Integer)pd.get("itype")==2){
+		}else if(typeid==3||typeid==4||typeid==5){
 			configureService.editGateway(pd);
+			
 		}
 		mv.setViewName(saveRsultJsp);
 		return mv;
@@ -566,10 +708,14 @@ public class ConfigureController extends BaseController{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		if((Integer)pd.get("itype")==1){
+		int typeid = Integer.valueOf((String)pd.get("typeid"));
+		
+		System.out.println("typeid="+typeid);
+		if(typeid==1||typeid==2){
 			configureService.createDevice(pd);
-		}else if((Integer)pd.get("itype")==2){
+		}else if(typeid==3||typeid==4||typeid==5){
 			configureService.createGateway(pd);
+			
 		}
 		mv.setViewName(saveRsultJsp);
 		return mv;
