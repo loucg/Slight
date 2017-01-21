@@ -7,10 +7,17 @@
 		<result column="NAME" property="NAME"/>
 		<result column="PARENT_ID" property="PARENT_ID"/>
 	</resultMap>
+	<resultMap type="Department" id="companyResultMap">
+		<id column="ID" property="COMPANY"/>
+		<result column="NAME" property="NAME"/>
+	</resultMap>
 	
 	<!--表名 -->
 	<sql id="tableName">
 		OA_DEPARTMENT
+	</sql>
+	<sql id="companytableName">
+		B_COMPANY
 	</sql>
 	
 	<!-- 字段 -->
@@ -40,6 +47,18 @@
 		#{BZ},	
 		#{DEPARTMENT_ID}
 	</sql>
+	
+	<!-- 列出所有公司列表 -->
+	<select id="listAllDepartmentsByPId" resultMap="companyResultMap">
+		select
+		ID,
+		NAME
+		from
+		<include refid="companytableName"></include>
+		where
+			STATUS = '0'
+		ORDER BY ID
+	</select>
 	
 	<!-- 新增-->
 	<insert id="save" parameterType="pd">

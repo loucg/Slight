@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fh.entity.Page;
 import com.fh.entity.system.Department;
+import com.fh.entity.system.Role;
 import com.fh.util.PageData;
 
 /** 
@@ -13,7 +14,14 @@ import com.fh.util.PageData;
  * @version
  */
 public interface DepartmentManager{
-
+	
+	/**列出所有公司列表
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Department> listAllDepartmentsByPId(PageData pd) throws Exception;
+	
 	/**新增
 	 * @param pd
 	 * @throws Exception
