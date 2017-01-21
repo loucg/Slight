@@ -25,7 +25,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.entity.system.Department;
 import com.fh.entity.system.Role;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.menu.MenuManager;
 import com.fh.service.system.role.RoleManager;
@@ -61,6 +63,8 @@ public class UserController extends BaseController {
 	private MenuManager menuService;
 	@Resource(name="fhlogService")
 	private FHlogManager FHLOG;
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
 	
 	/**显示用户列表
 	 * @param page
@@ -72,25 +76,33 @@ public class UserController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		String keywords = pd.getString("keywords");				//关键词检索条件
-		if(null != keywords && !"".equals(keywords)){
-			pd.put("keywords", keywords.trim());
+		String name = pd.getString("name");				//关键词检索条件
+		if(null != name && !"".equals(name)){
+			pd.put("name", name.trim());
 		}
-		String lastLoginStart = pd.getString("lastLoginStart");	//开始时间
+		String username = pd.getString("username");				//关键词检索条件
+		if(null != username && !"".equals(username)){
+			pd.put("username", username.trim());
+		}
+		/*String lastLoginStart = pd.getString("lastLoginStart");	//开始时间
 		String lastLoginEnd = pd.getString("lastLoginEnd");		//结束时间
 		if(lastLoginStart != null && !"".equals(lastLoginStart)){
 			pd.put("lastLoginStart", lastLoginStart+" 00:00:00");
 		}
 		if(lastLoginEnd != null && !"".equals(lastLoginEnd)){
 			pd.put("lastLoginEnd", lastLoginEnd+" 00:00:00");
-		} 
+		} */
 		page.setPd(pd);
 		List<PageData>	userList = userService.listUsers(page);	//列出用户列表
+		pd.put("ROLE_ID_SELECT", pd.getString("ROLE_ID"));
 		pd.put("ROLE_ID", "1");
+		pd.put("COMPANY", pd.getString("COMPANEY_ID"));
 		List<Role> roleList = roleService.listAllRolesByPId(pd);//列出所有系统用户角色
+		List<Department> companyList = departmentService.listAllDepartmentsByPId(pd);//列出所有公司
 		mv.setViewName("system/user/user_list");
 		mv.addObject("userList", userList);
 		mv.addObject("roleList", roleList);
+		mv.addObject("companyList", companyList);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;

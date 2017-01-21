@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
 import com.fh.entity.system.Department;
+import com.fh.entity.system.Role;
 import com.fh.util.PageData;
 import com.fh.util.Tools;
 import com.fh.service.fhoa.department.DepartmentManager;
@@ -26,6 +27,15 @@ public class DepartmentService implements DepartmentManager{
 	@Resource(name = "daoSupport")
 	private DaoSupport dao;
 	
+	/**列出所有公司列表
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Department> listAllDepartmentsByPId(PageData pd) throws Exception {
+		return (List<Department>) dao.findForList("DepartmentMapper.listAllDepartmentsByPId", pd);
+	}
 	/**新增
 	 * @param pd
 	 * @throws Exception

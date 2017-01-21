@@ -42,6 +42,21 @@
 	<sql id="staffTableName">
 		OA_STAFF
 	</sql>
+	<sql id="usercompanyTableName">
+		B_USER_COMPANY
+	</sql>
+	<sql id="companyTableName">
+		B_COMPANY
+	</sql>
+	<sql id="departmentTableName">
+		B_DEPARTMENT
+	</sql>
+	<sql id="statusTableName">
+		B_STATUS
+	</sql>
+	<sql id="languageTableName">
+		B_LANGUAGE
+	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
@@ -161,35 +176,76 @@
 				u.EMAIL,
 				u.NUMBER,
 				u.PHONE,
+				u.ADDRESS,
+				u.STATUS,
 				r.ROLE_ID,
-				r.ROLE_NAME
-		from <include refid="tableName"></include> u, <include refid="roleTableName"></include> r 
-		where u.ROLE_ID = r.ROLE_ID 
-		and u.USERNAME != 'admin'
+				r.ROLE_NAME,
+				p.POSITION,
+				q.NAME AS DEPARTMENT,
+				m.NAME AS COMPANY,
+				n.NAME AS STATUSNAME,
+				o.NAME AS LANGUAGE
+		from <include refid="tableName"></include> u 
+		left join 
+		<include refid="roleTableName"></include> r
+		on u.ROLE_ID = r.ROLE_ID
+		left join 
+		<include refid="usercompanyTableName"></include> p
+		on u.USER_ID = p.B_USER_ID
+		left join 
+		<include refid="departmentTableName"></include> q
+		on p.B_DEPARTMENT_ID = q.ID
+		left join 
+		<include refid="companyTableName"></include> m
+		on q.B_COMPANY_ID = m.ID
+		left join 
+		<include refid="statusTableName"></include> n
+		on u.STATUS = n.ID
+		left join 
+		<include refid="languageTableName"></include> o
+		on u.LANGUAGE = o.ID
+		where u.USERNAME != 'admin'
 		and r.PARENT_ID = '1'
-		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+		<if test="pd.name!= null and pd.name != ''"><!-- 关键词检索 -->
 			and
 				(
-					 u.USERNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-					 or 
+					 u.NAME LIKE CONCAT(CONCAT('%', #{pd.name}),'%')
+					<!--  or 
 					 u.EMAIL LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 					 or
 					 u.NUMBER LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 					 or
 					 u.NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 					 or
-					 u.PHONE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 u.PHONE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') -->
+				)
+		</if>
+		<if test="pd.username!= null and pd.username != ''"><!-- 关键词检索 -->
+			and
+				(
+					 u.USERNAME LIKE CONCAT(CONCAT('%', #{pd.username}),'%')
+					<!--  or 
+					 u.EMAIL LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					 or
+					 u.NUMBER LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 or
+					 u.NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 or
+					 u.PHONE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') -->
 				)
 		</if>
 		<if test="pd.ROLE_ID != null and pd.ROLE_ID != ''"><!-- 角色检索 -->
 			and u.ROLE_ID=#{pd.ROLE_ID} 
 		</if>
-		<if test="pd.lastLoginStart!=null and pd.lastLoginStart!=''"><!-- 登录时间检索 -->
+		<if test="pd.COMPANEY_ID != null and pd.COMPANEY_ID != ''"><!-- 角色检索 -->
+			and m.ID=#{pd.COMPANEY_ID} 
+		</if>
+		<!-- <if test="pd.lastLoginStart!=null and pd.lastLoginStart!=''">登录时间检索
 			and u.LAST_LOGIN &gt;= #{pd.lastLoginStart} 
 		</if>
-		<if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!=''"><!-- 登录时间检索 -->
+		<if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!=''">登录时间检索
 			and u.LAST_LOGIN &lt;= #{pd.lastLoginEnd} 
-		</if>
+		</if> -->
 		order by u.LAST_LOGIN desc
 	</select>
 	

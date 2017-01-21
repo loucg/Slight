@@ -30,7 +30,14 @@ public class Department {
 	private boolean hasDepartment = false;
 	private String treeurl;
 	private String icon;
+	private String COMPANY;
 	
+	public String getCOMPANY(){
+		return COMPANY;
+	}
+	public void setCOMPANY(String COMPANY){
+		this.COMPANY = COMPANY;
+	}
 	public String getIcon() {
 		return icon;
 	}
