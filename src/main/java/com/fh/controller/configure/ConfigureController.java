@@ -590,6 +590,7 @@ public class ConfigureController extends BaseController{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		pd.put("userid", Jurisdiction.getSession().getAttribute(""));
 		page.setPd(pd);
 		List<PageData> deviceList = null;
 		String typeString = (String)pd.get("type");

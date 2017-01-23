@@ -243,8 +243,7 @@
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
 		
-		WHERE 1=1 
-		<!-- a.b_user_id = 1 -->
+		WHERE a.b_user_id = #{pd.userid}
 		<if test="pd.number!=null and pd.number!=''">
 			AND b.client_code LIKE CONCAT(CONCAT('%', #{pd.number}),'%')
 		</if>
@@ -279,8 +278,7 @@
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
 		
-		WHERE 1=1
-		<!-- a.b_user_id = 1 -->
+		WHERE a.b_user_id = #{pd.userid}
 		<if test="pd.number!=null and pd.number!=''">
 			AND b.gateway_code LIKE CONCAT(CONCAT('%', #{pd.number}),'%')
 		</if>
@@ -322,7 +320,6 @@
 			b.comment               =#{comment},
 			b.staus		  			=#{status},
 			b.lamp_pole_num	  		=#{polenumber},
-		<!-- 	b.b_user_id       		=#{userid}, -->
 			c.c_lamp_type_id  		=#{lamp},
 			c.c_lamp_pole_type_id   =#{pole},
 			c.c_power_type_id		=#{power}
@@ -344,7 +341,6 @@
 			b.comment               =#{comment},
 			b.staus		  			=#{status},
 			b.lamp_pole_num	  		=#{polenumber},
-			b.b_user_id       		=#{userid},
 			c.c_sim_id				=#{mobile},
 			c.c_lamp_pole_type_id=1 =#{pole},
 			c.c_sensor_type_id=1    =#{sensor}
