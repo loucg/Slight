@@ -28,17 +28,41 @@ public interface DepartmentManager{
 	 */
 	public void save(PageData pd)throws Exception;
 	
+	/**获取部门id
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData getid(String companyid)throws Exception;
+	
+	/**获取公司id
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData getcompanyid(String companyid)throws Exception;
+	
 	/**删除
 	 * @param pd
 	 * @throws Exception
 	 */
 	public void delete(PageData pd)throws Exception;
 	
-	/**修改
+	/**修改部门
 	 * @param pd
 	 * @throws Exception
 	 */
 	public void edit(PageData pd)throws Exception;
+	
+	/**修改公司
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void editcompany(PageData pd)throws Exception;
+	
+	/**新增公司
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void addcompany(PageData pd)throws Exception;
 	
 	/**列表
 	 * @param page
@@ -46,12 +70,54 @@ public interface DepartmentManager{
 	 */
 	public List<PageData> list(Page page)throws Exception;
 	
+	/**公司列表
+	 * @param page
+	 * @throws Exception
+	 */
+	public List<PageData> companylist(Page page)throws Exception;
+	
+	/**列出公司下的所有部门
+	 * @param pd
+	 * @throws Exception
+	 */
+	public List<PageData> listselectdepartment(String companyid)throws Exception;
+	
+	/**删除图片
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void delTp(PageData pd)throws Exception;
+	
 	/**通过id获取数据
 	 * @param pd
 	 * @throws Exception
 	 */
 	public PageData findById(PageData pd)throws Exception;
+	
+	/**通过id获取数据
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData findcompanyById(PageData pd)throws Exception;
+	
+	/**通过id获取数据
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData finddepartmentById(PageData pd)throws Exception;
+	
+	/**通过id获取数据
+	 * @param pd
+	 * @throws Exception
+	 */
+	public String findcompanyname(String pd)throws Exception;
 
+	/**通过id获取数据
+	 * @param pd
+	 * @throws Exception
+	 */
+	public String searchparentname(Object parentid)throws Exception;
+	
 	/**通过编码获取数据
 	 * @param pd
 	 * @throws Exception
@@ -72,7 +138,7 @@ public interface DepartmentManager{
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Department> listAllDepartment(String parentId) throws Exception;
+	public List<Department> listAllDepartment(String parentId,String companyid) throws Exception;
 	
 	/**
 	 * 获取所有数据并填充每条数据的子级列表(递归处理)下拉ztree用
