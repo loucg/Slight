@@ -11,6 +11,15 @@
 		<id column="ID" property="COMPANY"/>
 		<result column="NAME" property="NAME"/>
 	</resultMap>
+	<resultMap type="Department" id="listcompanyResultMap">
+		<id column="ID" property="DEPARTMENT_ID"/>
+		<result column="NAME" property="NAME"/>
+	</resultMap>
+	<resultMap type="Department" id="listdepartmentResultMap">
+		<id column="ID" property="DEPARTMENT_ID"/>
+		<result column="NAME" property="NAME"/>
+		<result column="SUPERIOR_DEPARTMENT_ID" property="PARENT_ID"/>
+	</resultMap>
 	
 	<!--表名 -->
 	<sql id="tableName">
@@ -18,6 +27,9 @@
 	</sql>
 	<sql id="companytableName">
 		B_COMPANY
+	</sql>
+	<sql id="departmenttableName">
+		B_DEPARTMENT
 	</sql>
 	
 	<!-- 字段 -->
@@ -63,11 +75,69 @@
 	<!-- 新增-->
 	<insert id="save" parameterType="pd">
 		insert into 
-	<include refid="tableName"></include>
+	<include refid="departmenttableName"></include>
 		(
-	<include refid="Field"></include>
+			ID,
+			B_COMPANY_ID,
+			NAME,
+			SUPERIOR_DEPARTMENT_ID,
+			STATUS,
+			`EXPLAIN`
 		) values (
-	<include refid="FieldValue"></include>
+			#{ID},
+			#{companyid},
+			#{NAME},
+			<if test="SUPERIOR_DEPARTMENT_ID == ''">
+			null,
+			</if>
+			<if test="SUPERIOR_DEPARTMENT_ID != ''">
+			#{SUPERIOR_DEPARTMENT_ID},
+			</if>
+			#{STATUS},
+			<if test="EXPLAIN == ''">
+			null
+			</if>
+			<if test="EXPLAIN != ''">
+			#{EXPLAIN}
+			</if>
+		)
+	</insert>
+	
+	<!-- 新增公司-->
+	<insert id="addcompany" parameterType="pd">
+		insert into 
+	<include refid="companytableName"></include>
+		(
+			ID,
+			NAME,
+			ADDRESS,
+			CONTACTS,
+			TELEPHONE,
+			LOGO_PATH,
+			ISDISPLAYLOGO,
+			STATUS
+		) values (
+			#{ID},
+			#{NAME},
+			#{ADDRESS},
+			#{CONTACTS},
+			#{TELEPHONE},
+			<if test="LOGO_PATH == ''">
+			null,
+			</if>
+			<if test="LOGO_PATH != ''">
+			#{LOGO_PATH},
+			</if>
+			<if test="ISDISPLAYLOGO == ''">
+			null,
+			</if>
+			<if test="ISDISPLAYLOGO != '' and ISDISPLAYLOGO=='true'">
+			true,
+			</if>
+			<if test="ISDISPLAYLOGO != '' and ISDISPLAYLOGO=='false'">
+			false,
+			</if>
+			#{STATUS}
 		)
 	</insert>
 	
@@ -79,31 +149,122 @@
 			DEPARTMENT_ID = #{DEPARTMENT_ID}
 	</delete>
 	
-	<!-- 修改 -->
+	<!-- 修改部门 -->
 	<update id="edit" parameterType="pd">
 		update
-		<include refid="tableName"></include>
-		set 
+		<include refid="departmenttableName"></include>
+		set
 			NAME = #{NAME},
-			NAME_EN = #{NAME_EN},
-			HEADMAN = #{HEADMAN},
-			BZ = #{BZ},
-			TEL = #{TEL},
-			FUNCTIONS = #{FUNCTIONS},
+			<if test="SUPERIOR_DEPARTMENT_ID == ''">
+			SUPERIOR_DEPARTMENT_ID = null,
+			</if>
+			<if test="SUPERIOR_DEPARTMENT_ID != ''">
+			SUPERIOR_DEPARTMENT_ID = #{SUPERIOR_DEPARTMENT_ID},
+			</if>
+			STATUS = #{STATUS},
+			<if test="EXPLAIN == ''">
+			`EXPLAIN` = null
+			</if>
+			<if test="EXPLAIN != ''">
+			`EXPLAIN` = #{EXPLAIN}
+			</if>
+		where
+		ID = #{ID}
+	</update>
+	
+	<!-- 修改公司 -->
+	<update id="editcompany" parameterType="pd">
+		update
+		<include refid="companytableName"></include>
+		set
+			NAME = #{NAME},
 			ADDRESS = #{ADDRESS},
-			DEPARTMENT_ID = DEPARTMENT_ID
-		where 
-		DEPARTMENT_ID = #{DEPARTMENT_ID}
+			CONTACTS = #{CONTACTS},
+			TELEPHONE = #{TELEPHONE},
+			<if test="ISDISPLAYLOGO == 'true'">
+			ISDISPLAYLOGO = true,
+			</if>
+			<if test="LOGO_PATH == 'false'">
+			ISDISPLAYLOGO = false,
+			</if>
+			<if test="LOGO_PATH == ''">
+			LOGO_PATH = null,
+			</if>
+			<if test="LOGO_PATH != ''">
+			LOGO_PATH = #{LOGO_PATH},
+			</if>
+			STATUS = #{STATUS}
+		where
+		ID = #{ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
 	<select id="findById" parameterType="pd" resultType="pd">
 		select 
-		<include refid="Field"></include>
+		u.ID,
+		u.NAME,
+		u.B_COMPANY_ID,
+		u.SUPERIOR_DEPARTMENT_ID,
+		u.EXPLAIN,
+		p.NAME AS STATUSNAME
 		from 
-		<include refid="tableName"></include>
+		<include refid="departmenttableName"></include> u,B_STATUS p
 		where 
-			DEPARTMENT_ID = #{DEPARTMENT_ID}
+			u.ID = #{DEPARTMENT_ID} AND u.STATUS = p.ID
+	</select>
+	
+	<!-- 通过ID获取公司数据 -->
+	<select id="findcompanyById" parameterType="pd" resultType="pd">
+		select 
+		u.ID,
+		u.NAME,
+		u.ADDRESS,
+		u.CONTACTS,
+		u.TELEPHONE,
+		u.LOGO_PATH,
+		u.ISDISPLAYLOGO,
+		p.NAME AS STATUSNAME
+		from 
+		B_COMPANY u,B_STATUS p
+		where
+			u.STATUS=p.id
+			and u.ID = #{companyid}
+	</select>
+	
+	<!-- 通过ID获取公司名字 -->
+	<select id="findcompanyname" parameterType="String" resultType="String">
+		select 
+		NAME
+		from 
+		<include refid="companytableName"></include>
+		where 
+			ID = #{pd}
+	</select>
+	
+	<!-- 通过ID获取上级部门名称 -->
+	<select id="searchparentname" parameterType="Object" resultType="String">
+		select 
+		name
+		from 
+		<include refid="departmenttableName"></include>
+		where 
+			ID = #{parentid}
+	</select>
+	
+	<!-- 通过最大ID -->
+	<select id="getid" parameterType="String" resultType="pd">
+		select 
+		MAX(ID) AS ID
+		from 
+		<include refid="departmenttableName"></include>
+	</select>
+	
+	<!-- 通过最大ID -->
+	<select id="getcompanyid" parameterType="String" resultType="pd">
+		select 
+		MAX(ID) AS ID
+		from 
+		<include refid="companytableName"></include>
 	</select>
 	
 	<!-- 通过编码获取数据 -->
@@ -119,15 +280,19 @@
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
-		<include refid="Field"></include>
+		u.ID,
+		u.NAME,
+		u.SUPERIOR_DEPARTMENT_ID,
+		u.EXPLAIN,
+		p.NAME AS STATUSNAME
 		from 
-		<include refid="tableName"></include>
+		<include refid="departmenttableName"></include> u,B_STATUS p
 		where
-			1=1
-		<if test="pd.DEPARTMENT_ID!= null and pd.DEPARTMENT_ID != ''"><!-- 检索 -->
+			u.B_COMPANY_ID = #{pd.companyid} and u.STATUS = P.ID
+		<!-- <if test="pd.DEPARTMENT_ID!= null and pd.DEPARTMENT_ID != ''">检索
 		and PARENT_ID = #{pd.DEPARTMENT_ID}
 		</if>
-		<if test="pd.keywords != null and pd.keywords != ''"><!-- 关键词检索 -->
+		<if test="pd.keywords != null and pd.keywords != ''">关键词检索
 			and
 				(
 				 NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
@@ -136,19 +301,92 @@
 				 or
 				 BIANMA LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 				)
+		</if> -->
+		order by NAME
+	</select>
+	
+	<!-- 公司列表 -->
+	<select id="companylistPage" parameterType="page" resultType="pd">
+		select
+		u.ID,
+		u.NAME,
+		u.ADDRESS,
+		u.CONTACTS,
+		u.TELEPHONE,
+		u.LOGO_PATH,
+		u.ISDISPLAYLOGO,
+		p.NAME AS STATUSNAME
+		from 
+		B_COMPANY u,B_STATUS p
+		where
+			u.STATUS=p.id
+		<if test="pd.companyname!= null and pd.companyname != ''">
+		and u.NAME LIKE CONCAT(CONCAT('%', #{pd.companyname}),'%')
+		</if>
+		<if test="pd.companycontact != null and pd.companycontact != ''">
+			and u.CONTACTS LIKE CONCAT(CONCAT('%', #{pd.companycontact}),'%')
+		</if>
+		<if test="pd.companyid != null and pd.companyid != ''">
+			and u.ID = #{pd.companyid}
 		</if>
 		order by NAME
 	</select>
 	
-	<!-- 通过ID获取其子级列表 -->
-	<select id="listSubDepartmentByParentId" parameterType="String" resultMap="departmentResultMap">
-		select 
-		<include refid="Field"></include>
+	<!-- 列出公司下的所有部门 -->
+	<select id="listselectdepartment" parameterType="String" resultType="pd">
+		select
+		ID,
+		NAME
 		from 
-		<include refid="tableName"></include>
-		where 
-			PARENT_ID = #{parentId} order by NAME 
+		<include refid="departmenttableName"></include>
+		where
+			B_COMPANY_ID = #{companyid}
+		order by NAME
 	</select>
 	
+	<!-- 通过ID获取其子级列表 -->
+	<select id="listSubDepartmentByParentId" parameterType="String" resultMap="listdepartmentResultMap">
+		select 
+		ID,
+		NAME,
+		SUPERIOR_DEPARTMENT_ID
+		from 
+		<include refid="departmenttableName"></include>
+		where 
+			SUPERIOR_DEPARTMENT_ID = #{parentId} order by NAME 
+	</select>
+	
+	<!-- 通过ID获取第一级子级列表 -->
+	<select id="listFirstDepartmentByParentId" parameterType="String" resultMap="listdepartmentResultMap">
+		select 
+		ID,
+		NAME,
+		SUPERIOR_DEPARTMENT_ID
+		from 
+		<include refid="departmenttableName"></include>
+		where 
+			B_COMPANY_ID = #{companyid} and SUPERIOR_DEPARTMENT_ID IS NULL order by NAME 
+	</select>
+	
+		<!-- 删除图片 -->
+	<update id="delTp" parameterType="pd">
+		update  <include refid="companytableName"></include>
+			set 
+				LOGO_PATH			= null
+			where 
+				ID = #{ID}
+	</update>
+	
+	<!-- 列出tree所有公司列表 -->
+	<select id="listAllCompanyByParentId" parameterType="String" resultMap="listcompanyResultMap">
+		select
+		ID,
+		NAME
+		from
+		<include refid="companytableName"></include>
+		where
+			1 = 1
+		ORDER BY ID
+	</select>
 	<!-- fh313596790qq(青苔) -->
 </mapper>

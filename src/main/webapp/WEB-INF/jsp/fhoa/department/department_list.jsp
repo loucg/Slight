@@ -28,8 +28,8 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="department/list.do" method="post" name="Form" id="Form">
-						<table style="margin-top:5px;">
+						<form action="department/list.do?companyid=${companyid}" method="post" name="Form" id="Form">
+						<%-- <table style="margin-top:5px;">
 							<tr>
 								<td>
 									<div class="nav-search">
@@ -49,17 +49,19 @@
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="gsearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
-						</table>
+						</table> --%>
 						<!-- 检索  -->
-					
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
+							<tr>
+							<th class="center">${companyname}</th>
+							</tr>
 								<tr>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">名称</th>
-									<th class="center">英文</th>
-									<th class="center">编码</th>
-									<th class="center">负责人</th>
+									<th class="center">部门名称</th>
+									<th class="center">部门简述</th>
+									<th class="center">上级部门</th>
+									<th class="center">状态</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -72,25 +74,27 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'><a href="javascript:goSondict('${var.DEPARTMENT_ID }')"><i class="ace-icon fa fa-share bigger-100"></i>&nbsp;${var.NAME}</a></td>
-											<td class='center'><a href="javascript:goSondict('${var.DEPARTMENT_ID }')">${var.NAME_EN}</a></td>
-											<td class='center'>${var.BIANMA}</td>
-											<td class='center'>${var.HEADMAN}</td>
+											<%-- <td class='center'><a href="javascript:goSondict('${var.DEPARTMENT_ID }')"><i class="ace-icon fa fa-share bigger-100"></i>&nbsp;${var.NAME}</a></td>
+											<td class='center'><a href="javascript:goSondict('${var.DEPARTMENT_ID }')">${var.NAME_EN}</a></td> --%>
+											<td class='center'>${var.NAME}</td>
+											<td class='center'>${var.EXPLAIN}</td>
+											<td class='center'>${var.parentname}</td>
+											<td class='center'>${var.STATUSNAME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.DEPARTMENT_ID}');">
+													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
-													<c:if test="${QX.del == 1 }">
+												<%-- 	<c:if test="${QX.del == 1 }">
 													<a class="btn btn-xs btn-danger" onclick="del('${var.DEPARTMENT_ID}');">
 														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
 													</a>
-													</c:if>
+													</c:if> --%>
 												</div>
 												<div class="hidden-md hidden-lg">
 													<div class="inline pos-rel">
@@ -101,14 +105,14 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.DEPARTMENT_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="edit('${var.ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
 																</a>
 															</li>
 															</c:if>
-															<c:if test="${QX.del == 1 }">
+															<%-- <c:if test="${QX.del == 1 }">
 															<li>
 																<a style="cursor:pointer;" onclick="del('${var.DEPARTMENT_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
@@ -116,7 +120,7 @@
 																	</span>
 																</a>
 															</li>
-															</c:if>
+															</c:if> --%>
 														</ul>
 													</div>
 												</div>
@@ -144,7 +148,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-sm btn-success" onclick="add('${DEPARTMENT_ID}');">新增</a>
+									<a class="btn btn-sm btn-success" onclick="add('${companyid}');">新增</a>
 									</c:if>
 									<c:if test="${null != pd.DEPARTMENT_ID && pd.DEPARTMENT_ID != ''}">
 									<a class="btn btn-sm btn-success" onclick="goSondict('${pd.PARENT_ID}');">返回</a>
@@ -199,17 +203,17 @@
 		};
 		
 		//新增
-		function add(DEPARTMENT_ID){
+		function add(companyid){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>department/goAdd.do?DEPARTMENT_ID='+DEPARTMENT_ID;
+			 diag.URL = '<%=basePath%>department/goAdd.do?companyid='+companyid;
 			 diag.Width = 700;
 			 diag.Height = 550;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if('none' == diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display){
-					 parent.location.href="<%=basePath%>department/listAllDepartment.do?DEPARTMENT_ID=${DEPARTMENT_ID}&dnowPage=${page.currentPage}";
+					 parent.location.href="<%=basePath%>department/listAllDepartment.do?companyid=${companyid}&dnowPage=${page.currentPage}";
 				}
 				diag.close();
 			 };
@@ -249,13 +253,13 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>department/goEdit.do?DEPARTMENT_ID='+Id;
+			 diag.Title ="修改";
+			 diag.URL = '<%=basePath%>department/goEditdepartmrnt.do?DEPARTMENT_ID='+Id;
 			 diag.Width = 700;
 			 diag.Height = 550;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 parent.location.href="<%=basePath%>department/listAllDepartment.do?DEPARTMENT_ID=${DEPARTMENT_ID}&dnowPage=${page.currentPage}";
+					 parent.location.href="<%=basePath%>department/listAllDepartment.do?companyid=${companyid}&dnowPage=${page.currentPage}";
 				}
 				diag.close();
 			 };

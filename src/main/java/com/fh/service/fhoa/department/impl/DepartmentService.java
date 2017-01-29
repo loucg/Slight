@@ -36,12 +36,29 @@ public class DepartmentService implements DepartmentManager{
 	public List<Department> listAllDepartmentsByPId(PageData pd) throws Exception {
 		return (List<Department>) dao.findForList("DepartmentMapper.listAllDepartmentsByPId", pd);
 	}
+	
 	/**新增
 	 * @param pd
 	 * @throws Exception
 	 */
 	public void save(PageData pd)throws Exception{
 		dao.save("DepartmentMapper.save", pd);
+	}
+	
+	/**获取部门主键
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData getid(String companyid)throws Exception{
+		return (PageData)dao.findForObject("DepartmentMapper.getid",companyid);
+	}
+	
+	/**获取公司主键
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData getcompanyid(String companyid)throws Exception{
+		return (PageData)dao.findForObject("DepartmentMapper.getcompanyid",companyid);
 	}
 	
 	/**删除
@@ -52,12 +69,28 @@ public class DepartmentService implements DepartmentManager{
 		dao.delete("DepartmentMapper.delete", pd);
 	}
 	
-	/**修改
+	/**修改部门
 	 * @param pd
 	 * @throws Exception
 	 */
 	public void edit(PageData pd)throws Exception{
 		dao.update("DepartmentMapper.edit", pd);
+	}
+	
+	/**修改公司
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void editcompany(PageData pd)throws Exception{
+		dao.update("DepartmentMapper.editcompany", pd);
+	}
+	
+	/**新增公司
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void addcompany(PageData pd)throws Exception{
+		dao.update("DepartmentMapper.addcompany", pd);
 	}
 	
 	/**列表
@@ -69,12 +102,70 @@ public class DepartmentService implements DepartmentManager{
 		return (List<PageData>)dao.findForList("DepartmentMapper.datalistPage", page);
 	}
 	
+	/**公司列表
+	 * @param page
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> companylist(Page page)throws Exception{
+		return (List<PageData>)dao.findForList("DepartmentMapper.companylistPage", page);
+	}
+	
+	/**列出公司下的所有部门
+	 * @param pd
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> listselectdepartment(String companyid)throws Exception{
+		return (List<PageData>)dao.findForList("DepartmentMapper.listselectdepartment", companyid);
+	}
+	
+	/**删除图片
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void delTp(PageData pd)throws Exception{
+		dao.update("DepartmentMapper.delTp", pd);
+	}
+	
 	/**通过id获取数据
 	 * @param pd
 	 * @throws Exception
 	 */
 	public PageData findById(PageData pd)throws Exception{
 		return (PageData)dao.findForObject("DepartmentMapper.findById", pd);
+	}
+	
+	/**通过id获取数据
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData finddepartmentById(PageData pd)throws Exception{
+		return (PageData)dao.findForObject("DepartmentMapper.findById", pd);
+	}
+	
+	/**通过id获取公司数据
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData findcompanyById(PageData pd)throws Exception{
+		return (PageData)dao.findForObject("DepartmentMapper.findcompanyById", pd);
+	}
+	
+	/**通过id获取公司名字
+	 * @param pd
+	 * @throws Exception
+	 */
+	public String findcompanyname(String pd)throws Exception{
+		return (String)dao.findForObject("DepartmentMapper.findcompanyname", pd);
+	}
+	
+	/**通过id获取上级部门名称
+	 * @param pd
+	 * @throws Exception
+	 */
+	public String searchparentname(Object parentid)throws Exception{
+		return (String)dao.findForObject("DepartmentMapper.searchparentname", parentid);
 	}
 	
 	/**通过编码获取数据
@@ -97,19 +188,69 @@ public class DepartmentService implements DepartmentManager{
 	}
 	
 	/**
+	 * 通过公司ID获取第一级子级列表
+	 * @param companyid
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Department> listFirstDepartmentByParentId(String companyid) throws Exception {
+		return (List<Department>) dao.findForList("DepartmentMapper.listFirstDepartmentByParentId", companyid);
+	}
+	
+	/**
+	 * 获取公司列表
+	 * @param parentId
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Department> listAllCompanyByParentId(String parentId) throws Exception {
+		return (List<Department>) dao.findForList("DepartmentMapper.listAllCompanyByParentId", parentId);
+	}
+	
+	/**
 	 * 获取所有数据并填充每条数据的子级列表(递归处理)
 	 * @param MENU_ID
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Department> listAllDepartment(String parentId) throws Exception {
-		List<Department> departmentList = this.listSubDepartmentByParentId(parentId);
-		for(Department depar : departmentList){
-			depar.setTreeurl("department/list.do?DEPARTMENT_ID="+depar.getDEPARTMENT_ID());
-			depar.setSubDepartment(this.listAllDepartment(depar.getDEPARTMENT_ID()));
-			depar.setTarget("treeFrame");
-			depar.setIcon("static/images/user.gif");
+	public List<Department> listAllDepartment(String parentId,String companyid) throws Exception {
+		List<Department> departmentList = new ArrayList<Department>();
+		if(companyid=="0"){
+			departmentList = this.listAllCompanyByParentId(parentId);
+			for(Department depar : departmentList){
+				depar.setTreeurl("department/companylist.do?companyid="+depar.getDEPARTMENT_ID());
+				depar.setSubDepartment(this.listAllDepartment("0",depar.getDEPARTMENT_ID()));
+				depar.setTarget("treeFrame");
+				depar.setCOMPANY(depar.getDEPARTMENT_ID());
+				depar.setIcon("static/images/user.gif");
+			}
 		}
+		else{
+			if(parentId=="0"){
+				departmentList = this.listFirstDepartmentByParentId(companyid);
+				for(Department depar : departmentList){
+					depar.setTreeurl("department/list.do?companyid="+companyid);
+					depar.setSubDepartment(this.listAllDepartment(depar.getDEPARTMENT_ID(),companyid));
+					depar.setTarget("treeFrame");
+					depar.setCOMPANY(companyid);
+					depar.setIcon("static/images/user.gif");
+				}
+			}
+			else{
+				departmentList = this.listSubDepartmentByParentId(parentId);
+				for(Department depar : departmentList){
+					depar.setTreeurl("department/list.do?companyid="+companyid);
+					depar.setSubDepartment(this.listAllDepartment(depar.getDEPARTMENT_ID(),companyid));
+					depar.setTarget("treeFrame");
+					depar.setCOMPANY(companyid);
+					depar.setIcon("static/images/user.gif");
+				}
+			}
+			
+		}
+		
 		return departmentList;
 	}
 	
