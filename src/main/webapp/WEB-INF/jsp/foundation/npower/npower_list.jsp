@@ -32,14 +32,15 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="config/getNPowerList" method="post" name="Form" id="Form">
+						<form action="npower/getNPowerList" method="post" name="Form" id="Form">
+						<input type="hidden" id="excel" name="excel" value="0"/>
 						<table style="margin-top:5px;">
 							<tr>
 								<td>规格：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${npower.name }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${pd.name }"/>
 										</span>
 									</div>
 								</td>
@@ -47,13 +48,14 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="vendor" value="${npower.vendor }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="vendor" value="${pd.vendor }"/>
 										</span>
 									</div>
 								</td>
-								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
-								</c:if>
+								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -77,9 +79,9 @@
 							<tbody>
 							<!-- 开始循环 -->	
 							<c:choose>
-								<c:when test="${not empty npowerList}">
+								<c:when test="${not empty nPowerList}">
 									<c:if test="${QX.cha == 1 }">
-									<c:forEach items="${npowerList}" var="npower" varStatus="vs">
+									<c:forEach items="${nPowerList}" var="npower" varStatus="vs">
 										<tr>
 											<%-- <td class='center'>
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${npower.id}" class="ace" /><span class="lbl"></span></label>
@@ -87,7 +89,10 @@
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${npower.name}</td>
 											<td class='center'>${npower.vendor}</td>
-											<td class='center'>${npower.type}</td>
+											<td style="width: 60px;" class="center">
+														<c:if test="${npower.type == '1' }"><span class="label label-important arrowed-in">系统</span></c:if>
+														<c:if test="${npower.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
+													</td>
 											<td class='center'>${npower.power}</td>
 											<td class='center'>${npower.comment}</td>
 											<td class="center" style="width:100px;">
@@ -100,11 +105,6 @@
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
-													<%-- <c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${npower.id}');">
-														<i class="ace-icon fa fa-trash-o bigger-120" title="删除" ></i>
-													</a>
-													</c:if> --%>
 												</div>
 												<div class="hidden-md hidden-lg">
 													<div class="inline pos-rel">
@@ -113,24 +113,6 @@
 														</button>
 			
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-															<%-- <c:if test="${QX.edit == 1 }">
-															<li>
-																<a style="cursor:pointer;" onclick="editNpower('${npower.id}');" class="tooltip-success" data-rel="tooltip" title="修改">
-																	<span class="green">
-																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-															</c:if> --%>
-															<%-- <c:if test="${QX.del == 1 }">
-															<li>
-																<a style="cursor:pointer;" onclick="del('${npower.id}');" class="tooltip-error" data-rel="tooltip" title="删除">
-																	<span class="red">
-																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-															</c:if> --%>
 														</ul>
 													</div>
 												</div>
@@ -208,52 +190,35 @@
 			top.jzts();
 			$("#Form").submit();
 		}
-		/*$(function() {
 		
- 			//日期框
-			$('.date-picker').datepicker({
-				autoclose: true,
-				todayHighlight: true
-			});
-			
-			//下拉框
-			if(!ace.vars['touch']) {
-				$('.chosen-select').chosen({allow_single_deselect:true}); 
-				$(window)
-				.off('resize.chosen')
-				.on('resize.chosen', function() {
-					$('.chosen-select').each(function() {
-						 var $this = $(this);
-						 $this.next().css({'width': $this.parent().width()});
-					});
-				}).trigger('resize.chosen');
-				$(document).on('settings.ace.chosen', function(e, event_name, event_val) {
-					if(event_name != 'sidebar_collapsed') return;
-					$('.chosen-select').each(function() {
-						 var $this = $(this);
-						 $this.next().css({'width': $this.parent().width()});
-					});
-				});
-				$('#chosen-multiple-style .btn').on('click', function(e){
-					var target = $(this).find('input[type=radio]');
-					var which = parseInt(target.val());
-					if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
-					 else $('#form-field-select-4').removeClass('tag-input-style');
-				});
-			}  
-			
-			
-		 	//复选框全选控制
-			 var active_class = 'active';
-			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
-				var th_checked = this.checked;//checkbox inside "TH" table header
-				$(this).closest('table').find('tbody > tr').each(function(){
-					var row = this;
-					if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-					else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
-				});
-			}); 
-		}); */
+		//导出excel
+		function toExcel(){
+			$("#excel").val("1");
+			$("#Form").submit();
+		}
+		
+		//打开上传excel页面
+		function fromExcel(){
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="EXCEL 导入到数据库";
+			 diag.URL = '<%=basePath%>npower/goUploadExcel';
+			 diag.Width = 300;
+			 diag.Height = 150;
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 top.jzts();
+						 setTimeout("self.location.reload()",100);
+					 }else{
+						 nextPage(${page.currentPage});
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}	
 		
 		//新增
 		function add(){
@@ -261,7 +226,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>npower/create.do';
+			 diag.URL = '<%=basePath%>npower/goNPowerCreate';
 			 diag.Width = 460;
 			 diag.Height = 350;
 			 diag.Modal = true;				//有无遮罩窗口
@@ -287,7 +252,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="普通电源";
-			 diag.URL = '<%=basePath%>npower/update.do?id='+id;
+			 diag.URL = '<%=basePath%>npower/goNPowerEdit?id='+id;
 			 diag.Width = 469;
 			 diag.Height = 350;
 			 diag.CancelEvent = function(){ //关闭事件

@@ -32,6 +32,7 @@
 
 						<!-- 检索  -->
 						<form action="config/getDeviceList" method="post" name="Form" id="Form">
+						<input type="hidden" id="excel" name="excel" value="0"/>
 						<input type="hidden" name="itype" id="itype" value="4">
 						<table style="margin-top:5px;">
 							<tr>
@@ -50,7 +51,7 @@
 								</td>
 								<td >
 								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择终端类型" style="height:30px;width: 160px;margin-left:20px;border-width:1px;border-color:'#fff';border-radius:4px">
-								 		<option value=""  <c:if test="${pd.itype==4}">selected</c:if>>终端组合</option>
+								 		<option value="6" <c:if test="${pd.itype==4}">selected</c:if>>终端组合</option>
 										<option value="1" <c:if test="${pd.itype==1}">selected</c:if>>一体化电源</option>
 										<option value="2" <c:if test="${pd.itype==2}">selected</c:if>>单灯控制器</option>
 										<option value="3" <c:if test="${pd.itype==3}">selected</c:if>>网关</option>
@@ -66,10 +67,9 @@
 										<option value="2" <c:if test="${pd.status==2}">selected</c:if>>无效</option>
 								  	</select>
 								</td>
-								<td style="vertical-align:top;padding-left:2px;"><button class="btn btn-mini btn-light" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td>
-								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-mini btn-light" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td>
-								</c:if>
+								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-mini btn-light" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
+								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -77,8 +77,6 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-
-									<th class="center" style="width: 50px;">序号</th>
 									<th class="center" >终端编号</th>
 									<th class="center" >终端名称</th>
 									<th class="center" >终端类型</th>
@@ -105,9 +103,8 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${deviceList}" var="var" varStatus="vs">
 										<tr>
-											<td class='center' style="width: 30px;">${vs.index+1}</td>
 													<td class="center">${var.number}</td>
-													<td>${ fn:substring(var.name ,0,50)}</td>
+													<td class="center">${var.name}</td>
 													<td class="center">${var.type}</td>
 													<td class="center">${var.location}</td>
 													<td class="center">${var.coordinate}</td>
@@ -248,11 +245,33 @@
 			 diag.show();
 		}
 
-		
+		//打开上传excel页面
+		function fromExcel(){
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="EXCEL 导入到数据库";
+			 diag.URL = '<%=basePath%>config/goUploadExcel?type=1';
+			 diag.Width = 300;
+			 diag.Height = 150;
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 top.jzts();
+						 setTimeout("self.location.reload()",100);
+					 }else{
+						 nextPage(${page.currentPage});
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}
 		
 		//导出excel
 		function toExcel(){
-			window.location.href='<%=basePath%>combination/excel.do';
+			$("#excel").val("1");
+			$("#Form").submit();
 		}
 		</script>
 

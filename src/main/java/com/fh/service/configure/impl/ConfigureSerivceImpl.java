@@ -23,7 +23,7 @@ public class ConfigureSerivceImpl implements ConfigureService{
 		// TODO Auto-generated method stub
 		return (List<PageData>)dao.findForList("ConfigureMapper.getNPowerlistPage", page);
 	}
-
+	
 
 	@Override
 	public void editNPower(PageData pd) throws Exception {

@@ -34,38 +34,35 @@
 				<div class="row">
 					<div class="col-xs-12">
 					
-					<form action="npower/${msg }.do" name="npowerForm" id="npowerForm" method="post">
+					<form action="exportExcel/${msg}" name="npowerForm" id="npowerForm" method="post">
 						<input type="hidden" value="no" id="hasTp1" />
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
-							<!-- <tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">文件名:</td>
-								<td><input type="text" name="NAME" id="NAME" value="" maxlength="30" placeholder="这里输入文件名" title="文件名" style="width:98%;"/></td>
-							</tr> -->
+							<input type="hidden" name="id" id="id" value="${pd.id}"/>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">规格名称:</td>
-								<td><input type="text" name="name" id="name" value="" maxlength="100" title="规格名称" style="width:98%;"/></td>
+								<td><input type="text" name="name" id="name" value="${pd.name}" maxlength="100" title="规格名称" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">厂家:</td>
-								<td><input type="text" name="vendor" id="vendor" value="" maxlength="100" title="厂家" style="width:98%;"/></td>
+								<td><input type="text" name="vendor" id="vendor" value="${pd.vendor}" maxlength="100" title="厂家" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">类型:</td>
 								<td>
 									<select name="type" maxlength="100" title="类型" style="width:98%;">
 										<option value="1" <c:if test="${pd.type == '1' }">selected</c:if> >系统</option>
-										<option value="0" <c:if test="${pd.type == '0' }">selected</c:if> >自备</option>
+										<option value="2" <c:if test="${pd.type == '2' }">selected</c:if> >自备</option>
 									</select>
 								</td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">功率:</td>
-								<td><input type="text" name="power" id="power" value="" maxlength="100" title="功率" style="width:98%;"/></td>
+								<td><input type="text" name="power" id="power" value="${pd.power}" maxlength="100" title="功率" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
-								<td><input type="text" name="comment" id="comment" value="" maxlength="100" title="备注" style="width:98%;"/></td>
+								<td><input type="text" name="comment" id="comment" value="${pd.comment}" maxlength="100" title="备注" style="width:98%;"/></td>
 							</tr>
 							
 							<tr>

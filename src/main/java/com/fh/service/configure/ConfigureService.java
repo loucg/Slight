@@ -20,6 +20,7 @@ public interface ConfigureService {
 	 */
 	public List<PageData> getNPowerList(Page page) throws Exception;
 	
+	
 	/**
 	 * 修改普通电源
 	 * @param pd
@@ -92,6 +93,7 @@ public interface ConfigureService {
 	 * @throws Exception
 	 */
 	public List<PageData> getPoleList(Page page) throws Exception;
+	
 	
 	/**
 	 * 修改灯杆信息

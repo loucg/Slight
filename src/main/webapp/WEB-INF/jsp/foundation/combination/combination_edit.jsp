@@ -105,6 +105,7 @@
 										<option value="2" <c:if test="${pd.typeid==2}">selected</c:if>>单灯控制器</option>
 										<option value="3" <c:if test="${pd.typeid==3}">selected</c:if>>网关</option>
 										<option value="4" <c:if test="${pd.typeid==4}">selected</c:if>>断路器</option>
+										<option value="6" <c:if test="${pd.typeid==6}">selected</c:if>>终端组合</option>
 								  	</select>
 								 </td>
 							</tr>

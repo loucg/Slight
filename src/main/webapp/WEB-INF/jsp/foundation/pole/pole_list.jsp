@@ -31,7 +31,8 @@
 						<div class="col-xs-12">
 
 						<!-- 检索  -->
-						<form action="config/getPoleList" method="post" name="Form" id="Form">
+						<form action="pole/getPoleList" method="post" name="Form" id="Form">
+						<input type="hidden" id="excel" name="excel" value="0"/>
 						<table style="margin-top:5px;">
 							<tr>
 
@@ -47,9 +48,10 @@
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="vendor" value="${pd.vendor}" placeholder="这里输入类型" />
 									</div>
 								</td>
-								<td style="vertical-align:top;padding-left:2px;"><button class="btn btn-mini btn-light" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-mini btn-light" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								</c:if>
 							</tr>
 						</table>
@@ -79,7 +81,7 @@
 
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 													<td class="center">${var.name}</td>
-													<td>${ fn:substring(var.vendor ,0,50)}</td>											
+													<td class="center">${ fn:substring(var.vendor ,0,50)}</td>											
 													<td style="width: 60px;" class="center">
 														<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in">系统</span></c:if>
 														<c:if test="${var.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
@@ -177,7 +179,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>config/goPoleCreate';
+			 diag.URL = '<%=basePath%>pole/goPoleCreate';
 			 diag.Width = 650;
 			 diag.Height = 279;
 			 diag.CancelEvent = function(){ //关闭事件
@@ -202,7 +204,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>config/goPoleEdit?id='+Id;
+			 diag.URL = '<%=basePath%>pole/goPoleEdit?id='+Id;
 			 diag.Width = 650;
 			 diag.Height = 279;
 			 diag.CancelEvent = function(){ //关闭事件
@@ -220,8 +222,32 @@
 
 		//导出excel
 		function toExcel(){
-			window.location.href='<%=basePath%>pole/excel.do';
+			$("#excel").val("1");
+			$("#Form").submit();
 		}
+		
+		//打开上传excel页面
+		function fromExcel(){
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="EXCEL 导入到数据库";
+			 diag.URL = '<%=basePath%>pole/goUploadExcel';
+			 diag.Width = 300;
+			 diag.Height = 150;
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 top.jzts();
+						 setTimeout("self.location.reload()",100);
+					 }else{
+						 nextPage(${page.currentPage});
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}	
 		</script>
 
 </body>

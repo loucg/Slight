@@ -24,6 +24,7 @@ import com.fh.util.Tools;
  */
 public class ObjectExcelView extends AbstractExcelView{
 
+	public static final String FILENAME = "filename";
 	@Override
 	protected void buildExcelDocument(Map<String, Object> model,
 			HSSFWorkbook workbook, HttpServletRequest request,
@@ -31,6 +32,7 @@ public class ObjectExcelView extends AbstractExcelView{
 		// TODO Auto-generated method stub
 		Date date = new Date();
 		String filename = Tools.date2Str(date, "yyyyMMddHHmmss");
+//		String filename = (String)model.get(FILENAME);
 		HSSFSheet sheet;
 		HSSFCell cell;
 		response.setContentType("application/octet-stream");

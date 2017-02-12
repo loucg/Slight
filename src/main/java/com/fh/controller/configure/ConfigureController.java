@@ -1,495 +1,89 @@
 package com.fh.controller.configure;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.system.Role;
+import com.fh.hzy.util.UserUtils;
 import com.fh.service.configure.ConfigureService;
+import com.fh.service.system.fhlog.FHlogManager;
+import com.fh.util.Const;
+import com.fh.util.FileDownload;
+import com.fh.util.FileUpload;
+import com.fh.util.GetPinyin;
 import com.fh.util.Jurisdiction;
+import com.fh.util.ObjectExcelRead;
+import com.fh.util.ObjectExcelView;
 import com.fh.util.PageData;
-
-import net.sf.ehcache.config.generator.ConfigurationUtil;
+import com.fh.util.PathUtil;
+import com.fh.util.Tools;
 
 @Controller
 @RequestMapping("/config")
 public class ConfigureController extends BaseController{
 	
+	private static final int NPOWER = 1;
+	private static final int LAMP = 2;
+	private static final int POLE = 3;
+	private static final int SENSOR = 4;
+	private static final int SIM = 5;
+	private static final int DEVICE = 6;
+	private static final int GATEWAY = 7;
+	
 	String menuUrl = "config/getNPowerList"; //菜单地址(权限用)
 	
-	private String nPowerJsp = "foundation/npower/npower_list"; //普通电源查询jsp
-	private String nPowerEditJsp = "";  						//普通电源修改jsp
-	private String nPowerCreateJsp = "";  						//普通电源新增jsp
-	private String lampJsp = "foundation/light/light_list";  	//灯查询jsp
-	private String lampEditJsp = "foundation/light/light_edit";  							//灯修改jsp
-	private String lampCreateJsp = "foundation/light/light_edit";  						//灯新增jsp
-	private String poleJsp = "foundation/pole/pole_list";       //灯杆杆查询jsp
-	private String poleEditJsp = "foundation/pole/pole_edit";  							//灯杆修改jsp
-	private String poleCreateJsp = "foundation/pole/pole_edit";  						//灯杆新增jsp
-	private String sensorJsp = "foundation/sensor/sensor_list"; //传感器杆查询jsp
-	private String sensorEditJsp = "foundation/sensor/sensor_edit";  						//传感器修改jsp
-	private String sensorCreateJsp = "foundation/sensor/sensor_edit";  						//传感器新增jsp
-	private String simJsp = "foundation/simcard/simcard_list";    //Sim卡杆查询jsp
-	private String simEditJsp = "foundation/simcard/simcard_edit";  							//Sim卡修改jsp
-	private String simCreateJsp = "foundation/simcard/simcard_edit";  							//Sim卡新增jsp
+	
 	
 	private String deviceJsp = "foundation/combination/combination_list";
 	private String deviceEditJsp = "foundation/combination/combination_edit";
 	private String deviceCreateJsp="foundation/combination/combination_edit";
 	
+	private String uploadJsp="foundation/combination/uploadexcel";
 	private String saveRsultJsp = "save_result";  				//保存修改jsp
 	
 	
 	@Resource(name="configureService")
 	private ConfigureService configureService;
+	@Resource(name="fhlogService")
+	private FHlogManager FHLOG;
+
 	
+
+	/**下载普通电源模版
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/downExcel")
+	public void downExcel(HttpServletResponse response)throws Exception{
+		String xlsname = "device.xls";
+		FileDownload.fileDownload(response, PathUtil.getClasspath() + Const.FILEPATHFILE + xlsname, xlsname);
+	}
 	
-	/**
-	 * 获取普通电源列表
-	 * @param page
+	/**打开上传EXCEL页面
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/getNPowerList")
-	public ModelAndView getNPowerList(Page page) throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
-		
+	@RequestMapping(value="/goUploadExcel")
+	public ModelAndView goUploadExcel()throws Exception{
 		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		page.setPd(pd);
-		List<PageData> nPList = configureService.getNPowerList(page);
-		mv.addObject("pd", pd);
-		mv.addObject("nPowerList", nPList);
-		mv.setViewName(nPowerJsp);
+		mv.setViewName(uploadJsp);
 		return mv;
 	}
 	
-	/**
-	 * 跳转普通电源修改页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goNPowerEdit")
-	public ModelAndView goNPowerEdit() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		pd = configureService.getNPowerById(pd);
-		mv.addObject("pd", pd);
-		mv.addObject("msg", "editNPower");
-		mv.setViewName(nPowerEditJsp);
-		return mv;
-	
-	}
-	
-	/**
-	 * 跳转普通电源新增页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goNPowerCreate")
-	public ModelAndView goNPowerCreate() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		mv.addObject("msg", "createNPower");
-		mv.setViewName(nPowerCreateJsp);
-		return mv;
-	}
-	
-	/**
-	 * 修改普通电源
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/editNPower")
-	public ModelAndView editNPower() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		configureService.editNPower(pd);
-		mv.addObject("msg", "success");
-		mv.setViewName(saveRsultJsp);
-		return mv;
-		
-	}
-	
-	/**
-	 * 新增普通电源
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/createNPower")
-	public ModelAndView createNPower() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		configureService.createNPower(pd);
-		mv.addObject("msg", "success");
-		mv.setViewName(saveRsultJsp);
-		return mv;
-		
-	}
-	
-	/**
-	 * 获取灯信息列表
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/getLampList")
-	public ModelAndView getLampList(Page page) throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		page.setPd(pd);
-		List<PageData> nPList = configureService.getLampList(page);
-		mv.addObject("pd", pd);
-		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
-		mv.addObject("lampList", nPList);
-		mv.setViewName(lampJsp);
-		return mv;
-	}
-	
-	/**
-	 * 跳转灯修改页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goLampEdit")
-	public ModelAndView goLampEdit() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		pd = configureService.getLampById(pd);
-		mv.addObject("pd", pd);
-		mv.addObject("msg", "editLamp");
-		mv.setViewName(lampEditJsp);
-		return mv;
-	
-	}
-	
-	/**
-	 * 跳转灯新增页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goLampCreate")
-	public ModelAndView goLampCreate() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		mv.addObject("msg", "createLamp");
-		mv.setViewName(lampCreateJsp);
-		return mv;
-	}
-	
-	/**
-	 * 修改灯信息
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/editLamp")
-	public ModelAndView editLamp() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		configureService.editLamp(pd);
-		mv.addObject("msg", "success");
-		mv.setViewName(saveRsultJsp);
-		return mv;
-		
-	}
-	
-	
-	/**
-	 * 新增灯信息
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/createLamp")
-	public ModelAndView createLamp() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		configureService.createLamp(pd);
-		mv.addObject("msg", "success");
-		mv.setViewName(saveRsultJsp);
-		return mv;
-		
-	}
-	
-	
-	
-	/**
-	 * 获取传感器列表
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/getSensorList")
-	public ModelAndView getSensorList(Page page) throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		page.setPd(pd);
-		List<PageData> nPList = configureService.getSensorList(page);
-		mv.addObject("pd", pd);
-		mv.addObject("sensorList", nPList);
-		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
-		mv.setViewName(sensorJsp);
-		return mv;
-	}
-	
-	/**
-	 * 跳转传感器修改页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goSensorEdit")
-	public ModelAndView goSensorEdit() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		pd = configureService.getSensorById(pd);
-		mv.addObject("pd", pd);
-		mv.addObject("msg", "editSensor");
-		mv.setViewName(sensorEditJsp);
-		return mv;
-	
-	}
-	
-	/**
-	 * 跳转传感器新增页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goSensorCreate")
-	public ModelAndView goSensorCreate() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		mv.addObject("msg", "createSensor");
-		mv.setViewName(sensorCreateJsp);
-		return mv;
-	}
-	
-	/**
-	 * 修改传感器
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/editSensor")
-	public ModelAndView editSensor() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		configureService.editSensor(pd);
-		mv.addObject("msg", "success");
-		mv.setViewName(saveRsultJsp);
-		return mv;
-		
-	}
-	/**
-	 * 新增传感器
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/createSensor")
-	public ModelAndView createSensor() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		configureService.createSensor(pd);
-		mv.addObject("msg", "success");
-		mv.setViewName(saveRsultJsp);
-		return mv;
-		
-	}
-	
-	
-	
-	/**
-	 * 获取电线杆
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/getPoleList")
-	public ModelAndView getPoleList(Page page) throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		page.setPd(pd);
-		List<PageData> nPList = configureService.getPoleList(page);
-		mv.addObject("pd", pd);
-		mv.addObject("poleList", nPList);
-		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
-		mv.setViewName(poleJsp);
-		return mv;
-	}
-	
-	/**
-	 * 跳转灯杆修改页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goPoleEdit")
-	public ModelAndView goPoleEdit() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		pd = configureService.getPoleById(pd);
-		mv.addObject("pd", pd);
-		mv.addObject("msg", "editPole");
-		mv.setViewName(poleEditJsp);
-		return mv;
-	
-	}
-	
-	/**
-	 * 跳转灯杆新增页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goPoleCreate")
-	public ModelAndView goPoleCreate() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		mv.addObject("msg", "createPole");
-		mv.setViewName(poleCreateJsp);
-		return mv;
-	}
-	
-	
-	/**
-	 * 修改电线杆
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/editPole")
-	public ModelAndView editPole() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		configureService.editPole(pd);
-		mv.addObject("msg", "success");
-		mv.setViewName(saveRsultJsp);
-		return mv;
-		
-	}
-	
-	/**
-	 * 新增电线杆
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/createPole")
-	public ModelAndView createPole() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		configureService.createPole(pd);
-		mv.addObject("msg", "success");
-		mv.setViewName(saveRsultJsp);
-		return mv;
-		
-	}
-	
-	/**
-	 * 获取Sim卡列表
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/getSimList")
-	public ModelAndView getSimList(Page page) throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		page.setPd(pd);
-		List<PageData> nPList = configureService.getSimList(page);
-		mv.addObject("pd", pd);
-		mv.addObject("simList", nPList);
-		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
-		mv.setViewName(simJsp);
-		return mv;
-	}
-	
-	/**get
-	 * 跳转Sim卡修改页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goSimEdit")
-	public ModelAndView goSimEdit() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		pd = configureService.getSimById(pd);
-		mv.addObject("pd", pd);
-		mv.addObject("msg", "editSim");
-		mv.setViewName(simEditJsp);
-		return mv;
-	}
-	
-	/**
-	 * 跳转Sim卡新增页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goSimCreate")
-	public ModelAndView goSimCreate(Page page) throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		mv.addObject("msg", "createSim");
-		mv.setViewName(simCreateJsp);
-		return mv;
-	}
-	
-	/**
-	 * 修改Sim卡
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/editSim")
-	public ModelAndView editSim() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		configureService.editSim(pd);
-		mv.addObject("msg", "success");
-		mv.setViewName(saveRsultJsp);
-		return mv;
-		
-	}
-	
-	/**
-	 * 新增Sim卡
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/createSim")
-	public ModelAndView createSim() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		configureService.createSim(pd);
-		mv.addObject("msg", "success");
-		mv.setViewName(saveRsultJsp);
-		return mv;
-		
-	}
 	
 	/**
 	 * 跳转一体化电源页面
@@ -504,6 +98,7 @@ public class ConfigureController extends BaseController{
 		pd = this.getPageData();
 		page.setPd(pd);
 		pd.put("itype", 1);
+		pd.put("userid", UserUtils.getUserid());
 		List<PageData> list = configureService.getDeviceList(page);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
@@ -525,6 +120,7 @@ public class ConfigureController extends BaseController{
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("itype", 2);
+		pd.put("userid", UserUtils.getUserid());
 		page.setPd(pd);
 		List<PageData> list = configureService.getDeviceList(page);
 		mv.addObject("pd", pd);
@@ -547,6 +143,7 @@ public class ConfigureController extends BaseController{
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("itype", 3);
+		pd.put("userid", UserUtils.getUserid());
 		page.setPd(pd);
 		List<PageData> list = configureService.getGatewayList(page);
 		mv.addObject("pd", pd);
@@ -558,7 +155,7 @@ public class ConfigureController extends BaseController{
 	}
 	
 	/**
-	 * 跳转组合终端
+	 * 跳转终端组合
 	 * @param page
 	 * @return
 	 * @throws Exception
@@ -569,9 +166,9 @@ public class ConfigureController extends BaseController{
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("itype", 4);
+		pd.put("userid", UserUtils.getUserid());
 		page.setPd(pd);
 		List<PageData> deviceList = configureService.getDeviceList(page);
-		deviceList.addAll(configureService.getGatewayList(page));
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		mv.addObject("deviceList", deviceList);
 		mv.setViewName(deviceJsp);
@@ -590,31 +187,29 @@ public class ConfigureController extends BaseController{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("userid", Jurisdiction.getSession().getAttribute(""));
+		pd.put("userid", UserUtils.getUserid());
 		page.setPd(pd);
 		List<PageData> deviceList = null;
-		String typeString = (String)pd.get("type");
-		if(typeString.equals("")){
+		int type = Integer.valueOf((String)pd.get("type"));
+		if(type==1||type==2||type==6){
 			deviceList = configureService.getDeviceList(page);
-			deviceList.addAll(configureService.getGatewayList(page));
-			pd.put("itype", 4);
+			pd.put("itype", type==6?4:type);
+		}else if(type==3||type==4||type==5){
+			deviceList = configureService.getGatewayList(page);
+			pd.put("itype", 3);
+		}
+		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){
+			ObjectExcelView erv = new ObjectExcelView();					//执行excel操作
+			mv = new ModelAndView(erv,ConfigureUtils.exportDevice(deviceList));
+			return mv;
 			
 		}else{
-			int type = Integer.valueOf(typeString);
-			if(type==1||type==2){
-				deviceList = configureService.getDeviceList(page);
-				pd.put("itype", type);
-			}else if(type==3||type==4||type==5){
-				deviceList = configureService.getGatewayList(page);
-				pd.put("itype", 3);
-			}
+			mv.addObject("pd", pd);
+			mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+			mv.addObject("deviceList", deviceList);
+			mv.setViewName(deviceJsp);
+			return mv;
 		}
-		mv.addObject("pd", pd);
-		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
-		mv.addObject("deviceList", deviceList);
-		mv.setViewName(deviceJsp);
-		return mv;
-		
 	}
 	
 	
@@ -636,13 +231,11 @@ public class ConfigureController extends BaseController{
 		List<PageData> sensorList = configureService.getAllSensor(pd);
 		
 		int typeid = Integer.valueOf((String)pd.get("typeid"));
-		if(typeid==1||typeid==2){
+		if(typeid==1||typeid==2||typeid==6){
 			pd = configureService.getDeviceById(pd);
-			System.out.println("getDeviceById :name"+pd.get("name"));
 			
 		}else if(typeid==3||typeid==4||typeid==5){
 			pd = configureService.getGatewayAndBreakById(pd);
-			System.out.println("getGatewayById :name"+pd.get("name"));
 		}
 		mv.addObject("pd", pd);
 		mv.addObject("powerList",nPList);
@@ -691,7 +284,7 @@ public class ConfigureController extends BaseController{
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		int typeid = Integer.valueOf((String)pd.get("typeid"));
-		if(typeid==1||typeid==2){
+		if(typeid==1||typeid==2||typeid==6){
 			configureService.editDevice(pd);
 		}else if(typeid==3||typeid==4||typeid==5){
 			configureService.editGateway(pd);
@@ -710,13 +303,63 @@ public class ConfigureController extends BaseController{
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		int typeid = Integer.valueOf((String)pd.get("typeid"));
-		
-		System.out.println("typeid="+typeid);
-		if(typeid==1||typeid==2){
+		pd.put("userid", UserUtils.getUserid());
+		if(typeid==1||typeid==2||typeid==6){
 			configureService.createDevice(pd);
 		}else if(typeid==3||typeid==4||typeid==5){
 			configureService.createGateway(pd);
 			
+		}
+		mv.setViewName(saveRsultJsp);
+		return mv;
+	}
+	
+	/**从EXCEL导入到数据库
+	 * @param file
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/readExcel")
+	public ModelAndView readExcel(
+			@RequestParam(value="excel",required=false) MultipartFile file
+			) throws Exception{
+		
+		FHLOG.save(Jurisdiction.getUsername(), "从EXCEL导入到数据库");
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}
+		if (null != file && !file.isEmpty()) {
+			String filePath = PathUtil.getClasspath() + Const.FILEPATHFILE;								//文件上传路径
+			String fileName =  FileUpload.fileUp(file, filePath, "userexcel");							//执行上传
+			List<PageData> listPd = (List)ObjectExcelRead.readExcel(filePath, fileName, 2, 0, 0);		//执行读EXCEL操作,读出的数据导入List 2:从第3行开始；0:从第A列开始；0:第0个sheet
+
+			for(int i=0;i<listPd.size();i++){		
+				
+				int type = ConfigureUtils.getDeviceType(listPd.get(i).getString("var2"));
+				pd.put("number", this.get32UUID());										//ID
+				pd.put("name", listPd.get(i).getString("var0"));							//姓名
+				pd.put("vendor", listPd.get(i).getString("var1"));
+				pd.put("location", listPd.get(i).getString("var3"));
+				pd.put("coordinate", listPd.get(i).getString("var4"));
+				pd.put("polenumber", listPd.get(i).getString("var10"));
+				pd.put("password", listPd.get(i).getString("var11"));
+				pd.put("comment", listPd.get(i).getString("var12"));
+				pd.put("type", type);
+				if(type==1||type==2||type==6){
+					pd.put("mobile", listPd.get(i).getString("var5"));
+					pd.put("sensor", listPd.get(i).getString("var8"));
+					configureService.createDevice(pd);
+				}
+				if(type==3||type==4||type==5){
+					pd.put("power", listPd.get(i).getString("var6"));
+					pd.put("lamp", listPd.get(i).getString("var7"));
+					pd.put("pole", listPd.get(i).getString("var9"));
+					configureService.createGateway(pd);
+				}
+				
+			}
+			mv.addObject("msg","success");
 		}
 		mv.setViewName(saveRsultJsp);
 		return mv;

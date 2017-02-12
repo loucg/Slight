@@ -85,7 +85,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 
-					<form action="config/${msg}" name="Form" id="Form" method="post">
+					<form action="sensor/${msg}" name="Form" id="Form" method="post">
 						<input type="hidden" name="id" id="id" value="${pd.id}"/>
 						<input type="hidden" name="type" id="type" value="${pd.type}"/>
 						<div id="zhongxin" style="padding-top: 13px;">

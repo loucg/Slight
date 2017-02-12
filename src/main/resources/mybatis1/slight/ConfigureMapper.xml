@@ -70,7 +70,7 @@
 			AND name LIKE CONCAT(CONCAT('%', #{pd.name}),'%')
 		</if>
 		<if test="pd.vendor!=null and pd.vendor!=''">
-			AND vendor LIKE CONCAT(CONCAT('%', #{pd.vendor}, '%')
+			AND vendor LIKE CONCAT(CONCAT('%', #{pd.vendor}), '%')
 		</if>
 
 	</select>
@@ -200,10 +200,10 @@
 		<if test="pd.mobile!=null and pd.mobile!=''">
 			AND a.phone_number LIKE CONCAT(CONCAT('%', #{pd.mobile}), '%')
 		</if>
-		<if test="pd.type!=null or pd.type=''">
+		<if test="pd.type!=null and pd.type!=''">
 			AND a.type = #{pd.type, jdbcType=INTEGER}
 		</if>
-		<if test="pd.status!=null or pd.status=''">
+		<if test="pd.status!=null and pd.status!=''">
 			AND b.value = #{pd.status, jdbcType=INTEGER}
 		</if>
 	</select>
@@ -243,7 +243,7 @@
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
 		
-		WHERE a.b_user_id = #{pd.userid}
+		WHERE a.sys_user_id = #{pd.userid}
 		<if test="pd.number!=null and pd.number!=''">
 			AND b.client_code LIKE CONCAT(CONCAT('%', #{pd.number}),'%')
 		</if>
@@ -256,6 +256,9 @@
 			</if>
 			<if test="pd.itype!=null and pd.itype==2">
 				AND d.id = 2
+			</if>
+			<if test="pd.itype!=null and pd.itype==4">
+				AND d.id = 6
 			</if>
 		</if>
 		<if test="pd.type!=null and pd.type!=''">
@@ -278,7 +281,7 @@
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
 		
-		WHERE a.b_user_id = #{pd.userid}
+		WHERE a.sys_user_id = #{pd.userid}
 		<if test="pd.number!=null and pd.number!=''">
 			AND b.gateway_code LIKE CONCAT(CONCAT('%', #{pd.number}),'%')
 		</if>
@@ -286,12 +289,6 @@
 			AND a.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
 		</if>
 		<if test="pd.type==null or pd.type==''">
-			<if test="pd.itype!=null and pd.itype==1">
-				AND d.id = 1
-			</if>
-			<if test="pd.itype!=null and pd.itype==2">
-				AND d.id = 2
-			</if>
 			<if test="pd.itype!=null and pd.itype==3">
 				AND (d.id = 3 OR 4 OR 5)
 			</if>
@@ -370,7 +367,7 @@
 		c_client_attr1
 	</sql>
 	<sql id="clientAttr1Field">
-		c_client_id,name,password,c_client_type_id,location,coordinate,comment,staus,lamp_pole_num,b_user_id
+		c_client_id,name,password,c_client_type_id,location,coordinate,comment,staus,lamp_pole_num,sys_user_id
 	</sql>
 	<sql id="clientAttr1FieldValue">
 		#{id, jdbcType=BIGINT},#{name, jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{typeid,jdbcType=INTEGER},
@@ -425,7 +422,7 @@
 		c_gateway_attr1
 	</sql>
 	<sql id="gatewayAttr1Field">
-		c_gateway_id,name,password,c_gateway_type_id,location,coordinate,comment,staus,lamp_pole_num,b_user_id
+		c_gateway_id,name,password,c_gateway_type_id,location,coordinate,comment,staus,lamp_pole_num,sys_user_id
 	</sql>
 	<sql id="gatewayAttr1FieldValue">
 		#{id, jdbcType=BIGINT},#{name, jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{typeid,jdbcType=INTEGER},
