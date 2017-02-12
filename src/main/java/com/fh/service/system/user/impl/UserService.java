@@ -87,6 +87,16 @@ public class UserService implements UserManager{
 		return (List<PageData>) dao.findForList("UserMapper.userlistPage", page);
 	}
 	
+	/**帐号列表
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> listAccountsPage(Page page)throws Exception{
+		return (List<PageData>) dao.findForList("UserMapper.accountlistPage", page);
+	}
+	
 	/**用户列表(弹窗选择用)
 	 * @param page
 	 * @return
@@ -124,6 +134,24 @@ public class UserService implements UserManager{
 		return (PageData)dao.findForObject("UserMapper.findById", pd);
 	}
 	
+	/**通过id获取帐号
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findAccountById(PageData pd)throws Exception{
+		return (PageData)dao.findForObject("UserMapper.findAccountById", pd);
+	}
+	
+	/**通过username获取用户信息
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findUserInfoByUsername(PageData pd)throws Exception{
+		return (PageData)dao.findForObject("UserMapper.findUserInfoByUsername", pd);
+	}
+	
 	/**保存用户
 	 * @param pd
 	 * @throws Exception
@@ -138,6 +166,14 @@ public class UserService implements UserManager{
 	 */
 	public void editU(PageData pd)throws Exception{
 		dao.update("UserMapper.editU", pd);
+	}
+	
+	/**修改用户信息
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void editUserInfo(PageData pd)throws Exception{
+		dao.update("UserMapper.editUserInfo", pd);
 	}
 	
 	/**删除用户
@@ -173,6 +209,12 @@ public class UserService implements UserManager{
 		return (PageData)dao.findForObject("UserMapper.getUserCount", value);
 	}
 	
-	
+	/**重置密码
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void resetP(PageData pd)throws Exception{
+		dao.findForObject("UserMapper.resetP", pd);
+	}
 	
 }

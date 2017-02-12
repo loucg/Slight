@@ -60,6 +60,13 @@ public interface UserManager {
 	 */
 	public List<PageData> listUsers(Page page)throws Exception;
 	
+	/**帐号列表
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> listAccountsPage(Page page)throws Exception;
+	
 	/**用户列表(弹窗选择用)
 	 * @param page
 	 * @return
@@ -88,11 +95,31 @@ public interface UserManager {
 	 */
 	public PageData findById(PageData pd)throws Exception;
 	
+	/**通过id获取帐号
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findAccountById(PageData pd)throws Exception;
+	
+	/**通过username获取用户信息
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findUserInfoByUsername(PageData pd)throws Exception;
+	
 	/**修改用户
 	 * @param pd
 	 * @throws Exception
 	 */
 	public void editU(PageData pd)throws Exception;
+	
+	/**修改用户信息
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void editUserInfo(PageData pd)throws Exception;
 	
 	/**保存用户
 	 * @param pd
@@ -125,4 +152,9 @@ public interface UserManager {
 	 */
 	public PageData getUserCount(String value)throws Exception;
 	
+	/**重置密码
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void resetP(PageData pd)throws Exception;
 }
