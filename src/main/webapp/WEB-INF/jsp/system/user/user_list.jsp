@@ -81,18 +81,17 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
+									<th class="center" style="width:35px;">
+									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
+									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">公司名称</th>
-									<th class="center">部门名称</th>
-									<th class="center">登录名</th>
+									<th class="center">编号</th>
+									<th class="center">用户名</th>
 									<th class="center">姓名</th>
-									<th class="center">位置</th>
-									<th class="center">手机号码</th>
-									<th class="center">邮箱</th>
-									<th class="center">职务</th>
-									<th class="center">语言</th>
 									<th class="center">角色</th>
-									<th class="center">状态</th>
+									<th class="center"><i class="ace-icon fa fa-envelope-o"></i>邮箱</th>
+									<th class="center"><i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>最近登录</th>
+									<th class="center">上次登录IP</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -106,23 +105,33 @@
 									<c:forEach items="${userList}" var="user" varStatus="vs">
 												
 										<tr>
+											<td class='center' style="width: 30px;">
+												<c:if test="${user.USERNAME != 'admin'}"><label><input type='checkbox' name='ids' value="${user.USER_ID }" id="${user.EMAIL }" alt="${user.PHONE }" title="${user.USERNAME }" class="ace"/><span class="lbl"></span></label></c:if>
+												<c:if test="${user.USERNAME == 'admin'}"><label><input type='checkbox' disabled="disabled" class="ace" /><span class="lbl"></span></label></c:if>
+											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class="center">${user.COMPANY }</td>
-											<td class="center">${user.DEPARTMENT }</td>
+											<td class="center">${user.NUMBER }</td>
 											<td class="center"><a onclick="viewUser('${user.USERNAME}')" style="cursor:pointer;">${user.USERNAME }</a></td>
 											<td class="center">${user.NAME }</td>
-											<td class="center">${user.ADDRESS }</td>
-											<td class="center">${user.PHONE }</td>
-											<td class="center"><%-- <a title="发送电子邮件" style="text-decoration:none;cursor:pointer;" <c:if test="${QX.email == 1 }">onclick="sendEmail('${user.EMAIL }');"</c:if>> --%>${user.EMAIL }<!-- &nbsp;<i class="ace-icon fa fa-envelope-o"></i></a> --></td>
-											<td class="center">${user.POSITION }</td>
-											<td class="center">${user.LANGUAGE}</td>
 											<td class="center">${user.ROLE_NAME }</td>
-											<td class="center">${user.STATUSNAME}</td>
+											<td class="center"><a title="发送电子邮件" style="text-decoration:none;cursor:pointer;" <c:if test="${QX.email == 1 }">onclick="sendEmail('${user.EMAIL }');"</c:if>>${user.EMAIL }&nbsp;<i class="ace-icon fa fa-envelope-o"></i></a></td>
+											<td class="center">${user.LAST_LOGIN}</td>
+											<td class="center">${user.IP}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
+													<c:if test="${QX.FHSMS == 1 }">
+													<a class="btn btn-xs btn-info" title='发送站内信' onclick="sendFhsms('${user.USERNAME }');">
+														<i class="ace-icon fa fa-envelope-o bigger-120" title="发送站内信"></i>
+													</a>
+													</c:if>
+													<c:if test="${QX.sms == 1 }">
+													<a class="btn btn-xs btn-warning" title='发送短信' onclick="sendSms('${user.PHONE }');">
+														<i class="ace-icon fa fa-envelope-o bigger-120" title="发送短信"></i>
+													</a>
+													</c:if>
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" title="编辑" onclick="editUser('${user.USER_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>

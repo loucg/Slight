@@ -119,7 +119,7 @@ public class UserInfoController extends BaseController {
 			pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());
 		}
 		userService.editUserInfo(pd);	//执行修改
-		FHLOG.save(Jurisdiction.getUsername(), "修改系统用户："+pd.getString("USERNAME"));
+		FHLOG.save(Jurisdiction.getUsername(), "修改用户信息："+pd.getString("USERNAME"));
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
