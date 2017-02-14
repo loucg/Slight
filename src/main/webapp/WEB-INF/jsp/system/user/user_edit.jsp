@@ -47,40 +47,36 @@
 											<input name="ROLE_ID" id="role_id" value="${pd.ROLE_ID }" type="hidden" />
 										</c:if>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">用户名:</td>
+											<td style="width:79px;text-align: right;padding-top: 13px;">登录名:</td>
 											<td><input type="text" name="USERNAME" id="loginname" value="${pd.USERNAME }" maxlength="32" placeholder="这里输入用户名" title="用户名" style="width:98%;"/></td>
 										</tr>
-										<tr>
+										<%-- <tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">编号:</td>
 											<td><input type="text" name="NUMBER" id="NUMBER" value="${pd.NUMBER }" maxlength="32" placeholder="这里输入编号" title="编号" onblur="hasN('${pd.USERNAME }')" style="width:98%;"/></td>
+										</tr> --%>
+										<tr>
+											<td style="width:79px;text-align: right;padding-top: 13px;">原始密码:</td>
+											<td><input type="password" name="OLDPASSWORD" id="oldpassword"  maxlength="32" placeholder="原始密码" title="原始密码" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">密码:</td>
-											<td><input type="password" name="PASSWORD" id="password"  maxlength="32" placeholder="输入密码" title="密码" style="width:98%;"/></td>
-										</tr>
-										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">确认密码:</td>
-											<td><input type="password" name="chkpwd" id="chkpwd"  maxlength="32" placeholder="确认密码" title="确认密码" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 13px;">新密码:</td>
+											<td><input type="password" name="NEWPASSWORD" id="newpassword"  maxlength="32" placeholder="新密码" title="新密码密码" style="width:98%;"/></td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">姓名:</td>
 											<td><input type="text" name="NAME" id="name"  value="${pd.NAME }"  maxlength="32" placeholder="这里输入姓名" title="姓名" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">手机号:</td>
+											<td style="width:79px;text-align: right;padding-top: 13px;">手机号*:</td>
 											<td><input type="number" name="PHONE" id="PHONE"  value="${pd.PHONE }"  maxlength="32" placeholder="这里输入手机号" title="手机号" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">邮箱:</td>
+											<td style="width:79px;text-align: right;padding-top: 13px;">EMAIL:</td>
 											<td><input type="email" name="EMAIL" id="EMAIL"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" onblur="hasE('${pd.USERNAME }')" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">备注:</td>
-											<td><input type="text" name="BZ" id="BZ"value="${pd.BZ }" placeholder="这里输入备注" maxlength="64" title="备注" style="width:98%;"/></td>
-										</tr>
-										<tr>
 											<td style="text-align: center;" colspan="10">
-												<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
+												<a class="btn btn-mini btn-primary" onclick="save(${pd.oldpassword});">保存</a>
 												<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
 											</td>
 										</tr>
@@ -119,7 +115,7 @@
 		}
 	});
 	//保存
-	function save(){
+	function save(var oldpassword){
 		if($("#role_id").val()==""){
 			$("#juese").tips({
 				side:3,
@@ -145,7 +141,7 @@
 			$("#loginname").val(jQuery.trim($('#loginname').val()));
 		}
 		
-		if($("#NUMBER").val()==""){
+		/* if($("#NUMBER").val()==""){
 			$("#NUMBER").tips({
 				side:3,
 	            msg:'输入编号',
@@ -156,8 +152,8 @@
 			return false;
 		}else{
 			$("#NUMBER").val($.trim($("#NUMBER").val()));
-		}
-		if($("#user_id").val()=="" && $("#password").val()==""){
+		} */
+		/* if($("#user_id").val()=="" && $("#password").val()==""){
 			$("#password").tips({
 				side:3,
 	            msg:'输入密码',
@@ -166,16 +162,16 @@
 	        });
 			$("#password").focus();
 			return false;
-		}
-		if($("#password").val()!=$("#chkpwd").val()){
+		} */
+		if($("#oldpassword").val()!=$("#chkpwd").val()){
 			
-			$("#chkpwd").tips({
+			$("#oldpassword").tips({
 				side:3,
-	            msg:'两次密码不相同',
+	            msg:'原始密码错误',
 	            bg:'#AE81FF',
 	            time:3
 	        });
-			$("#chkpwd").focus();
+			$("#oldpassword").focus();
 			return false;
 		}
 		if($("#name").val()==""){
@@ -209,7 +205,7 @@
 			$("#PHONE").focus();
 			return false;
 		}
-		if($("#EMAIL").val()==""){
+		/* if($("#EMAIL").val()==""){
 			
 			$("#EMAIL").tips({
 				side:3,
@@ -228,7 +224,7 @@
 	        });
 			$("#EMAIL").focus();
 			return false;
-		}
+		} */
 		if($("#user_id").val()==""){
 			hasU();
 		}else{

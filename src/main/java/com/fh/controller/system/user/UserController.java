@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -27,6 +28,7 @@ import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.system.Department;
 import com.fh.entity.system.Role;
+import com.fh.entity.system.User;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.menu.MenuManager;
@@ -39,8 +41,8 @@ import com.fh.util.FileUpload;
 import com.fh.util.GetPinyin;
 import com.fh.util.Jurisdiction;
 import com.fh.util.ObjectExcelRead;
-import com.fh.util.PageData;
 import com.fh.util.ObjectExcelView;
+import com.fh.util.PageData;
 import com.fh.util.PathUtil;
 import com.fh.util.Tools;
 
@@ -270,7 +272,11 @@ public class UserController extends BaseController {
 		pd.put("ROLE_ID", "1");
 		List<Role> roleList = roleService.listAllRolesByPId(pd);	//列出所有系统用户角色
 		pd.put("USERNAME", Jurisdiction.getUsername());
+		Session session = Jurisdiction.getSession();
+		User user = (User)session.getAttribute(Const.SESSION_USER);
+		String password = user.getPASSWORD();
 		pd = userService.findByUsername(pd);						//根据用户名读取
+		pd.put("oldpassword", password);
 		mv.setViewName("system/user/user_edit");
 		mv.addObject("msg", "editU");
 		mv.addObject("pd", pd);
@@ -335,8 +341,8 @@ public class UserController extends BaseController {
 		}else{	//如果当前登录用户修改用户资料提交的用户名是本人，则不能修改本人的角色ID
 			pd.put("ROLE_ID", userService.findByUsername(pd).getString("ROLE_ID")); //对角色ID还原本人角色ID
 		}
-		if(pd.getString("PASSWORD") != null && !"".equals(pd.getString("PASSWORD"))){
-			pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());
+		if(pd.getString("NEWPASSWORD") != null && !"".equals(pd.getString("NEWPASSWORD"))){
+			pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("NEWPASSWORD")).toString());
 		}
 		userService.editU(pd);	//执行修改
 		FHLOG.save(Jurisdiction.getUsername(), "修改系统用户："+pd.getString("USERNAME"));

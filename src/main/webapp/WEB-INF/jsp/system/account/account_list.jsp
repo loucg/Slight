@@ -34,24 +34,14 @@
 						<form action="account/listAccounts.do" method="post" name="userForm" id="userForm">
 						<table style="margin-top:5px;">
 							<tr>
-							    <!--
-							    <td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="COMPANEY_ID" id="companey_id" data-placeholder="请选择公司" style="vertical-align:top;width: 120px;">
+								<td>
+							    <select class="chosen-select form-control" name="company" id="company" data-placeholder="请选择公司" style="vertical-align:top;width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
 									<c:forEach items="${companyList}" var="company">
-										<option value="${company.COMPANY }">${company.NAME }</option>
+										<option value="${company.COMPANY }" <c:if test="${pd.company==company.COMPANY}">selected="selected"</c:if>>${company.NAME }</option>
 									</c:forEach>
 								  	</select>
-								</td>
-								-->
-								<td>
-									<div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="companyName" value="${pd.companyName }" placeholder="公司" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
-									</div>
 								</td>
 								<td>
 									<div class="nav-search">
@@ -152,61 +142,7 @@
 													</a>
 													-->
 													</c:if>
-													<!--
-													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="delUser('${user.USER_ID }','${user.USERNAME }');">
-														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
-													</a>
-													</c:if>
-													-->
 												</div>
-												<!--
-												<div class="hidden-md hidden-lg">
-													<div class="inline pos-rel">
-														<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-															<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-														</button>
-														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-															<c:if test="${QX.FHSMS == 1 }">
-															<li>
-																<a style="cursor:pointer;" onclick="sendFhsms('${user.USERNAME }');" class="tooltip-info" data-rel="tooltip" title="发送站内信">
-																	<span class="blue">
-																		<i class="ace-icon fa fa-envelope bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-															</c:if>
-															<c:if test="${QX.sms == 1 }">
-															<li>
-																<a style="cursor:pointer;" onclick="sendSms('${user.PHONE }');" class="tooltip-success" data-rel="tooltip" title="发送短信">
-																	<span class="blue">
-																		<i class="ace-icon fa fa-envelope-o bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-															</c:if>
-															<c:if test="${QX.edit == 1 }">
-															<li>
-																<a style="cursor:pointer;" onclick="editUser('${user.USER_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
-																	<span class="green">
-																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-															</c:if>
-															<c:if test="${QX.del == 1 }">
-															<li>
-																<a style="cursor:pointer;" onclick="delUser('${user.USER_ID }','${user.USERNAME }');" class="tooltip-error" data-rel="tooltip" title="删除">
-																	<span class="red">
-																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-															</c:if>
-														</ul>
-													</div>
-												</div>
-												-->
 											</td>
 										</tr>
 									

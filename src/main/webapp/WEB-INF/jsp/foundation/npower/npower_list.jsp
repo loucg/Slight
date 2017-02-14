@@ -83,16 +83,13 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${nPowerList}" var="npower" varStatus="vs">
 										<tr>
-											<%-- <td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${npower.id}" class="ace" /><span class="lbl"></span></label>
-											</td> --%>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${npower.name}</td>
 											<td class='center'>${npower.vendor}</td>
 											<td style="width: 60px;" class="center">
-														<c:if test="${npower.type == '1' }"><span class="label label-important arrowed-in">系统</span></c:if>
-														<c:if test="${npower.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
-													</td>
+												<c:if test="${npower.type == '1' }"><span class="label label-important arrowed-in">系统</span></c:if>
+												<c:if test="${npower.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
+											</td>
 											<td class='center'>${npower.power}</td>
 											<td class='center'>${npower.comment}</td>
 											<td class="center" style="width:100px;">

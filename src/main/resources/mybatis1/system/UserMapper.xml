@@ -291,11 +291,8 @@
 		<!-- 超级管理员账号无法修改 -->
 		where u.USERNAME != 'admin'
 		and r.PARENT_ID = '1'
-		<if test="pd.companyName != null and pd.companyName != ''"><!-- 公司检索 -->
-			and
-				(
-					 m.NAME LIKE CONCAT(CONCAT('%', #{pd.companyName}),'%')
-				)
+		<if test="pd.company != null and pd.company != ''"><!-- 公司检索 -->
+			and m.id = #{pd.company}
 		</if>
 		<if test="pd.name!= null and pd.name != ''"><!-- 姓名检索 -->
 			and

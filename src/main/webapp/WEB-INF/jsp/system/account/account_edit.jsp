@@ -35,7 +35,14 @@
 										</c:if>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">公司名称:</td>
-											<td><input type="text" name="COMPANY" id="company" value="${pd.COMPANY }" maxlength="32" placeholder="这里输入公司名称" title="公司名称" style="width:98%;"/></td>
+											<td id="gongsi">
+											<select class="chosen-select form-control" name="company" id="company" data-placeholder="请选择公司" style="vertical-align:top;" style="width:98%;" >
+											<option value=""></option>
+											<c:forEach items="${companyList}" var="company">
+												<option value="${company.COMPANY}" <c:if test="${company.COMPANY == pd.company }">selected</c:if>>${company.NAME}</option>
+											</c:forEach>
+											</select>
+											</td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">部门名称:</td>

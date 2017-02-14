@@ -36,14 +36,6 @@ import com.fh.util.Tools;
 @RequestMapping("/config")
 public class ConfigureController extends BaseController{
 	
-	private static final int NPOWER = 1;
-	private static final int LAMP = 2;
-	private static final int POLE = 3;
-	private static final int SENSOR = 4;
-	private static final int SIM = 5;
-	private static final int DEVICE = 6;
-	private static final int GATEWAY = 7;
-	
 	String menuUrl = "config/getNPowerList"; //菜单地址(权限用)
 	
 	

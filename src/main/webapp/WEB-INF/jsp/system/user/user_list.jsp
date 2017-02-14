@@ -36,44 +36,44 @@
 						<table style="margin-top:5px;">
 							<tr>
 							<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="COMPANEY_ID" id="companey_id" data-placeholder="请选择公司" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<c:forEach items="${companyList}" var="company">
-										<option value="${company.COMPANY }" <c:if test="${pd.COMPANY==company.COMPANY}">selected="selected"</c:if>>${company.NAME }</option>
-									</c:forEach>
-								  	</select>
-								</td>
-								<td>
-									<div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }" placeholder="姓名" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
-									</div>
-								</td>
-								<td>
-									<div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="username" value="${pd.username }" placeholder="用户名" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
-									</div>
-								</td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<c:forEach items="${roleList}" var="role">
-										<option value="${role.ROLE_ID }" <c:if test="${pd.ROLE_ID_SELECT==role.ROLE_ID}">selected="selected"</c:if>>${role.ROLE_NAME }</option>
-									</c:forEach>
-								  	</select>
-								</td>
-								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
-								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
-								</c:if>
+							 	<select class="chosen-select form-control" name="COMPANEY_ID" id="companey_id" data-placeholder="请选择公司" style="vertical-align:top;width: 120px;">
+								<option value=""></option>
+								<option value="">全部</option>
+								<c:forEach items="${companyList}" var="company">
+									<option value="${company.COMPANY }" <c:if test="${pd.COMPANY==company.COMPANY}">selected="selected"</c:if>>${company.NAME }</option>
+								</c:forEach>
+							  	</select>
+							</td>
+							<td>
+								<div class="nav-search">
+								<span class="input-icon">
+									<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }" placeholder="姓名" />
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+								</div>
+							</td>
+							<td>
+								<div class="nav-search">
+								<span class="input-icon">
+									<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="username" value="${pd.username }" placeholder="用户名" />
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+								</div>
+							</td>
+							<td style="vertical-align:top;padding-left:2px;">
+							 	<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="vertical-align:top;width: 120px;">
+								<option value=""></option>
+								<option value="">全部</option>
+								<c:forEach items="${roleList}" var="role">
+									<option value="${role.ROLE_ID }" <c:if test="${pd.ROLE_ID_SELECT==role.ROLE_ID}">selected="selected"</c:if>>${role.ROLE_NAME }</option>
+								</c:forEach>
+							  	</select>
+							</td>
+							<c:if test="${QX.cha == 1 }">
+							<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+							<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
+							<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
+							</c:if>
 							</tr>
 						</table>
 						<!-- 检索  -->
