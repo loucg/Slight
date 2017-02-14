@@ -35,37 +35,22 @@
 						<form action="user/listUsers.do" method="post" name="userForm" id="userForm">
 						<table style="margin-top:5px;">
 							<tr>
-							<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="COMPANEY_ID" id="companey_id" data-placeholder="请选择公司" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<c:forEach items="${companyList}" var="company">
-										<option value="${company.COMPANY }" <c:if test="${pd.COMPANY==company.COMPANY}">selected="selected"</c:if>>${company.NAME }</option>
-									</c:forEach>
-								  	</select>
-								</td>
 								<td>
 									<div class="nav-search">
 									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }" placeholder="姓名" />
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="keywords" value="${pd.keywords }" placeholder="这里输入关键词" />
 										<i class="ace-icon fa fa-search nav-search-icon"></i>
 									</span>
 									</div>
 								</td>
-								<td>
-									<div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="username" value="${pd.username }" placeholder="用户名" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
-									</div>
-								</td>
+								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastLoginStart" id="lastLoginStart"  value="${pd.lastLoginStart}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="最近登录开始"/></td>
+								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastLoginEnd" name="lastLoginEnd"  value="${pd.lastLoginEnd}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="最近登录结束"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
 								 	<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="vertical-align:top;width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
 									<c:forEach items="${roleList}" var="role">
-										<option value="${role.ROLE_ID }" <c:if test="${pd.ROLE_ID_SELECT==role.ROLE_ID}">selected="selected"</c:if>>${role.ROLE_NAME }</option>
+										<option value="${role.ROLE_ID }" <c:if test="${pd.ROLE_ID==role.ROLE_ID}">selected</c:if>>${role.ROLE_NAME }</option>
 									</c:forEach>
 								  	</select>
 								</td>
@@ -81,18 +66,17 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
+									<th class="center" style="width:35px;">
+									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
+									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">公司名称</th>
-									<th class="center">部门名称</th>
-									<th class="center">登录名</th>
+									<th class="center">编号</th>
+									<th class="center">用户名</th>
 									<th class="center">姓名</th>
-									<th class="center">位置</th>
-									<th class="center">手机号码</th>
-									<th class="center">邮箱</th>
-									<th class="center">职务</th>
-									<th class="center">语言</th>
 									<th class="center">角色</th>
-									<th class="center">状态</th>
+									<th class="center"><i class="ace-icon fa fa-envelope-o"></i>邮箱</th>
+									<th class="center"><i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>最近登录</th>
+									<th class="center">上次登录IP</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -106,23 +90,33 @@
 									<c:forEach items="${userList}" var="user" varStatus="vs">
 												
 										<tr>
+											<td class='center' style="width: 30px;">
+												<c:if test="${user.USERNAME != 'admin'}"><label><input type='checkbox' name='ids' value="${user.USER_ID }" id="${user.EMAIL }" alt="${user.PHONE }" title="${user.USERNAME }" class="ace"/><span class="lbl"></span></label></c:if>
+												<c:if test="${user.USERNAME == 'admin'}"><label><input type='checkbox' disabled="disabled" class="ace" /><span class="lbl"></span></label></c:if>
+											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class="center">${user.COMPANY }</td>
-											<td class="center">${user.DEPARTMENT }</td>
+											<td class="center">${user.NUMBER }</td>
 											<td class="center"><a onclick="viewUser('${user.USERNAME}')" style="cursor:pointer;">${user.USERNAME }</a></td>
 											<td class="center">${user.NAME }</td>
-											<td class="center">${user.ADDRESS }</td>
-											<td class="center">${user.PHONE }</td>
-											<td class="center"><%-- <a title="发送电子邮件" style="text-decoration:none;cursor:pointer;" <c:if test="${QX.email == 1 }">onclick="sendEmail('${user.EMAIL }');"</c:if>> --%>${user.EMAIL }<!-- &nbsp;<i class="ace-icon fa fa-envelope-o"></i></a> --></td>
-											<td class="center">${user.POSITION }</td>
-											<td class="center">${user.LANGUAGE}</td>
 											<td class="center">${user.ROLE_NAME }</td>
-											<td class="center">${user.STATUSNAME}</td>
+											<td class="center"><a title="发送电子邮件" style="text-decoration:none;cursor:pointer;" <c:if test="${QX.email == 1 }">onclick="sendEmail('${user.EMAIL }');"</c:if>>${user.EMAIL }&nbsp;<i class="ace-icon fa fa-envelope-o"></i></a></td>
+											<td class="center">${user.LAST_LOGIN}</td>
+											<td class="center">${user.IP}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
+													<c:if test="${QX.FHSMS == 1 }">
+													<a class="btn btn-xs btn-info" title='发送站内信' onclick="sendFhsms('${user.USERNAME }');">
+														<i class="ace-icon fa fa-envelope-o bigger-120" title="发送站内信"></i>
+													</a>
+													</c:if>
+													<c:if test="${QX.sms == 1 }">
+													<a class="btn btn-xs btn-warning" title='发送短信' onclick="sendSms('${user.PHONE }');">
+														<i class="ace-icon fa fa-envelope-o bigger-120" title="发送短信"></i>
+													</a>
+													</c:if>
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" title="编辑" onclick="editUser('${user.USER_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
