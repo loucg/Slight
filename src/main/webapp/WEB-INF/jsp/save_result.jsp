@@ -24,7 +24,12 @@
 		if(msg=="success" || msg==""){
 			document.getElementById('zhongxin').style.display = 'none';
 			top.Dialog.close();
-		}else{
+		}else if(msg=="errorPassword"){
+			document.getElementById('zhongxin').style.display = 'none';
+			alert("原始密码错误！");
+			top.Dialog.close();
+		}
+		else{
 			top.Dialog.close();
 		}
 	</script>

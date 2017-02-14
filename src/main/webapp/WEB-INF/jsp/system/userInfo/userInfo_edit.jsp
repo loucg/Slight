@@ -35,8 +35,12 @@
 											<td><input type="text" name="USERNAME" id="username" value="${pd.USERNAME }" maxlength="32" placeholder="这里输入登录名" title="登录名" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">密码:</td>
-											<td><input type="password" name="PASSWORD" id="password"  maxlength="32" placeholder="输入密码，为空时表示不修改" title="密码" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 13px;">原始密码:</td>
+											<td><input type="text" name="OLDPASSWORD" id="oldPassword"  maxlength="32" placeholder="输入原始密码，不修改密码无需输入" title="原始密码" style="width:98%;"/></td>
+										</tr>
+										<tr>
+											<td style="width:79px;text-align: right;padding-top: 13px;">新密码:</td>
+											<td><input type="text" name="NEWPASSWORD" id="newPassword"  maxlength="32" placeholder="输入新密码，为空时表示不修改" title="新密码" style="width:98%;"/></td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">姓名:</td>
@@ -150,6 +154,18 @@
 			return false;
 		}
 		*/
+		
+		if($("#newPassword").val()!="" && $("#oldPassword").val() == ""){ //当用户输入新密码而原始密码为空时
+			$("#oldPassword").tips({
+				side:3,
+	            msg:'输入原始密码',
+	            bg:'#AE81FF',
+	            time:2
+	        });
+			$("#oldPassword").focus();
+			return false;
+		}
+		
 		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,

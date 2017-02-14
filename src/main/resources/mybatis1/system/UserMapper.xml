@@ -495,8 +495,8 @@
 			    EMAIL					= #{EMAIL},
 			    ADDRESS					= #{ADDRESS},
 				LANGUAGE				= #{LANGUAGE_ID}
-			<if test="PASSWORD != null and PASSWORD != ''"><!-- 当密码为空时不修改 -->
-				,PASSWORD				= #{PASSWORD}
+			<if test="NEWPASSWORD != null and NEWPASSWORD != ''"><!-- 当密码为空时不修改 -->
+				,PASSWORD				= #{NEWPASSWORD}
 			</if>
 			where 
 				USER_ID = #{USER_ID}
