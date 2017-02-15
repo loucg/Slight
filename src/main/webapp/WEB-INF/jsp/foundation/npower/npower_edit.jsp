@@ -34,7 +34,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 					
-					<form action="exportExcel/${msg}" name="npowerForm" id="npowerForm" method="post">
+					<form action="npower/${msg}" name="npowerForm" id="npowerForm" method="post">
 						<input type="hidden" value="no" id="hasTp1" />
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">

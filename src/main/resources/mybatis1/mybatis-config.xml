@@ -17,7 +17,7 @@
 		<typeAlias type="com.fh.entity.system.Department" alias="Department"/>
 		<typeAlias type="com.fh.entity.system.Language" alias="Language"/>
 		<typeAlias type="com.fh.entity.system.Status" alias="Status"/>
-		<!-- <typeAlias type="com.fh.entity.system.Strategy" alias="Strategy"/> -->
+		<typeAlias type="com.fh.entity.system.Strategy" alias="Strategy"/>
 		
 		<!-- 这里添加生成的实体类 -->
 		<typeAlias type="com.fh.util.PageData" alias="pd"/>

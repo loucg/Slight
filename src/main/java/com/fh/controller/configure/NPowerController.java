@@ -109,7 +109,6 @@ public class NPowerController extends BaseController{
 	 */
 	@RequestMapping("/editNPower")
 	public ModelAndView editNPower() throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -127,7 +126,6 @@ public class NPowerController extends BaseController{
 	 */
 	@RequestMapping("/createNPower")
 	public ModelAndView createNPower() throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
