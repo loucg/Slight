@@ -172,18 +172,9 @@ public class AccountController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		if(!Jurisdiction.getUsername().equals(pd.getString("USERNAME"))){		//如果当前登录用户修改用户资料提交的用户名非本人
-			if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}  //校验权限 判断当前操作者有无用户管理查看权限
-			if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限判断当前操作者有无用户管理修改权限
-			if("admin".equals(pd.getString("USERNAME")) && !"admin".equals(Jurisdiction.getUsername())){return null;}	//非admin用户不能修改admin
-		}else{	//如果当前登录用户修改用户资料提交的用户名是本人，则不能修改本人的角色ID
-			pd.put("ROLE_ID", userService.findByUsername(pd).getString("ROLE_ID")); //对角色ID还原本人角色ID
-		}
-		if(pd.getString("PASSWORD") != null && !"".equals(pd.getString("PASSWORD"))){
-			pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());
-		}
-		userService.editU(pd);	//执行修改
-		FHLOG.save(Jurisdiction.getUsername(), "修改系统用户："+pd.getString("USERNAME"));
+		userService.editA(pd);	//执行账户修改
+		userService.editAccountP(pd);	//执行账户职务修改
+		FHLOG.save(Jurisdiction.getUsername(), "修改帐号："+pd.getString("USERNAME"));
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -228,13 +219,16 @@ public class AccountController extends BaseController {
 		pd.put("USER_ID", this.get32UUID());	//ID 主键
 		pd.put("LAST_LOGIN", "");				//最后登录时间
 		pd.put("IP", "");						//IP
-		pd.put("STATUS", "0");					//状态
+		pd.put("BZ", "");						//备注
+		pd.put("NUMBER", "");					//编号
 		pd.put("SKIN", "default");
 		pd.put("RIGHTS", "");		
-		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//密码加密
+		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), "cba#321").toString());	//密码加密
+		pd.put("DEPARTMENT_ID", "1");
 		if(null == userService.findByUsername(pd)){	//判断用户名是否存在
-			userService.saveU(pd); 					//执行保存
-			FHLOG.save(Jurisdiction.getUsername(), "新增系统用户："+pd.getString("USERNAME"));
+			userService.saveA(pd); 					//执行帐号保存
+			userService.saveAccountP(pd); 			//执行帐号职务保存
+			FHLOG.save(Jurisdiction.getUsername(), "新增帐号："+pd.getString("USERNAME"));
 			mv.addObject("msg","success");
 		}else{
 			mv.addObject("msg","failed");
