@@ -64,7 +64,7 @@
 										<option value="3" <c:if test="${pd.status==3}">selected</c:if>>正常</option>
 										<option value="4" <c:if test="${pd.status==4}">selected</c:if>>欠费</option>
 										<option value="5" <c:if test="${pd.status==5}">selected</c:if>>停机</option>
-										<option value="6" <c:if test="${pd.status==6}">selected</c:if>>消号</option>
+										<option value="6" <c:if test="${pd.status==6}">selected</c:if>>销号</option>
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">

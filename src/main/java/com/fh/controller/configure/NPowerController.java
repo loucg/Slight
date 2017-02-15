@@ -176,8 +176,9 @@ public class NPowerController extends BaseController{
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}
 		if (null != file && !file.isEmpty()) {
 			String filePath = PathUtil.getClasspath() + Const.FILEPATHFILE;								//文件上传路径
-			System.out.println("filePath: "+filePath);
-			String fileName =  FileUpload.fileUp(file, filePath, "npower");	
+			
+			String fileName =  FileUpload.fileUp(file, filePath, "npower");
+			System.out.println("filename: "+fileName);
 			//执行上传
 			List<PageData> listPd = (List)ObjectExcelRead.readExcel(filePath, fileName, 2, 0, 0);		//执行读EXCEL操作,读出的数据导入List 2:从第3行开始；0:从第A列开始；0:第0个sheet
 			for(int i=0;i<listPd.size();i++){		

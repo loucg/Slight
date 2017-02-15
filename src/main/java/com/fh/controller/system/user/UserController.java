@@ -272,11 +272,7 @@ public class UserController extends BaseController {
 		pd.put("ROLE_ID", "1");
 		List<Role> roleList = roleService.listAllRolesByPId(pd);	//列出所有系统用户角色
 		pd.put("USERNAME", Jurisdiction.getUsername());
-		Session session = Jurisdiction.getSession();
-		User user = (User)session.getAttribute(Const.SESSION_USER);
-		String password = user.getPASSWORD();
 		pd = userService.findByUsername(pd);						//根据用户名读取
-		pd.put("oldpassword", password);
 		mv.setViewName("system/user/user_edit");
 		mv.addObject("msg", "editU");
 		mv.addObject("pd", pd);

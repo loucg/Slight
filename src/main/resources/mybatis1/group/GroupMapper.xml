@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GroupMapper">
+	
+	<!-- 表名 -->
+	<sql id="tableName">c_term</sql>
+	<sql id="statusTableName">b_status</sql>
+	<sql id="ctTableName">c_client_term</sql>
+	<sql id="clientTableName">c_client</sql>
+	<sql id="clientattr1TableName">c_client_attr1</sql>
+	<sql id="clientattr2TableName">c_client_attr2</sql>
+	<sql id="lampTableName">c_lamp_type</sql>
+	<sql id="powerTableName">c_power_type</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		name,
+		c_term.explain,
+		status,
+		sys_user_id,
+		b_ctrl_strategy_id
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{name},
+		#{explain},
+		#{status},
+		#{sys_user_id},
+		#{b_ctrl_strategy_id}
+	</sql>
+	
+	
+	<select id="grouplistPage" parameterType="page" resultType="pd">
+	    SELECT
+	  	c_term.id,
+		c_term.`name`,
+		c_term.`explain`,
+		b_status.`name` STATUS,
+		COUNT(c_client_id) number 
+		FROM
+		c_term
+		LEFT JOIN
+		b_status
+		ON
+		c_term.`status` = b_status.`value`
+		AND
+		b_status.b_status_main_id = 1
+		LEFT JOIN
+		c_client_term
+		ON
+		c_term.id = c_term_id
+		WHERE 1=1
+		AND
+		c_term.sys_user_id = #{pd.sys_user_id}
+		 <if test="pd.name!=null and pd.name!=''">
+			and 
+			(
+				c_term.name LIKE CONCAT(CONCAT('%', #{pd.name}),'%')
+			)
+		</if>
+		<if test="pd.explain!=null and pd.explain!=''">
+			and 
+			(
+				c_term.explain LIKE CONCAT(CONCAT('%', #{pd.explain}),'%')
+			)
+		</if> 
+		GROUP BY
+		c_term.id
+	</select>
+
+	<!-- 通过c_term.id获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd" >
+		SELECT
+	  	c_term.id,
+		c_term.`name`,
+		c_term.`explain`,
+		c_term.`status`
+		FROM
+		c_term
+		WHERE 
+		c_term.id = #{id}
+		
+	</select>	
+	
+	<!-- 新增分组 -->
+ 	<insert id="saveGroup" parameterType="pd" >
+		insert into <include refid="tableName"></include> (
+			<include refid="Field"></include>
+		) values (
+			<include refid="FieldValue"></include>
+		)
+	</insert>
+
+	<!-- 修改分组 -->
+	<update id="editGroup" parameterType="pd" >
+		update c_term
+		LEFT JOIN c_client_attr1
+		ON
+		c_client_attr1.c_client_id
+		IN
+		(SELECT
+		c_client_term.c_client_id
+		FROM
+		c_client_term
+		WHERE
+		c_client_term.c_term_id = c_term.id
+		) 
+			set 
+				c_term.name 		        = #{name},
+				c_term.explain 			    = #{explain},
+				c_term.status				= #{status},
+				c_term.sys_user_id			= #{sys_user_id},
+				c_client_attr1.staus		= #{status}
+			where 
+				c_term.id = #{id}
+	</update>
+	
+	
+</mapper>

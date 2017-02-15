@@ -26,7 +26,7 @@ public class ConfigureUtils {
 		for(int i=0;i<status.length;i++){
 			if(string.equals(status[i])){
 				
-				return i+"";
+				return i+1+"";
 			}
 		}
 		return "";

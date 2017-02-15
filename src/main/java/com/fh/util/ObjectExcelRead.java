@@ -37,7 +37,6 @@ public class ObjectExcelRead {
 			HSSFSheet sheet = wb.getSheetAt(sheetnum); 					//sheet 从0开始
 			int rowNum = sheet.getLastRowNum() + 1; 					//取得最后一行的行号
 			for (int i = startrow; i < rowNum; i++) {					//行循环开始
-				
 				PageData varpd = new PageData();
 				HSSFRow row = sheet.getRow(i); 							//行
 				int cellNum = row.getLastCellNum(); 					//每行的最后一个单元格位置
@@ -84,4 +83,5 @@ public class ObjectExcelRead {
 		
 		return varList;
 	}
+
 }
