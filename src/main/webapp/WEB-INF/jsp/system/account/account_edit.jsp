@@ -30,9 +30,6 @@
 									<input type="hidden" name="USER_ID" id="user_id" value="${pd.USER_ID }"/>
 									<div id="zhongxin" style="padding-top: 13px;">
 									<table id="table_report" class="table table-striped table-bordered table-hover">
-										<c:if test="${fx == 'head'}">
-											<input name="ROLE_ID" id="role_id" value="${pd.ROLE_ID }" type="hidden" />
-										</c:if>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">公司名称:</td>
 											<td id="gongsi">
@@ -46,7 +43,7 @@
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">部门名称:</td>
-											<td><input type="text" name="DEPARTMENT" id="department" value="${pd.DEPARTMENT }" maxlength="32" placeholder="这里输入部门名称" title="部门名称" style="width:98%;"/></td>
+											<td><input type="text" name="DEPARTMENT_ID" id="department" value="${pd.DEPARTMENT }" maxlength="32" placeholder="这里输入部门名称" title="部门名称" style="width:98%;"/></td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">登录名:</td>
@@ -177,7 +174,7 @@
 			$("#status_id").focus();
 			return false;
 		}
-		
+		/*
 		if($("#company").val()==""){
 			$("#company").tips({
 				side:3,
@@ -188,7 +185,8 @@
 			$("#company").focus();
 			return false;
 		}
-		
+		*/
+		/*
 		if($("#department").val()==""){
 			$("#department").tips({
 				side:3,
@@ -199,7 +197,7 @@
 			$("#department").focus();
 			return false;
 		}
-		
+		*/
 		if($("#username").val()=="" || $("#username").val()=="此登录名已存在!"){
 			$("#username").tips({
 				side:3,

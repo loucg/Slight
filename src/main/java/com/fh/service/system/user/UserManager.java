@@ -115,6 +115,18 @@ public interface UserManager {
 	 */
 	public void editU(PageData pd)throws Exception;
 	
+	/**修改帐号
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void editA(PageData pd)throws Exception;
+	
+	/**修改帐号职务
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void editAccountP(PageData pd)throws Exception;
+	
 	/**修改用户信息
 	 * @param pd
 	 * @throws Exception
@@ -126,6 +138,18 @@ public interface UserManager {
 	 * @throws Exception
 	 */
 	public void saveU(PageData pd)throws Exception;
+	
+	/**保存账号
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void saveA(PageData pd)throws Exception;
+	
+	/**保存账号职务
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void saveAccountP(PageData pd)throws Exception;
 	
 	/**删除用户
 	 * @param pd

@@ -471,6 +471,58 @@
 		)
 	</insert>
 	
+	<!-- 新增帐号 -->
+	<insert id="saveA" parameterType="pd" >
+		insert into <include refid="tableName"></include> (
+		USER_ID,
+		USERNAME,
+		PASSWORD,
+		NAME,
+		RIGHTS,
+		ROLE_ID,
+		LAST_LOGIN,
+		IP,
+		STATUS,
+		BZ,
+		SKIN,
+		EMAIL,
+		NUMBER,
+		PHONE,
+		ADDRESS,
+		LANGUAGE
+		) values (
+		#{USER_ID},
+		#{USERNAME},
+		#{PASSWORD},
+		#{NAME},
+		#{RIGHTS},
+		#{ROLE_ID},
+		#{LAST_LOGIN},
+		#{IP},
+		#{STATUS_ID},
+		#{BZ},
+		#{SKIN},
+		#{EMAIL},
+		#{NUMBER},
+		#{PHONE},
+		#{ADDRESS},
+		#{LANGUAGE_ID}
+		)
+	</insert>
+	
+	<!-- 新增帐号职务 -->
+	<insert id="saveAccountP" parameterType="pd" >
+		insert into <include refid="usercompanyTableName"></include> (
+		B_USER_ID,
+		B_DEPARTMENT_ID,
+		POSITION
+		) values (
+		#{USER_ID},
+		#{DEPARTMENT_ID},
+		#{POSITION}
+		)
+	</insert>
+	
 	<!-- 修改 -->
 	<update id="editU" parameterType="pd" >
 		update  <include refid="tableName"></include>
@@ -485,6 +537,29 @@
 			</if>
 			where 
 				USER_ID = #{USER_ID}
+	</update>
+	
+	<!-- 修改帐号 -->
+	<update id="editA" parameterType="pd" >
+		update  <include refid="tableName"></include>
+			set USERNAME                = #{USERNAME},
+			    NAME 					= #{NAME},
+			    ADDRESS                 = #{ADDRESS},
+			    PHONE					= #{PHONE},
+			    EMAIL					= #{EMAIL},
+			    LANGUAGE                = #{LANGUAGE_ID},
+				ROLE_ID 				= #{ROLE_ID},
+				STATUS                  = #{STATUS_ID}
+			where 
+				USER_ID = #{USER_ID}
+	</update>
+	
+	<!-- 修改帐号职务 -->
+	<update id="editAccountP" parameterType="pd" >
+		update  <include refid="usercompanyTableName"></include>
+			set POSITION                = #{POSITION}
+			where 
+				B_USER_ID = #{USER_ID}
 	</update>
 	
 	<!-- 修改用户信息 -->

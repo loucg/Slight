@@ -76,23 +76,17 @@
 								
 							<!-- 开始循环 -->	
 							<c:choose>
-								<c:when test="${not empty userList}">
+								<c:when test="${not empty strategyList}">
 									<c:if test="${QX.cha == 1 }">
-									<c:forEach items="${userList}" var="user" varStatus="vs">
+									<c:forEach items="${strategyList}" var="strategy" varStatus="vs">
 												
 										<tr>
-											<td class='center' style="width: 30px;">
-												<c:if test="${user.USERNAME != 'admin'}"><label><input type='checkbox' name='ids' value="${user.USER_ID }" id="${user.EMAIL }" alt="${user.PHONE }" title="${user.USERNAME }" class="ace"/><span class="lbl"></span></label></c:if>
-												<c:if test="${user.USERNAME == 'admin'}"><label><input type='checkbox' disabled="disabled" class="ace" /><span class="lbl"></span></label></c:if>
-											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class="center">${user.NUMBER }</td>
-											<td class="center"><a onclick="viewUser('${user.USERNAME}')" style="cursor:pointer;">${user.USERNAME }</a></td>
-											<td class="center">${user.NAME }</td>
-											<td class="center">${user.ROLE_NAME }</td>
-											<td class="center"><a title="发送电子邮件" style="text-decoration:none;cursor:pointer;" <c:if test="${QX.email == 1 }">onclick="sendEmail('${user.EMAIL }');"</c:if>>${user.EMAIL }&nbsp;<i class="ace-icon fa fa-envelope-o"></i></a></td>
+											<td class="center">${strategy.name }</td>
+											<td class="center">${strategy.explain }</td>
+											<td class="center">${strategy.json }</td>
 											<td class="center">${user.LAST_LOGIN}</td>
-											<td class="center">${user.IP}</td>
+											<td class="center">${strategy.explain }</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
