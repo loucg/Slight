@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -27,6 +28,7 @@ import com.fh.entity.Page;
 import com.fh.entity.system.Department;
 import com.fh.entity.system.Language;
 import com.fh.entity.system.Role;
+import com.fh.entity.system.User;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.language.LanguageManager;
@@ -104,7 +106,7 @@ public class UserInfoController extends BaseController {
 	 */
 	@RequestMapping(value="/editUserInfo")
 	public ModelAndView editUserInfo() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"修改ser");
+		logBefore(logger, Jurisdiction.getUsername()+"修改用户信息");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -115,8 +117,20 @@ public class UserInfoController extends BaseController {
 		}else{	//如果当前登录用户修改用户资料提交的用户名是本人，则不能修改本人的角色ID
 			pd.put("ROLE_ID", userService.findByUsername(pd).getString("ROLE_ID")); //对角色ID还原本人角色ID
 		}
-		if(pd.getString("PASSWORD") != null && !"".equals(pd.getString("PASSWORD"))){
-			pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());
+		if(pd.getString("OLDPASSWORD") != null && !"".equals(pd.getString("OLDPASSWORD")) && pd.getString("NEWPASSWORD") != null && !"".equals(pd.getString("NEWPASSWORD"))){
+			String testPassword = new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("OLDPASSWORD")).toString();
+			Session session = Jurisdiction.getSession();
+			User user = (User)session.getAttribute(Const.SESSION_USER);
+			String oldPassword = user.getPASSWORD();//获取原始密码
+			if(!testPassword.equals(oldPassword)){
+				//mv.addObject("msg","errorPassword");
+				//mv.setViewName("save_result");
+				mv.setViewName("system/userInfo/userInfo_errorPassword");
+				return mv;
+			}
+		}
+		if(pd.getString("NEWPASSWORD") != null && !"".equals(pd.getString("NEWPASSWORD"))){
+			pd.put("NEWPASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("NEWPASSWORD")).toString());//密码加密
 		}
 		userService.editUserInfo(pd);	//执行修改
 		FHLOG.save(Jurisdiction.getUsername(), "修改用户信息："+pd.getString("USERNAME"));
