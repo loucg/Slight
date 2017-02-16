@@ -389,6 +389,7 @@
 				p.POSITION,
 				q.NAME AS DEPARTMENT,
 				m.NAME AS COMPANY,
+				m.ID   AS COMPANY_ID,
 				n.NAME AS STATUS,
 				o.NAME AS LANGUAGE
 		from <include refid="tableName"></include> u 
@@ -510,15 +511,15 @@
 		)
 	</insert>
 	
-	<!-- 新增帐号职务 -->
-	<insert id="saveAccountP" parameterType="pd" >
+	<!-- 新增帐号部门、职务 -->
+	<insert id="saveAccountDP" parameterType="pd" >
 		insert into <include refid="usercompanyTableName"></include> (
 		B_USER_ID,
 		B_DEPARTMENT_ID,
 		POSITION
 		) values (
 		#{USER_ID},
-		#{DEPARTMENT_ID},
+		#{DEPARTMENT},
 		#{POSITION}
 		)
 	</insert>
@@ -554,10 +555,11 @@
 				USER_ID = #{USER_ID}
 	</update>
 	
-	<!-- 修改帐号职务 -->
-	<update id="editAccountP" parameterType="pd" >
+	<!-- 修改帐号部门、职务 -->
+	<update id="editAccountDP" parameterType="pd" >
 		update  <include refid="usercompanyTableName"></include>
-			set POSITION                = #{POSITION}
+			set B_DEPARTMENT_ID         = #{DEPARTMENT},
+			    POSITION                = #{POSITION}
 			where 
 				B_USER_ID = #{USER_ID}
 	</update>

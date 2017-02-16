@@ -168,14 +168,14 @@ public class UserService implements UserManager{
 		dao.save("UserMapper.saveA", pd);
 	}
 	
-	/**保存帐号职务
+	/**保存帐号部门、职务
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void saveAccountP(PageData pd)throws Exception{
-		dao.save("UserMapper.saveAccountP", pd);
+	public void saveAccountDP(PageData pd)throws Exception{
+		dao.save("UserMapper.saveAccountDP", pd);
 	}
-	
+		
 	/**修改用户
 	 * @param pd
 	 * @throws Exception
@@ -192,12 +192,12 @@ public class UserService implements UserManager{
 		dao.update("UserMapper.editA", pd);
 	}
 	
-	/**修改帐号职务
+	/**修改帐号部门、职务
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void editAccountP(PageData pd)throws Exception{
-		dao.update("UserMapper.editAccountP", pd);
+	public void editAccountDP(PageData pd)throws Exception{
+		dao.update("UserMapper.editAccountDP", pd);
 	}
 	
 	/**修改用户信息

@@ -121,11 +121,11 @@ public interface UserManager {
 	 */
 	public void editA(PageData pd)throws Exception;
 	
-	/**修改帐号职务
+	/**修改帐号部门、职务
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void editAccountP(PageData pd)throws Exception;
+	public void editAccountDP(PageData pd)throws Exception;
 	
 	/**修改用户信息
 	 * @param pd
@@ -145,11 +145,11 @@ public interface UserManager {
 	 */
 	public void saveA(PageData pd)throws Exception;
 	
-	/**保存账号职务
+	/**保存账号部门、职务
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void saveAccountP(PageData pd)throws Exception;
+	public void saveAccountDP(PageData pd)throws Exception;
 	
 	/**删除用户
 	 * @param pd

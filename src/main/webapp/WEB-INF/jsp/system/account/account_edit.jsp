@@ -33,17 +33,24 @@
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">公司名称:</td>
 											<td id="gongsi">
-											<select class="chosen-select form-control" name="company" id="company" data-placeholder="请选择公司" style="vertical-align:top;" style="width:98%;" >
-											<option value=""></option>
+											<select class="chosen-select form-control" name="COMPANY" id="company" data-placeholder="请选择公司" style="vertical-align:top;" style="width:98%;" onchange="change1(this.value)" >
+											<option value="">请选择公司</option>
 											<c:forEach items="${companyList}" var="company">
-												<option value="${company.COMPANY}" <c:if test="${company.COMPANY == pd.company }">selected</c:if>>${company.NAME}</option>
+												<option value="${company.COMPANY}" <c:if test="${company.NAME == pd.COMPANY }">selected</c:if>>${company.NAME}</option>
 											</c:forEach>
 											</select>
 											</td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">部门名称:</td>
-											<td><input type="text" name="DEPARTMENT_ID" id="department" value="${pd.DEPARTMENT }" maxlength="32" placeholder="这里输入部门名称" title="部门名称" style="width:98%;"/></td>
+											<td id="bumen">
+											<select class="chosen-select form-control" name="DEPARTMENT" id="department" data-placeholder="请选择部门" style="vertical-align:top;" style="width:98%;" >
+											<option value="">请选择部门</option>
+											<c:forEach items="${departmentList}" var="department">
+												<option value="${department.ID}" <c:if test="${department.NAME == pd.DEPARTMENT }">selected</c:if>>${department.NAME}</option>
+											</c:forEach>
+											</select>
+											</td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">登录名:</td>
@@ -73,7 +80,7 @@
 											<td style="width:79px;text-align: right;padding-top: 13px;">语言:</td>
 											<td id="yuyan">
 											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" style="vertical-align:top;" style="width:98%;" >
-											<option value=""></option>
+											<option value="">请选择语言</option>
 											<c:forEach items="${languageList}" var="language">
 												<option value="${language.id }" <c:if test="${language.id == pd.LANGUAGE_ID }">selected</c:if>>${language.name }</option>
 											</c:forEach>
@@ -84,7 +91,7 @@
 											<td style="width:79px;text-align: right;padding-top: 13px;">角色:</td>
 											<td id="juese">
 											<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="vertical-align:top;" style="width:98%;" >
-											<option value=""></option>
+											<option value="">请选择角色</option>
 											<c:forEach items="${roleList}" var="role">
 												<option value="${role.ROLE_ID }" <c:if test="${role.ROLE_ID == pd.ROLE_ID }">selected</c:if>>${role.ROLE_NAME }</option>
 											</c:forEach>
@@ -95,7 +102,7 @@
 											<td style="width:79px;text-align: right;padding-top: 13px;">状态:</td>
 											<td id="zhuangtai">
 											<select class="chosen-select form-control" name="STATUS_ID" id="status_id" data-placeholder="请选择状态" style="vertical-align:top;" style="width:98%;" >
-											<option value=""></option>
+											<option value="">请选择状态</option>
 											<c:forEach items="${statusList}" var="status">
 												<option value="${status.id }" <c:if test="${status.id == pd.STATUS_ID }">selected</c:if>>${status.name }</option>
 											</c:forEach>
@@ -136,6 +143,24 @@
 </body>
 <script type="text/javascript">
 	$(top.hangge());
+	
+	//第一级值改变事件(初始第二级)
+	function change1(value){
+		$.ajax({
+			type: "POST",
+			url: '<%=basePath%>account/getLevels.do?tm='+new Date().getTime(),
+	    	data: {COMPANY_ID:value},
+			dataType:'json',
+			cache: false,
+			success: function(data){
+				$("#department").html('<option value="">请选择部门</option>');
+				 $.each(data.list, function(i, dvar){
+						$("#department").append("<option value="+dvar.ID+">"+dvar.NAME+"</option>");
+				 });
+			}
+		});
+	}
+	
 	$(document).ready(function(){
 		if($("#user_id").val()!=""){
 			$("#loginname").attr("readonly","readonly");
@@ -174,30 +199,30 @@
 			$("#status_id").focus();
 			return false;
 		}
-		/*
+		
 		if($("#company").val()==""){
 			$("#company").tips({
 				side:3,
-	            msg:'输入公司名称',
+	            msg:'选择公司',
 	            bg:'#AE81FF',
 	            time:3
 	        });
 			$("#company").focus();
 			return false;
 		}
-		*/
-		/*
+		
+		
 		if($("#department").val()==""){
 			$("#department").tips({
 				side:3,
-	            msg:'输入部门名称',
+	            msg:'选择部门',
 	            bg:'#AE81FF',
 	            time:3
 	        });
 			$("#department").focus();
 			return false;
 		}
-		*/
+		
 		if($("#username").val()=="" || $("#username").val()=="此登录名已存在!"){
 			$("#username").tips({
 				side:3,
@@ -353,6 +378,7 @@
 			}
 		});
 	}
+	/*
 	$(function() {
 		//下拉框
 		if(!ace.vars['touch']) {
@@ -380,5 +406,6 @@
 			});
 		}
 	});
+	*/
 </script>
 </html>

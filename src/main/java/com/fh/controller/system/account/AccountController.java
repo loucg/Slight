@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.system.Department;
+import com.fh.entity.system.Dictionaries;
 import com.fh.entity.system.Language;
 import com.fh.entity.system.Role;
 import com.fh.entity.system.Status;
@@ -116,11 +117,20 @@ public class AccountController extends BaseController {
 		List<Department> companyList = departmentService.listAllDepartmentsByPId(pd);//列出所有公司
 		mv.addObject("fx", "user");
 		pd = userService.findAccountById(pd);
+		Integer companyid = (Integer) pd.get("COMPANY_ID");
+		List<PageData> departmentList;
+		if(companyid != null){
+		    departmentList = departmentService.listselectdepartment(companyid.toString());//列出公司下所有部门
+		}
+		else{//若未选择公司
+			departmentList = null;
+		}
 		mv.setViewName("system/account/account_edit");
 		mv.addObject("msg", "editA");
 		mv.addObject("pd", pd);
 		mv.addObject("roleList", roleList);
 		mv.addObject("companyList", companyList);
+		mv.addObject("departmentList", departmentList);
 		mv.addObject("languageList", languageList);
 		mv.addObject("statusList", statusList);
 		return mv;
@@ -173,7 +183,7 @@ public class AccountController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		userService.editA(pd);	//执行账户修改
-		userService.editAccountP(pd);	//执行账户职务修改
+		userService.editAccountDP(pd);	//执行账户部门职务修改
 		FHLOG.save(Jurisdiction.getUsername(), "修改帐号："+pd.getString("USERNAME"));
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -227,7 +237,7 @@ public class AccountController extends BaseController {
 		pd.put("DEPARTMENT_ID", "1");
 		if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 			userService.saveA(pd); 					//执行帐号保存
-			userService.saveAccountP(pd); 			//执行帐号职务保存
+			userService.saveAccountDP(pd); 			//执行帐号职务保存
 			FHLOG.save(Jurisdiction.getUsername(), "新增帐号："+pd.getString("USERNAME"));
 			mv.addObject("msg","success");
 		}else{
@@ -402,5 +412,28 @@ public class AccountController extends BaseController {
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(format,true));
 	}
-
+	
+	/**获取连级数据
+	 * @return
+	 */
+	@RequestMapping(value="/getLevels")
+	@ResponseBody
+	public Object getLevels(){
+		Map<String,Object> map = new HashMap<String,Object>();
+		String errInfo = "success";
+		PageData pd = new PageData();
+		try{
+			pd = this.getPageData();
+			String COMPANY_ID = pd.getString("COMPANY_ID");
+			COMPANY_ID = Tools.isEmpty(COMPANY_ID)?"0":COMPANY_ID;
+			List<PageData>	departmentList = departmentService.listselectdepartment(COMPANY_ID); //用传过来的ID获取此ID下的子列表数据
+			map.put("list", departmentList);	
+		} catch(Exception e){
+			errInfo = "error";
+			logger.error(e.toString(), e);
+		}
+		map.put("result", errInfo);				//返回结果
+		return AppUtil.returnObject(new PageData(), map);
+	}
+	
 }
