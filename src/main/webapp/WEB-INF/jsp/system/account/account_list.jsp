@@ -126,7 +126,7 @@
 												<div class="hidden-sm hidden-xs btn-group">
 												    <!-- 修改 -->
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-mini btn-success" onclick="editAccount('${account.USER_ID}');">修改</a>
+													<a class="btn btn-mini btn-info" onclick="editAccount('${account.USER_ID}');">修改</a>
 													<!-- 图标
 													<a class="btn btn-xs btn-success" title="修改" onclick="editUser('${user.USER_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="修改"></i>
@@ -135,7 +135,7 @@
 													</c:if>
 													<!-- 密码重置  -->
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-mini btn-success" onclick="resetPassword('${account.USER_ID}');">密码重置</a>
+													<a class="btn btn-mini btn-danger" onclick="resetPassword('${account.USER_ID}');">密码重置</a>
 													<!-- 图标
 													<a class="btn btn-xs btn-success" title="密码重置" onclick="editUser('${user.USER_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="密码重置"></i>
