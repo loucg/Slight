@@ -13,7 +13,7 @@
 	<!-- 下拉框 -->
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
-	<%@ include file="../../system/index/top.jsp"%>
+	<%@ include file="../system/index/top.jsp"%>
 	<script type="text/javascript" src="static/ace/js/jquery.js"></script>
 	<!-- 上传插件 -->
 	<link href="plugins/uploadify/uploadify.css" rel="stylesheet" type="text/css">
@@ -34,35 +34,32 @@
 				<div class="row">
 					<div class="col-xs-12">
 					
-					<form action="npower/${msg}" name="npowerForm" id="npowerForm" method="post">
+					<form action="electricity/${msg }.do" name="electricityForm" id="electricityForm" method="post">
 						<input type="hidden" value="no" id="hasTp1" />
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
-							<input type="hidden" name="id" id="id" value="${pd.id}"/>
+							<tr style="display:none">
+						   		 <td><input type="text" name="id" id="id" value="${pd.id }" /></td>
+						    </tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">规格名称:</td>
-								<td><input type="text" name="name" id="name" value="${pd.name}" maxlength="100" title="规格名称" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">终端编号:</td>
+								<td><input type="text" name="gateway_code" id="gateway_code" value="${pd.gateway_code }" title="终端编号" style="width:98%;" disabled="disabled"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">厂家:</td>
-								<td><input type="text" name="vendor" id="vendor" value="${pd.vendor}" maxlength="100" title="厂家" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">终端名称:</td>
+								<td><input type="text" name="name" id="name" value="${pd.name }" maxlength="100" title="终端名称" style="width:98%;" disabled="disabled"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">类型:</td>
-								<td>
-									<select name="type" maxlength="100" title="类型" style="width:98%;">
-										<option value="1" <c:if test="${pd.type == '1' }">selected</c:if> >系统</option>
-										<option value="2" <c:if test="${pd.type == '2' }">selected</c:if> >自备</option>
-									</select>
-								</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">位置:</td>
+								<td><input type="text" name="location" id="location" value="${pd.location }" maxlength="100" title="位置" style="width:98%;" disabled="disabled"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">功率:</td>
-								<td><input type="text" name="power" id="power" value="${pd.power}" maxlength="100" title="功率" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">上电时间:</td>
+								<td><input type="text" name="powerup" id="powerup" value="${pd.powerup }" maxlength="100" title="上电时间" style="width:98%;" placeholder="18:00(24小时制)"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
-								<td><input type="text" name="comment" id="comment" value="${pd.comment}" maxlength="100" title="备注" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">断电时间:</td>
+								<td><input type="text" name="powerdown" id="powerdown" value="${pd.powerdown }" maxlength="100" title="断电时间" style="width:98%;" placeholder="6:00(24小时制)"/></td>
 							</tr>
 							
 							<tr>
@@ -89,7 +86,7 @@
 
 
 	<!-- 页面底部js¨ -->
-	<%@ include file="../../system/index/foot.jsp"%>
+	<%@ include file="../system/index/foot.jsp"%>
 	<!-- 下拉框 -->
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	<!-- 日期框 -->
@@ -98,11 +95,36 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 		<script type="text/javascript">
 		$(top.hangge());
+		
 		//保存
 		function save(){
-			$("#npowerForm").submit();
-			$("#zhongxin").hide();
-			$("#zhongxin2").show();
+			var time = /^(([1-9]{1})|([0-1][0-9])|([1-2][0-3])):([0-5][0-9])$/;
+			
+			if(!time.test($("#powerup").val())){
+				$("#powerup").tips({
+					side:3,
+		            msg:'时间格式不正确',
+		            bg:'#AE81FF',
+		            time:3
+		        });
+				$("#powerup").focus();
+				return false;
+			}
+			if(!time.test($("#powerdown").val())){
+				$("#powerdown").tips({
+					side:3,
+		            msg:'时间格式不正确',
+		            bg:'#AE81FF',
+		            time:3
+		        });
+				$("#powerdown").focus();
+				return false;
+			}else{
+				$("#electricityForm").submit();
+				$("#zhongxin").hide();
+				$("#zhongxin2").show();
+			}
+			
 		}
 		
 

@@ -229,6 +229,9 @@ public class ConfigureController extends BaseController{
 		}else if(typeid==3||typeid==4||typeid==5){
 			pd = configureService.getGatewayAndBreakById(pd);
 		}
+		String[] zuobiao = pd.getString("coordinate").split(",");
+		pd.put("longitude", zuobiao[0]);
+		pd.put("latitude", zuobiao[1]);
 		mv.addObject("pd", pd);
 		mv.addObject("powerList",nPList);
 		mv.addObject("lampList", lampList);
@@ -270,12 +273,19 @@ public class ConfigureController extends BaseController{
 		return mv;
 	}
 
+	/**
+	 * 修改终端
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/editDevice")
 	public ModelAndView editDevice() throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		int typeid = Integer.valueOf((String)pd.get("typeid"));
+		pd.put("coordinate", pd.getString("longitude")+","+pd.getString("latitude"));
+		pd.put("status", 1);
 		if(typeid==1||typeid==2||typeid==6){
 			configureService.editDevice(pd);
 		}else if(typeid==3||typeid==4||typeid==5){
@@ -288,6 +298,11 @@ public class ConfigureController extends BaseController{
 		
 	}
 	
+	/**
+	 * 新增终端
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/createDevice")
 	public ModelAndView createDevice() throws Exception{
 		
@@ -296,6 +311,8 @@ public class ConfigureController extends BaseController{
 		pd = this.getPageData();
 		int typeid = Integer.valueOf((String)pd.get("typeid"));
 		pd.put("userid", UserUtils.getUserid());
+		pd.put("coordinate", pd.getString("longitude")+","+pd.getString("latitude"));
+		pd.put("status", 1);
 		if(typeid==1||typeid==2||typeid==6){
 			configureService.createDevice(pd);
 		}else if(typeid==3||typeid==4||typeid==5){
@@ -329,24 +346,26 @@ public class ConfigureController extends BaseController{
 			for(int i=0;i<listPd.size();i++){		
 				
 				int type = ConfigureUtils.getDeviceType(listPd.get(i).getString("var2"));
-				pd.put("number", this.get32UUID());										//ID
-				pd.put("name", listPd.get(i).getString("var0"));							//姓名
-				pd.put("vendor", listPd.get(i).getString("var1"));
+				pd.put("number", listPd.get(i).getString("var0"));										//ID
+				pd.put("name", listPd.get(i).getString("var1"));							//姓名
 				pd.put("location", listPd.get(i).getString("var3"));
 				pd.put("coordinate", listPd.get(i).getString("var4"));
-				pd.put("polenumber", listPd.get(i).getString("var10"));
-				pd.put("password", listPd.get(i).getString("var11"));
-				pd.put("comment", listPd.get(i).getString("var12"));
-				pd.put("type", type);
+				pd.put("polenumber", listPd.get(i).getString("var5"));
+				pd.put("password", listPd.get(i).getString("var6"));
+				pd.put("comment", listPd.get(i).getString("var7"));
+				pd.put("status", 1);
+				pd.put("typeid", type);
+				pd.put("userid", UserUtils.getUserid());
 				if(type==1||type==2||type==6){
-					pd.put("mobile", listPd.get(i).getString("var5"));
-					pd.put("sensor", listPd.get(i).getString("var8"));
+//					pd.put("mobile", listPd.get(i).getString("var5"));
+//					pd.put("sensor", listPd.get(i).getString("var8"));
+//					pd.put("pole", listPd.get(i).getString("var9"));
 					configureService.createDevice(pd);
 				}
 				if(type==3||type==4||type==5){
-					pd.put("power", listPd.get(i).getString("var6"));
-					pd.put("lamp", listPd.get(i).getString("var7"));
-					pd.put("pole", listPd.get(i).getString("var9"));
+//					pd.put("power", listPd.get(i).getString("var6"));
+//					pd.put("lamp", listPd.get(i).getString("var7"));
+//					pd.put("pole", listPd.get(i).getString("var9"));
 					configureService.createGateway(pd);
 				}
 				

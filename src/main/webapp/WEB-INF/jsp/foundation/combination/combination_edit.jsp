@@ -31,17 +31,26 @@
 				$("#number").focus();
 				return false;
 			}
-
 			if($("#name").val()==""){
-			$("#name").tips({
-				side:3,
-	            msg:'请输入终端名称',
-	            bg:'#AE81FF',
-	            time:2
-	        });
-			$("#name").focus();
-			return false;
-		}
+				$("#name").tips({
+					side:3,
+		            msg:'请输入终端名称',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#name").focus();
+				return false;
+			}
+			if($("#polenumber").val()==""){
+				$("#polenumber").tips({
+					side:3,
+		            msg:'请输入灯杆号',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#polenumber").focus();
+				return false;
+			}
 
 		hasK();
 	}
@@ -72,6 +81,7 @@
 			}
 		});
 	}
+	
 </script>
 </head>
 <body class="no-skin">
@@ -115,9 +125,24 @@
 								<td><input style="width:95%;" type="text" name="location" id="locationE" value="${pd.location}" maxlength="500" placeholder="这里输入位置" title="位置"/></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">坐标:</td>
-								<td><input style="width:95%;" type="text" name="coordinate" id="coordinate" value="${pd.coordinate}" maxlength="500" placeholder="这里输入坐标" title="坐标"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">经度:</td>
+								<td><input style="width:95%;" type="text" name="longitude" id="longitude" value="${pd.longitude}" maxlength="500" placeholder="这里输入坐标" title="坐标"/></td>
 							</tr>
+							<tr>
+								<td style="width:79px;text-align: right;padding-top: 13px;">纬度:</td>
+								<td><input style="width:95%;" type="text" name="latitude" id="latitude" value="${pd.latitude}" maxlength="500" placeholder="这里输入坐标" title="坐标"/></td>
+							</tr>
+							<%-- <tr>
+								<td style="width:79px;text-align: right;padding-top: 13px;">电话号码:</td>
+								<td id="dianhua">
+								<select class="chosen-select form-control" name="mobile" id="mobile" data-placeholder="请选择公司" style="vertical-align:top;" style="width:98%;" >
+								<option value=""></option>
+								<c:forEach items="${simList}" var="sim">
+									<option value="${sim.id}" <c:if test="${pd.id == sim.id }">selected</c:if>>${sim.mobile}</option>
+								</c:forEach>
+								</select>
+								</td>
+							</tr> --%>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">电话号码:</td>
 								<td>
@@ -169,7 +194,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">电杆号:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">*电杆号:</td>
 								<td><input style="width:95%;" type="text" name="polenumber" id="polenumber" value="${pd.polenumber}" maxlength="500" placeholder="这里输入电杆号" title="电杆号"/></td>
 							</tr>
 							<tr>

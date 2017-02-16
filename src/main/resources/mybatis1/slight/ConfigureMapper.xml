@@ -193,7 +193,8 @@
 		SELECT a.id,a.iccid,a.phone_number AS mobile,a.type,b.`value` AS `status`,b.`name` AS statusname,a.money,a.`comment`
 		FROM c_sim AS a
 		LEFT JOIN b_status AS b ON a.`status` = b.`value`
-		WHERE 1=1
+		LEFT JOIN b_status_main AS c ON b.b_status_main_id = c.id
+		WHERE c.id = 2
 		<if test="pd.iccid!=null and pd.iccid!=''">
 			AND a.iccid LIKE CONCAT(CONCAT('%', #{pd.iccid}),'%')
 		</if>
@@ -206,6 +207,7 @@
 		<if test="pd.status!=null and pd.status!=''">
 			AND b.value = #{pd.status, jdbcType=INTEGER}
 		</if>
+		
 	</select>
 	<!-- sim卡修改 -->
 	<update id="editSim" parameterType="pd">
@@ -242,8 +244,9 @@
 			LEFT JOIN c_lamp_type AS f ON c.c_lamp_type_id = f.id
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
-		
+			LEFT JOIN b_status_main AS i ON h.b_status_main_id = i.id
 		WHERE a.sys_user_id = #{pd.userid}
+			AND h.b_status_main_id = 1
 		<if test="pd.number!=null and pd.number!=''">
 			AND b.client_code LIKE CONCAT(CONCAT('%', #{pd.number}),'%')
 		</if>
@@ -264,9 +267,7 @@
 		<if test="pd.type!=null and pd.type!=''">
 			AND d.id = #{pd.type, jdbcType=INTEGER}
 		</if>
-		<if test="pd.status!=null and pd.status!=''">
-			AND b_status_main_id = 1
-		</if>
+			
 		
 	</select>
 	
@@ -284,8 +285,9 @@
 			LEFT JOIN c_sensor_type AS f ON c.c_sensor_type_id = f.id
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
-		
+			LEFT JOIN b_status_main AS i ON h.b_status_main_id = i.id
 		WHERE a.sys_user_id = #{pd.userid}
+			AND h.b_status_main_id = 1
 		<if test="pd.number!=null and pd.number!=''">
 			AND b.gateway_code LIKE CONCAT(CONCAT('%', #{pd.number}),'%')
 		</if>
@@ -300,6 +302,8 @@
 		<if test="pd.type!=null and pd.type!=''">
 			AND d.id = #{pd.type, jdbcType=INTEGER}
 		</if>
+			
+		
 	</select>
 	
 	
@@ -375,7 +379,7 @@
 	</sql>
 	<sql id="clientAttr1FieldValue">
 		#{id, jdbcType=BIGINT},#{name, jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{typeid,jdbcType=INTEGER},
-		#{location,jdbcType=VARCHAR},#{coordinate,jdbcType=VARCHAR},#{comment,jdbcType=VARCHAR},#{staus,jdbcType=INTEGER},
+		#{location,jdbcType=VARCHAR},#{coordinate,jdbcType=VARCHAR},#{comment,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},
 		#{polenumber,jdbcType=VARCHAR},#{userid,jdbcType=BIGINT}
 	</sql>
 	<insert id="insertClientAttr1" parameterType="pd">
@@ -430,7 +434,7 @@
 	</sql>
 	<sql id="gatewayAttr1FieldValue">
 		#{id, jdbcType=BIGINT},#{name, jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{typeid,jdbcType=INTEGER},
-		#{location,jdbcType=VARCHAR},#{coordinate,jdbcType=VARCHAR},#{comment,jdbcType=VARCHAR},#{staus,jdbcType=INTEGER},
+		#{location,jdbcType=VARCHAR},#{coordinate,jdbcType=VARCHAR},#{comment,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},
 		#{polenumber,jdbcType=VARCHAR},#{userid,jdbcType=BIGINT}
 	</sql>
 	<insert id="insertGatewayAttr1" parameterType="pd">
@@ -537,7 +541,9 @@
 			LEFT JOIN c_sensor_type AS f ON c.c_sensor_type_id = f.id
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
+			LEFT JOIN b_status_main AS i ON h.b_status_main_id = i.id
 		WHERE a.c_gateway_id = #{id ,jdbcType=INTEGER}
+			AND i.id = 1
 	</select>
 	
 	<!-- 根据id获取终端 -->
@@ -554,7 +560,9 @@
 			LEFT JOIN c_lamp_type AS f ON c.c_lamp_type_id = f.id
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
+			LEFT JOIN b_status_main AS i ON h.b_status_main_id = i.id
 		WHERE a.c_client_id = #{id ,jdbcType=INTEGER}
+			AND i.id = 1
 	</select>
 	
 	
