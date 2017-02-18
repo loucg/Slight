@@ -85,12 +85,31 @@
 											<td class="center">${strategy.name }</td>
 											<td class="center">${strategy.explain }</td>
 											<td class="center">${strategy.json }</td>
-											<td class="center">${user.LAST_LOGIN}</td>
-											<td class="center">${strategy.explain }</td>
+											<td class="center">${strategy.json }</td>
+											<td class="center">${strategy.json }</td>、
+											<td class="center">${strategy.json }</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
+												<div class="hidden-sm hidden-xs btn-group">
+													<c:if test="${QX.edit == 1 }">
+													<a class="btn btn-xs btn-success" title="修改" onclick="editStrategy('${strategy.id}');">
+														<!-- <i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i> -->
+														修改
+													</a>
+													</c:if>
+													<c:if test="${QX.edit == 1 }">
+													<a class="btn btn-xs btn-danger" title="新增应用终端" onclick="addTerminal('${group.id}');">
+														新增
+													</a>
+													</c:if>
+													<c:if test="${QX.del == 1 }">
+													<a class="btn btn-xs btn-danger" title="踢删应用终端" onclick="delTerminal('${group.id}','${group.name}' );">
+														踢删
+													</a>
+													</c:if>
+												</div>
 											</td>
 										</tr>
 									
@@ -115,9 +134,9 @@
 					<table style="width:100%;">
 						<tr>
 							<td style="vertical-align:top;">
+								<c:if test="${QX.add == 1 }">
 								<a class="btn btn-mini btn-success" onclick="add();">新增策略</a>
-								<a class="btn btn-mini btn-success" onclick="add();">新增应用终端</a>
-								<a class="btn btn-mini btn-success" onclick="add();">踢删应用终端</a>
+								</c:if>
 							</td>
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 						</tr>
@@ -167,26 +186,13 @@ function searchs(){
 	$("#userForm").submit();
 }
 
-//删除
-function delUser(userId,msg){
-	bootbox.confirm("确定要删除["+msg+"]吗?", function(result) {
-		if(result) {
-			top.jzts();
-			var url = "<%=basePath%>user/deleteU.do?USER_ID="+userId+"&tm="+new Date().getTime();
-			$.get(url,function(data){
-				nextPage(${page.currentPage});
-			});
-		};
-	});
-}
-
 //新增
 function add(){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
 	 diag.Title ="新增";
-	 diag.URL = '<%=basePath%>user/goAddU.do';
+	 diag.URL = '<%=basePath%>strategy/goAddS.do';
 	 diag.Width = 469;
 	 diag.Height = 510;
 	 diag.CancelEvent = function(){ //关闭事件
@@ -203,13 +209,65 @@ function add(){
 	 diag.show();
 }
 
+//新增应用终端
+function addTerminal(id){
+	 top.jzts();
+	 var diag = new top.Dialog();
+	 diag.Drag=true;
+	 diag.Title ="新增应用终端";
+	 diag.URL = '<%=basePath%>strategyTRML/listOthers.do?id='+id;
+	 diag.Width = 1200;
+	 diag.Height = 600;
+	 diag.Modal = true;				//有无遮罩窗口
+	 diag. ShowMaxButton = true;	//最大化按钮
+     diag.ShowMinButton = true;		//最小化按钮
+	 diag.CancelEvent = function(){ //关闭事件
+		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+			 if('${page.currentPage}' == '0'){
+				 top.jzts();
+				 setTimeout("self.location=self.location",100);
+			 }else{
+				 nextPage(${page.currentPage});
+			 }
+		}
+		diag.close();
+	 };
+	 diag.show();
+}
+
+//踢删应用终端
+function delTerminal(id,name){
+	top.jzts();
+	 var diag = new top.Dialog();
+	 diag.Drag=true;
+	 diag.Title ="踢删应用组员";
+	 diag.URL = '<%=basePath%>strategyTRML/listTRMLs.do?id='+id+'&title='+'tishan';
+	 diag.Width = 1200;
+	 diag.Height = 600;
+	 diag.Modal = true;				//有无遮罩窗口
+	 diag. ShowMaxButton = true;	//最大化按钮
+     diag.ShowMinButton = true;		//最小化按钮
+	 diag.CancelEvent = function(){ //关闭事件
+		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+			 if('${page.currentPage}' == '0'){
+				 top.jzts();
+				 setTimeout("self.location=self.location",100);
+			 }else{
+				 nextPage(${page.currentPage});
+			 }
+		}
+		diag.close();
+	 };
+	 diag.show();
+}
+
 //修改
-function editUser(user_id){
+function editStrategy(strategy_id){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
 	 diag.Title ="资料";
-	 diag.URL = '<%=basePath%>user/goEditU.do?USER_ID='+user_id;
+	 diag.URL = '<%=basePath%>strategy/goEditS.do?id='+strategy_id;
 	 diag.Width = 469;
 	 diag.Height = 510;
 	 diag.CancelEvent = function(){ //关闭事件

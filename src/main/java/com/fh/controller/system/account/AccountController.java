@@ -113,7 +113,7 @@ public class AccountController extends BaseController {
 		pd.put("ROLE_ID", "1");
 		List<Role> roleList = roleService.listAllRolesByPId(pd);	//列出所有系统用户角色
 		List<Language> languageList = languageService.listAllLanguagesByPId(pd);//列出所有语言
-		List<Status> statusList = statusService.listAllStatusByPId(pd);//列出所有状态
+		//List<Status> statusList = statusService.listAllStatusByPId(pd);//列出所有状态
 		List<Department> companyList = departmentService.listAllDepartmentsByPId(pd);//列出所有公司
 		mv.addObject("fx", "user");
 		pd = userService.findAccountById(pd);
@@ -132,7 +132,7 @@ public class AccountController extends BaseController {
 		mv.addObject("companyList", companyList);
 		mv.addObject("departmentList", departmentList);
 		mv.addObject("languageList", languageList);
-		mv.addObject("statusList", statusList);
+		//mv.addObject("statusList", statusList);
 		return mv;
 	}
 	
@@ -203,7 +203,7 @@ public class AccountController extends BaseController {
 		pd.put("ROLE_ID", "1");
 		List<Role> roleList = roleService.listAllRolesByPId(pd);//列出所有系统用户角色
 		List<Language> languageList = languageService.listAllLanguagesByPId(pd);//列出所有语言
-		List<Status> statusList = statusService.listAllStatusByPId(pd);//列出所有状态
+		//List<Status> statusList = statusService.listAllStatusByPId(pd);//列出所有状态
 		List<Department> companyList = departmentService.listAllDepartmentsByPId(pd);//列出所有公司
 		mv.setViewName("system/account/account_edit");
 		mv.addObject("msg", "saveA");
@@ -211,7 +211,7 @@ public class AccountController extends BaseController {
 		mv.addObject("roleList", roleList);
 		mv.addObject("languageList", languageList);
 		mv.addObject("companyList", companyList);
-		mv.addObject("statusList", statusList);
+		//mv.addObject("statusList", statusList);
 		return mv;
 	}
 	

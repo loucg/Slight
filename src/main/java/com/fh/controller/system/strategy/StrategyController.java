@@ -46,7 +46,7 @@ import com.fh.util.PathUtil;
 import com.fh.util.Tools;
 
 /** 
- * 类名称：ControlStrategyController
+ * 类名称：StrategyController
  * 创建人：zjc
  * 更新时间：2017年2月7日
  * @version
@@ -100,19 +100,17 @@ public class StrategyController extends BaseController {
 		out.close();
 	}
 	
-	/**去新增用户页面
+	/**去新增策略页面
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/goAddU")
-	public ModelAndView goAddU()throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
+	@RequestMapping(value="/goAddS")
+	public ModelAndView goAddS()throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("ROLE_ID", "1");
-		mv.setViewName("system/user/user_edit");
-		mv.addObject("msg", "saveU");
+		mv.setViewName("system/strategy/strategy_edit");
+		mv.addObject("msg", "saveS");
 		mv.addObject("pd", pd);
 		return mv;
 	}
@@ -121,8 +119,8 @@ public class StrategyController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/saveU")
-	public ModelAndView saveU() throws Exception{
+	@RequestMapping(value="/saveS")
+	public ModelAndView saveS() throws Exception{
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
 		logBefore(logger, Jurisdiction.getUsername()+"新增user");
 		ModelAndView mv = this.getModelAndView();
@@ -209,45 +207,23 @@ public class StrategyController extends BaseController {
 		return AppUtil.returnObject(new PageData(), map);
 	}
 	
-	/**去修改用户页面(系统用户列表修改)
+	/**去修改策略页面
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/goEditU")
-	public ModelAndView goEditU() throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+	@RequestMapping(value="/goEditS")
+	public ModelAndView goEditS() throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		if("1".equals(pd.getString("USER_ID"))){return null;}		//不能修改admin用户
-		pd.put("ROLE_ID", "1");
-		mv.addObject("fx", "user");
-		pd = userService.findById(pd);								//根据ID读取
-		mv.setViewName("system/user/user_edit");
-		mv.addObject("msg", "editU");
+		pd = strategyService.findObjectById(pd);								//根据ID读取
+		mv.setViewName("system/strategy/strategy_edit");
+		mv.addObject("msg", "editS");
 		mv.addObject("pd", pd);
+		
 		return mv;
 	}
-	
-	/**去修改用户页面(个人修改)
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/goEditMyU")
-	public ModelAndView goEditMyU() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		mv.addObject("fx", "head");
-		pd.put("ROLE_ID", "1");
-		pd.put("USERNAME", Jurisdiction.getUsername());
-		pd = userService.findByUsername(pd);						//根据用户名读取
-		mv.setViewName("system/user/user_edit");
-		mv.addObject("msg", "editU");
-		mv.addObject("pd", pd);
-		return mv;
-	}
-	
+		
 	/**查看用户
 	 * @return
 	 * @throws Exception
@@ -286,10 +262,10 @@ public class StrategyController extends BaseController {
 	}
 	
 	/**
-	 * 修改用户
+	 * 修改策略
 	 */
-	@RequestMapping(value="/editU")
-	public ModelAndView editU() throws Exception{
+	@RequestMapping(value="/editS")
+	public ModelAndView editS() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"修改ser");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();

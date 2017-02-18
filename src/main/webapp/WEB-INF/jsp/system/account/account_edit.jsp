@@ -103,9 +103,8 @@
 											<td id="zhuangtai">
 											<select class="chosen-select form-control" name="STATUS_ID" id="status_id" data-placeholder="请选择状态" style="vertical-align:top;" style="width:98%;" >
 											<option value="">请选择状态</option>
-											<c:forEach items="${statusList}" var="status">
-												<option value="${status.id }" <c:if test="${status.id == pd.STATUS_ID }">selected</c:if>>${status.name }</option>
-											</c:forEach>
+											<option value="0" <c:if test="${pd.STATUS_ID == '0' }">selected</c:if> >有效</option>
+											<option value="1" <c:if test="${pd.STATUS_ID == '1' }">selected</c:if> >无效</option>
 											</select>
 											</td>
 										</tr>
