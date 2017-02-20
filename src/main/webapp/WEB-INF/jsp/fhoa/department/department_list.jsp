@@ -51,11 +51,16 @@
 							</tr>
 						</table> --%>
 						<!-- 检索  -->
-						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
+						<%-- <label style="margin-bottom: 0px;text-align: center;width: 100%;">${companyname}</label> --%>
+						<table id="simple-table1" class="table table-striped table-bordered table-hover" style="margin-top:5px; margin-bottom:-6px">	
 							<thead>
-							<tr>
-							<th class="center">${companyname}</th>
-							</tr>
+								<tr>
+									<th class="center" style="width:100%;">${companyname}</th>
+								</tr>
+							</thead>
+							</table>
+						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px; border:0">	
+							<thead>
 								<tr>
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">部门名称</th>
