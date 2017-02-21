@@ -26,8 +26,9 @@
 		<c:if test="${companyid==null}">
 			<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/department/companylist.do?DEPARTMENT_ID=${'' == DEPARTMENT_ID?'0':DEPARTMENT_ID}&currentPage=${null == pd.dnowPage || '' == pd.dnowPage?'1':pd.dnowPage}" style="margin:0 auto;width:100%;height:100%;"></iframe>
 		</c:if>
-		<c:if test="${companyid!=null and companyid!=''}"></c:if>
+		<c:if test="${companyid!=null and companyid!=''}">
 			<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/department/list.do?companyid=${companyid}&currentPage=${null == pd.dnowPage || '' == pd.dnowPage?'1':pd.dnowPage}" style="margin:0 auto;width:100%;height:100%;"></iframe>
+		</c:if>
 		</td>
 	</tr>
 </table>
