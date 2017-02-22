@@ -278,7 +278,7 @@
 			 diag.Title ="上电断电时间设置";
 			 diag.URL = '<%=basePath%>electricity/goUpdate.do?id='+id;
 			 diag.Width = 469;
-			 diag.Height = 350;
+			 diag.Height = 264;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					nextPage(${page.currentPage});
