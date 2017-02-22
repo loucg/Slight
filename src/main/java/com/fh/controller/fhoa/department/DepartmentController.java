@@ -35,6 +35,7 @@ import com.fh.util.PageData;
 import com.fh.util.PathUtil;
 import com.fh.util.Jurisdiction;
 import com.fh.service.fhoa.department.DepartmentManager;
+import com.fh.service.system.fhlog.FHlogManager;
 
 /** 
  * 说明：组织机构
@@ -48,6 +49,8 @@ public class DepartmentController extends BaseController {
 	String menuUrl = "department/list.do"; //菜单地址(权限用)
 	@Resource(name="departmentService")
 	private DepartmentManager departmentService;
+	@Resource(name="fhlogService")
+	private FHlogManager FHLOG;
 	
 	/**保存
 	 * @param
@@ -76,6 +79,7 @@ public class DepartmentController extends BaseController {
 		departmentService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
+		FHLOG.save(Jurisdiction.getUsername(), "新增部门");
 		return mv;
 	}
 	
@@ -117,6 +121,7 @@ public class DepartmentController extends BaseController {
 		departmentService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
+		FHLOG.save(Jurisdiction.getUsername(), "修改部门");
 		return mv;
 	}
 	
@@ -185,10 +190,11 @@ public class DepartmentController extends BaseController {
 		}
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
+		FHLOG.save(Jurisdiction.getUsername(), "新增公司");
 		return mv;
 	}
 	
-	/**新增公司
+	/**修改公司
 	 * @param request
 	 * @param file
 	 * @param ID
@@ -243,6 +249,7 @@ public class DepartmentController extends BaseController {
 		}
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
+		FHLOG.save(Jurisdiction.getUsername(), "修改公司");
 		return mv;
 	}
 	
@@ -279,7 +286,9 @@ public class DepartmentController extends BaseController {
 		mv.setViewName("fhoa/department/department_list");
 		mv.addObject("varList", varList);
 		mv.addObject("QX",Jurisdiction.getHC());				//按钮权限
-*/		return mv;
+*/		
+		FHLOG.save(Jurisdiction.getUsername(), "查看部门");
+		return mv;
 	}
 	
 	/**公司列表
@@ -312,6 +321,7 @@ public class DepartmentController extends BaseController {
 		mv.setViewName("fhoa/department/company_list");
 		mv.addObject("varList", varList);
 		mv.addObject("QX",Jurisdiction.getHC());				//按钮权限
+		FHLOG.save(Jurisdiction.getUsername(), "查看公司列表");
 		return mv;
 	}
 	
@@ -447,6 +457,7 @@ public class DepartmentController extends BaseController {
 			departmentService.delTp(pd);																//删除数据库中图片数据
 		}	
 		out.write("success");
+		FHLOG.save(Jurisdiction.getUsername(), "删除公司LOGO");
 		out.close();
 	}
 	
