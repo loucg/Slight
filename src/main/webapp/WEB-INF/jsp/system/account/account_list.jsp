@@ -34,8 +34,21 @@
 						<form action="account/listAccounts.do" method="post" name="userForm" id="userForm">
 						<table style="margin-top:5px;">
 							<tr>
+								
+								<td>姓名：</td>
 								<td>
-							    <select class="chosen-select form-control" name="company" id="company" data-placeholder="请选择公司" style="vertical-align:top;width: 120px;">
+									<div class="nav-search">
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${pd.name }"/>
+									</div>
+								</td>
+								<td>&nbsp;&nbsp;登录名：</td>
+								<td>
+									<div class="nav-search">
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="username" value="${pd.username }"/>
+									</div>
+								</td>
+								<td >
+							    <select class="chosen-select form-control" name="company" id="company" data-placeholder="请选择公司" style="margin-left:20px; width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
 									<c:forEach items="${companyList}" var="company">
@@ -43,24 +56,8 @@
 									</c:forEach>
 								  	</select>
 								</td>
-								<td>
-									<div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }" placeholder="姓名" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
-									</div>
-								</td>
-								<td>
-									<div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="username" value="${pd.username }" placeholder="登录名" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
-									</div>
-								</td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="vertical-align:top;width: 120px;">
+								<td style="vertical-align:top;padding-left:2px;margin-left:20px;">
+								 	<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="margin-left:20px;width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
 									<c:forEach items="${roleList}" var="role">
@@ -254,7 +251,7 @@ function add(){
 	 diag.Title ="新增";
 	 diag.URL = '<%=basePath%>account/goAddA.do';
 	 diag.Width = 469;
-	 diag.Height = 510;
+	 diag.Height = 520;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			 if('${page.currentPage}' == '0'){
@@ -277,7 +274,7 @@ function editAccount(user_id){
 	 diag.Title ="资料";
 	 diag.URL = '<%=basePath%>account/goEditA.do?USER_ID='+user_id;
 	 diag.Width = 469;
-	 diag.Height = 510;
+	 diag.Height = 520;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			nextPage(${page.currentPage});

@@ -50,20 +50,25 @@
 								</c:if>
 							</tr>
 						</table> --%>
-						<!-- 检索  -->
-						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
-							<thead>
+						<%-- <table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">
 							<tr>
-							<th class="center">${companyname}</th>
+								<th class="center">${companyname}</th>
 							</tr>
-								<tr>
-									<th class="center" style="width:50px;">序号</th>
-									<th class="center">部门名称</th>
-									<th class="center">部门简述</th>
-									<th class="center">上级部门</th>
-									<th class="center">状态</th>
-									<th class="center">操作</th>
-								</tr>
+						</table> --%>
+						<!-- 检索  -->
+						<table id="simple-table" class="table table-striped table-bordered table-hover">	
+							<thead>
+							<%-- <tr>
+							<th class="center">${companyname}</th>
+							</tr> --%>
+							<tr>
+								<th class="center" style="width:50px;">序号</th>
+								<th class="center">部门名称</th>
+								<th class="center">部门简述</th>
+								<th class="center">上级部门</th>
+								<th class="center">状态</th>
+								<th class="center">操作</th>
+							</tr>
 							</thead>
 													
 							<tbody>

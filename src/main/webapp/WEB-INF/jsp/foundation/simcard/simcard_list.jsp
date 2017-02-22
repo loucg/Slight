@@ -38,26 +38,26 @@
 								<td>
 									<div class="nav-search">
 									    <label>ICCID：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="iccid" value="${pd.iccid }" placeholder="这里输入iccid" />
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="iccid" value="${pd.iccid }" />
 									</div>
 								</td>
 								<td > 
 								 	<div class="nav-search">
 									    <label style="margin-left:12px;">电话号码：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="mobile" value="${pd.mobile }" placeholder="这里输入电话号码" />
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="mobile" value="${pd.mobile }" />
 									</div>
 								</td>
+								<td>&nbsp;&nbsp;类型：</td>
 								<td> 
-							
-								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择类型" style="height:30px;width: 160px;margin-left:20px;border-width:1px;border-color:'#fff';border-radius:4px">
+								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择类型" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
 								 		<option value="">全部</option>
 										<option value="1" <c:if test="${pd.type==1}">selected</c:if>>捷布</option>
 										<option value="2" <c:if test="${pd.type==2}">selected</c:if>>自备</option>
 								  	</select>
 								</td>
+								<td>&nbsp;&nbsp;状态：</td>
 								<td> 
-							
-								 	<select class="chosen-select form-control" name="status" id="status" data-placeholder="请选择状态" style="height:30px;width: 160px;margin-left:20px;border-width:1px;border-color:'#fff';border-radius:4px">
+								 	<select class="chosen-select form-control" name="status" id="status" data-placeholder="请选择状态" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
 								 		<option value="">全部</option>
 										<option value="1" <c:if test="${pd.status==1}">selected</c:if>>测试</option>
 										<option value="2" <c:if test="${pd.status==2}">selected</c:if>>等启用</option>
@@ -102,32 +102,31 @@
 										<tr>
 											
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-													<td class="center">${var.iccid}</td>
-													<td class="center">${ fn:substring(var.mobile,0,50)}</td>
-													<!--  <td class="center">${var.CREATETIME}</td> -->
-													<td style="width: 60px;" class="center">
-														<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in">捷布</span></c:if>
-														<c:if test="${var.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
-													</td>
-													<td style="width: 60px;" class="center">
-														<c:if test="${var.status == '1' }"><span class="label label-important arrowed-in">测试</span></c:if>
-														<c:if test="${var.status == '2' }"><span class="label label-success arrowed">等启用</span></c:if>
-														<c:if test="${var.status == '3' }"><span class="label label-success arrowed">正常</span></c:if>
-														<c:if test="${var.status == '4' }"><span class="label label-success arrowed">欠费</span></c:if>
-														<c:if test="${var.status == '5' }"><span class="label label-success arrowed">停机</span></c:if>
-														<c:if test="${var.status == '6' }"><span class="label label-success arrowed">消号</span></c:if>
-													</td>
-													<td class="center">${var.money}</td>
-													<td class="center">${var.comment}</td>
-											<td class="center">
-												<div class='hidden-phone visible-desktop btn-group'>
-													
+											<td class="center">${var.iccid}</td>
+											<td class="center">${ fn:substring(var.mobile,0,50)}</td>
+											<!--  <td class="center">${var.CREATETIME}</td> -->
+											<td style="width: 60px;" class="center">
+												<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in">捷布</span></c:if>
+												<c:if test="${var.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
+											</td>
+											<td style="width: 60px;" class="center">
+												<c:if test="${var.status == '1' }"><span class="label label-important arrowed-in">测试</span></c:if>
+												<c:if test="${var.status == '2' }"><span class="label label-success arrowed">等启用</span></c:if>
+												<c:if test="${var.status == '3' }"><span class="label label-success arrowed">正常</span></c:if>
+												<c:if test="${var.status == '4' }"><span class="label label-success arrowed">欠费</span></c:if>
+												<c:if test="${var.status == '5' }"><span class="label label-success arrowed">停机</span></c:if>
+												<c:if test="${var.status == '6' }"><span class="label label-success arrowed">消号</span></c:if>
+											</td>
+											<td class="center">${var.money}</td>
+											<td class="center">${var.comment}</td>
+											<td class="center" style="width:50px;">
+												<c:if test="${QX.edit != 1 && QX.del != 1 }">
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												</c:if>
+												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a style="cursor:pointer;" class="green" onclick="edit('${var.id}');" title="编辑">
-														<i class="ace-icon fa fa-pencil bigger-130"></i>
-													</a>
+													<a class="btn btn-xs btn-success" onclick="edit('${var.id}');">编辑</a>
 													</c:if>
-													
 												</div>
 											</td>
 										</tr>
@@ -209,7 +208,7 @@
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>sim/goSimCreate';
 			 diag.Width = 650;
-			 diag.Height = 279;
+			 diag.Height = 264;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){
@@ -232,7 +231,7 @@
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>sim/goSimEdit?id='+Id;
 			 diag.Width = 650;
-			 diag.Height = 279;
+			 diag.Height = 264;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});
