@@ -9029,7 +9029,7 @@ input[type=radio].ace + .lbl::before {
   cursor: pointer;
   font-family: fontAwesome;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 14px;
   color: #32a3ce;
   content: "\a0";
   background-color: #FAFAFA;
