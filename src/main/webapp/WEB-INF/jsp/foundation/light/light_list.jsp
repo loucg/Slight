@@ -79,7 +79,7 @@
 									<c:forEach items="${lampList}" var="var" varStatus="vs">
 										<tr>
 
-											<td class='center' style="width: 30px;">${vs.index+1}</td>
+											<td class='center' style="width: 30px;">${vs.index+1+(page.currentPage-1)*page.showCount}</td>
 											<td class="center">${var.name}</td>
 											<td class="center">${ fn:substring(var.vendor ,0,50)}</td>											
 											<td style="width: 60px;" class="center">
