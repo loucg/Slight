@@ -1,0 +1,121 @@
+package com.fh.controller.street.fault;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.fh.controller.base.BaseController;
+import com.fh.entity.Page;
+import com.fh.entity.system.User;
+import com.fh.service.street.fault.FaultService;
+import com.fh.service.street.state.LampStateService;
+import com.fh.util.Const;
+import com.fh.util.Jurisdiction;
+import com.fh.util.PageData;
+
+/**
+ * 路灯状态-故障列表
+ * @author xiaozhou
+ * 创建时间：2017年2月21日
+ */
+@Controller
+@RequestMapping(value="/fault/street")
+public class FaultController extends BaseController{
+
+	String menuUrlG = "fault/street/listGateways.do";		//页面配置的菜单地址
+	String menuUrlC = "fault/street/listLamps.do";		    //页面配置的菜单地址
+    
+	@Resource(name="faultService")
+    private FaultService faultService;
+	/*@Resource(name="lampStateService")
+    private LampStateService lampStateService;*/
+	
+	/**
+	 * 显示 网关故障列表
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping("/listGateways")
+	public ModelAndView listGateways(Page page) throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String name = pd.getString("name");			//检索条件：名称
+		if(null !=name && !"".equals(name)){
+			pd.put("name", name.trim());
+		}
+		String gateway_code = pd.getString("gateway_code");		//检索条件：编号
+		if(null !=gateway_code && !"".equals(gateway_code)){
+			pd.put("gateway_code", gateway_code.trim());
+		}
+		String location = pd.getString("location");		//检索条件：位置
+		if(null !=location && !"".equals(location)){
+			pd.put("location", location.trim());
+		}
+		String fcomment = pd.getString("fcomment");		//检索条件：异常简述
+		if(null !=fcomment && !"".equals(fcomment)){
+			pd.put("fcomment", fcomment.trim());
+		}
+		//获得登录的用户id
+		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
+		String sys_user_id = user.getUSER_ID();
+		pd.put("sys_user_id", sys_user_id);
+		page.setPd(pd);
+		List<PageData> gatewayfaultList = faultService.listGatewayFault(page);	//获取列表
+		mv.setViewName("street/fault/gatewayfault_list");
+		mv.addObject("gatewayfaultList", gatewayfaultList);
+		mv.addObject("pd", pd);
+		mv.addObject("QX", Jurisdiction.getHC());
+		
+		return mv;
+	}
+	
+	
+	/**
+	 * 显示 路灯异常列表
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping("/listLamps")
+	public ModelAndView listLamps(Page page) throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String tname = pd.getString("tname");			//检索条件：组名
+		if(null !=tname && !"".equals(tname)){
+			pd.put("tname", tname.trim());
+		}
+		String cname = pd.getString("cname");		//检索条件：名称
+		if(null !=cname && !"".equals(cname)){
+			pd.put("cname", cname.trim());
+		}
+		String ccode = pd.getString("ccode");		//检索条件：编号
+		if(null !=ccode && !"".equals(ccode)){
+			pd.put("ccode", ccode.trim());
+		}
+		String location = pd.getString("location");		//检索条件：位置
+		if(null !=location && !"".equals(location)){
+			pd.put("location", location.trim());
+		}
+		String lstatus = pd.getString("lstatus");		//检索条件：状态
+		if(null !=lstatus && !"".equals(lstatus)){
+			pd.put("lstatus", lstatus.trim());
+		}
+		//获得登录的用户id
+		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
+		String sys_user_id = user.getUSER_ID();
+		pd.put("sys_user_id", sys_user_id);
+		page.setPd(pd);
+		List<PageData> lampfaultList = faultService.listLampFault(page);	//获取列表
+		mv.setViewName("street/fault/lampfault_list");
+		mv.addObject("lampfaultList", lampfaultList);
+		mv.addObject("pd", pd);
+		mv.addObject("QX", Jurisdiction.getHC());
+		
+		return mv;
+	}
+}
