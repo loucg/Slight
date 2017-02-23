@@ -84,7 +84,8 @@
 			<form action="" method="post" name="loginForm" id="loginForm">
 				<div class="control-group normal_text">
 					<h3>
-						<img src="static/login/logo.png" alt="Logo" />
+						捷步路灯管理系统
+						<!-- <img src="static/login/logo.png" alt="Logo" /> -->
 					</h3>
 				</div>
 				<div class="control-group">

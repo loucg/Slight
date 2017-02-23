@@ -11,7 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.entity.system.User;
 import com.fh.service.electricity.ElectricityService;
+import com.fh.util.Const;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
 
@@ -47,6 +49,10 @@ public class ElectricityController extends BaseController{
 		if(null != name && !"".equals(name)){
 			pd.put("name", name.trim());
 		}
+		//获得登录的用户id
+		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
+		String sys_user_id = user.getUSER_ID();
+		pd.put("sys_user_id", sys_user_id);
 		page.setPd(pd);
 		List<PageData> electricityList = electricityService.listElectricity(page);  //列出终端列表
 		mv.setViewName("electricity/electricity_list");
@@ -93,6 +99,10 @@ public class ElectricityController extends BaseController{
 		//String userName = Jurisdiction.getUsername();
 		//pd.put("b_user_id", userName);
 		Date tdate = new Date();
+		//获得登录的用户id
+		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
+		String sys_user_id = user.getUSER_ID();
+		pd.put("sys_user_id", sys_user_id);
 		pd.put("tdate", tdate);
 		System.out.println(tdate);
 		electricityService.update(pd);
@@ -138,6 +148,10 @@ public class ElectricityController extends BaseController{
 		pd = this.getPageData();
 		Date tdate = new Date();
 		pd.put("tdate", tdate);
+		//获得登录的用户id
+		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
+		String sys_user_id = user.getUSER_ID();
+		pd.put("sys_user_id", sys_user_id);
 		String DATA_IDS = pd.getString("DATA_IDS");
 		if(null !=DATA_IDS && !"".equals(DATA_IDS)){
 			String ArrayDATA_IDS[] = DATA_IDS.split(",");
