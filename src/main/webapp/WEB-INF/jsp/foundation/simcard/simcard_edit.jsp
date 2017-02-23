@@ -108,7 +108,7 @@
 								<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">状态:</td>
 								<td>
-									<select class="chosen-select form-control" name="status" id="status" data-placeholder="请选择状态" style="float:left;padding-left: 12px;width:95%;">
+									<select class="chosen-select form-control" name="status" id="status" data-placeholder="请选择状态" style="float:left;width:95%;">
 										<option value="1" <c:if test="${pd.status==1}">selected</c:if>>测试</option>
 										<option value="2" <c:if test="${pd.status==2}">selected</c:if>>等启用</option>
 										<option value="3" <c:if test="${pd.status==3}">selected</c:if>>正常</option>

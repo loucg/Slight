@@ -29,9 +29,9 @@
 						<div class="col-xs-12">
 							<table style="margin-top: 8px;">
 								<tr height="35">
-									<c:if test="${QX.add == 1 }">
+									<%-- <c:if test="${QX.add == 1 }">
 									<td style="width:69px;"><a href="javascript:addRole(0);" class="btn btn-sm btn-success">新增组</a></td>
-									</c:if>
+									</c:if> --%>
 										<c:choose>
 										<c:when test="${not empty roleList}">
 										<c:forEach items="${roleList}" var="role" varStatus="vs">
@@ -51,7 +51,7 @@
 								</tr>
 							</table>
 							
-							<table>
+							<%-- <table>
 								<tr height="7px;"><td colspan="100"></td></tr>
 								<tr>
 								<td><font color="#808080">本组：</font></td>
@@ -83,7 +83,7 @@
 									</c:choose>
 								</td>
 								</tr>
-							</table>
+							</table> --%>
 							
 							<table id="dynamic-table" class="table table-striped table-bordered table-hover" style="margin-top:7px;">
 								<thead>

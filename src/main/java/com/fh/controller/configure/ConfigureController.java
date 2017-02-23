@@ -231,7 +231,7 @@ public class ConfigureController extends BaseController{
 		}
 		String[] zuobiao = pd.getString("coordinate").split(",");
 		pd.put("longitude", zuobiao[0]);
-		pd.put("latitude", zuobiao[1]);
+		pd.put("latitude", zuobiao.length==1?"":zuobiao[1]);
 		mv.addObject("pd", pd);
 		mv.addObject("powerList",nPList);
 		mv.addObject("lampList", lampList);

@@ -39,6 +39,7 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<input type="hidden" name="id" id="id" value="${pd.id}"/>
+							<input type="hidden" name="type" id="type" value="${pd.type}"/>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">规格名称:</td>
 								<td><input type="text" name="name" id="name" value="${pd.name}" maxlength="100" title="规格名称" style="width:98%;"/></td>
@@ -48,12 +49,10 @@
 								<td><input type="text" name="vendor" id="vendor" value="${pd.vendor}" maxlength="100" title="厂家" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">类型:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">类型:</td>
 								<td>
-									<select name="type" maxlength="100" title="类型" style="width:98%;">
-										<option value="1" <c:if test="${pd.type == '1' }">selected</c:if> >系统</option>
-										<option value="2" <c:if test="${pd.type == '2' }">selected</c:if> >自备</option>
-									</select>
+									<label style="float:left;padding-left: 12px;"><input class="ace" name="form-field-radio" id="form-field-radio1" onclick="setType('1');" <c:if test="${pd.type == '1' }">checked="checked"</c:if> type="radio" value="icon-edit"><span class="lbl">系统</span></label>
+									<label style="float:left;padding-left: 5px;"><input class="ace"  name="form-field-radio" id="form-field-radio2" onclick="setType('2');" <c:if test="${pd.type == '2' }">checked="checked"</c:if> type="radio" value="icon-edit"><span class="lbl">自备</span></label>
 								</td>
 							</tr>
 							<tr>
@@ -64,7 +63,6 @@
 								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
 								<td><input type="text" name="comment" id="comment" value="${pd.comment}" maxlength="100" title="备注" style="width:98%;"/></td>
 							</tr>
-							
 							<tr>
 								<td style="text-align: center;" colspan="10">
 									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
@@ -110,6 +108,9 @@
 		String.prototype.trim=function(){
 		     return this.replace(/(^\s*)|(\s*$)/g,'');
 		};
+		function setType(value){
+			$("#type").val(value);
+		}
 		</script>
 </body>
 </html>

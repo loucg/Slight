@@ -214,8 +214,8 @@
 			 diag.Drag=true;
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>department/goAdd.do?companyid='+companyid;
-			 diag.Width = 700;
-			 diag.Height = 550;
+			 diag.Width = 470;
+			 diag.Height = 280;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if('none' == diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display){
 					 parent.location.href="<%=basePath%>department/listAllDepartment.do?companyid=${companyid}&dnowPage=${page.currentPage}";
@@ -260,8 +260,8 @@
 			 diag.Drag=true;
 			 diag.Title ="修改";
 			 diag.URL = '<%=basePath%>department/goEditdepartmrnt.do?DEPARTMENT_ID='+Id;
-			 diag.Width = 700;
-			 diag.Height = 550;
+			 diag.Width = 470;
+			 diag.Height = 320;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 parent.location.href="<%=basePath%>department/listAllDepartment.do?companyid=${companyid}&dnowPage=${page.currentPage}";
