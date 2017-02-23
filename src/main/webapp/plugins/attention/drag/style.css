@@ -1,7 +1,7 @@
-ï»¿
 
 
-/*å¼¹å‡ºçª—å£*/
+
+/*µ¯³ö´°¿Ú*/
 .dialog_borderWidth{
 	width:13px;
 }
@@ -19,8 +19,9 @@
 .dialog_ct{
 	background-image:url(popup/dialog_ct.png) !important;
 	background: url(popup/dialog_ct.gif) repeat-x top;
-	height:25px;
-	vertical-align:top;
+	height:33px;
+	/* vertical-align:top; */
+	font-size: 15px;
 }
 .dialog_rt{
 	background-image: url(popup/dialog_rt.png) !important;
@@ -38,7 +39,7 @@
 	background-repeat:no-repeat;
 	background-color:transparent;
 	width:14px;
-	height:16px;
+	height:18px;
 }
 .dialog_closebtn{
 	background-image:url(popup/dialog_closebtn.gif);
@@ -47,8 +48,8 @@
 	background-color:transparent;
 	background-position:50% 50%;
 	
-	margin: 4px 0 0;
-	*margin-top: 5px;
+	margin: 9px 0 0;
+	*margin-top: 9px;
 	 position: relative;
 	 top:auto; 
 	 cursor: pointer; 
@@ -63,8 +64,8 @@
 	background-color:transparent;
 	background-position:50% 50%;
 	
-	margin: 4px 0 0;
-	*margin-top: 5px;
+	margin: 9px 0 0;
+	*margin-top: 9px;
 	 position: relative;
 	 top:auto; 
 	 cursor: pointer; 
@@ -267,7 +268,7 @@
 	font-weight:bold;
 	color:black;
 }
-/*å¼¹å‡ºçª—å£*/
+/*µ¯³ö´°¿Ú*/
 
 
 
