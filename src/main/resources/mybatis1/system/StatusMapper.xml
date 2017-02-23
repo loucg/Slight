@@ -34,6 +34,16 @@
 		ORDER BY id
 	</select>
 	
+	<!-- 列出所有帐号状态-->
+	<select id="listAllAccountStatusById" resultMap="statusResultMap">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		WHERE B_STATUS_MAIN_ID = 1
+		ORDER BY id
+	</select>
+	
 	<!-- 通过id查找 -->
 	<select id="findObjectById" parameterType="pd" resultType="pd">
 		select

@@ -25,57 +25,57 @@
 			<div class="main-content-inner">
 				<div class="page-content">
 					<div class="row">
-						<div class="col-xs-12">
+						<div class="col-xs-12" >
 								<form action="userInfo/${msg }.do" name="userForm" id="userForm" method="post">
 									<input type="hidden" name="USER_ID" id="user_id" value="${pd.USER_ID }"/>
-									<div id="zhongxin" style="padding-top: 13px;">
+									<div id="zhongxin" style="padding-top: 20px;">
 									<table id="table_report" class="table table-striped table-bordered table-hover">
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">登录名:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;">登录名:</td>
 											<td><input type="text" name="USERNAME" id="username" value="${pd.USERNAME }" maxlength="32" placeholder="这里输入登录名" title="登录名" style="width:98%;"/></td>
 										</tr>
-										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">原始密码:</td>
+										<tr>	
+											<td style="width:79px;text-align: right;padding-top: 4px;">原始密码:</td>
 											<td><input type="text" name="OLDPASSWORD" id="oldPassword"  maxlength="32" placeholder="输入原始密码，不修改密码无需输入" title="原始密码" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">新密码:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;">新密码:</td>
 											<td><input type="text" name="NEWPASSWORD" id="newPassword"  maxlength="32" placeholder="输入新密码，为空时表示不修改" title="新密码" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">姓名:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>姓名:</td>
 											<td><input type="text" name="NAME" id="name"  value="${pd.NAME }"  maxlength="32" placeholder="这里输入姓名" title="姓名" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">手机:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>手机:</td>
 											<td><input type="number" name="PHONE" id="phone"  value="${pd.PHONE }"  maxlength="32" placeholder="这里输入手机号" title="手机号" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">邮箱:</td>
-											<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" onblur="hasE('${pd.USERNAME }')" style="width:98%;"/></td>
+										<td style="width:79px;text-align: right;padding-top: 4px;">邮箱:</td>
+										<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" onblur="hasE('${pd.USERNAME }')" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">联系地址:</td>
-											<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="这里输入联系地址" title="联系地址" style="width:98%;"/></td>
+										<td style="width:79px;text-align: right;padding-top: 4px;">联系地址:</td>
+										<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="这里输入联系地址" title="联系地址" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">职务:</td>
-											<td><input type="text" name="POSITION" id="position"  value="${pd.POSITION }"  maxlength="32" placeholder="这里输入职务" title="职务" style="width:98%;"/></td>
+										<td style="width:79px;text-align: right;padding-top: 4px;">职务:</td>
+										<td><input type="text" name="POSITION" id="position"  value="${pd.POSITION }"  maxlength="32" placeholder="无" title="职务" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">公司:</td>
-											<td><input type="text" name="COMPANY" id="company"  value="${pd.COMPANY }"  maxlength="32" placeholder="这里输入公司" title="公司" style="width:98%;"/></td>
+										<td style="width:79px;text-align: right;padding-top: 4px;">公司:</td>
+										<td><input type="text" name="COMPANY" id="company"  value="${pd.COMPANY }"  maxlength="32" placeholder="无" title="公司" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 13px;">语言:</td>
+										<td style="width:79px;text-align: right;padding-top: 4px;">语言:</td>
 											<td id="yuyan">
-											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" style="vertical-align:top;" style="width:98%;" >
-											<option value=""></option>
+											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" style="vertical-align:top;width:98%;">
+											<option value="">请选择语言</option>
 											<c:forEach items="${languageList}" var="language">
-												<option value="${language.id }" <c:if test="${language.id == pd.LANGUAGE_ID }">selected</c:if>>${language.name }</option>
+												<option value="${language.id }"<c:if test="${language.id == pd.LANGUAGE_ID }">selected</c:if>>${language.name }</option>
 											</c:forEach>
 											</select>
-											</td>
+										</td>
 										</tr>
 										<tr>
 											<td style="text-align: center;" colspan="10">
@@ -116,8 +116,6 @@
 			//默认不能修改的数据
 			$("#username").attr("readonly","readonly");
 			$("#username").css("color","gray");
-			//$("#name").attr("readonly","readonly");
-			//$("#name").css("color","gray");
 			$("#position").attr("readonly","readonly");
 			$("#position").css("color","gray");
 			$("#company").attr("readonly","readonly");
@@ -208,17 +206,22 @@
 	        });
 			$("#EMAIL").focus();
 			return false;
-		}else if(!ismail($("#EMAIL").val())){
-			$("#EMAIL").tips({
+		}
+		*/
+		
+		if($("#email").val()!=""){
+		if(!ismail($("#email").val())){
+			$("#email").tips({
 				side:3,
 	            msg:'邮箱格式不正确',
 	            bg:'#AE81FF',
 	            time:3
 	        });
-			$("#EMAIL").focus();
+			$("#email").focus();
 			return false;
 		}
-		*/
+		}
+		
 		if($("#user_id").val()==""){
 			hasU();
 		}else{
@@ -275,6 +278,7 @@
 			}
 		});
 	}
+	/*
 	$(function() {
 		//下拉框
 		if(!ace.vars['touch']) {
@@ -302,5 +306,6 @@
 			});
 		}
 	});
+	*/
 </script>
 </html>

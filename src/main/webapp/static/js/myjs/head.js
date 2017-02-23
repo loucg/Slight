@@ -158,8 +158,8 @@ function editUserH(){
 	 diag.Title ="用户信息";
 	 diag.URL = locat+'/userInfo/goEditUserInfo.do';
 	 //diag.URL = locat+'/user/goEditMyU.do';
-	 diag.Width = 469;
-	 diag.Height = 510;
+	 diag.Width = 351;
+	 diag.Height = 479;
 	 diag.CancelEvent = function(){ //关闭事件
 		diag.close();
 	 };
