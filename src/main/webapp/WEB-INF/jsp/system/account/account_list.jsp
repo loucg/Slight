@@ -38,13 +38,13 @@
 								<td>姓名：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${pd.name }"/>
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;登录名：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="username" value="${pd.username }"/>
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="username"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;公司：</td>
@@ -105,7 +105,7 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${accountList}" var="account" varStatus="vs">
 										<tr>
-											<td class='center' style="width: 30px;">${vs.index+1}</td>
+											<td class='center' style="width: 30px;">${vs.index+1+(page.currentPage-1)*page.showCount}</td>
 											<td class="center">${account.COMPANY }</td>
 											<td class="center">${account.DEPARTMENT }</td>
 											<!-- <td class="center"><a onclick="viewUser('${user.USERNAME}')" style="cursor:pointer;">${user.USERNAME }</a></td> -->
@@ -235,7 +235,7 @@ function resetPassword(user_id){
 	 diag.Title ="密码重置";
 	 diag.URL = '<%=basePath%>account/goResetP.do?USER_ID='+user_id;
 	 diag.Width = 351;
-	 diag.Height = 510;
+	 diag.Height = 103;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			nextPage(${page.currentPage});
@@ -253,7 +253,7 @@ function add(){
 	 diag.Title ="新增";
 	 diag.URL = '<%=basePath%>account/goAddA.do';
 	 diag.Width = 351;
-	 diag.Height = 524;
+	 diag.Height = 520;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			 if('${page.currentPage}' == '0'){
@@ -276,7 +276,7 @@ function editAccount(user_id){
 	 diag.Title ="资料";
 	 diag.URL = '<%=basePath%>account/goEditA.do?USER_ID='+user_id;
 	 diag.Width = 351;
-	 diag.Height = 524;
+	 diag.Height = 520;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			nextPage(${page.currentPage});
