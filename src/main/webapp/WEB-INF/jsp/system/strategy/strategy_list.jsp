@@ -35,20 +35,16 @@
 						<form action="user/listUsers.do" method="post" name="userForm" id="userForm">
 						<table style="margin-top:5px;">
 							<tr>
+							    <td>策略名称：</td>
 								<td>
 									<div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="keywords" value="${pd.keywords }" placeholder="这里输入策略名称" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name"/>
 									</div>
 								</td>
+								<td>&nbsp;&nbsp;应用说明：</td>
 								<td>
 									<div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="keywords" value="${pd.keywords }" placeholder="这里输入应用说明" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="explain"/>
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">

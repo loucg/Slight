@@ -31,7 +31,7 @@
 									<div id="zhongxin" style="padding-top: 9px;">
 									<table id="table_report" class="table table-striped table-bordered table-hover">
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">公司名称:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>公司名称:</td>
 											<td id="gongsi">
 											<select class="chosen-select form-control" name="COMPANY" id="company" data-placeholder="请选择公司" style="vertical-align:top;width:98%;" onchange="change1(this.value)" >
 											<option value="">请选择公司</option>
@@ -42,7 +42,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">部门名称:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>部门名称:</td>
 											<td id="bumen">
 											<select class="chosen-select form-control" name="DEPARTMENT" id="department" data-placeholder="请选择部门" style="vertical-align:top;width:98%;" >
 											<option value="">请选择部门</option>
@@ -53,11 +53,11 @@
 											</td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">登录名:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>登录名:</td>
 											<td><input type="text" name="USERNAME" id="username" value="${pd.USERNAME }" maxlength="32" placeholder="这里输入登录名" title="登录名" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">姓名:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>姓名:</td>
 											<td><input type="text" name="NAME" id="name"  value="${pd.NAME }"  maxlength="32" placeholder="这里输入姓名" title="姓名" style="width:98%;"/></td>
 										</tr>
 										<tr>
@@ -65,7 +65,7 @@
 											<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="这里输入位置" title="位置" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">手机号码:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>手机:</td>
 											<td><input type="number" name="PHONE" id="phone"  value="${pd.PHONE }"  maxlength="32" placeholder="这里输入手机号码" title="手机号码" style="width:98%;"/></td>
 										</tr>
 										<tr>
@@ -77,7 +77,7 @@
 											<td><input type="text" name="POSITION" id="position"  value="${pd.POSITION }"  maxlength="32" placeholder="这里输入职务" title="职务" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">语言:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>语言:</td>
 											<td id="yuyan">
 											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" style="vertical-align:top;width:98%;" >
 											<option value="">请选择语言</option>
@@ -88,7 +88,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">角色:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>角色:</td>
 											<td id="juese">
 											<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="vertical-align:top;width:98%;" >
 											<option value="">请选择角色</option>
@@ -99,7 +99,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">状态:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>状态:</td>
 											<td id="zhuangtai">
 											<select class="chosen-select form-control" name="STATUS_ID" id="status_id" data-placeholder="请选择状态" style="vertical-align:top;width:98%;" >
 											<option value="">请选择状态</option>
@@ -214,8 +214,6 @@
 			$("#company").focus();
 			return false;
 		}
-		
-		
 		if($("#department").val()==""){
 			$("#department").tips({
 				side:3,
@@ -226,7 +224,6 @@
 			$("#department").focus();
 			return false;
 		}
-		
 		if($("#username").val()=="" || $("#username").val()=="此登录名已存在!"){
 			$("#username").tips({
 				side:3,
@@ -252,7 +249,7 @@
 			$("#name").focus();
 			return false;
 		}
-		
+		/*
 		if($("#address").val()==""){
 			$("#address").tips({
 				side:3,
@@ -262,7 +259,7 @@
 	        });
 			$("#address").focus();
 			return false;
-		}
+		}*/
 		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
 		if($("#phone").val()==""){
 			$("#phone").tips({
@@ -283,6 +280,7 @@
 			$("#phone").focus();
 			return false;
 		}
+		/*
 		if($("#email").val()==""){
 			
 			$("#email").tips({
@@ -293,7 +291,9 @@
 	        });
 			$("#email").focus();
 			return false;
-		}else if(!ismail($("#email").val())){
+		}else */
+		if($("#email").val()!=""){
+			if(!ismail($("#email").val())){
 			$("#email").tips({
 				side:3,
 	            msg:'邮箱格式不正确',
@@ -302,6 +302,7 @@
 	        });
 			$("#email").focus();
 			return false;
+		}
 		}
 		if($("#user_id").val()==""){
 			hasU();

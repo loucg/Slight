@@ -67,7 +67,7 @@
 										<td><input type="text" name="COMPANY" id="company"  value="${pd.COMPANY }"  maxlength="32" placeholder="无" title="公司" style="width:98%;"/></td>
 										</tr>
 										<tr>
-										<td style="width:79px;text-align: right;padding-top: 4px;">语言:</td>
+										<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>语言:</td>
 											<td id="yuyan">
 											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" style="vertical-align:top;width:98%;">
 											<option value="">请选择语言</option>
@@ -152,6 +152,17 @@
 			return false;
 		}
 		*/
+		
+		if($("#language_id").val()==""){
+			$("#yuyan").tips({
+				side:3,
+	            msg:'选择语言',
+	            bg:'#AE81FF',
+	            time:2
+	        });
+			$("#language_id").focus();
+			return false;
+		}
 		
 		if($("#newPassword").val()!="" && $("#oldPassword").val() == ""){ //当用户输入新密码而原始密码为空时
 			$("#oldPassword").tips({
