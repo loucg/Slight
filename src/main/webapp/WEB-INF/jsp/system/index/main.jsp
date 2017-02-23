@@ -50,14 +50,14 @@
 					<!-- /section:basics/content.breadcrumbs -->
 					<div class="page-content">
 						<!-- #section:settings.box -->
-						<div class="ace-settings-container" id="ace-settings-container">
+	<!-- 					<div class="ace-settings-container" id="ace-settings-container">
 							<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
 								<i class="ace-icon fa fa-cog bigger-130"></i>
 							</div>
 
 							<div class="ace-settings-box clearfix" id="ace-settings-box">
 								<div class="pull-left width-50">
-									<!-- #section:settings.skins -->
+									#section:settings.skins
 									<div class="ace-settings-item">
 										<div class="pull-left">
 											<select id="skin-colorpicker" class="hide">
@@ -70,13 +70,13 @@
 										<span>&nbsp; 选择皮肤</span>
 									</div>
 
-									<!-- #section:settings.breadcrumbs -->
+									#section:settings.breadcrumbs
 									<div class="ace-settings-item">
 										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
 										<label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>
 									</div>
 
-									<!-- #section:settings.container -->
+									#section:settings.container
 									<div class="ace-settings-item">
 										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
 										<label class="lbl" for="ace-settings-add-container">
@@ -84,11 +84,11 @@
 										</label>
 									</div>
 
-									<!-- /section:settings.container -->
-								</div><!-- /.pull-left -->
+									/section:settings.container
+								</div>pull-left
 
 								<div class="pull-left width-50">
-									<!-- #section:basics/sidebar.options -->
+									#section:basics/sidebar.options
 									<div class="ace-settings-item">
 										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-hover" />
 										<label class="lbl" for="ace-settings-hover">折叠菜单</label>
@@ -104,10 +104,10 @@
 										<label class="lbl" for="ace-settings-highlight">弹出风格</label>
 									</div>
 
-									<!-- /section:basics/sidebar.options -->
-								</div><!-- /.pull-left -->
-							</div><!-- /.ace-settings-box -->
-						</div><!-- /.ace-settings-container -->
+									/section:basics/sidebar.options
+								</div>/.pull-left
+							</div>/.ace-settings-box
+						</div>/.ace-settings-container -->
 						<div class="row">	
 						<div id="jzts" style="display:none; width:100%; position:fixed; z-index:99999999;">
 						<div class="commitopacity" id="bkbgjz"></div>
@@ -126,6 +126,13 @@
 			</div><!-- /.main-content -->
 
 		</div><!-- /.main-container -->
+
+		<!-- <script type="text/javascript">
+			window.onload=function(){
+				$('#ace-settings-hover').click();
+				$('#ace-settings-highlight').click();
+			}	
+		</script> -->
 
 		<!-- basic scripts -->
 		<!-- 页面底部js¨ -->
@@ -179,7 +186,6 @@
 		<script type="text/javascript" src="plugins/attention/drag/dialog.js"></script>
 		<link type="text/css" rel="stylesheet" href="plugins/attention/drag/style.css"  />
 		<!--引入弹窗组件2end-->
-		
 		<!--提示框-->
 		<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	</body>
