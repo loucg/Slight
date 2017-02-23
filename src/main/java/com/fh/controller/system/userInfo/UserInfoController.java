@@ -119,9 +119,13 @@ public class UserInfoController extends BaseController {
 		}
 		if(pd.getString("OLDPASSWORD") != null && !"".equals(pd.getString("OLDPASSWORD")) && pd.getString("NEWPASSWORD") != null && !"".equals(pd.getString("NEWPASSWORD"))){
 			String testPassword = new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("OLDPASSWORD")).toString();
-			Session session = Jurisdiction.getSession();
-			User user = (User)session.getAttribute(Const.SESSION_USER);
-			String oldPassword = user.getPASSWORD();//获取原始密码
+			//Session session = Jurisdiction.getSession();
+			//User user = (User)session.getAttribute(Const.SESSION_USER);
+			//String oldPassword = user.getPASSWORD();//获取原始密码
+			PageData temppd = new PageData();
+			temppd = (PageData)pd.clone();
+			temppd = userService.findById(temppd);
+			String oldPassword = temppd.getString("PASSWORD");
 			if(!testPassword.equals(oldPassword)){
 				//mv.addObject("msg","errorPassword");
 				//mv.setViewName("save_result");
