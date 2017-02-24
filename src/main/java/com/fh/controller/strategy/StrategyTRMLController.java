@@ -1,4 +1,4 @@
-package com.fh.controller.system.strategy;
+package com.fh.controller.strategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +75,7 @@ public class StrategyTRMLController extends BaseController{
 		page.setPd(pd);
 		termforpage = groupService.findById(pd);
 		List<PageData> groupMem = groupMemService.listMem(page);	//获取列表
-		mv.setViewName("system/strategy/strategyTRML_list");
+		mv.setViewName("strategy/strategyTRML_list");
 		
 		/*if("chakan".equals(title)){
 			mv.setViewName("groupmanage/groupmember_view");
@@ -125,7 +125,7 @@ public class StrategyTRMLController extends BaseController{
 		page.setPd(pd);
 		termforpage = groupService.findById(pd);
 		List<PageData> groupOther = groupMemService.listOthers(page);	//获取列表
-		mv.setViewName("system/strategy/strategyOther_list");
+		mv.setViewName("strategy/strategyOther_list");
 		mv.addObject("groupOther", groupOther);
 		mv.addObject("pd", pd);
 		mv.addObject("termforpage", termforpage);

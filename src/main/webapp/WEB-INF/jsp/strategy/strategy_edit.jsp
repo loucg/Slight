@@ -13,7 +13,7 @@
 	<!-- 下拉框 -->
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
-	<%@ include file="../index/top.jsp"%>
+	<%@ include file="../system/index/top.jsp"%>
 	<script type="text/javascript" src="static/ace/js/jquery.js"></script>
 	<!-- 上传插件 -->
 	<link href="plugins/uploadify/uploadify.css" rel="stylesheet" type="text/css">
@@ -91,7 +91,7 @@
 
 
 	<!-- 页面底部js¨ -->
-	<%@ include file="../index/foot.jsp"%>
+	<%@ include file="../system/index/foot.jsp"%>
 	<!-- 下拉框 -->
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	<!-- 日期框 -->
