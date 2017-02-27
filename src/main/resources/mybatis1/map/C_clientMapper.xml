@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="C_clientMapper">
+  	<select id="queryAllterm" resultType="cterm">
+  		select *  from c_term
+  	</select>
+  	<select id="queryCountterm_client" parameterType="cclient" resultType="Integer">
+  		select count(*)
+		from c_client_attr1 cca ,c_client_term cct ,c_term ct 
+		where cct.c_term_id=#{termid} and ct.id=#{termid}  and cct.c_client_id=cca.c_client_id
+  	</select>
+  	<select id="queryAllterm_client" parameterType="cclient" resultType="cclient">
+  		select cct.c_client_id as id , cca.name as name, ct.name as termname, cct.c_term_id as termid , cca.coordinate as coordinate
+  		from c_client_attr1 cca ,c_client_term cct,c_term ct
+		where cct.c_term_id=#{termid} and ct.id=#{termid} and cct.c_client_id=cca.c_client_id
+		GROUP BY
+		cct.c_client_id
+		limit
+		#{begin},#{rows}
+  	</select>
+  	 <select id="queryAllterm_gateway" parameterType="cclient" resultType="cclient">
+  		select cg.id as id ,cga.name as name ,cga.coordinate as  coordinate, cga.location as location ,cga.lamp_pole_num as lamppolenum ,cgt.name as typename ,-999 as termid ,"网关/断路器组"  as termname ,cgt.name as aliastypename
+		from c_gateway cg ,c_gateway_attr1 cga ,c_gateway_type cgt
+		where cg.id=cga.c_gateway_id and cga.c_gateway_type_id=cgt.id
+		limit
+		#{begin},#{rows}
+  	</select>
+  	<select id="queryCountgateway" parameterType="cclient" resultType="Integer">
+  		select count(*)
+		from c_gateway cg ,c_gateway_attr1 cga
+		where cg.id=cga.c_gateway_id
+  	</select>
+
+  	<select id="queryAllclient_status" parameterType="cclient" resultType="cclient">
+  		select cc.id,cca.name,cca.lamp_pole_num as lamppolenum ,cca.location,cca.coordinate ,ct.name as termname,ccus.brightness ,ccty.name as typename ,ccus.status , ct.id as termid ,ccty.id as typeid ,"灯" as aliastypename 
+		from c_client cc, c_client_attr1 cca ,c_client_term cct,c_term ct ,c_client_upload_status ccus ,c_client_type ccty
+		where cc.id=cca.c_client_id and cc.id=cct.c_client_id and cct.c_term_id=ct.id and cc.id=ccus.c_client_id and ccty.id=cca.c_client_type_id and ct.id=#{termid}
+		limit
+		#{begin},#{rows}
+  	</select>
+  	
+  	<!-- 上方搜索框 -->
+  	<select id="getTypenameByGroup" parameterType="Integer" resultType="cclient">
+  		select ccty.id as typeid ,ccty.name as typename 
+		from c_client_term cct,c_client_attr1 cca , c_client_type ccty
+		where  cct.c_term_id=#{groupname} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id
+		GROUP BY
+		ccty.id
+  	</select>
+  	<select id="getTypenameByGroupGateway" parameterType="Integer" resultType="cclient">
+  		select cgt.id as typeid ,cgt.name as typename 
+		from  c_gateway_attr1 cga ,c_gateway_type cgt
+		where  cga.c_gateway_type_id =cgt.id
+		GROUP BY
+		cgt.id
+  	</select>
+  	
+  	
+  	<select id="getAddressByType" parameterType="cclient" resultType="cclient">
+  		select cca.location, ccty.name as typename ,ccty.id as typeid 
+		from c_client_term cct,c_client_attr1 cca , c_client_type ccty
+		where  ccty.id=#{typeid} AND cct.c_term_id=#{termid} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id
+		GROUP BY
+		cca.location
+  	</select>	
+  	<select id="getAddressByTypeGataway" parameterType="cclient" resultType="cclient">
+  		select cgt.id as typeid ,cgt.name as typename ,cga.location
+		from  c_gateway_attr1 cga ,c_gateway_type cgt
+		where  cga.c_gateway_type_id =#{typeid}
+		GROUP BY
+		cga.location
+  	</select>
+  	
+  	
+  	<select id="getClientnameByaddress" parameterType="cclient" resultType="cclient">
+  		select cca.name, cca.location,ccty.name as typename ,ccty.id as typeid 
+		from c_client_term cct,c_client_attr1 cca , c_client_type ccty
+		where  cca.location= #{location} and ccty.id=#{typeid} AND cct.c_term_id=#{termid} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id
+		GROUP BY
+		cca.name
+	</select>
+	<select id="getClientnameByaddressGateway" parameterType="cclient" resultType="cclient">
+  		select cgt.id as typeid ,cgt.name as typename ,cga.location ,cga.name
+		from  c_gateway_attr1 cga ,c_gateway_type cgt
+		where  cga.c_gateway_type_id =#{typeid} and cga.location=#{location}
+		GROUP BY
+		cga.name
+	</select>
+	
+  	<select id="getClientigByname" parameterType="cclient" resultType="cclient">
+  		select cca.c_client_id as id,cca.name, cca.location,ccty.name as typename ,ccty.id as typeid 
+		from c_client_term cct,c_client_attr1 cca , c_client_type ccty
+		where  cca.name= #{name} and cca.location= #{location} and ccty.id=#{typeid} AND cct.c_term_id=#{termid} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id
+		GROUP BY
+		cca.c_client_id
+	</select>
+	<select id="getClientigBynameGateway" parameterType="cclient" resultType="cclient">
+  		select cgt.id as typeid ,cgt.name as typename ,cga.location ,cga.name ,cga.c_gateway_id as id
+		from  c_gateway_attr1 cga ,c_gateway_type cgt
+		where  cga.c_gateway_type_id =#{typeid} and cga.location=#{location} and cga.name=#{name}
+		GROUP BY
+		cga.c_gateway_id
+	</select>
+	<select id="getSearchClient"  resultType="cclient" parameterType="cclient">
+  		select cc.id,cca.name,cca.lamp_pole_num as lamppolenum ,cca.location,cca.coordinate ,ct.name as termname,ccus.brightness ,ccty.name as typename ,ccus.status ,"灯" as aliastypename 
+		from c_client cc, c_client_attr1 cca ,c_client_term cct,c_term ct ,c_client_upload_status ccus ,c_client_type ccty
+		where cc.id=cca.c_client_id and cc.id=cct.c_client_id and cct.c_term_id=ct.id and cc.id=ccus.c_client_id and ccty.id=cca.c_client_type_id 
+			<if test="typeid!=null and typeid!=''">
+			and ( ccty.id=#{typeid})
+			</if>
+			<if test="termid!=null and termid!=''">
+			and ( ct.id=#{termid})
+			</if>
+			<if test="location!=null and location!=''">
+			and ( cca.location=#{location})
+			</if>
+			<if test="name!=null and name!=''">
+			and ( cca.name=#{name})
+			</if>
+			<if test="id!=null and id!=''">
+			and ( cc.id=#{id})
+			</if>
+  	</select>
+
+	<select id="getSearchGateway"  resultType="cclient" parameterType="cclient">
+  	select cgt.id as typeid ,cgt.name as typename ,cga.location ,cga.name ,cga.c_gateway_id as id ,cga.lamp_pole_num as lamppolenum ,cga.coordinate  ,cga.staus as status,cgt.name as aliastypename 
+	from  c_gateway_attr1 cga ,c_gateway_type cgt
+	where  cga.c_gateway_type_id=cgt.id
+			<if test="typeid!=null and typeid!=''">
+			and ( cga.c_gateway_type_id=#{typeid})
+			</if>
+			<if test="location!=null and location!=''">
+			and ( cga.location=#{location})
+			</if>
+			<if test="name!=null and name!=''">
+			and ( cga.name=#{name})
+			</if>
+			<if test="id!=null and id!=''">
+			and (cga.c_gateway_id=#{id})
+			</if>
+  	</select>
+  	<!-- 上方搜索框结束 -->
+  	<update id="updateClientAttr_statusON"  parameterType="cclient">
+  		update c_client_upload_status ccus set ccus.status = "正常" where ccus.c_client_id = #{id}
+  	</update>
+  	<update id="updateClientAttr_statusOff"  parameterType="cclient">
+  		update c_client_upload_status ccus set ccus.status = "断电" where ccus.c_client_id = #{id}
+  	</update>
+  	<update id="updateClientAttr_brightness"  parameterType="cclient">
+  		update c_client_upload_status ccus set ccus.brightness = #{brightness} where ccus.c_client_id = #{id}
+  	</update>	
+</mapper>
