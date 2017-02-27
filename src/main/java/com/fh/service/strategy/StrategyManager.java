@@ -1,4 +1,4 @@
-package com.fh.service.system.strategy;
+package com.fh.service.strategy;
 
 import java.util.List;
 
@@ -24,13 +24,13 @@ public interface StrategyManager {
 	 * @return
 	 * @throws Exception
 	 */
-	public PageData findObjectById(PageData pd) throws Exception;
+	public PageData findById(PageData pd) throws Exception;
 	
-	/**添加
+	/**添加策略
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void add(PageData pd) throws Exception;
+	public void addStrategy(PageData pd) throws Exception;
 	
 	/**保存修改
 	 * @param pd

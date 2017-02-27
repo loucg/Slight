@@ -1,4 +1,4 @@
-package com.fh.service.system.strategy.impl;
+package com.fh.service.strategy.impl;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
 import com.fh.entity.system.Strategy;
-import com.fh.service.system.strategy.StrategyManager;
+import com.fh.service.strategy.StrategyManager;
 import com.fh.util.PageData;
 
 /**	控制策略
@@ -37,15 +37,15 @@ public class StrategyService implements StrategyManager{
 	 * @return
 	 * @throws Exception
 	 */
-	public PageData findObjectById(PageData pd) throws Exception {
-		return (PageData)dao.findForObject("StrategyMapper.findObjectById", pd);
+	public PageData findById(PageData pd) throws Exception {
+		return (PageData)dao.findForObject("StrategyMapper.findById", pd);
 	}
 	
-	/**添加
+	/**添加策略
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void add(PageData pd) throws Exception {
+	public void addStrategy(PageData pd) throws Exception {
 		dao.save("StrategyMapper.insert", pd);
 	}
 	

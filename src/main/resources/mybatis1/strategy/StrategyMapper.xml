@@ -24,12 +24,11 @@
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{id},
-		#{name},
-		#{explain},
-		#{json},
-		#{status},
-		#{tdate}
+		#{NAME},
+		#{EXPLAIN},
+		#{JSON},
+		#{STATUS},
+		#{TDATE}
 	</sql>
 	
 	<!--表名 -->
@@ -40,14 +39,25 @@
 	<!-- 列出所有策略-->
 	<select id="strategylistPage" parameterType="page" resultType="pd">
 		select
-		<include refid="Field"></include>
+		B_CTRL_STRATEGY.id,
+		B_CTRL_STRATEGY.name,
+		B_CTRL_STRATEGY.explain,
+		B_CTRL_STRATEGY.json,
+		B_CTRL_STRATEGY.status as status_value,
+		B_CTRL_STRATEGY.tdate,
+		B_STATUS.name as status
 		from
 		<include refid="tableName"></include>
+		left join
+		B_STATUS
+		ON
+		B_CTRL_STRATEGY.status = B_STATUS.value
+		and b_status_main_id = 1
 		ORDER BY id
 	</select>
 	
 	<!-- 通过id查找 -->
-	<select id="findObjectById" parameterType="pd" resultType="pd">
+	<select id="findById" parameterType="pd" resultType="pd">
 		select
 		<include refid="Field"></include>
 		from 
@@ -60,9 +70,17 @@
 		insert into 
 		<include refid="tableName"></include>
 		(
-		<include refid="Field"></include>
+		name,
+		B_CTRL_STRATEGY.explain,
+		json,
+		status,
+		tdate
 		) values (
-		<include refid="FieldValue"></include>	
+		#{NAME},
+		#{EXPLAIN},
+		#{JSON},
+		#{STATUS},
+		#{TDATE}
 		)
 	</insert>
 	
@@ -70,11 +88,11 @@
 	<update id="edit" parameterType="pd">
 		update 
 		<include refid="tableName"></include>
-		set name       = #{name},
-		    explain    = #{explain},
-		    json       = #{json},
-		    status     = #{status},
-		where id = #{id}
+		set name                       = #{NAME},
+		    B_CTRL_STRATEGY.explain    = #{EXPLAIN},
+		    json                       = #{JSON},
+		    status                     = #{STATUS}
+		where id = #{ID}
 	</update>
 	
 	<!-- 删除策略  -->

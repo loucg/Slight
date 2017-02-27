@@ -11,14 +11,14 @@ package com.fh.entity.system;
  */
 public class Status {
 
-	private String id;			    //编号
+	private String value;			    //值
 	private String name;			//状态名称
 	
-	public String getId(){
-		return id;
+	public String getValue(){
+		return value;
 	}
-	public void setId(String id){
-		this.id = id;
+	public void setValue(String value){
+		this.value = value;
 	}
 	public String getName() {
 		return name;

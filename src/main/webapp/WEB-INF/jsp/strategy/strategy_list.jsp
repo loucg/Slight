@@ -32,7 +32,7 @@
 						<div class="col-xs-12">
 						
 						<!-- 检索  -->
-						<form action="user/listUsers.do" method="post" name="userForm" id="userForm">
+						<form action="strategy/listStrategys.do" method="post" name="userForm" id="userForm">
 						<table style="margin-top:5px;">
 							<tr>
 							    <td>策略名称：</td>
@@ -81,7 +81,7 @@
 											<td class="center">${strategy.name }</td>
 											<td class="center">${strategy.explain }</td>
 											<td class="center">${strategy.json }</td>
-											<td class="center">${strategy.json }</td>
+											<td class="center">${strategy.status }</td>
 											<td class="center">${strategy.json }</td>
 											<td class="center">${strategy.json }</td>
 											<td class="center">
@@ -131,7 +131,7 @@
 						<tr>
 							<td style="vertical-align:top;">
 								<c:if test="${QX.add == 1 }">
-								<a class="btn btn-mini btn-success" onclick="add();">新增策略</a>
+								<a class="btn btn-mini btn-success" onclick="addStrategy();">新增策略</a>
 								</c:if>
 							</td>
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -182,12 +182,12 @@ function searchs(){
 	$("#userForm").submit();
 }
 
-//新增
-function add(){
+//新增策略
+function addStrategy(){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
-	 diag.Title ="新增";
+	 diag.Title ="新增策略";
 	 diag.URL = '<%=basePath%>strategy/goAddS.do';
 	 diag.Width = 469;
 	 diag.Height = 510;

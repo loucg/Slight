@@ -34,25 +34,26 @@
 				<div class="row">
 					<div class="col-xs-12">
 					
-					<form action="group/${msg }.do" name="groupForm" id="groupForm" method="post">
+					<form action="strategy/${msg }.do" name="strategyForm" id="strategyForm" method="post">
 						<input type="hidden" value="no" id="hasTp1" />
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr style="display:none">
-						   		 <td><input type="text" name="id" id="id" value="${pd.id }" /></td>
+						   		 <td><input type="text" name="ID" id="id" value="${pd.id }" /></td>
 						    </tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">策略名称:</td>
-								<td><input type="text" name="name" id="name" value="${pd.name }" maxlength="100" title="名称" style="width:98%;" /></td>
+								<td><input type="text" name="NAME" id="name" value="${pd.name }" maxlength="100" title="名称" style="width:98%;" /></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">应用说明:</td>
-								<td><input type="text" name="explain" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" /></td>
+								<td><input type="text" name="EXPLAIN" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" /></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">状态:</td>
 								<td>
-									<select name="status" maxlength="100" title="状态" style="width:98%;">
+									<select class="chosen-select form-control" name="STATUS" id="status" maxlength="100" title="状态" style="vertical-align:top;width:98%;">
+										<option value="">请选择状态</option>
 										<option value="1" <c:if test="${pd.status == '1' }">selected</c:if> >有效</option>
 										<option value="2" <c:if test="${pd.status == '2' }">selected</c:if> >无效</option>
 									</select>
@@ -60,11 +61,11 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">时间:</td>
-								<td><input type="text" name="explain" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" /></td>
+								<td><input type="text" name="yy" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" /></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">亮度值:</td>
-								<td><input type="text" name="explain" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" /></td>
+								<td><input type="text" name="JSON" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" /></td>
 							</tr>
 							
 							<tr>
@@ -104,10 +105,21 @@
 		//保存
 		function save(){
 			
+			if($("#status").val()==""){
+				$("#status").tips({
+					side:3,
+		            msg:'选择状态',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#status_id").focus();
+				return false;
+			}
+			
 			if($("#name").val()==""){
 				$("#name").tips({
 					side:3,
-		            msg:'输入组名称',
+		            msg:'输入策略名称',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -117,14 +129,14 @@
 			if($("#explain").val()==""){
 				$("#explain").tips({
 					side:3,
-		            msg:'输入简述',
+		            msg:'输入应用说明',
 		            bg:'#AE81FF',
 		            time:3
 		        });
 				$("#explain").focus();
 				return false;
 			}else{
-				$("#groupForm").submit();
+				$("#strategyForm").submit();
 				$("#zhongxin").hide();
 				$("#zhongxin2").show();
 			}

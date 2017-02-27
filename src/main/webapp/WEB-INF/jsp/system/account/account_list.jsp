@@ -31,7 +31,7 @@
 					<div class="row">
 						<div class="col-xs-12">
 						<!-- 检索  -->
-						<form action="account/listAccounts.do" method="post" name="userForm" id="userForm">
+						<form action="account/listAccounts.do" method="post" name="accountForm" id="accountForm">
 						<table style="margin-top:5px;">
 							<tr>
 								
@@ -224,7 +224,7 @@ $(top.hangge());
 //检索
 function searchs(){
 	top.jzts();
-	$("#userForm").submit();
+	$("#accountForm").submit();
 }
 
 //密码重置

@@ -26,7 +26,7 @@
 				<div class="page-content">
 					<div class="row">
 						<div class="col-xs-12">
-								<form action="account/${msg }.do" name="userForm" id="userForm" method="post">
+								<form action="account/${msg }.do" name="accountForm" id="accountForm" method="post">
 									<input type="hidden" name="USER_ID" id="user_id" value="${pd.USER_ID }"/>
 									<div id="zhongxin" style="padding-top: 9px;">
 									<table id="table_report" class="table table-striped table-bordered table-hover">
@@ -104,7 +104,7 @@
 											<select class="chosen-select form-control" name="STATUS_ID" id="status_id" data-placeholder="请选择状态" style="vertical-align:top;width:98%;" >
 											<option value="">请选择状态</option>
 											<c:forEach items="${statusList}" var="status">
-												<option value="${status.id }" <c:if test="${status.id == pd.STATUS_ID }">selected</c:if>>${status.name }</option>
+												<option value="${status.value }" <c:if test="${status.value == pd.STATUS_ID }">selected</c:if>>${status.name }</option>
 											</c:forEach>
 											<!--
 											<option value="0" <c:if test="${pd.STATUS_ID == '0' }">selected</c:if> >有效</option>
@@ -307,7 +307,7 @@
 		if($("#user_id").val()==""){
 			hasU();
 		}else{
-			$("#userForm").submit();
+			$("#accountForm").submit();
 			$("#zhongxin").hide();
 			$("#zhongxin2").show();
 		}
@@ -327,7 +327,7 @@
 			cache: false,
 			success: function(data){
 				 if("success" == data.result){
-					$("#userForm").submit();
+					$("#accountForm").submit();
 					$("#zhongxin").hide();
 					$("#zhongxin2").show();
 				 }else{

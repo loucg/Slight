@@ -132,7 +132,7 @@
 		left join 
 		<include refid="roleTableName"></include> r 
 		on u.ROLE_ID=r.ROLE_ID 
-		where u.STATUS=0 
+		where u.STATUS=1 
 		and u.USER_ID=#{USER_ID}
 	</select>
 	
@@ -284,7 +284,8 @@
 		on q.B_COMPANY_ID = m.ID
 		left join 
 		<include refid="statusTableName"></include> n
-		on u.STATUS = n.ID
+		on u.STATUS = n.VALUE
+		and n.B_STATUS_MAIN_ID = 1
 		left join 
 		<include refid="languageTableName"></include> o
 		on u.LANGUAGE = o.ID 
@@ -407,7 +408,8 @@
 		on q.B_COMPANY_ID = m.ID
 		left join 
 		<include refid="statusTableName"></include> n
-		on u.STATUS = n.ID
+		on u.STATUS = n.VALUE
+		and n.B_STATUS_MAIN_ID = 1
 		left join 
 		<include refid="languageTableName"></include> o
 		on u.LANGUAGE = o.ID 
@@ -451,7 +453,8 @@
 		on q.B_COMPANY_ID = m.ID
 		left join 
 		<include refid="statusTableName"></include> n
-		on u.STATUS = n.ID
+		on u.STATUS = n.VALUE
+		and n.B_STATUS_MAIN_ID = 1
 		left join 
 		<include refid="languageTableName"></include> o
 		on u.LANGUAGE = o.ID
