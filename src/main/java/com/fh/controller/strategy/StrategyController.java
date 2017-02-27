@@ -1,4 +1,4 @@
-package com.fh.controller.system.strategy;
+package com.fh.controller.strategy;
 
 import java.io.PrintWriter;
 import java.text.DateFormat;
@@ -75,9 +75,17 @@ public class StrategyController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		String name = pd.getString("name");			//检索条件：策略名称
+		if(null !=name && !"".equals(name)){
+			pd.put("name", name.trim());
+		}
+		String explain = pd.getString("explain");		//检索条件：应用说明
+		if(null !=explain && !"".equals(explain)){
+			pd.put("explain", explain.trim());
+		}
 		page.setPd(pd);
 		List<PageData>	strategyList = strategyService.listStrategys(page);	//列出策略列表	
-		mv.setViewName("system/strategy/strategy_list");
+		mv.setViewName("strategy/strategy_list");
 		mv.addObject("strategyList", strategyList);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
@@ -109,7 +117,7 @@ public class StrategyController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		mv.setViewName("system/strategy/strategy_edit");
+		mv.setViewName("strategy/strategy_edit");
 		mv.addObject("msg", "saveS");
 		mv.addObject("pd", pd);
 		return mv;
@@ -217,7 +225,7 @@ public class StrategyController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd = strategyService.findObjectById(pd);								//根据ID读取
-		mv.setViewName("system/strategy/strategy_edit");
+		mv.setViewName("strategy/strategy_edit");
 		mv.addObject("msg", "editS");
 		mv.addObject("pd", pd);
 		
