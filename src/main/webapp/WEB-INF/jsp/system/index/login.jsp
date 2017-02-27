@@ -84,7 +84,8 @@
 			<form action="" method="post" name="loginForm" id="loginForm">
 				<div class="control-group normal_text">
 					<h3>
-						<img src="static/login/logo.png" alt="Logo" />
+						捷步路灯管理系统
+						<!-- <img src="static/login/logo.png" alt="Logo" /> -->
 					</h3>
 				</div>
 				<div class="control-group">
@@ -136,7 +137,7 @@
 			</form>
 			<div class="controls">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright © FHqq313596790 2100</span></font>
+					<font color="white"><span id="nameerr"></span></font>
 				</div>
 			</div>
 		</div>

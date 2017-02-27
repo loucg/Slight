@@ -31,11 +31,25 @@
 					<div class="row">
 						<div class="col-xs-12">
 						<!-- 检索  -->
-						<form action="account/listAccounts.do" method="post" name="userForm" id="userForm">
+						<form action="account/listAccounts.do" method="post" name="accountForm" id="accountForm">
 						<table style="margin-top:5px;">
 							<tr>
+								
+								<td>姓名：</td>
 								<td>
-							    <select class="chosen-select form-control" name="company" id="company" data-placeholder="请选择公司" style="vertical-align:top;width: 120px;">
+									<div class="nav-search">
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name"/>
+									</div>
+								</td>
+								<td>&nbsp;&nbsp;登录名：</td>
+								<td>
+									<div class="nav-search">
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="username"/>
+									</div>
+								</td>
+								<td>&nbsp;&nbsp;公司：</td>
+								<td >
+							    <select class="chosen-select form-control" name="company" id="company" data-placeholder="请选择公司" style="margin-left:20px; width: 152px;">
 									<option value=""></option>
 									<option value="">全部</option>
 									<c:forEach items="${companyList}" var="company">
@@ -43,24 +57,9 @@
 									</c:forEach>
 								  	</select>
 								</td>
-								<td>
-									<div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }" placeholder="姓名" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
-									</div>
-								</td>
-								<td>
-									<div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="username" value="${pd.username }" placeholder="登录名" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
-									</div>
-								</td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="vertical-align:top;width: 120px;">
+								<td>&nbsp;&nbsp;角色：</td>
+								<td style="vertical-align:top;padding-left:2px;margin-left:20px;">
+								 	<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="margin-left:20px;width: 152px;">
 									<option value=""></option>
 									<option value="">全部</option>
 									<c:forEach items="${roleList}" var="role">
@@ -69,7 +68,7 @@
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								<!-- 
 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
@@ -106,7 +105,7 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${accountList}" var="account" varStatus="vs">
 										<tr>
-											<td class='center' style="width: 30px;">${vs.index+1}</td>
+											<td class='center' style="width: 30px;">${vs.index+1+(page.currentPage-1)*page.showCount}</td>
 											<td class="center">${account.COMPANY }</td>
 											<td class="center">${account.DEPARTMENT }</td>
 											<!-- <td class="center"><a onclick="viewUser('${user.USERNAME}')" style="cursor:pointer;">${user.USERNAME }</a></td> -->
@@ -225,7 +224,7 @@ $(top.hangge());
 //检索
 function searchs(){
 	top.jzts();
-	$("#userForm").submit();
+	$("#accountForm").submit();
 }
 
 //密码重置
@@ -235,8 +234,8 @@ function resetPassword(user_id){
 	 diag.Drag=true;
 	 diag.Title ="密码重置";
 	 diag.URL = '<%=basePath%>account/goResetP.do?USER_ID='+user_id;
-	 diag.Width = 469;
-	 diag.Height = 510;
+	 diag.Width = 351;
+	 diag.Height = 103;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			nextPage(${page.currentPage});
@@ -253,8 +252,8 @@ function add(){
 	 diag.Drag=true;
 	 diag.Title ="新增";
 	 diag.URL = '<%=basePath%>account/goAddA.do';
-	 diag.Width = 469;
-	 diag.Height = 510;
+	 diag.Width = 351;
+	 diag.Height = 520;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			 if('${page.currentPage}' == '0'){
@@ -276,8 +275,8 @@ function editAccount(user_id){
 	 diag.Drag=true;
 	 diag.Title ="资料";
 	 diag.URL = '<%=basePath%>account/goEditA.do?USER_ID='+user_id;
-	 diag.Width = 469;
-	 diag.Height = 510;
+	 diag.Width = 351;
+	 diag.Height = 520;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			nextPage(${page.currentPage});

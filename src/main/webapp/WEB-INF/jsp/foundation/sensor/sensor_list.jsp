@@ -39,13 +39,13 @@
 								<td >
 								 	<div class="nav-search">
 									    <label style="margin-left:12px;">规格：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }" placeholder="这里输入名称" />
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }" />
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search">
 									    <label style="margin-left:12px;">厂家：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="vendor" value="${pd.vendor}" placeholder="这里输入类型" />
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="vendor" value="${pd.vendor}"/>
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -79,25 +79,22 @@
 									<c:forEach items="${sensorList}" var="var" varStatus="vs">
 										<tr>
 
-											<td class='center' style="width: 30px;">${vs.index+1}</td>
-													<td class="center">${var.name}</td>
-													<td class="center">${ fn:substring(var.vendor ,0,50)}</td>											
-													<td style="width: 60px;" class="center">
-														<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in">系统</span></c:if>
-														<c:if test="${var.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
-													</td>
-													<td class="center">${var.comment}</td>
-											<td class="center">
-												<div class='hidden-phone visible-desktop btn-group'>
-													<c:if test="${QX.edit != 1 && QX.del != 1 }">
-													<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="icon-lock" title="无权限"></i></span>
-													</c:if>
+											<td class='center' style="width: 30px;">${vs.index+1+(page.currentPage-1)*page.showCount}</td>
+											<td class="center">${var.name}</td>
+											<td class="center">${ fn:substring(var.vendor ,0,50)}</td>											
+											<td style="width: 60px;" class="center">
+												<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in">系统</span></c:if>
+												<c:if test="${var.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
+											</td>
+											<td class="center">${var.comment}</td>
+											<td class="center" style="width:50px;">
+												<c:if test="${QX.edit != 1 && QX.del != 1 }">
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												</c:if>
+												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a style="cursor:pointer;" class="green" onclick="edit('${var.id}');" title="编辑">
-														<i class="ace-icon fa fa-pencil bigger-130"></i>
-													</a>
+													<a class="btn btn-xs btn-success" onclick="edit('${var.id}');">编辑</a>
 													</c:if>
-
 												</div>
 											</td>
 										</tr>
@@ -181,7 +178,7 @@
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>sensor/goSensorCreate';
 			 diag.Width = 650;
-			 diag.Height = 279;
+			 diag.Height = 224;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){
@@ -206,7 +203,7 @@
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>sensor/goSensorEdit?id='+Id;
 			 diag.Width = 650;
-			 diag.Height = 279;
+			 diag.Height = 224;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});

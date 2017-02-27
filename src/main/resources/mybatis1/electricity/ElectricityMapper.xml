@@ -40,6 +40,8 @@
 		b_powerup
 		ON c_gateway.id = b_powerup.c_gateway_id
 		WHERE 1=1
+		AND
+		c_gateway_attr1.sys_user_id = #{pd.sys_user_id}
 		 <if test="pd.gateway_code!=null and pd.gateway_code!=''">
 			and 
 			(
@@ -81,7 +83,7 @@
 		update b_powerup
 			set 
 			c_gateway_id  = #{id}, 
-			b_user_id     =  111,
+			sys_user_id   = #{sys_user_id},
 			tdate         = #{tdate},	
 				
 			<if test="powerup != null and powerup != ''">

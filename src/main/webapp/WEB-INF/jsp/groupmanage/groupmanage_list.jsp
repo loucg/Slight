@@ -219,7 +219,7 @@
 			 diag.Title ="修改";
 			 diag.URL = '<%=basePath%>group/goUpdate.do?id='+id;
 			 diag.Width = 469;
-			 diag.Height = 270;
+			 diag.Height = 186;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					nextPage(${page.currentPage});
@@ -238,7 +238,7 @@
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>group/goAdd.do';
 			 diag.Width = 460;
-			 diag.Height = 270;
+			 diag.Height = 186;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮

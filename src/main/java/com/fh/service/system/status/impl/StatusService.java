@@ -31,6 +31,16 @@ public class StatusService implements StatusManager{
 		return (List<Status>) dao.findForList("StatusMapper.listAllStatusByPId", pd);
 	}
 	
+	/**列出所有帐号状态
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Status> listAllAccountStatusById(PageData pd) throws Exception {
+		return (List<Status>) dao.findForList("StatusMapper.listAllAccountStatusById", pd);
+	}
+	
 	/**通过id查找
 	 * @param pd
 	 * @return

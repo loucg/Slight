@@ -18,6 +18,13 @@ public interface StatusManager {
 	 */
 	public List<Status> listAllStatusByPId(PageData pd) throws Exception;
 	
+	/**列出所有帐号状态
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Status> listAllAccountStatusById(PageData pd) throws Exception;
+	
 	/**通过id查找
 	 * @param pd
 	 * @return

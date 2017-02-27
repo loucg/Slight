@@ -8,21 +8,17 @@
 %>
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+<head>
 	<base href="<%=basePath%>">
 	<!-- 下拉框 -->
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
 	<%@ include file="../system/index/top.jsp"%>
-	<script type="text/javascript" src="static/ace/js/jquery.js"></script>
-	<!-- 上传插件 -->
-	<link href="plugins/uploadify/uploadify.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="plugins/uploadify/swfobject.js"></script>
-	<script type="text/javascript" src="plugins/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
-	<!-- 上传插件 -->
-	<script type="text/javascript">
-	var jsessionid = "<%=session.getId()%>";  //勿删，uploadify兼容火狐用到
-	</script>
+	<!-- 日期框 -->
+	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
+	<!-- 时间 -->
+	<link rel="stylesheet" href="static/ace/css/bootstrap-timepicker.css" />
+
 </head>
 <body class="no-skin">
 <!-- /section:basics/navbar.layout -->
@@ -43,13 +39,19 @@
 						    </tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">上电时间:</td>
-								<td><input type="text" name="powerup" id="powerup" value="${pd.powerup }" maxlength="100" title="上电时间" style="width:98%;" placeholder="18:00(24小时制)"/></td>
+								<td><input class="span10 time-picker" type="text" name="powerup" id="powerup" value="6:00 PM" maxlength="100" title="上电时间" style="width:98%;" placeholder="18:00(24小时制)"/></td>
+<%-- 								<td><input class="span10 time-picker" type="text" name="powerup" id="powerup" value="${pd.powerup }" maxlength="100" title="上电时间" style="width:98%;" placeholder="18:00(24小时制)"/></td> --%>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">断电时间:</td>
-								<td><input type="text" name="powerdown" id="powerdown" value="${pd.powerdown }" maxlength="100" title="断电时间" style="width:98%;" placeholder="6:00(24小时制)"/></td>
+								<td><input class="span10 time-picker" type="text" name="powerdown" id="powerdown" value="6:00 AM" maxlength="100" title="断电时间" style="width:98%;" placeholder="6:00(24小时制)"/></td>
 							</tr>
 							
+							<!-- <tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">时间:</td>
+								<td><input class="span10 time-picker" type="text" data-toggle="datepicker"></td>
+							</tr> -->
+								
 							<tr>
 								<td style="text-align: center;" colspan="10">
 									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
@@ -72,13 +74,14 @@
 </div>
 <!-- /.main-container -->
 
-
 	<!-- 页面底部js¨ -->
 	<%@ include file="../system/index/foot.jsp"%>
 	<!-- 下拉框 -->
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	<!-- 日期框 -->
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
+	<!-- 时间 -->
+	<script src="static/ace/js/date-time/bootstrap-timepicker.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 		<script type="text/javascript">
@@ -88,7 +91,7 @@
 		function save(){
 			var time = /^(([1-9]{1})|([0-1][0-9])|([1-2][0-3])):([0-5][0-9])$/;
 			
-			if(!time.test($("#powerup").val())){
+			/* if(!time.test($("#powerup").val())){
 				$("#powerup").tips({
 					side:3,
 		            msg:'时间格式不正确',
@@ -97,8 +100,8 @@
 		        });
 				$("#powerup").focus();
 				return false;
-			}
-			if(!time.test($("#powerdown").val())){
+			} */
+			/* if(!time.test($("#powerdown").val())){
 				$("#powerdown").tips({
 					side:3,
 		            msg:'时间格式不正确',
@@ -107,7 +110,7 @@
 		        });
 				$("#powerdown").focus();
 				return false;
-			}else{
+			}else */{
 				$("#electricityForm").submit(); 
 				$("#zhongxin").hide();
 				$("#zhongxin2").show();
@@ -115,6 +118,11 @@
 			
 		}
 		
+		$(function() {
+			//日期框
+			$('.time-picker').timepicker();
+			
+		});
 
 			//清除空格
 		String.prototype.trim=function(){

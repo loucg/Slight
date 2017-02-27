@@ -31,20 +31,16 @@
 						<form action="department/companylist.do?" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
-								<td>
-									<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" placeholder="这里输入公司名" class="nav-search-input" id="companyname" name="companyname" autocomplete="off" value="${page.pd.companyname }" />
-											<i class="ace-icon fa fa-search nav-search-icon"></i>
-										</span>
+								<td >
+								 	<div class="nav-search">
+									    <label>公司名：</label>
+										<input class="nav-search-input" autocomplete="off" id="company" type="text" name="companyname" value="${page.pd.companyname }" />
 									</div>
 								</td>
-								<td>
-									<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" placeholder="这里输入公司联系人" class="nav-search-input" id="companycontact" name="companycontact" autocomplete="off" value="${page.pd.companycontact }" />
-											<i class="ace-icon fa fa-search nav-search-icon"></i>
-										</span>
+								<td >
+								 	<div class="nav-search">
+									    <label style="margin-left:12px;">联系人：</label>
+										<input class="nav-search-input" autocomplete="off" id="companycontact" type="text" name="companyname" value="${page.pd.companycontact }" />
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -222,8 +218,8 @@
 			 diag.Drag=true;
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>department/goAddcompany.do';
-			 diag.Width = 700;
-			 diag.Height = 550;
+			 diag.Width = 470;
+			 diag.Height = 364;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if('none' == diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display){
 					 parent.location.href="<%=basePath%>department/listAllDepartment.do?dnowPage=${page.currentPage}";
@@ -268,8 +264,8 @@
 			 diag.Drag=true;
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>department/goEditcompany.do?companyid='+Id;
-			 diag.Width = 700;
-			 diag.Height = 550;
+			 diag.Width = 470;
+			 diag.Height = 380;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 parent.location.href="<%=basePath%>department/listAllDepartment.do?DEPARTMENT_ID=${DEPARTMENT_ID}&dnowPage=${page.currentPage}";

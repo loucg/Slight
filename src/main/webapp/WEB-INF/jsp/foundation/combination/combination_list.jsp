@@ -40,17 +40,18 @@
 								<td>
 									<div class="nav-search">
 									    <label>终端编号：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="number" value="${pd.number}" placeholder="这里输入终端编号" />
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="number" value="${pd.number}" />
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search">
 									    <label style="margin-left:12px;">终端名称：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }" placeholder="这里输入终端名称" />
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }"  />
 									</div>
 								</td>
+								<td>&nbsp;&nbsp;终端类型：</td>
 								<td >
-								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择终端类型" style="height:30px;width: 160px;margin-left:20px;border-width:1px;border-color:'#fff';border-radius:4px">
+								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择终端类型" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
 								 		<option value="6" <c:if test="${pd.itype==4}">selected</c:if>>终端组合</option>
 										<option value="1" <c:if test="${pd.itype==1}">selected</c:if>>一体化电源</option>
 										<option value="2" <c:if test="${pd.itype==2}">selected</c:if>>单灯控制器</option>
@@ -60,13 +61,14 @@
 										
 								  	</select>
 								</td>
+								<%-- <td>&nbsp;&nbsp;状态：</td>
 								<td>
 								 	<select class="chosen-select form-control" name="status" id="status" data-placeholder="请选择状态" style="height:30px;width: 160px;margin-left:20px;border-width:1px;border-color:'#fff';border-radius:4px">
 								 		<option value="">全部</option>
 										<option value="1" <c:if test="${pd.status==1}">selected</c:if>>有效</option>
 										<option value="2" <c:if test="${pd.status==2}">selected</c:if>>无效</option>
 								  	</select>
-								</td>
+								</td> --%>
 								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
@@ -77,12 +79,12 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center" >终端编号</th>
-									<th class="center" >终端名称</th>
-									<th class="center" >终端类型</th>
-									<th class="center" >位置</th>
-									<th class="center" >坐标</th>
-									<th class="center" >电话号码</th>
+									<th class="center" style="width:50px">终端编号</th>
+									<th class="center">终端名称</th>
+									<th class="center">终端类型</th>
+									<th class="center">位置</th>
+									<th class="center">坐标</th>
+									<th class="center">电话号码</th>
 									<th class="center">电源规格</th>
 									<th class="center">灯规格</th>
 									<th class="center">传感器规格</th>
@@ -103,34 +105,33 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${deviceList}" var="var" varStatus="vs">
 										<tr>
-													<td class="center">${var.number}</td>
-													<td class="center">${var.name}</td>
-													<td class="center">${var.type}</td>
-													<td class="center">${var.location}</td>
-													<td class="center">${var.coordinate}</td>
-													<td class="center">${var.mobile}</td>
-													<td class="center">${var.power}</td>
-													<td class="center">${var.lamp}</td>
-													<td class="center">${var.sensor}</td>
-													<td class="center">${var.pole}</td>
-													<td class="center">${var.polenumber}</td>
-													<td class="center">${var.password}</td>
-													<td class="center">${var.comment}</td>
-													<!--  <td class="center">${var.CREATETIME}</td>
-													<td style="width: 60px;" class="center">
-														<c:if test="${var.STATUS == '2' }"><span class="label label-important arrowed-in">无效</span></c:if>
-														<c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">有效</span></c:if>
-													</td>
-													-->
-											<td class="center">
-												<div class='hidden-phone visible-desktop btn-group'>
-
+											<td class="center" style="width:50px">${var.number}</td>
+											<td class="center">${var.name}</td>
+											<td class="center">${var.type}</td>
+											<td class="center">${var.location}</td>
+											<td class="center">${var.coordinate}</td>
+											<td class="center">${var.mobile}</td>
+											<td class="center">${var.power}</td>
+											<td class="center">${var.lamp}</td>
+											<td class="center">${var.sensor}</td>
+											<td class="center">${var.pole}</td>
+											<td class="center">${var.polenumber}</td>
+											<td class="center">${var.password}</td>
+											<td class="center">${var.comment}</td>
+											<!--  <td class="center">${var.CREATETIME}</td>
+											<td style="width: 60px;" class="center">
+												<c:if test="${var.STATUS == '2' }"><span class="label label-important arrowed-in">无效</span></c:if>
+												<c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">有效</span></c:if>
+											</td>
+											-->
+											<td class="center" style="width:50px;">
+												<c:if test="${QX.edit != 1 && QX.del != 1 }">
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												</c:if>
+												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a style="cursor:pointer;" class="green" onclick="edit('${var.id}','${var.typeid}');" title="编辑">
-														<i class="ace-icon fa fa-pencil bigger-130"></i>
-													</a>
+													<a class="btn btn-xs btn-success" onclick="edit('${var.id}','${var.typeid}');">修改</a>
 													</c:if>
-
 												</div>
 											</td>
 										</tr>
@@ -212,7 +213,7 @@
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>config/goDeviceCreate';
 			 diag.Width = 650;
-			 diag.Height = 650;
+			 diag.Height = 640;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){
@@ -232,10 +233,10 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="编辑";
+			 diag.Title ="修改";
 			 diag.URL = '<%=basePath%>config/goDeviceEdit?id='+Id+'&typeid='+type;
 			 diag.Width = 650;
-			 diag.Height = 650;
+			 diag.Height = 640;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});

@@ -5394,8 +5394,8 @@ body.mob-safari .sidebar.sidebar-fixed {
 }
 .btn-xs,
 .btn-group-xs > .btn {
-  padding-top: 3px;
-  padding-bottom: 3px;
+  /* padding-top: 3px;
+  padding-bottom: 3px; */
   border-width: 3px;
 }
 .btn-mini,
@@ -8805,7 +8805,7 @@ select {
   height: 30px;
 }
 select.form-control {
-  padding: 4px 6px;
+  padding: 4px 0px;
 }
 select[multiple],
 select.form-control[multiple] {
@@ -9029,7 +9029,7 @@ input[type=radio].ace + .lbl::before {
   cursor: pointer;
   font-family: fontAwesome;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 14px;
   color: #32a3ce;
   content: "\a0";
   background-color: #FAFAFA;

@@ -29,7 +29,7 @@
 								<form action="account/${msg }.do" name="userForm" id="userForm" method="post">
 									<input type="hidden" name="USER_ID" id="user_id" value="${pd.USER_ID }"/>
 									<input type="hidden" name="USERNAME" id="username" value="${pd.USERNAME }"/>
-									<div id="zhongxin" style="padding-top: 13px;">
+									<div id="zhongxin" style="padding-top: 20px;">
 									<table id="table_report" class="table table-striped table-bordered table-hover">
 									    <tr>
 											<td style="text-align: center;" colspan="10">
@@ -44,7 +44,9 @@
 										</tr>
 									</table>
 									</div>
-									<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"></h4></div>
+									
+									<div id="zhongxin2" class="center" style="display:none"><img src="static/images/jiazai.gif" /></div>
+								    
 								</form>
 						</div>
 						<!-- /.col -->

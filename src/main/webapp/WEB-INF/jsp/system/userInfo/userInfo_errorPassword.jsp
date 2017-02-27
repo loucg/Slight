@@ -26,14 +26,8 @@
 				<div class="page-content">
 					<div class="row">
 						<div class="col-xs-12">
-									<div id="zhongxin" style="padding-top: 13px;">
-									<table id="table_report" class="table table-striped table-bordered table-hover">
-									    <tr>
-											<td style="text-align: center;" colspan="10">
-												原始密码错误！
-											</td>
-										</tr>
-									</table>
+									<div id="zhongxin" style="padding-top: 143px;">
+									<p style="text-align: center;"><font size="5">原始密码错误，请重新修改！</font></p>
 									</div>
 									<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"></h4></div>
 						</div>

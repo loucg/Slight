@@ -63,9 +63,6 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<!-- <th class="center" style="width:35px;">
-									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
-									</th> -->
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">规格名称</th>
 									<th class="center">厂家</th>
@@ -77,7 +74,49 @@
 							</thead>
 													
 							<tbody>
-							<!-- 开始循环 -->	
+							<!-- 开始循环 -->
+							<c:choose>
+								<c:when test="${not empty nPowerList}">
+									<c:if test="${QX.cha == 1 }">
+									<c:forEach items="${nPowerList}" var="var" varStatus="vs">
+										<tr>
+
+											<td class='center' style="width: 30px;">${vs.index+1+(page.currentPage-1)*page.showCount}</td>
+											<td class="center">${var.name}</td>
+											<td class="center">${ fn:substring(var.vendor ,0,50)}</td>											
+											<td style="width: 60px;" class="center">
+												<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in">系统</span></c:if>
+												<c:if test="${var.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
+											</td>
+											<td class='center'>${var.power}</td>
+											<td class="center">${var.comment}</td>
+											<td class="center" style="width:50px;">
+												<c:if test="${QX.edit != 1 && QX.del != 1 }">
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												</c:if>
+												<div class="hidden-sm hidden-xs btn-group">
+													<c:if test="${QX.edit == 1 }">
+													<a class="btn btn-xs btn-success" onclick="edit('${var.id}');">编辑</a>
+													</c:if>
+												</div>
+											</td>
+										</tr>
+
+									</c:forEach>
+									</c:if>
+									<c:if test="${QX.cha == 0 }">
+										<tr>
+											<td colspan="100" class="center">您无权查看</td>
+										</tr>
+									</c:if>
+								</c:when>
+								<c:otherwise>
+									<tr class="main_info">
+										<td colspan="100" class="center" >没有相关数据</td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
+	<%-- 						<!-- 开始循环 -->	
 							<c:choose>
 								<c:when test="${not empty nPowerList}">
 									<c:if test="${QX.cha == 1 }">
@@ -92,26 +131,14 @@
 											</td>
 											<td class='center'>${npower.power}</td>
 											<td class='center'>${npower.comment}</td>
-											<td class="center" style="width:100px;">
+											<td class="center" style="width:50px;>
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="editNpower('${npower.id}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
-													</a>
+													<a class="btn btn-xs btn-success" onclick="edit('${npower.id}');">编辑</a>
 													</c:if>
-												</div>
-												<div class="hidden-md hidden-lg">
-													<div class="inline pos-rel">
-														<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-															<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-														</button>
-			
-														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-														</ul>
-													</div>
 												</div>
 											</td>
 										</tr>
@@ -129,7 +156,7 @@
 										<td colspan="100" class="center" >没有相关数据</td>
 									</tr>
 								</c:otherwise>
-							</c:choose>
+							</c:choose> --%>
 							</tbody>
 						</table>
 						<div class="page-header position-relative">
@@ -139,9 +166,6 @@
 									<c:if test="${QX.add == 1 }">
 									<a class="btn btn-mini btn-success" onclick="add();">新增</a>
 									</c:if>
-									<%-- <c:if test="${QX.del == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
-									</c:if> --%>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 							</tr>
@@ -225,9 +249,9 @@
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>npower/goNPowerCreate';
 			 diag.Width = 460;
-			 diag.Height = 350;
+			 diag.Height = 265;
 			 diag.Modal = true;				//有无遮罩窗口
-			 diag. ShowMaxButton = true;	//最大化按钮
+			 diag.ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
@@ -244,14 +268,14 @@
 		}
 		
 		//修改
-		function editNpower(id){
+		function edit(id){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="普通电源";
+			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>npower/goNPowerEdit?id='+id;
-			 diag.Width = 469;
-			 diag.Height = 350;
+			 diag.Width = 460;
+			 diag.Height = 265;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					nextPage(${page.currentPage});

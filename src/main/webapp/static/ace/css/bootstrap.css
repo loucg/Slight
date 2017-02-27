@@ -2061,9 +2061,10 @@ th {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 8px;
+  padding: 4px;
   line-height: 1.42857143;
-  vertical-align: top;
+  vertical-align: middle;
+  text-overflow: ellipsis; 
   border-top: 1px solid #dddddd;
 }
 .table > thead > tr > th {
@@ -2338,7 +2339,7 @@ output {
 }
 .form-control {
   display: block;
-  width: 100%;
+  width: 98%;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
