@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StatusStrategyMapper">
+	
+	<!-- 表名 -->
+	<!-- 分组表 -->
+	<sql id="groupTableName">
+		c_term
+	</sql>
+	<!-- 分组能耗日表 -->
+	<sql id="groupDayPowerTableName">
+		b_term_power_daily_report
+	</sql>
+	<!-- 分组能耗月表 -->
+	<sql id="groupMonthPowerTablename">
+		b_term_power_monthly_report
+	</sql>
+	<!-- 策略表 -->
+	<sql id="strategy">
+		b_ctrl_strategy
+	</sql>
+	<!-- 分组表 -->
+	<sql id="Field">
+		name,explain,status,sys_user_id,b_ctrl_strategy_id
+	</sql>
+	<sql id="FieldValue">
+		#{name},#{explain},#{status},#{sys_user_id},#{b_ctrl_strategy_id}
+	</sql>
+
+	
+	
+	<!-- 获取日分组策略信息-->
+	<select id="getDayGroup" parameterType="pd" resultType="pd">
+		SELECT a.`name`, c.per,c.power,b.`name` AS strategy 
+		FROM <include refid="groupTableName"></include> AS a
+		LEFT JOIN <include refid="strategy"></include> AS b ON a.b_ctrl_strategy_id = b.id
+		LEFT JOIN <include refid="groupDayPowerTableName"></include> AS c ON a.id = c.c_term_id
+		WHERE a.sys_user_id = #{pd.userid}
+		AND c.day &gt;= #{pd.starttime}
+		AND c.day &lt;=#{pd.endtime}
+	</select>
+	
+
+	
+	
+</mapper>

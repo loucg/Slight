@@ -1,4 +1,4 @@
-package com.fh.controller.configure;
+package com.fh.controller.slight.configure;
 
 import java.util.ArrayList;
 import java.util.HashMap;

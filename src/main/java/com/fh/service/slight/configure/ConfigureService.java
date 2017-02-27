@@ -1,4 +1,4 @@
-package com.fh.service.configure;
+package com.fh.service.slight.configure;
 
 import java.util.List;
 

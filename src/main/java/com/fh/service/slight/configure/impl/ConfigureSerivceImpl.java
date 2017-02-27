@@ -1,4 +1,4 @@
-package com.fh.service.configure.impl;
+package com.fh.service.slight.configure.impl;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
-import com.fh.service.configure.ConfigureService;
+import com.fh.service.slight.configure.ConfigureService;
 import com.fh.util.PageData;
 
 @Service("configureService")

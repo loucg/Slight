@@ -1,4 +1,4 @@
-package com.fh.controller.configure;
+package com.fh.controller.slight.configure;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
-import com.fh.service.configure.ConfigureService;
+import com.fh.service.slight.configure.ConfigureService;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Const;
 import com.fh.util.FileDownload;
@@ -25,16 +25,14 @@ import com.fh.util.PageData;
 import com.fh.util.PathUtil;
 
 @Controller
-@RequestMapping("/sim")
-public class SimController extends BaseController{
+@RequestMapping("/npower")
+public class NPowerController extends BaseController{
+	String menuUrl = "npower/getNPowerList"; //菜单地址(权限用)
 	
-	String menuUrl = "sim/getSimList"; //菜单地址(权限用)
-	
-	private String simJsp = "foundation/simcard/simcard_list";    //Sim卡杆查询jsp
-	private String simEditJsp = "foundation/simcard/simcard_edit";  							//Sim卡修改jsp
-	private String simCreateJsp = "foundation/simcard/simcard_edit";  							//Sim卡新增jsp
-	
-	private String uploadJsp="foundation/simcard/uploadexcel";
+	private String nPowerJsp = "foundation/npower/npower_list"; //普通电源查询jsp
+	private String nPowerEditJsp = "foundation/npower/npower_edit";  						//普通电源修改jsp
+	private String nPowerCreateJsp = "foundation/npower/npower_edit";  						//普通电源新增jsp
+	private String uploadJsp="foundation/npower/uploadexcel";
 	private String saveRsultJsp = "save_result";  				//保存修改jsp
 	
 	@Resource(name="configureService")
@@ -44,75 +42,77 @@ public class SimController extends BaseController{
 	
 	
 	/**
-	 * 获取Sim卡列表
+	 * 获取普通电源列表
 	 * @param page
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/getSimList")
-	public ModelAndView getSimList(Page page) throws Exception{
+	@RequestMapping("/getNPowerList")
+	public ModelAndView getNPowerList(Page page) throws Exception{
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		page.setPd(pd);
-		List<PageData> nPList = configureService.getSimList(page);
+		List<PageData> nPList = configureService.getNPowerList(page);
 		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){
 			ObjectExcelView erv = new ObjectExcelView();					//执行excel操作
-			mv = new ModelAndView(erv,ConfigureUtils.exportSimcard(nPList));
+			mv = new ModelAndView(erv,ConfigureUtils.exportNPower(nPList));
 			return mv;
 			
 		}else{
 			mv.addObject("pd", pd);
-			mv.addObject("simList", nPList);
 			mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
-			mv.setViewName(simJsp);
+			mv.addObject("nPowerList", nPList);
+			mv.setViewName(nPowerJsp);
 			return mv;
 		}
 	}
 	
-	/**get
-	 * 跳转Sim卡修改页面
+	/**
+	 * 跳转普通电源修改页面
 	 * @param page
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/goSimEdit")
-	public ModelAndView goSimEdit() throws Exception{
+	@RequestMapping("/goNPowerEdit")
+	public ModelAndView goNPowerEdit() throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd = configureService.getSimById(pd);
+		pd = configureService.getNPowerById(pd);
 		mv.addObject("pd", pd);
-		mv.addObject("msg", "editSim");
-		mv.setViewName(simEditJsp);
+		mv.addObject("msg", "editNPower");
+		mv.setViewName(nPowerEditJsp);
 		return mv;
+	
 	}
 	
 	/**
-	 * 跳转Sim卡新增页面
+	 * 跳转普通电源新增页面
 	 * @param page
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/goSimCreate")
-	public ModelAndView goSimCreate(Page page) throws Exception{
+	@RequestMapping("/goNPowerCreate")
+	public ModelAndView goNPowerCreate() throws Exception{
 		ModelAndView mv = this.getModelAndView();
-		mv.addObject("msg", "createSim");
-		mv.setViewName(simCreateJsp);
+		mv.addObject("msg", "createNPower");
+		mv.setViewName(nPowerCreateJsp);
 		return mv;
 	}
 	
 	/**
-	 * 修改Sim卡
+	 * 修改普通电源
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/editSim")
-	public ModelAndView editSim() throws Exception{
+	@RequestMapping("/editNPower")
+	public ModelAndView editNPower() throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		configureService.editSim(pd);
+		configureService.editNPower(pd);
 		mv.addObject("msg", "success");
 		mv.setViewName(saveRsultJsp);
 		return mv;
@@ -120,30 +120,29 @@ public class SimController extends BaseController{
 	}
 	
 	/**
-	 * 新增Sim卡
+	 * 新增普通电源
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/createSim")
-	public ModelAndView createSim() throws Exception{
+	@RequestMapping("/createNPower")
+	public ModelAndView createNPower() throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		configureService.createSim(pd);
+		configureService.createNPower(pd);
 		mv.addObject("msg", "success");
 		mv.setViewName(saveRsultJsp);
 		return mv;
 		
 	}
 	
-	
-	/**下载灯模版
+	/**下载普通电源模版
 	 * @param response
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/downExcel")
 	public void downExcel(HttpServletResponse response)throws Exception{
-		String xlsname = "sim.xls";
+		String xlsname = "npower.xls";
 		FileDownload.fileDownload(response, PathUtil.getClasspath() + Const.FILEPATHFILE + xlsname, xlsname);
 	}
 	
@@ -175,17 +174,18 @@ public class SimController extends BaseController{
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}
 		if (null != file && !file.isEmpty()) {
 			String filePath = PathUtil.getClasspath() + Const.FILEPATHFILE;								//文件上传路径
-			String fileName =  FileUpload.fileUp(file, filePath, "userexcel");							//执行上传
+			
+			String fileName =  FileUpload.fileUp(file, filePath, "npower");
+			System.out.println("filename: "+fileName);
+			//执行上传
 			List<PageData> listPd = (List)ObjectExcelRead.readExcel(filePath, fileName, 2, 0, 0);		//执行读EXCEL操作,读出的数据导入List 2:从第3行开始；0:从第A列开始；0:第0个sheet
-
 			for(int i=0;i<listPd.size();i++){		
-				pd.put("iccid", listPd.get(i).getString("var0"));							//姓名
-				pd.put("mobile", listPd.get(i).getString("var1"));
+				pd.put("name", listPd.get(i).getString("var0"));							//姓名
+				pd.put("vendor", listPd.get(i).getString("var1"));
 				pd.put("type", ConfigureUtils.getType(listPd.get(i).getString("var2")));
-				pd.put("status", ConfigureUtils.getSimStatus(listPd.get(i).getString("var3")));
-				pd.put("money", listPd.get(i).getString("var4"));
-				pd.put("comment", listPd.get(i).getString("var5"));
-				configureService.createSim(pd);
+				pd.put("power", listPd.get(i).getString("var3"));
+				pd.put("comment", listPd.get(i).getString("var4"));
+				configureService.createNPower(pd);
 			}
 			mv.addObject("msg","success");
 		}

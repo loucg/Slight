@@ -1,4 +1,4 @@
-package com.fh.controller.configure;
+package com.fh.controller.slight.configure;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
-import com.fh.service.configure.ConfigureService;
+import com.fh.service.slight.configure.ConfigureService;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Const;
 import com.fh.util.FileDownload;
