@@ -1,7 +1,8 @@
 package com.fh.entity.map;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,11 +21,41 @@ public class c_client extends PageBean implements Serializable {
 	private String typename;
 	private String aliastypename;
 
-
 	private String status;
 	private float brightness;
 	private double xcoordinate;
 	private double ycoordinate;
+	private String powerup;
+	private String powerdown;
+	private Date tdate;
+	private ArrayList<String> cclientgateway;
+
+	public Date getTdate() {
+		return tdate;
+	}
+	public void setTdate(Date tdate) {
+		this.tdate = tdate;
+	}
+	public ArrayList<String> getCclientgateway() {
+		return cclientgateway;
+	}
+	public void setCclientgateway(ArrayList<String> cclientgateway) {
+		this.cclientgateway = cclientgateway;
+	}
+	public String getPowerup() {
+		return powerup;
+	}
+	public void setPowerup(String powerup) {
+		this.powerup = powerup;
+	}
+	public String getPowerdown() {
+		return powerdown;
+	}
+	public void setPowerdown(String powerdown) {
+		this.powerdown = powerdown;
+	}
+	
+	
 	public c_client() {
 		
 	}

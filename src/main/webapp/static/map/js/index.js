@@ -16,7 +16,8 @@
         }
        // console.log($(this).attr("id"));
         $('.kid').hide();
-        $(this).parent().find('.kid').toggle();
+     // $(this).parent().find('.kid').toggle();
+        $(this).parent().parent().find('.kid').toggle();
     });
     
     $('.onekid').live("click",function () {
@@ -56,7 +57,7 @@
         						 else {
         							 mapTermpage[termid].havenest=false;
         						 }
-        						 choseterm.parent().children("ul").append(accdivli);
+        						 choseterm.parent().parent().children("ul").append(accdivli);
         						 accdivli="";
         					 }
         					 mapTermpage[termid].begin= mapTermpage[termid].begin+ mapTermpage[termid].rows;

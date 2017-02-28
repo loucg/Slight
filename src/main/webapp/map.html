@@ -175,14 +175,14 @@ body {
 	var menu = new BMap.ContextMenu();
 	var CircleAndRectangle = null;
 	var txtMenuItem = [ {
-		text : '需求都没说，放大',
+		text : '需求没说，做个放大吧',
 		callback : function() {
 			map.zoomIn();
 			CircleAndRectangle.removeContextMenu(menu);
 			map.removeOverlay(CircleAndRectangle);
 			CircleAndRectangle = null;
 		}
-	}, {
+	}/* , {
 		text : '不要点，缩小',
 		callback : function() {
 			map.zoomOut();
@@ -190,7 +190,7 @@ body {
 			map.removeOverlay(CircleAndRectangle);
 			CircleAndRectangle = null;
 		}
-	}, {
+	} */, {
 		text : '清除',
 		callback : function() {
 			CircleAndRectangle.removeContextMenu(menu);
@@ -256,7 +256,7 @@ body {
 			success : function(clientdata) {
 				if (clientdata != null) {
 					preMakerdata = clientdata;
-					//console.log(clientdata);
+					console.log(clientdata);
 					addClientMaker(clientdata);
 				} else {
 				}

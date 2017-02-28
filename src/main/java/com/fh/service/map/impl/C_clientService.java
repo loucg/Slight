@@ -1,5 +1,6 @@
 package com.fh.service.map.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -135,6 +136,8 @@ public class C_clientService implements C_clientManager{
 	public List<c_client> queryAllterm_gateway(c_client p) throws Exception  {	
 		List<c_client> qtg= (List<c_client>)dao.findForList("C_clientMapper.queryAllterm_gateway",p);
 		c_client c=new c_client();
+		 ArrayList<String> a=new ArrayList<String>();
+		 ArrayList<c_client> b=new  ArrayList<c_client>();
 		 for(int i=0;i<qtg.size();i++){
 			 c=qtg.get(i);
 			 String coordinate=c.getCoordinate();
@@ -146,8 +149,26 @@ public class C_clientService implements C_clientManager{
 			 c.setCoordinate(coordinate);
 			 c.setXcoordinate(xcoordinate);
 			 c.setYcoordinate(ycoordinate);
+			 if(c.getTypename().contains("网关")){
+				a=(ArrayList<String>) querGatewayClient(c);
+				 c.setCclientgateway(a);
+			 }else{
+				b=(ArrayList<c_client>) querGatewayPower(c);
+				c.setPowerup(b.get(0).getPowerup());
+				c.setPowerdown(b.get(0).getPowerdown());
+			 }
 			 }
 		return qtg;
+	}
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<c_client> querGatewayPower(c_client p) throws Exception {
+		return  (List<c_client>)dao.findForList("C_clientMapper.querGatewayPower",p);
+	}
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<String> querGatewayClient(c_client p) throws Exception {
+		return  (List<String>)dao.findForList("C_clientMapper.querGatewayClient",p);
 	}
 	@Override
 	@SuppressWarnings("unchecked")
