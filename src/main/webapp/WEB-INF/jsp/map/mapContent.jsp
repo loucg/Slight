@@ -52,14 +52,6 @@
 			</div>
 			<!-- <h1>路灯列表</h1> -->
 			<div class="acc" >
-			<!-- 
-				<div>
-					<a class="one">未分组</a>
-					<ul class="kid">
-						<li><b class="tip"></b><a target="Conframe" href="#">1</a></li>
-					</ul>
-				</div>
-			 -->
 			</div>
 		</div>
 		<!--左边菜单结束-->
@@ -87,7 +79,7 @@
 						<td class="tdl"><span>编号：</span> <select class="ipt"
 							id="terminalid">
 								<option value=""></option>
-						</select></td>
+						</select></td><td> $nbsp;</td>
 						<td class="tdl" style="width: 15%;"><input class="btn"
 							id="check" type="button" value="查    询" /> <input class="btn"
 							id="reset" type="button" value="重   置" /></td>
@@ -105,7 +97,7 @@
 		</div>
 		<!--右边框架结束-->
 		<!--底部开始-->
-		<!-- <div class="bottom_c">地图</div> -->
+		<!--  <div class="bottom_c">地图</div> -->
 		<!--底部结束-->
 	</div>
 	
