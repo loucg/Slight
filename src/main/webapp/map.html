@@ -256,7 +256,7 @@ body {
 			success : function(clientdata) {
 				if (clientdata != null) {
 					preMakerdata = clientdata;
-					console.log(clientdata);
+					//console.log(clientdata);
 					addClientMaker(clientdata);
 				} else {
 				}
@@ -534,7 +534,8 @@ body {
 		console.log("PolicyControl");
 	}
 	function change_bright(bright) {
-		choseMakerdata.brightness = bright
+		choseMakerdata.brightness = bright;
+		console.log(bright);
 		$.ajax({
 			url : "gomap/updateClientAttr_brightness",
 			type : "POST",

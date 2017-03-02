@@ -67,7 +67,7 @@
 					"</div>"+
 					"<div class='btx4'>"+
 						"<h2 class='sh'>"+"亮度值"+":</h2>"+
-						"<select class='s1'>"+
+						"<select class='s1'  onchange='change_bright(this.options[this.options.selectedIndex].value)'>"+
 							"<option value='1'>"+"1"+"</option>"+
 							"<option value='2'>"+"2"+"</option>"+
 							"<option value='3'>"+"3"+"</option>"+
@@ -124,7 +124,14 @@
 	        	"</div>"+
 	        "</body>"+
 	        "</html>";
-	        
+	        var op="";
+        if(data.cclientgateway!=null){
+      
+        	for(var i = 0; i < data.cclientgateway.length; i++){
+        		op=op+"<option value='1'>"+data.cclientgateway[i]+"</option>";
+        	}
+        	  //console.log(op);
+        }
 	        //网关
 	        var sContent_Gateway =   
 		        "<html>"+
@@ -154,8 +161,12 @@
 		        					"<li >"+
 		        						"<a>"+"位置："+ data .location+"</a>"+
 		        					"</li>"+
-		        					"<li >"+
-	        							"<a>"+"成员列表："+JSON.stringify(data.cclientgateway)+"</a>"+
+		        					"<li >"+//+JSON.stringify(data.cclientgateway)+
+		        						"<a>"+"成员列表："+"</a>"+
+		        					"</li>"+
+			        					"<select class='s2'>"+
+											op+
+							    	    "</select>"+		
 	        						"</li>"+
 		        				"</ul>"+
 		        			"</div>"+

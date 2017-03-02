@@ -46,14 +46,14 @@ function init() {
 													.changePreMakerdata(data);
 
 											$("#search").remove();
-											var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id=\"search\">"+"搜索所得终端"+"</a></div><ul class=\"kid\">";
+											var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id=\"search\"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"+"搜索所得终端"+"</span></a></div><ul class=\"kid\">";
 											
 											for (var i = 0; i < data.length; i++) {
 												var accdivli = "<li><b class=\"tip\"></b><a class=\"onekid\"  id="
 														+ data[i].coordinate
-														+ ">"
+														+ "><span style=\"font-size:12px;font-family:宋体\">"
 														+ data[i].name
-														+ "</a></li>";
+														+ "</span></a></li>";
 												accdivpre = accdivpre
 														+ accdivli;
 											}

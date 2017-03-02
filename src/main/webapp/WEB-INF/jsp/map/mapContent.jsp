@@ -79,9 +79,9 @@
 						<td class="tdl"><span>编号：</span> <select class="ipt"
 							id="terminalid">
 								<option value=""></option>
-						</select></td><td> $nbsp;</td>
+						</select></td>
 						<td class="tdl" style="width: 15%;"><input class="btn"
-							id="check" type="button" value="查    询" /> <input class="btn"
+							id="check" type="button" value="查    询" style="padding-left:15px;"/> <input class="btn"
 							id="reset" type="button" value="重   置" /></td>
 					</tr>
 
@@ -133,10 +133,10 @@ var choseterm;//表示选择的term；
 					 var pagedata2={page:1,rows:2,begin:0,end:0,havenest:false,termid:data[key][0].termid};///////////
 					 mapTermpage[data[key][0].termid]=pagedata2;
 					 mapTermpagein[data[key][0].termid]=pagedata1;
-					 var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id="+data[key][0].termid+">"+data[key][0].termname+"</a></div><ul class=\"kid\">";
+					 var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id="+data[key][0].termid+"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"+data[key][0].termname+"</span></a></div><ul class=\"kid\">";
 					 for(var i=0;i<data[key].length;i++){
 						 if(data[key][i].coordinate!=null){
-						 		var accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[key][i].coordinate+">"+data[key][i].name+"</a></li>";
+						 		var accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[key][i].coordinate+"><span style=\"font-size:12px;font-family:宋体\">"+data[key][i].name+"</span></a></li>";
 						 		accdivpre=accdivpre+accdivli;
 						 }
 						 else if(data[key][i].havenest==true){
