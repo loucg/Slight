@@ -46,9 +46,8 @@ function init() {
 													.changePreMakerdata(data);
 
 											$("#search").remove();
-											var accdivpre = "<div><a class=\"one\" id=\"search\">"
-													+ "搜索所得终端"
-													+ "</a><ul class=\"kid\">";
+											var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id=\"search\">"+"搜索所得终端"+"</a></div><ul class=\"kid\">";
+											
 											for (var i = 0; i < data.length; i++) {
 												var accdivli = "<li><b class=\"tip\"></b><a class=\"onekid\"  id="
 														+ data[i].coordinate

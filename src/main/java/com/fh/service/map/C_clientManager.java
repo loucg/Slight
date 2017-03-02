@@ -26,6 +26,8 @@ public interface C_clientManager {
 	public void updateClientAttr_statusON(c_client cc) throws Exception ;
 	public void updateClientAttr_statusOff(c_client cc) throws Exception ;
 	public List<c_client> queryAllterm_gateway(c_client p) throws Exception ;
+	public List<c_client> querGatewayPower(c_client p) throws Exception ;
+	public List<String> querGatewayClient(c_client p) throws Exception ;
 	public int queryCountgateway(c_client p) throws Exception ;
 	public List<c_client> getTypenameByGroupGateway(int groupnameid) throws Exception ;
 	public List<c_client> getAddressByTypeGataway(c_client cc) throws Exception ;

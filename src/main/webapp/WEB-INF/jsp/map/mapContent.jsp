@@ -19,7 +19,7 @@
 	href="static/map/css/jquery-ui-1.10.4.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/ui.jqgrid.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/ui.jqgrid.css" />
-<link rel="stylesheet" type="text/css" href="static/map/css/admin-all.css" />
+<link rel="stylesheet" type="text/css" href="static/map/css/admin-all1.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/base.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/formui.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/chur.css" />
@@ -38,21 +38,20 @@
 	src="http://api.map.baidu.com/api?v=2.0&ak=H0j9w4M81wm8pl1klUsAPQklDddKFqc9">
 	
 </script>
+<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
 <body>
 <div class="warp">
 		<!--左边菜单开始-->
 		<div class="left_c left">
-			<h1>路灯列表</h1>
-			<div class="acc" >
-			<!-- 
-				<div>
-					<a class="one">未分组</a>
-					<ul class="kid">
-						<li><b class="tip"></b><a target="Conframe" href="#">1</a></li>
-					</ul>
+			<div class="panel  panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">路灯列表</h3>
 				</div>
-			 -->
+			</div>
+			<!-- <h1>路灯列表</h1> -->
+			<div class="acc" >
 			</div>
 		</div>
 		<!--左边菜单结束-->
@@ -80,7 +79,7 @@
 						<td class="tdl"><span>编号：</span> <select class="ipt"
 							id="terminalid">
 								<option value=""></option>
-						</select></td>
+						</select></td><td> $nbsp;</td>
 						<td class="tdl" style="width: 15%;"><input class="btn"
 							id="check" type="button" value="查    询" /> <input class="btn"
 							id="reset" type="button" value="重   置" /></td>
@@ -98,7 +97,7 @@
 		</div>
 		<!--右边框架结束-->
 		<!--底部开始-->
-		<div class="bottom_c">地图</div>
+		<!--  <div class="bottom_c">地图</div> -->
 		<!--底部结束-->
 	</div>
 	
@@ -134,7 +133,7 @@ var choseterm;//表示选择的term；
 					 var pagedata2={page:1,rows:2,begin:0,end:0,havenest:false,termid:data[key][0].termid};///////////
 					 mapTermpage[data[key][0].termid]=pagedata2;
 					 mapTermpagein[data[key][0].termid]=pagedata1;
-					 var accdivpre = "<div><a class=\"one\" id="+data[key][0].termid+">"+data[key][0].termname+"</a><ul class=\"kid\">";
+					 var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id="+data[key][0].termid+">"+data[key][0].termname+"</a></div><ul class=\"kid\">";
 					 for(var i=0;i<data[key].length;i++){
 						 if(data[key][i].coordinate!=null){
 						 		var accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[key][i].coordinate+">"+data[key][i].name+"</a></li>";

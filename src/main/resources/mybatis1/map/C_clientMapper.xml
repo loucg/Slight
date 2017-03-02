@@ -26,6 +26,16 @@
 		limit
 		#{begin},#{rows}
   	</select>
+  	 <select id="querGatewayPower" parameterType="cclient" resultType="cclient">
+  		select bp.c_gateway_id as id ,powerup ,powerdown, tdate
+		from b_powerup bp
+		where bp.c_gateway_id=#{id}
+  	</select>
+  	<select id="querGatewayClient" parameterType="cclient" resultType="String">
+  		select cca.`name`
+		from c_client_gateway ccg ,c_client_attr1 cca
+		where cca.c_client_id=ccg.c_client_id and ccg.c_gateway_id=#{id} 
+  	</select>
   	<select id="queryCountgateway" parameterType="cclient" resultType="Integer">
   		select count(*)
 		from c_gateway cg ,c_gateway_attr1 cga
