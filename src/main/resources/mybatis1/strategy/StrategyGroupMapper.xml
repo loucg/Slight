@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StrategyGroupMapper">
+	
+	<!-- 表名 -->
+	<sql id="tableName">c_term</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		name,
+		c_term.explain,
+		status,
+		sys_user_id,
+		b_ctrl_strategy_id
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{name},
+		#{explain},
+		#{status},
+		#{sys_user_id},
+		#{b_ctrl_strategy_id}
+	</sql>
+	
+	<!-- 查询给定策略，策略组 -->
+	<select id="grouplistPage" parameterType="page" resultType="pd">
+	    select
+		c_term.id term_id,
+		c_term.`name` term_name,
+		c_term.`explain` term_explain
+		from 
+		c_term
+		where
+		c_term.b_ctrl_strategy_id = #{pd.id}
+		 <if test="pd.term_name!=null and pd.term_name!=''">
+			and 
+			(
+				c_term.name LIKE CONCAT(CONCAT('%', #{pd.term_name}),'%')
+			)
+		</if>
+		<if test="pd.term_explain!=null and pd.term_explain!=''">
+			and 
+			(
+				c_term.explain LIKE CONCAT(CONCAT('%', #{pd.term_explain}),'%')
+			)
+		</if>
+		order by
+		c_term.id
+	</select>
+	
+	<!-- 查询未分配策略，策略组 -->
+	<select id="otherlistPage" parameterType="page" resultType="pd">
+	    select
+		c_term.id term_id,
+		c_term.`name` term_name,
+		c_term.`explain` term_explain
+		from 
+		c_term
+		where
+		c_term.b_ctrl_strategy_id
+		not in
+		(select 
+		b_ctrl_strategy.id
+		from
+		b_ctrl_strategy
+		)
+		or c_term.b_ctrl_strategy_id is null
+		 <if test="pd.term_name!=null and pd.term_name!=''">
+			and 
+			(
+				c_term.name LIKE CONCAT(CONCAT('%', #{pd.term_name}),'%')
+			)
+		</if>
+		<if test="pd.term_explain!=null and pd.term_explain!=''">
+			and 
+			(
+				c_term.explain LIKE CONCAT(CONCAT('%', #{pd.term_explain}),'%')
+			)
+		</if>
+		order by
+		c_term.id
+	</select>
+	
+	<!-- 新增组到给定策略 -->
+	<update id="addGroup" parameterType="pd" >
+		update 
+		c_term
+		set 
+		b_ctrl_strategy_id = #{b_ctrl_strategy_id}
+		where
+		id = #{c_term_id}
+	</update>
+	
+	<!-- 踢删给定策略的组 -->
+	<update id="removeGroup" parameterType="pd" >
+		update 
+		c_term
+		set 
+		b_ctrl_strategy_id = null
+		where
+		id = #{c_term_id}
+	</update>
+	
+</mapper>

@@ -31,45 +31,25 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="groupmem/listOthers.do?id=${termforpage.id }" method="post" name="Form" id="Form">
+						<form action="strategyGroup/listOthers.do?id=${strategyforpage.id }" method="post" name="Form" id="Form">
 						<input type="hidden" value="no" id="hasTp1" />
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table style="margin-top:5px;">
 							<tr>
-								<td>位置：</td>
+								<td>组名：</td>
 								<td>
 									<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="location" value="${groupmem.location }"/>
-										</span>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="term_name"/>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;终端名称：</td>
+								<td>&nbsp;&nbsp;组说明：</td>
 								<td>
 									<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="clientname" value="${groupmem.clientname }"/>
-										</span>
-									</div>
-								</td>
-								<td>&nbsp;&nbsp;终端号：</td>
-								<td>
-									<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="client_code" value="${groupmem.client_code }"/>
-										</span>
-									</div>
-								</td>
-								<td>&nbsp;&nbsp;组名：</td>
-								<td>
-									<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="client_code" value="${groupmem.client_code }"/>
-										</span>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="term_explain"/>
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -78,7 +58,7 @@
 						
 						<table class="table table-striped table-bordered table-hover" style="margin-top:5px;">
 							<tr>
-								<th class='center'>未分组 终端列表</th>
+								<th class='center'>“${strategyforpage.name }策略” 新增应用选择</th>
 							</tr>
 						</table>
 						
@@ -90,31 +70,23 @@
 									</th>
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">组名</th>
-									<th class="center">终端号</th>
-									<th class="center">终端名称</th>
-									<th class="center">灯杆号</th>
-									<th class="center">位置</th>
-									<th class="center">电功率</th>
+									<th class="center">组说明</th>
 								</tr>
 							</thead>
 													
 							<tbody>
 							<!-- 开始循环 -->	
 							<c:choose>
-								<c:when test="${not empty groupOther}">
+								<c:when test="${not empty strategyOther}">
 									<c:if test="${QX.cha == 1 }">
-									<c:forEach items="${groupOther}" var="groupother" varStatus="vs">
+									<c:forEach items="${strategyOther}" var="strategyOther" varStatus="vs">
 										<tr>
 											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${groupother.id}" class="ace" /><span class="lbl"></span></label>
+												<label class="pos-rel"><input type='checkbox' name='ids' value="${strategyOther.term_id}" class="ace" /><span class="lbl"></span></label>
 											</td>
-											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${groupother.client_code}</td> 
-											<td class='center'>${groupother.clientname }</td>
-											<td class='center'>${groupother.lamp_pole_num }</td>
-											<td class='center'>${groupother.location }</td>
-											<td class='center'>${groupother.powername }</td>
-											<td class='center'>${groupother.lampname }</td>
+											<td class='center' style="width: 30px;">${vs.index+1+(page.currentPage-1)*page.showCount}</td>
+											<td class='center'><a onclick="viewGroupMems('${strategyOther.term_id}')" style="cursor:pointer;">${strategyOther.term_name}</a></td>
+											<td class='center'>${strategyOther.term_explain}</td>  
 										</tr>
 									
 									</c:forEach>
@@ -127,7 +99,7 @@
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" >应用组已分配完毕</td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -138,7 +110,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要添加选中的数据吗?',${termforpage.id});" title="批量添加" >添加应用终端</a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要新增选中的应用组吗?',${strategyforpage.id});" title="批量新增应用组" >新增应用组</a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -234,7 +206,7 @@
 			});
 		});
 		
-		//确定新增组员
+		//确定新增应用组
 		function makeAll(msg,id){
 			bootbox.confirm(msg, function(result) {
 				if(result) {
@@ -247,7 +219,7 @@
 					}
 					if(str==''){
 						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
+							message: "<span class='bigger-110'>您没有选择任何应用组!</span>",
 							buttons: 			
 							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
 						});
@@ -259,14 +231,13 @@
 				        });
 						return;
 					}else{
-						if(msg == '确定要添加选中的数据吗?'){
+						if(msg == '确定要新增选中的应用组吗?'){
 							top.jzts();
 							$.ajax({
 								type: "POST",
-								url: '<%=basePath%>groupmem/addMems.do?id='+id,
+								url: '<%=basePath%>strategyGroup/addGroups.do?id='+id,
 						    	data: {DATA_IDS:str},
 								dataType:'json',
-								//beforeSend: validateData,
 								cache: false,
 								success: function(data){
 									$.each(data.list, function(i, list){
@@ -274,7 +245,9 @@
 								 	});
 									$("#zhongxin").hide();
 									$("#zhongxin2").show();
-									top.Dialog.close(); 
+									
+									//top.Dialog.close();
+									delGroup(id);
 								}
 							});
 						}
@@ -283,7 +256,46 @@
 			});
 		};
 		
+		//踢删应用组
+		function delGroup(id){
+			top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="踢删应用组";
+			 diag.URL = '<%=basePath%>strategyGroup/listGroups.do?id='+id;
+			 diag.Width = 1200;
+			 diag.Height = 600;
+			 diag.Modal = true;				//有无遮罩窗口
+			 diag. ShowMaxButton = true;	//最大化按钮
+		     diag.ShowMinButton = true;		//最小化按钮
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 top.jzts();
+						 setTimeout("self.location=self.location",100);
+					 }else{
+						 nextPage(${page.currentPage});
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}
 		
+		//查看组员
+		function viewGroupMems(id){
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="组成员";
+			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id+'&title='+'chakan';
+			 diag.Width = 1200;
+			 diag.Height = 600;
+			 diag.CancelEvent = function(){ //关闭事件
+				diag.close();
+			 };
+			 diag.show();
+		}
 		
 	</script>
 

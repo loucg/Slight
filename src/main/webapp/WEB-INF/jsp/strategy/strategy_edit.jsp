@@ -42,15 +42,15 @@
 						   		 <td><input type="text" name="ID" id="id" value="${pd.id }" /></td>
 						    </tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">策略名称:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>策略名称:</td>
 								<td><input type="text" name="NAME" id="name" value="${pd.name }" maxlength="100" title="名称" style="width:98%;" /></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">应用说明:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>应用说明:</td>
 								<td><input type="text" name="EXPLAIN" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" /></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">状态:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>状态:</td>
 								<td>
 									<select class="chosen-select form-control" name="STATUS" id="status" maxlength="100" title="状态" style="vertical-align:top;width:98%;">
 										<option value="">请选择状态</option>
@@ -105,16 +105,7 @@
 		//保存
 		function save(){
 			
-			if($("#status").val()==""){
-				$("#status").tips({
-					side:3,
-		            msg:'选择状态',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#status_id").focus();
-				return false;
-			}
+			
 			
 			if($("#name").val()==""){
 				$("#name").tips({
@@ -135,11 +126,21 @@
 		        });
 				$("#explain").focus();
 				return false;
-			}else{
+			}
+			
+			if($("#status").val()==""){
+				$("#status").tips({
+					side:3,
+		            msg:'选择状态',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#status_id").focus();
+				return false;
+			}
 				$("#strategyForm").submit();
 				$("#zhongxin").hide();
 				$("#zhongxin2").show();
-			}
 			
 		}
 		
