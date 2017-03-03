@@ -88,7 +88,7 @@
 											<c:forEach items="${strategy.timestamp}" var="timestamp" varStatus="vs1">
 											<tr>
 											<td class="center" width=50%>${timestamp}</td>
-											<td class="center" width=50%>${strategy.intensity[vs1.index]}</td>
+											<td class="center" width=50%>${strategy.intensity[vs1.index]}%</td>
 											</tr>
 											</c:forEach>
 											</c:when>
