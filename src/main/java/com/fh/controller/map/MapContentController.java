@@ -51,6 +51,7 @@ public class MapContentController extends BaseController{
 					p.setTermid(listct.get(i).getId());
 					c_client more = new c_client();
 					more.setHavenest(true);
+					more.setTermname(listct.get(i).getName());
 					List<c_client> listc = c_clientService.queryAllterm_client(p);
 					int totalcount = c_clientService.queryCountterm_client(p);
 					if ((p.getBegin() + p.getRows()) >= totalcount) {

@@ -47,7 +47,7 @@
         						 var accdivli
         						 if(data[i].coordinate!=null){
         							   
-        						 	   accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[i].coordinate+">"+data[i].name+"</a></li>";
+        						 	   accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[i].coordinate+"><span style=\"font-size:12px;\">"+data[i].name+"</span></a></li>";
         						 	
         						 }
         						 else if(data[i].havenest==true){
