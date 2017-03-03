@@ -286,7 +286,8 @@ body {
 						width : 304, // 信息窗口宽度
 						height : 204, // 信息窗口高度
 					};
-					infoWindow = new BMap.InfoWindow(sContent, opts); // 创建信息窗口对象      
+					infoWindow = new BMap.InfoWindow(sContent, opts); // 创建信息窗口对象
+					infoWindow.enableCloseOnClick();
 					map.addEventListener('click', fo);
 				});
 			}(i));
@@ -327,11 +328,17 @@ body {
 		changeCenter(centerdata);//设置中心点
 	}
 
+	map.addEventListener("click",closeinfowindow);
+	function closeinfowindow(){
+		  if(infoWindow.isOpen())map.removeOverlay(infoWindow);
+		  
+	}
 	//叠加层点击事件       
 	function fo(e) {
+		map.removeEventListener("click", fo); //这里取消绑定。
 		var point = new BMap.Point(e.point.lng, e.point.lat);
 		map.openInfoWindow(infoWindow, point); //开启信息窗口     
-		map.removeEventListener("click", fo); //这里取消绑定。                
+		//map.removeEventListener("click", fo); //这里取消绑定。                
 	}
 	//0.5秒后改变地图的展示中心       
 	function changeCenter(data) {

@@ -31,7 +31,7 @@ function init() {
 							"name" : name,
 							"id" : id
 						};
-						console.log(postSearchData);
+						//console.log(postSearchData);
 						$
 								.ajax({
 									url : "gomap/getSearchClient",
@@ -51,7 +51,7 @@ function init() {
 											for (var i = 0; i < data.length; i++) {
 												var accdivli = "<li><b class=\"tip\"></b><a class=\"onekid\"  id="
 														+ data[i].coordinate
-														+ "><span style=\"font-size:12px;font-family:宋体\">"
+														+ "><span style=\"font-size:12px;\">"
 														+ data[i].name
 														+ "</span></a></li>";
 												accdivpre = accdivpre

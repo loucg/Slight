@@ -60,28 +60,28 @@
 			<table class="tbform">
 				<tbody>
 					<tr>
-						<td class="tdl"><span>组名：</span> <select class="ipt"
+						<td class="tdl"><span>组名:</span> <select class="ipt"
 							id="groupname" onchange="changegroupname()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>类型：</span> <select class="ipt"
+						<td class="tdl"><span>类型:</span> <select class="ipt"
 							id="terminaltype" onchange="changeterminaltype()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>地址：</span> <select class="ipt"
+						<td class="tdl"><span>地址:</span> <select class="ipt"
 							id="address" onchange="changeAddress()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>名称：</span> <select class="ipt"
+						<td class="tdl"><span>名称:</span> <select class="ipt"
 							id="terminalname"  onchange="changeterminalname()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>编号：</span> <select class="ipt"
+						<td class="tdl"><span>编号:</span> <select class="ipt"
 							id="terminalid">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl" style="width: 15%;"><input class="btn"
-							id="check" type="button" value="查    询" style="padding-left:15px;"/> <input class="btn"
+						<td class="tdl" style="width: 15%;"><input class="btn btn-primary"
+							id="check" type="button"  value="查    询" style="padding-left:15px;"/> <input class="btn btn-warning "
 							id="reset" type="button" value="重   置" /></td>
 					</tr>
 
