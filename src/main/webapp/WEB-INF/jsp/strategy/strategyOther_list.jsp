@@ -110,7 +110,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要新增选中的应用组吗?',${strategyforpage.id});" title="批量新增应用组" >新增应用组</a>
+									<a class="btn btn-warning btn-mini" onclick="makeAll('确定要新增选中的应用组吗?',${strategyforpage.id});" title="批量新增应用组" >新增应用组</a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>

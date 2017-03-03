@@ -62,27 +62,30 @@
 								<td>
 									<select class="chosen-select form-control" name="ODD_EVEN" id="odd_even" maxlength="100" title="奇偶天" style="vertical-align:top;width:98%;">
 										<option value="">请选择奇偶天</option>
-										<option value="0" <c:if test="${pd.status == '1' }">selected</c:if> >奇</option>
-										<option value="1" <c:if test="${pd.status == '2' }">selected</c:if> >偶</option>
+										<option value="0" <c:if test="${pd.odd_even == '0' }">selected</c:if> >奇</option>
+										<option value="1" <c:if test="${pd.odd_even == '1' }">selected</c:if> >偶</option>
 									</select>
 								</td>
+							</tr>
+							<tr hidden="hidden">
+							<td><input type="text" name="JSONString" id="JSONString"/></td>
 							</tr>
 							</table>
 							<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-							<td style="text-align: center;">请输入时间(24小时制)：</td>
-							<td style="text-align: center;">请选择亮度(%)：</td>
+							<td style="text-align: center;">请输入时间(24小时制)</td>
+							<td style="text-align: center;">请选择亮度(%)</td>
 							<td style="text-align: center;">操作</td>
 							</tr>
 							<tr>
-      						<td style="text-align: center;"><input class="span10 time-picker" type="text" name="TIMESTAMP" id="timestamp" maxlength="100" title="时间" style="text-align: center;width:98%;" placeholder="例：6:00(24小时制)"/></td>
+      						<td style="text-align: center;"><input class="span10 time-picker" type="text" name="TIMESTAMP" id="timestamp" maxlength="100" title="时间" style="text-align: center;width:98%;" placeholder="例：20:00(24小时制)"/></td>
 	  						<td style="text-align: center;"><select id="intensity" ></select></td>
       						<td style="text-align: center;"><a class="btn btn-mini btn-success" onclick="addSort();" id="addSort">添加</a></td>
 							</tr>
   							<tbody id="sortList" >
         					<tr>
-          					<td style="text-align: center;">时间(24小时制)</td>
-		  					<td style="text-align: center;">亮度(%)</td>
+          					<td style="text-align: center;"><span style="color:red;">*</span>时间(24小时制)</td>
+		  					<td style="text-align: center;"><span style="color:red;">*</span>亮度(%)</td>
           					<td style="text-align: center;">操作</td>
         					</tr>
   							</tbody>
@@ -170,15 +173,46 @@
 				return false;
 			}
 			
+			var s3 = document.getElementById("sortList"); //获取第一个表格  
+	        if(s3.rows.length <= 1){
+	        	$("#timestamp").tips({
+					side:3,
+		            msg:'请输入至少一条时间及亮度值关系！',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#timestamp").focus();
+				return false;
+	        }
+	            document.getElementById("JSONString").value=JSONString();
 				$("#strategyForm").submit();
 				$("#zhongxin").hide();
 				$("#zhongxin2").show();
 			
 		}
 		
+		function JSONString(){
+			var temp = new Object();
+			temp.odd_even = $("#odd_even").val();
+			var t_i = new Array();
+			var s3 = document.getElementById("sortList"); //获取第一个表格  
+	        for(var i=1;i<s3.rows.length;i++){//过滤表头  
+	        	t_i.push(new Object());
+	            t_i[i-1].timestamp = s3.rows[i].cells[0].innerHTML;
+	            t_i[i-1].intensity = s3.rows[i].cells[1].innerHTML;
+	        	}
+			temp.t_i = t_i;
+			var json = JSON.stringify(temp);
+			return json;
+		}
+			
 		$(function() {
 			//时间框
-			$('.time-picker').timepicker();
+			$('.time-picker').timepicker({
+			    minuteStep: 1,
+			    showMeridian: false,//am,pm
+			    defaultTime: false
+			});
 			$('.time-picker').val("");
 			//下拉框填充1-100
 			var obj=document.getElementById('intensity'); 
@@ -187,12 +221,39 @@
 			{
 				obj.options.add(new Option(i,i));
 			}
+			for(var j=0;j<${pd.t_i}.length;j++){
+				autoAdd(${pd.t_i}[j].timestamp,${pd.t_i}[j].intensity);
+			}
 		});
-
+            
 			//清除空格
 		String.prototype.trim=function(){
 		     return this.replace(/(^\s*)|(\s*$)/g,'');
 		};
+		
+		function autoAdd(timestamp,intensity){
+	        var s3 = document.getElementById("sortList"); //获取第一个表格  
+            var row = document.createElement("tr");
+            var cell1 = document.createElement("td");
+            cell1.setAttribute("style","text-align: center"); 
+            var timestampNode = document.createTextNode(timestamp);
+            cell1.appendChild(timestampNode);
+            row.appendChild(cell1);
+			var cell2 = document.createElement("td");
+			cell2.setAttribute("style","text-align: center"); 
+			var intensityNode = document.createTextNode(intensity);
+		    cell2.appendChild(intensityNode);
+			row.appendChild(cell2);
+            var deleteButton = document.createElement("a");
+            deleteButton.setAttribute("class","btn btn-warning btn-mini"); 
+            deleteButton.innerHTML = '删除';
+            deleteButton.onclick = function (){deleteSort(this);};
+            var cell3 = document.createElement("td");
+            cell3.setAttribute("style","text-align: center"); 
+            cell3.appendChild(deleteButton);
+            row.appendChild(cell3);
+            document.getElementById("sortList").appendChild(row);
+		}
 		
 		function addSort(){
 			if($("#timestamp").val()==""){
@@ -253,7 +314,7 @@
 		    cell2.appendChild(intensityNode);
 			row.appendChild(cell2);
             var deleteButton = document.createElement("a");
-            deleteButton.setAttribute("class","btn btn-xs btn-danger"); 
+            deleteButton.setAttribute("class","btn btn-warning btn-mini"); 
             deleteButton.innerHTML = '删除';
             deleteButton.onclick = function (){deleteSort(this);};
             var cell3 = document.createElement("td");

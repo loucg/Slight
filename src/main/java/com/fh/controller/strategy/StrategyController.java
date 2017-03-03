@@ -45,6 +45,9 @@ import com.fh.util.PageData;
 import com.fh.util.ObjectExcelView;
 import com.fh.util.PathUtil;
 import com.fh.util.Tools;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /** 
  * 类名称：StrategyController
@@ -85,7 +88,27 @@ public class StrategyController extends BaseController {
 			pd.put("explain", explain.trim());
 		}
 		page.setPd(pd);
-		List<PageData>	strategyList = strategyService.listStrategys(page);	//列出策略列表	
+		List<PageData>	strategyList = strategyService.listStrategys(page);	//列出策略列表
+		JsonParser parse =new JsonParser();                                 //创建json解析器
+		for(int i = 0 ; i < strategyList.size(); i++){
+			List<Object> t_i = new ArrayList<Object>();
+			List<String> timestamp = new ArrayList<String>();
+			List<String> intensity = new ArrayList<String>();
+			if(strategyList.get(i).getString("json") != null && !strategyList.get(i).getString("json").equals("")){
+				JsonObject json=(JsonObject) parse.parse(strategyList.get(i).getString("json"));
+				strategyList.get(i).put("odd_even", json.get("odd_even").getAsString());
+				JsonArray temp = json.get("t_i").getAsJsonArray();
+				for(int j = 0; j < temp.size(); j++){
+					t_i.add(temp.get(j).getAsJsonObject());
+					timestamp.add(temp.get(j).getAsJsonObject().get("timestamp").getAsString());
+					intensity.add(temp.get(j).getAsJsonObject().get("intensity").getAsString());
+				}	
+			}
+			strategyList.get(i).put("t_i", t_i);
+			strategyList.get(i).put("timestamp", timestamp);
+			strategyList.get(i).put("intensity", intensity);
+		}
+		System.out.println(strategyList);
 		mv.setViewName("strategy/strategy_list");
 		mv.addObject("strategyList", strategyList);
 		mv.addObject("pd", pd);
@@ -146,10 +169,20 @@ public class StrategyController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd = strategyService.findById(pd);								//根据ID读取
+		List<Object> t_i = new ArrayList<Object>();
+		if(pd.getString("json") != null && !pd.getString("json").equals("")){
+			JsonParser parse =new JsonParser();                             //创建json解析器
+			JsonObject json=(JsonObject) parse.parse(pd.getString("json"));
+			pd.put("odd_even", json.get("odd_even").getAsString());
+			JsonArray temp = json.get("t_i").getAsJsonArray();
+			for(int i = 0; i < temp.size(); i++){
+				t_i.add(temp.get(i).getAsJsonObject());
+			}	
+		}
+		pd.put("t_i", t_i);
 		mv.setViewName("strategy/strategy_edit");
 		mv.addObject("msg", "editS");
 		mv.addObject("pd", pd);
-		
 		return mv;
 	}
 			
@@ -158,15 +191,10 @@ public class StrategyController extends BaseController {
 	 */
 	@RequestMapping(value="/editS")
 	public ModelAndView editS() throws Exception{
-		//logBefore(logger,"正在修改策略");
+		logBefore(logger,"正在修改策略");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		/*//获得登录的用户id
-	    User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
-		String sys_user_id = user.getUSER_ID();
-		pd.put("sys_user_id", sys_user_id);
-		logBefore(logger, pd.getString("name")+pd.getString("explain")+pd.getString("status"));*/
 		strategyService.edit(pd);	//执行修改
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");

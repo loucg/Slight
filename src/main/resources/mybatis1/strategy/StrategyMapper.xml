@@ -109,7 +109,7 @@
 		<include refid="tableName"></include>
 		set name                       = #{NAME},
 		    B_CTRL_STRATEGY.explain    = #{EXPLAIN},
-		    json                       = #{JSON},
+		    json                       = #{JSONString},
 		    status                     = #{STATUS}
 		where id = #{ID}
 	</update>

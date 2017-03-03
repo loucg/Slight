@@ -62,8 +62,7 @@
 									<th class="center">应用说明</th>
 									<th class="center">终端组数量</th>
 									<th class="center">状态</th>
-									<th class="center">时间</th>
-									<th class="center">亮度值</th>
+									<th class="center">时间及亮度值</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -82,8 +81,20 @@
 											<td class="center">${strategy.explain }</td>
 											<td class="center"><a onclick="viewStrategyGroups('${strategy.id}')" style="cursor:pointer;">${strategy.number }</a></td>
 											<td class="center">${strategy.status }</td>
-											<td class="center">${strategy.json }</td>
-											<td class="center">${strategy.json }</td>
+											<td class="center"  >
+											<table class="table-striped table-bordered table-hover" height=100% width=100% border=1>
+											<c:choose>
+											<c:when test="${not empty strategy.timestamp}">
+											<c:forEach items="${strategy.timestamp}" var="timestamp" varStatus="vs1">
+											<tr>
+											<td class="center" width=50%>${timestamp}</td>
+											<td class="center" width=50%>${strategy.intensity[vs1.index]}</td>
+											</tr>
+											</c:forEach>
+											</c:when>
+											</c:choose>
+											</table>
+											</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
@@ -95,7 +106,7 @@
 													</a>
 													</c:if>
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-danger" title="新增应用终端" onclick="addGroup('${strategy.id}');">
+													<a class="btn btn-warning btn-mini" title="新增应用终端" onclick="addGroup('${strategy.id}');">
 														新增
 													</a>
 													</c:if>
