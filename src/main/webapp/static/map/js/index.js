@@ -1,8 +1,9 @@
 ﻿$(function () {
     //日历
-    $("#datepicker").datepicker();
+    //$("#datepicker").datepicker();
     //左边菜单
-    $('.one').live("click",function () {
+   // $('.one').live("click",function () {
+	$('body').on("click",'.one',function () {
         $('.one').removeClass('one-hover');
         $(this).addClass('one-hover');
         choseterm=$(this);
@@ -20,7 +21,8 @@
         $(this).parent().parent().find('.kid').toggle();
     });
     
-    $('.onekid').live("click",function () {
+  //  $('.onekid').live("click",function () {
+	$('body').on("click",'.onekid',function () {
         $('.onekid').removeClass('one-hover');
         $(this).addClass('one-hover');
         var str=$(this).attr("id");

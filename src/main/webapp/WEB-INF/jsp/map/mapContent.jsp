@@ -24,7 +24,8 @@
 <link rel="stylesheet" type="text/css" href="static/map/css/formui.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/chur.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/bootstrap.min.css" />
-<script type="text/javascript" src="static/map/js/jquery-1.7.2.js"></script>
+<!-- <script type="text/javascript" src="static/map/js/jquery-1.7.2.js"></script> -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript"
 	src="static/map/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="static/map/js/grid.locale-cn.js"></script>
@@ -38,8 +39,11 @@
 	src="http://api.map.baidu.com/api?v=2.0&ak=H0j9w4M81wm8pl1klUsAPQklDddKFqc9">
 	
 </script>
-<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-
+ <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js"></script>
 </head>
 <body>
 <div class="warp">
@@ -92,7 +96,7 @@
 			<div class="nav-tip" onClick="javascript:void(0)">&nbsp;</div>
 		</div>
 		<div class="Conframe" id="inc">
-			<iframe name="Conframe" id="Conframe" frameborder=0 src="map.html">
+			<iframe name="Conframe" id="Conframe" frameborder=0 src="map.jsp">
 			</iframe>
 		</div>
 		<!--右边框架结束-->
@@ -241,15 +245,17 @@ var choseterm;//表示选择的term；
 				}
 			},
 			error : function() {
-				$('body').alert({
-					type : 'primary',
-					title : '提示',
-					content : '数据加载出错请刷新页面！',
-					btntext : '确定',
-					modal : true,
-					draggabled : false,
-					even : 'click'
-				});
+				BootstrapDialog.show({
+	                type:  BootstrapDialog.TYPE_DANGER,
+	                title: '提示信息 ',
+	                message: '数据加载出错请刷新页面！',
+	                buttons: [{
+	                    label: '关闭',
+	                    action: function(dialogItself){
+	                        dialogItself.close();
+	                    }
+	                }]
+	            }); 
 			}
 		});
 	}
@@ -282,15 +288,17 @@ var choseterm;//表示选择的term；
 						}
 					},
 					error : function() {
-						$('body').alert({
-							type : 'primary',
-							title : '提示',
-							content : '数据加载出错请刷新页面！',
-							btntext : '确定',
-							modal : true,
-							draggabled : false,
-							even : 'click'
-						});
+						BootstrapDialog.show({
+			                type:  BootstrapDialog.TYPE_DANGER,
+			                title: '提示信息 ',
+			                message: '数据加载出错请刷新页面！',
+			                buttons: [{
+			                    label: '关闭',
+			                    action: function(dialogItself){
+			                        dialogItself.close();
+			                    }
+			                }]
+			            }); 
 					}
 				});
 	}
@@ -320,15 +328,17 @@ var choseterm;//表示选择的term；
 				}
 			},
 			error : function() {
-				$('body').alert({
-					type : 'primary',
-					title : '提示',
-					content : '数据加载出错请刷新页面！',
-					btntext : '确定',
-					modal : true,
-					draggabled : false,
-					even : 'click'
-				});
+				BootstrapDialog.show({
+	                type:  BootstrapDialog.TYPE_DANGER,
+	                title: '提示信息 ',
+	                message: '数据加载出错请刷新页面！',
+	                buttons: [{
+	                    label: '关闭',
+	                    action: function(dialogItself){
+	                        dialogItself.close();
+	                    }
+	                }]
+	            }); 
 			}
 		});
 	}
