@@ -32,16 +32,95 @@
 	
 	<!-- 获取日分组策略信息-->
 	<select id="getDayGroup" parameterType="pd" resultType="pd">
-		SELECT a.`name`, c.per,c.power,b.`name` AS strategy 
+		SELECT a.`name`, TRUNCATE(AVG(c.per)+0.005,2) AS per,c.power,b.`name` AS strategy 
 		FROM <include refid="groupTableName"></include> AS a
 		LEFT JOIN <include refid="strategy"></include> AS b ON a.b_ctrl_strategy_id = b.id
 		LEFT JOIN <include refid="groupDayPowerTableName"></include> AS c ON a.id = c.c_term_id
-		WHERE a.sys_user_id = #{pd.userid}
-		AND c.day &gt;= #{pd.starttime}
-		AND c.day &lt;=#{pd.endtime}
+		WHERE a.sys_user_id = #{userid}
+		<!-- 	AND c.day &gt;= #{starttime}
+			AND c.day &lt;=#{endtime} -->
+		GROUP BY a.`name`
 	</select>
 	
+	
+	<!-- 获取月分组策略信息-->
+	<select id="getMonthGroup" parameterType="pd" resultType="pd">
+		SELECT a.`name`, TRUNCATE(AVG(c.per)+0.005,2),c.power,b.`name` AS strategy 
+		FROM <include refid="groupTableName"></include> AS a
+		LEFT JOIN <include refid="strategy"></include> AS b ON a.b_ctrl_strategy_id = b.id
+		LEFT JOIN <include refid="groupMonthPowerTablename"></include> AS c ON a.id = c.c_term_id
+		WHERE a.sys_user_id = #{userid}
+			AND c.month &gt;= #{starttime}
+			AND c.month &lt;=#{endtime}
+	</select>
+	
+	<!-- 获取所有策略 -->
+	<select id="getStrategyList" parameterType="pd" resultType="pd">
+		SELECT a.`name`, a.json,a.`status`, a.`explain` 
+		FROM <include refid="strategy"></include> AS a
+	</select>
+	
+	<select id="getStgAndGroupCnt" parameterType="pd" resultType="pd">
+		SELECT COUNT(a.id) AS strategy_number, c.group_number
+		FROM <include refid="strategy"></include> AS a
+		JOIN (SELECT COUNT(b.id) AS group_number
+		FROM <include refid="groupTableName"></include> AS b) AS c
+	</select>
+	<!-- 获得终端总数 -->
+	<select id="getClientTotal" parameterType="pd" resultType="pd">
+		SELECT COUNT(a.c_client_id) AS ctotal
+		FROM c_client_attr1 AS a
+		WHERE a.sys_user_id = #{userid}
+	</select>
+	
+	<!-- 获得正常终端数 -->
+	<select id="getClientNormal" parameterType="pd" resultType="pd">
+		SELECT COUNT(a.c_client_id) AS cnormal
+		FROM c_client_attr1 AS a
+		WHERE a.staus = 1
+			AND a.sys_user_id = #{userid}
+	</select>
+	<!-- 获得网关总数 -->
+	<select id="getGatewayTotal" parameterType="pd" resultType="pd">
+		SELECT COUNT(a.c_gateway_id) AS gtotal 
+		FROM c_gateway_attr1 AS a
+		WHERE a.c_gateway_type_id = 3
+			AND a.sys_user_id = #{userid}
+	</select>
+	<!-- 获得正常网关总数 -->
+	<select id="getGatewayNormal" parameterType="pd" resultType="pd">
+		SELECT COUNT(a.c_gateway_id) AS gnormal 
+		FROM c_gateway_attr1 AS a
+		WHERE a.c_gateway_type_id = 3
+			AND a.staus = 1
+			AND a.sys_user_id = #{userid}
+	</select>
+	<!-- 获得网关故障数量 -->
+	<select id="getGatewayFaultCnt" parameterType="pd" resultType="pd">
+		SELECT COUNT(DISTINCT a.c_gateway_id) AS fgateway
+		FROM b_gateway_fault AS a
+		LEFT JOIN c_gateway_attr1 AS b ON a.c_gateway_id = b.c_gateway_id
+		WHERE b.sys_user_id = #{userid}
+		AND b.c_gateway_type_id = #{type}
+		<if test="status!=null and status!=''">
+			AND (a.`status` = 2 OR 8)
+		</if>
 
-	
-	
+	</select>
+	<!-- 获得终端故障数量 -->
+	<select id="getClientFaultCnt" parameterType="pd" resultType="pd">
+		SELECT COUNT(DISTINCT a.c_client_id) AS fclient
+		FROM b_client_fault AS a
+		LEFT JOIN c_client_attr1 AS b ON a.c_client_id = b.c_client_id
+		WHERE b.sys_user_id = #{userid}
+		<if test="status!=null and status!=''">
+			AND (a.`status` = 2 OR 8)
+		</if>
+	</select>
+	<!-- 获得总能耗 -->
+	<select id="getTodayPower" parameterType="pd" resultType="pd">
+		SELECT SUM(a.power)
+		FROM b_term_power_daily_report AS a
+		WHERE a.`day` = CURDATE()
+	</select>
 </mapper>
