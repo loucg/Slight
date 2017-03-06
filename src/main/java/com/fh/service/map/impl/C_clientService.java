@@ -112,7 +112,7 @@ public class C_clientService implements C_clientManager{
 	
 	@Override
 	public void updateClientAttr_status(c_client cc) throws Exception {
-		if("正常".equals(cc.getStatus())){
+		if(cc.getBrightness()!=0){
 			updateClientAttr_statusOff(cc);
 		}else
 		{

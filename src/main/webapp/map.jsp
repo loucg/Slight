@@ -432,7 +432,7 @@ body {
 		
 	}
 	function TurnOnLight() {
-		if (choseMakerdata.status == "正常") {
+		if (choseMakerdata.brightness != 0) {
 			 BootstrapDialog.show({
 	                type:  BootstrapDialog.TYPE_DANGER,
 	                title: '提示信息 ',
@@ -508,7 +508,7 @@ body {
 
 	}
 	function TurnOffLight() {
-		if (choseMakerdata.status != "正常") {
+		if (choseMakerdata.brightness == 0) {
 			BootstrapDialog.show({
                 type:  BootstrapDialog.TYPE_DANGER,
                 title: '提示信息 ',

@@ -152,10 +152,10 @@
   	</select>
   	<!-- 上方搜索框结束 -->
   	<update id="updateClientAttr_statusON"  parameterType="cclient">
-  		update c_client_attr1 cca set cca.staus=1  where cca.c_client_id= #{id}
+  		update c_client_upload_status cca set cca.brightness=100  where cca.c_client_id= #{id}
   	</update>
   	<update id="updateClientAttr_statusOff"  parameterType="cclient">
-  		update c_client_attr1 cca set cca.staus=3  where cca.c_client_id= #{id}
+  		update c_client_upload_status cca set cca.brightness=0  where cca.c_client_id= #{id}
   	</update>
   	<update id="updateClientAttr_brightness"  parameterType="cclient">
   		update c_client_upload_status ccus set ccus.brightness = #{brightness} where ccus.c_client_id = #{id}
