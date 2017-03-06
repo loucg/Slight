@@ -2338,7 +2338,7 @@ output {
   color: #555555;
 }
 .form-control {
-  display: block;
+  display: inline;
   width: 98%;
   height: 34px;
   padding: 6px 12px;

@@ -29,7 +29,6 @@ public class CollocationController extends BaseController{
 	 */
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
-		System.out.println("1111");
 		logBefore(logger, Jurisdiction.getUsername()+"查看系统配置");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
