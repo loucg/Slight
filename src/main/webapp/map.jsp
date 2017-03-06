@@ -43,17 +43,21 @@
 <script type="text/javascript"
 	src="http://api.map.baidu.com/api?v=2.0&ak=H0j9w4M81wm8pl1klUsAPQklDddKFqc9">
 </script>
-<script type="text/javascript"
+<!-- <script type="text/javascript"
 	src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
 <link rel="stylesheet"
-	href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+	href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" /> -->
+	<script type="text/javascript" src="static/map/js/DrawingManager_min.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/map/css/DrawingManager_min.css" />
 	<base href="<%=basePath%>">
-	   <!--  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-     --> <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
- <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js"></script>
-<style type="text/css">
+	   <!--  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />--> <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" /> -->
+ <script type="text/javascript" src="static/map/js/jquery-2.1.4.min.js"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js"></script>-->
+  <link rel="stylesheet" type="text/css" href="static/map/css/bootstrap-dialog.min.css" />
+ <script type="text/javascript" src="static/map/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="static/map/js/bootstrap-dialog.min.js"></script>
+ <style type="text/css">
 html {
 	height: 100%
 }
@@ -111,11 +115,11 @@ body {
 			statuscolor = "green";
 		}
 		//clienttype = "light_";
-		if ("灯" == this._data.aliastypename) {
+		if ( this._data.aliastypename.indexOf("灯" ) >=0) {
 			clienttype = "light_";
-		} else if ("断路器" == this._data.aliastypename) {
+		} else if (this._data.aliastypename.indexOf("断路器" ) >=0) {
 			clienttype = "breaker_";
-		} else if ("网关" == this._data.aliastypename) {
+		} else if (this._data.aliastypename.indexOf("网关") >= 0) {
 			clienttype = "gateway_";
 		} else {
 			clienttype = "light_";
@@ -699,10 +703,6 @@ function searcherr() {
 		} ]
 	});
 }
-
-/*  function PolicyControl() {
-	console.log("PolicyControl");
-}  */
  function PolicyControl() {
 	 BootstrapDialog.show({
          title: '策略控制',

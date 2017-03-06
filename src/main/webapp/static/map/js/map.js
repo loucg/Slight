@@ -177,11 +177,11 @@
 		        	"</div>"+
 		        "</body>"+
 		        "</html>";
-	        if(data.aliastypename=="灯"){
+	        if(data.aliastypename.indexOf("灯" ) >=0){
 	        	return sContent_light;
-	        }else if(data.aliastypename=="断路器"){
+	        }else if(data.aliastypename.indexOf("断路器" ) >=0){
 	        	return sContent_Breaker;
-	        }else if(data.aliastypename=="网关"){
+	        }else if(data.aliastypename.indexOf("网关") >= 0){
 	        	return sContent_Gateway;
 	        }else {
 	        	return "无";

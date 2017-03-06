@@ -24,8 +24,8 @@
 <link rel="stylesheet" type="text/css" href="static/map/css/formui.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/chur.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/bootstrap.min.css" />
-<!-- <script type="text/javascript" src="static/map/js/jquery-1.7.2.js"></script> -->
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="static/map/js/jquery-2.1.4.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> -->
 <script type="text/javascript"
 	src="static/map/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="static/map/js/grid.locale-cn.js"></script>
@@ -40,11 +40,15 @@
 	
 </script>
  <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js"></script>
-</head>
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
+ --><!-- <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js"></script>
+ -->
+ <link rel="stylesheet" type="text/css" href="static/map/css/bootstrap-dialog.min.css" />
+ <script type="text/javascript" src="static/map/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="static/map/js/bootstrap-dialog.min.js"></script>
+ </head>
 <body>
 <div class="warp">
 		<!--左边菜单开始-->
