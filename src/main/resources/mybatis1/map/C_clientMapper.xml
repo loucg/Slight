@@ -20,11 +20,21 @@
 		#{begin},#{rows}
   	</select>
   	 <select id="queryAllterm_gateway" parameterType="cclient" resultType="cclient">
-  		select cg.id as id ,cga.name as name ,cga.coordinate as  coordinate, cga.location as location ,cga.lamp_pole_num as lamppolenum ,cgt.name as typename ,-999 as termid ,"网关/断路器组"  as termname ,cgt.name as aliastypename
-		from c_gateway cg ,c_gateway_attr1 cga ,c_gateway_type cgt
-		where cg.id=cga.c_gateway_id and cga.c_gateway_type_id=cgt.id
+  		select cg.id as id ,cga.name as name ,cga.coordinate as  coordinate, cga.location as location ,cga.lamp_pole_num as lamppolenum ,cgt.name as typename ,-999 as termid ,bs.`name` as status ,"网关/断路器组"  as termname , cgt.name as aliastypename
+		from c_gateway cg ,c_gateway_attr1 cga ,c_gateway_type cgt ,b_status bs
+		where cg.id=cga.c_gateway_id and cga.c_gateway_type_id=cgt.id and bs.b_status_main_id=3 and bs.`value`=cga.staus
 		limit
 		#{begin},#{rows}
+  	</select>
+  	 <select id="querGatewayPower" parameterType="cclient" resultType="cclient">
+  		select bp.c_gateway_id as id ,powerup ,powerdown, tdate
+		from b_powerup bp
+		where bp.c_gateway_id=#{id}
+  	</select>
+  	<select id="querGatewayClient" parameterType="cclient" resultType="String">
+  		select cca.`name`
+		from c_client_gateway ccg ,c_client_attr1 cca
+		where cca.c_client_id=ccg.c_client_id and ccg.c_gateway_id=#{id} 
   	</select>
   	<select id="queryCountgateway" parameterType="cclient" resultType="Integer">
   		select count(*)
@@ -33,9 +43,9 @@
   	</select>
 
   	<select id="queryAllclient_status" parameterType="cclient" resultType="cclient">
-  		select cc.id,cca.name,cca.lamp_pole_num as lamppolenum ,cca.location,cca.coordinate ,ct.name as termname,ccus.brightness ,ccty.name as typename ,ccus.status , ct.id as termid ,ccty.id as typeid ,"灯" as aliastypename 
-		from c_client cc, c_client_attr1 cca ,c_client_term cct,c_term ct ,c_client_upload_status ccus ,c_client_type ccty
-		where cc.id=cca.c_client_id and cc.id=cct.c_client_id and cct.c_term_id=ct.id and cc.id=ccus.c_client_id and ccty.id=cca.c_client_type_id and ct.id=#{termid}
+  		select cc.id,cca.name,cca.lamp_pole_num as lamppolenum ,cca.location,cca.coordinate ,ct.name as termname,ccus.brightness ,ccty.name as typename , ct.id as termid ,ccty.id as typeid ,bs.`name` as status,"灯" as aliastypename 
+		from c_client cc, c_client_attr1 cca ,c_client_term cct,c_term ct ,c_client_upload_status ccus ,c_client_type ccty,b_status bs
+		where cc.id=cca.c_client_id and cc.id=cct.c_client_id and cct.c_term_id=ct.id and cc.id=ccus.c_client_id and ccty.id=cca.c_client_type_id and cca.staus=bs.`value`  and bs.b_status_main_id=3 and ct.id=#{termid}
 		limit
 		#{begin},#{rows}
   	</select>
@@ -142,10 +152,10 @@
   	</select>
   	<!-- 上方搜索框结束 -->
   	<update id="updateClientAttr_statusON"  parameterType="cclient">
-  		update c_client_upload_status ccus set ccus.status = "正常" where ccus.c_client_id = #{id}
+  		update c_client_upload_status cca set cca.brightness=100  where cca.c_client_id= #{id}
   	</update>
   	<update id="updateClientAttr_statusOff"  parameterType="cclient">
-  		update c_client_upload_status ccus set ccus.status = "断电" where ccus.c_client_id = #{id}
+  		update c_client_upload_status cca set cca.brightness=0  where cca.c_client_id= #{id}
   	</update>
   	<update id="updateClientAttr_brightness"  parameterType="cclient">
   		update c_client_upload_status ccus set ccus.brightness = #{brightness} where ccus.c_client_id = #{id}

@@ -32,7 +32,7 @@
 						<div class="col-xs-12">
 						
 						<!-- 检索  -->
-						<form action="strategy/listStrategys.do" method="post" name="userForm" id="userForm">
+						<form action="strategy/listStrategys.do" method="post" name="strategyForm" id="strategyForm">
 						<table style="margin-top:5px;">
 							<tr>
 							    <td>策略名称：</td>
@@ -60,10 +60,9 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">策略名称</th>
 									<th class="center">应用说明</th>
-									<th class="center">终端数量</th>
+									<th class="center">终端组数量</th>
 									<th class="center">状态</th>
-									<th class="center">时间</th>
-									<th class="center">亮度值</th>
+									<th class="center">时间及亮度值</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -80,28 +79,39 @@
 											<td class='center' style="width: 30px;">${vs.index+1+(page.currentPage-1)*page.showCount}</td>
 											<td class="center">${strategy.name }</td>
 											<td class="center">${strategy.explain }</td>
-											<td class="center">${strategy.json }</td>
+											<td class="center"><a onclick="viewStrategyGroups('${strategy.id}')" style="cursor:pointer;">${strategy.number }</a></td>
 											<td class="center">${strategy.status }</td>
-											<td class="center">${strategy.json }</td>
-											<td class="center">${strategy.json }</td>
+											<td class="center"  >
+											<table class="table-striped table-bordered table-hover" height=100% width=100% border=1>
+											<c:choose>
+											<c:when test="${not empty strategy.timestamp}">
+											<c:forEach items="${strategy.timestamp}" var="timestamp" varStatus="vs1">
+											<tr>
+											<td class="center" width=50%>${timestamp}</td>
+											<td class="center" width=50%>${strategy.intensity[vs1.index]}%</td>
+											</tr>
+											</c:forEach>
+											</c:when>
+											</c:choose>
+											</table>
+											</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="修改" onclick="editStrategy('${strategy.id}');">
-														<!-- <i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i> -->
+													<a class="btn btn-mini btn-info" title="修改" onclick="editStrategy('${strategy.id}');">
 														修改
 													</a>
 													</c:if>
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-danger" title="新增应用终端" onclick="addTerminal('${group.id}');">
+													<a class="btn btn-warning btn-mini" title="新增应用终端" onclick="addGroup('${strategy.id}');">
 														新增
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" title="踢删应用终端" onclick="delTerminal('${group.id}','${group.name}' );">
+													<a class="btn btn-xs btn-danger" title="踢删应用终端" onclick="delGroup('${strategy.id}');">
 														踢删
 													</a>
 													</c:if>
@@ -179,7 +189,7 @@ $(top.hangge());
 //检索
 function searchs(){
 	top.jzts();
-	$("#userForm").submit();
+	$("#strategyForm").submit();
 }
 
 //新增策略
@@ -205,13 +215,13 @@ function addStrategy(){
 	 diag.show();
 }
 
-//新增应用终端
-function addTerminal(id){
+//新增应用组
+function addGroup(id){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
-	 diag.Title ="新增应用终端";
-	 diag.URL = '<%=basePath%>strategyTRML/listOthers.do?id='+id;
+	 diag.Title ="新增应用组";
+	 diag.URL = '<%=basePath%>strategyGroup/listOthers.do?id='+id;
 	 diag.Width = 1200;
 	 diag.Height = 600;
 	 diag.Modal = true;				//有无遮罩窗口
@@ -231,13 +241,13 @@ function addTerminal(id){
 	 diag.show();
 }
 
-//踢删应用终端
-function delTerminal(id,name){
+//踢删应用组
+function delGroup(id){
 	top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
-	 diag.Title ="踢删应用组员";
-	 diag.URL = '<%=basePath%>strategyTRML/listTRMLs.do?id='+id+'&title='+'tishan';
+	 diag.Title ="踢删应用组";
+	 diag.URL = '<%=basePath%>strategyGroup/listGroups.do?id='+id;
 	 diag.Width = 1200;
 	 diag.Height = 600;
 	 diag.Modal = true;				//有无遮罩窗口
@@ -252,6 +262,21 @@ function delTerminal(id,name){
 				 nextPage(${page.currentPage});
 			 }
 		}
+		diag.close();
+	 };
+	 diag.show();
+}
+
+//查看终端组
+function viewStrategyGroups(id){
+	 top.jzts();
+	 var diag = new top.Dialog();
+	 diag.Drag=true;
+	 diag.Title ="终端组列表";
+	 diag.URL = '<%=basePath%>strategyGroup/listGroups.do?id='+id;
+	 diag.Width = 1200;
+	 diag.Height = 600;
+	 diag.CancelEvent = function(){ //关闭事件
 		diag.close();
 	 };
 	 diag.show();

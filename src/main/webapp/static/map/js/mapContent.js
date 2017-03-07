@@ -31,7 +31,7 @@ function init() {
 							"name" : name,
 							"id" : id
 						};
-						console.log(postSearchData);
+						//console.log(postSearchData);
 						$
 								.ajax({
 									url : "gomap/getSearchClient",
@@ -46,15 +46,16 @@ function init() {
 													.changePreMakerdata(data);
 
 											$("#search").remove();
-											var accdivpre = "<div><a class=\"one\" id=\"search\">"
+											var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id=\"search\"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"
 													+ "搜索所得终端"
-													+ "</a><ul class=\"kid\">";
+													+ "</span></a></div><ul class=\"kid\">";
+
 											for (var i = 0; i < data.length; i++) {
 												var accdivli = "<li><b class=\"tip\"></b><a class=\"onekid\"  id="
 														+ data[i].coordinate
-														+ ">"
+														+ "><span style=\"font-size:12px;\">"
 														+ data[i].name
-														+ "</a></li>";
+														+ "</span></a></li>";
 												accdivpre = accdivpre
 														+ accdivli;
 											}
@@ -63,36 +64,15 @@ function init() {
 											$('.acc').append(accdivpre);
 
 											Conframe.window.cleanAllMaker();
-											Conframe.window
-													.addClientMaker(data);
-											$('body').alert({
-												type : 'success',
-												title : '提示',
-												content : '搜索成功，具体列表请查看左侧！',
-												modal : true,
-												draggabled : false,
-												even : 'click',
-												buttons : [ {
-													id : 'yes',
-													name : '确定',
-													callback : function() {
-													}
-												} ]
-											});
+											Conframe.window.addClientMaker(data);
+											Conframe.window.searchsuccess();
+											
 										} else {
-											$('body').alert({
-												type : 'primary',
-												title : '提示',
-												content : '查询的终端不存在！',
-												btntext : '确定',
-												modal : true,
-												draggabled : false,
-												even : 'click'
-											});
+											Conframe.window.searcherr();
 										}
 									},
 									error : function() {
-										alert('查询出错');
+										Conframe.window.searcherr();
 									}
 								});
 					});

@@ -1,3 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,13 +42,22 @@
 <script type="text/javascript" src="static/map/js/map.js"></script>
 <script type="text/javascript"
 	src="http://api.map.baidu.com/api?v=2.0&ak=H0j9w4M81wm8pl1klUsAPQklDddKFqc9">
-	
 </script>
-<script type="text/javascript"
+<!-- <script type="text/javascript"
 	src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
 <link rel="stylesheet"
-	href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
-<style type="text/css">
+	href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" /> -->
+	<script type="text/javascript" src="static/map/js/DrawingManager_min.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/map/css/DrawingManager_min.css" />
+	<base href="<%=basePath%>">
+	   <!--  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />--> <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" /> -->
+ <script type="text/javascript" src="static/map/js/jquery-2.1.4.min.js"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js"></script>-->
+  <link rel="stylesheet" type="text/css" href="static/map/css/bootstrap-dialog.min.css" />
+ <script type="text/javascript" src="static/map/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="static/map/js/bootstrap-dialog.min.js"></script>
+ <style type="text/css">
 html {
 	height: 100%
 }
@@ -96,11 +115,11 @@ body {
 			statuscolor = "green";
 		}
 		//clienttype = "light_";
-		if ("灯" == this._data.aliastypename) {
+		if ( this._data.aliastypename.indexOf("灯" ) >=0) {
 			clienttype = "light_";
-		} else if ("断路器" == this._data.aliastypename) {
+		} else if (this._data.aliastypename.indexOf("断路器" ) >=0) {
 			clienttype = "breaker_";
-		} else if ("网关" == this._data.aliastypename) {
+		} else if (this._data.aliastypename.indexOf("网关") >= 0) {
 			clienttype = "gateway_";
 		} else {
 			clienttype = "light_";
@@ -175,14 +194,14 @@ body {
 	var menu = new BMap.ContextMenu();
 	var CircleAndRectangle = null;
 	var txtMenuItem = [ {
-		text : '需求都没说，放大',
+		text : '需求没说，做个放大吧',
 		callback : function() {
 			map.zoomIn();
 			CircleAndRectangle.removeContextMenu(menu);
 			map.removeOverlay(CircleAndRectangle);
 			CircleAndRectangle = null;
 		}
-	}, {
+	}/* , {
 		text : '不要点，缩小',
 		callback : function() {
 			map.zoomOut();
@@ -190,7 +209,7 @@ body {
 			map.removeOverlay(CircleAndRectangle);
 			CircleAndRectangle = null;
 		}
-	}, {
+	} */, {
 		text : '清除',
 		callback : function() {
 			CircleAndRectangle.removeContextMenu(menu);
@@ -256,14 +275,33 @@ body {
 			success : function(clientdata) {
 				if (clientdata != null) {
 					preMakerdata = clientdata;
-					//console.log(clientdata);
 					addClientMaker(clientdata);
 				} else {
+					BootstrapDialog.show({
+		                type:  BootstrapDialog.TYPE_INFO,
+		                title: '提示信息 ',
+		                message: '该分组没有终端',
+		                buttons: [{
+		                    label: '关闭',
+		                    action: function(dialogItself){
+		                        dialogItself.close();
+		                    }
+		                }]
+		            });
 				}
 			},
 			error : function() {
-				//console.log("1111111");
-				//alert('fail');
+				BootstrapDialog.show({
+	                type:  BootstrapDialog.TYPE_INFO,
+	                title: '提示信息 ',
+	                message: '该分组没有终端',
+	                buttons: [{
+	                    label: '关闭',
+	                    action: function(dialogItself){
+	                        dialogItself.close();
+	                    }
+	                }]
+	            });
 			}
 		});
 	}
@@ -286,7 +324,8 @@ body {
 						width : 304, // 信息窗口宽度
 						height : 204, // 信息窗口高度
 					};
-					infoWindow = new BMap.InfoWindow(sContent, opts); // 创建信息窗口对象      
+					infoWindow = new BMap.InfoWindow(sContent, opts); // 创建信息窗口对象
+					infoWindow.enableCloseOnClick();
 					map.addEventListener('click', fo);
 				});
 			}(i));
@@ -327,11 +366,17 @@ body {
 		changeCenter(centerdata);//设置中心点
 	}
 
+	map.addEventListener("click",closeinfowindow);
+	function closeinfowindow(){
+		  if(infoWindow.isOpen())map.removeOverlay(infoWindow);
+		  
+	}
 	//叠加层点击事件       
 	function fo(e) {
+		map.removeEventListener("click", fo); //这里取消绑定。
 		var point = new BMap.Point(e.point.lng, e.point.lat);
 		map.openInfoWindow(infoWindow, point); //开启信息窗口     
-		map.removeEventListener("click", fo); //这里取消绑定。                
+		//map.removeEventListener("click", fo); //这里取消绑定。                
 	}
 	//0.5秒后改变地图的展示中心       
 	function changeCenter(data) {
@@ -387,16 +432,18 @@ body {
 		
 	}
 	function TurnOnLight() {
-		if (choseMakerdata.status == "正常") {
-			$('body').alert({
-				type : 'primary',
-				title : '提示',
-				content : '路灯已开启！',
-				btntext : '确定',
-				modal : true,
-				draggabled : false,
-				even : 'click'
-			});
+		if (choseMakerdata.brightness != 0) {
+			 BootstrapDialog.show({
+	                type:  BootstrapDialog.TYPE_DANGER,
+	                title: '提示信息 ',
+	                message: '路灯已开启',
+	                buttons: [{
+	                    label: '关闭',
+	                    action: function(dialogItself){
+	                        dialogItself.close();
+	                    }
+	                }]
+	            });  
 		} else {
 			$
 					.ajax({
@@ -412,46 +459,47 @@ body {
 								var a = parent.getmapTermpagein()[choseMakerdata.termid];
 								//console.log(a);
 								getClientsData(a);
-								$('body').alert({
-									type : 'success',
-									title : '提示',
-									content : '更新成功！',
-									modal : true,
-									draggabled : false,
-									even : 'click',
-									buttons : [ {
-										id : 'yes',
-										name : '确定',
-										callback : function() {
-										}
-									} ]
-								});
+								 BootstrapDialog.show({
+						                type:  BootstrapDialog.TYPE_PRIMARY,
+						                title: '提示信息 ',
+						                message: '路灯开启成功',
+						                buttons: [{
+						                    label: '关闭',
+						                    action: function(dialogItself){
+						                        dialogItself.close();
+						                    }
+						                }]
+						            }); 
 								//infoWindow.setContent("11111");
 								//infoWindow.redraw()	;
 
 							} else {
-								$('body').alert({
-									type : 'primary',
-									title : '提示',
-									content : '更新失败！',
-									btntext : '确定',
-									modal : true,
-									draggabled : false,
-									even : 'click'
-								});
+								BootstrapDialog.show({
+					                type:  BootstrapDialog.TYPE_DANGER,
+					                title: '提示信息 ',
+					                message: '路灯开启失败',
+					                buttons: [{
+					                    label: '关闭',
+					                    action: function(dialogItself){
+					                        dialogItself.close();
+					                    }
+					                }]
+					            }); 
 							}
 
 						},
 						error : function() {
-							$('body').alert({
-								type : 'primary',
-								title : '提示',
-								content : '更新失败！',
-								btntext : '确定',
-								modal : true,
-								draggabled : false,
-								even : 'click'
-							});
+							BootstrapDialog.show({
+				                type:  BootstrapDialog.TYPE_DANGER,
+				                title: '提示信息 ',
+				                message: '路灯开启失败',
+				                buttons: [{
+				                    label: '关闭',
+				                    action: function(dialogItself){
+				                        dialogItself.close();
+				                    }
+				                }]
+				            }); 
 						}
 
 					});
@@ -460,16 +508,18 @@ body {
 
 	}
 	function TurnOffLight() {
-		if (choseMakerdata.status != "正常") {
-			$('body').alert({
-				type : 'primary',
-				title : '提示',
-				content : '路灯已关闭！',
-				btntext : '确定',
-				modal : true,
-				draggabled : false,
-				even : 'click'
-			});
+		if (choseMakerdata.brightness == 0) {
+			BootstrapDialog.show({
+                type:  BootstrapDialog.TYPE_DANGER,
+                title: '提示信息 ',
+                message: '路灯已关闭',
+                buttons: [{
+                    label: '关闭',
+                    action: function(dialogItself){
+                        dialogItself.close();
+                    }
+                }]
+            }); 
 		} else {
 			$
 					.ajax({
@@ -485,44 +535,45 @@ body {
 								var a = parent.getmapTermpagein()[choseMakerdata.termid];
 								//console.log(a);
 								getClientsData(a);
-								$('body').alert({
-									type : 'success',
-									title : '提示',
-									content : '更新成功！',
-									modal : true,
-									draggabled : false,
-									even : 'click',
-									buttons : [ {
-										id : 'yes',
-										name : '确定',
-										callback : function() {
-										}
-									} ]
-								});
+								 BootstrapDialog.show({
+						                type:  BootstrapDialog.TYPE_PRIMARY,
+						                title: '提示信息 ',
+						                message: '路灯关闭成功',
+						                buttons: [{
+						                    label: '关闭',
+						                    action: function(dialogItself){
+						                        dialogItself.close();
+						                    }
+						                }]
+						            }); 
 
 							} else {
-								$('body').alert({
-									type : 'primary',
-									title : '提示',
-									content : '更新失败！',
-									btntext : '确定',
-									modal : true,
-									draggabled : false,
-									even : 'click'
-								});
+								BootstrapDialog.show({
+					                type:  BootstrapDialog.TYPE_DANGER,
+					                title: '提示信息 ',
+					                message: '路灯关闭失败',
+					                buttons: [{
+					                    label: '关闭',
+					                    action: function(dialogItself){
+					                        dialogItself.close();
+					                    }
+					                }]
+					            }); 
 							}
 
 						},
 						error : function() {
-							$('body').alert({
-								type : 'primary',
-								title : '提示',
-								content : '更新失败！',
-								btntext : '确定',
-								modal : true,
-								draggabled : false,
-								even : 'click'
-							});
+							BootstrapDialog.show({
+				                type:  BootstrapDialog.TYPE_DANGER,
+				                title: '提示信息 ',
+				                message: '路灯关闭失败',
+				                buttons: [{
+				                    label: '关闭',
+				                    action: function(dialogItself){
+				                        dialogItself.close();
+				                    }
+				                }]
+				            });
 						}
 
 					});
@@ -530,11 +581,10 @@ body {
 		}
 
 	}
-	function PolicyControl() {
-		console.log("PolicyControl");
-	}
+
 	function change_bright(bright) {
-		choseMakerdata.brightness = bright
+		choseMakerdata.brightness = bright;
+		console.log(bright);
 		$.ajax({
 			url : "gomap/updateClientAttr_brightness",
 			type : "POST",
@@ -547,44 +597,45 @@ body {
 					var a = parent.getmapTermpagein()[choseMakerdata.termid];
 					//console.log(a);
 					getClientsData(a);
-					$('body').alert({
-						type : 'success',
-						title : '提示',
-						content : '更新成功！',
-						modal : true,
-						draggabled : false,
-						even : 'click',
-						buttons : [ {
-							id : 'yes',
-							name : '确定',
-							callback : function() {
-							}
-						} ]
-					});
+					BootstrapDialog.show({
+		                type:  BootstrapDialog.TYPE_PRIMARY,
+		                title: '提示信息 ',
+		                message: '路灯亮度值更新成功',
+		                buttons: [{
+		                    label: '关闭',
+		                    action: function(dialogItself){
+		                        dialogItself.close();
+		                    }
+		                }]
+		            }); 
 
 				} else {
-					$('body').alert({
-						type : 'primary',
-						title : '提示',
-						content : '更新失败！',
-						btntext : '确定',
-						modal : true,
-						draggabled : false,
-						even : 'click'
-					});
+					BootstrapDialog.show({
+		                type:  BootstrapDialog.TYPE_DANGER,
+		                title: '提示信息 ',
+		                message: '路灯亮度值更新失败',
+		                buttons: [{
+		                    label: '关闭',
+		                    action: function(dialogItself){
+		                        dialogItself.close();
+		                    }
+		                }]
+		            });
 				}
 
 			},
 			error : function() {
-				$('body').alert({
-					type : 'primary',
-					title : '提示',
-					content : '更新失败！',
-					btntext : '确定',
-					modal : true,
-					draggabled : false,
-					even : 'click'
-				});
+				BootstrapDialog.show({
+	                type:  BootstrapDialog.TYPE_DANGER,
+	                title: '提示信息 ',
+	                message: '路灯亮度值更新失败',
+	                buttons: [{
+	                    label: '关闭',
+	                    action: function(dialogItself){
+	                        dialogItself.close();
+	                    }
+	                }]
+	            });
 			}
 
 		});
@@ -605,15 +656,17 @@ body {
 			;
 			getClientsData(mapTermpage2);
 		} else {
-			$('body').alert({
-				type : 'primary',
-				title : '提示',
-				content : '暂无数据！',
-				btntext : '确定',
-				modal : true,
-				draggabled : false,
-				even : 'click'
-			});
+			BootstrapDialog.show({
+                type:  BootstrapDialog.TYPE_INFO,
+                title: '提示信息 ',
+                message: '暂时没有数据',
+                buttons: [{
+                    label: '关闭',
+                    action: function(dialogItself){
+                        dialogItself.close();
+                    }
+                }]
+            });
 		}
 	});
 
@@ -621,34 +674,53 @@ body {
 		//getClientsData(1);
 	});
 </script>
-
-
-<script type="text/javascript">
-	/* 	var point = new BMap.Point(120.127809, 30.278594);
-	 var myIcon = new BMap.Icon("img/light_green.png", new BMap.Size(25, 25), {
-	 //offset : new BMap.Size(25, 12)
-	 });
-	 var marker = new BMap.Marker(point, {
-	 icon : myIcon
-	 });
-	 map.addOverlay(marker);
-	 marker.addEventListener("click", function(e) {
-	 openInfo("111", e)
-	 });
-
-	 var opts = {
-	 width : 250, // 信息窗口宽度
-	 height : 80, // 信息窗口高度
-	 title : "信息窗口", // 信息窗口标题
-	 enableMessage : true
-	 //设置允许信息窗发送短息
-	 };
-	 function openInfo(content, e) {
-	 var p = e.target;
-	 var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-	 //console.log(p.getPosition().lng, p.getPosition().lat);
-	 var infoWindow = new BMap.InfoWindow(content, opts); // 创建信息窗口对象 
-	 map.openInfoWindow(infoWindow, point); //开启信息窗口
-	 } */
+<script type="text/javascript"> 
+function searchsuccess() {
+	BootstrapDialog
+	.show({
+		type : BootstrapDialog.TYPE_PRIMARY,
+		title : '提示信息 ',
+		message : '搜索成功，具体列表请查看左侧！',
+		buttons : [ {
+			label : '关闭',
+			action : function(dialogItself) {
+				dialogItself.close();
+			}
+		} ]
+	});
+}
+function searcherr() {
+	BootstrapDialog
+	.show({
+		type : BootstrapDialog.TYPE_DANGER,
+		title : '提示信息 ',
+		message : '查询的终端不存在或查询出错！',
+		buttons : [ {
+			label : '关闭',
+			action : function(dialogItself) {
+				dialogItself.close();
+			}
+		} ]
+	});
+}
+ function PolicyControl() {
+	 BootstrapDialog.show({
+         title: '策略控制',
+        // message:$('<div></div>').load('remote.html'),
+        message:"跳转到策略控制页面吗",
+         buttons: [{
+             label: '确定',
+             action: function(dialogItself) {
+            	 dialogItself.close();
+            	 window.parent.location.href="strategy/listStrategys.do";
+             }
+         },{
+             label: '取消',
+             action: function(dialogItself) {
+            	 dialogItself.close();
+             }
+         }]
+     });
+} 
 </script>
 </html>

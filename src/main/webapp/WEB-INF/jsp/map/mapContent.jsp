@@ -19,12 +19,13 @@
 	href="static/map/css/jquery-ui-1.10.4.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/ui.jqgrid.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/ui.jqgrid.css" />
-<link rel="stylesheet" type="text/css" href="static/map/css/admin-all.css" />
+<link rel="stylesheet" type="text/css" href="static/map/css/admin-all1.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/base.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/formui.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/chur.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/bootstrap.min.css" />
-<script type="text/javascript" src="static/map/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="static/map/js/jquery-2.1.4.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> -->
 <script type="text/javascript"
 	src="static/map/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="static/map/js/grid.locale-cn.js"></script>
@@ -38,21 +39,27 @@
 	src="http://api.map.baidu.com/api?v=2.0&ak=H0j9w4M81wm8pl1klUsAPQklDddKFqc9">
 	
 </script>
-</head>
+ <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
+ --><!-- <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js"></script>
+ -->
+ <link rel="stylesheet" type="text/css" href="static/map/css/bootstrap-dialog.min.css" />
+ <script type="text/javascript" src="static/map/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="static/map/js/bootstrap-dialog.min.js"></script>
+ </head>
 <body>
 <div class="warp">
 		<!--左边菜单开始-->
 		<div class="left_c left">
-			<h1>路灯列表</h1>
-			<div class="acc" >
-			<!-- 
-				<div>
-					<a class="one">未分组</a>
-					<ul class="kid">
-						<li><b class="tip"></b><a target="Conframe" href="#">1</a></li>
-					</ul>
+			<div class="panel  panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">路灯列表</h3>
 				</div>
-			 -->
+			</div>
+			<!-- <h1>路灯列表</h1> -->
+			<div class="acc" >
 			</div>
 		</div>
 		<!--左边菜单结束-->
@@ -61,28 +68,28 @@
 			<table class="tbform">
 				<tbody>
 					<tr>
-						<td class="tdl"><span>组名：</span> <select class="ipt"
+						<td class="tdl"><span>组名:</span> <select class="ipt"
 							id="groupname" onchange="changegroupname()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>类型：</span> <select class="ipt"
+						<td class="tdl"><span>类型:</span> <select class="ipt"
 							id="terminaltype" onchange="changeterminaltype()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>地址：</span> <select class="ipt"
+						<td class="tdl"><span>地址:</span> <select class="ipt"
 							id="address" onchange="changeAddress()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>名称：</span> <select class="ipt"
+						<td class="tdl"><span>名称:</span> <select class="ipt"
 							id="terminalname"  onchange="changeterminalname()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>编号：</span> <select class="ipt"
+						<td class="tdl"><span>编号:</span> <select class="ipt"
 							id="terminalid">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl" style="width: 15%;"><input class="btn"
-							id="check" type="button" value="查    询" /> <input class="btn"
+						<td class="tdl" style="width: 15%;"><input class="btn btn-primary"
+							id="check" type="button"  value="查    询" style="padding-left:15px;"/> <input class="btn btn-warning "
 							id="reset" type="button" value="重   置" /></td>
 					</tr>
 
@@ -93,12 +100,12 @@
 			<div class="nav-tip" onClick="javascript:void(0)">&nbsp;</div>
 		</div>
 		<div class="Conframe" id="inc">
-			<iframe name="Conframe" id="Conframe" frameborder=0 src="map.html">
+			<iframe name="Conframe" id="Conframe" frameborder=0 src="map.jsp">
 			</iframe>
 		</div>
 		<!--右边框架结束-->
 		<!--底部开始-->
-		<div class="bottom_c">地图</div>
+		<!--  <div class="bottom_c">地图</div> -->
 		<!--底部结束-->
 	</div>
 	
@@ -134,10 +141,10 @@ var choseterm;//表示选择的term；
 					 var pagedata2={page:1,rows:2,begin:0,end:0,havenest:false,termid:data[key][0].termid};///////////
 					 mapTermpage[data[key][0].termid]=pagedata2;
 					 mapTermpagein[data[key][0].termid]=pagedata1;
-					 var accdivpre = "<div><a class=\"one\" id="+data[key][0].termid+">"+data[key][0].termname+"</a><ul class=\"kid\">";
+					 var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id="+data[key][0].termid+"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"+data[key][0].termname+"</span></a></div><ul class=\"kid\">";
 					 for(var i=0;i<data[key].length;i++){
 						 if(data[key][i].coordinate!=null){
-						 		var accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[key][i].coordinate+">"+data[key][i].name+"</a></li>";
+						 		var accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[key][i].coordinate+"><span style=\"font-size:12px;font-family:宋体\">"+data[key][i].name+"</span></a></li>";
 						 		accdivpre=accdivpre+accdivli;
 						 }
 						 else if(data[key][i].havenest==true){
@@ -242,15 +249,17 @@ var choseterm;//表示选择的term；
 				}
 			},
 			error : function() {
-				$('body').alert({
-					type : 'primary',
-					title : '提示',
-					content : '数据加载出错请刷新页面！',
-					btntext : '确定',
-					modal : true,
-					draggabled : false,
-					even : 'click'
-				});
+				BootstrapDialog.show({
+	                type:  BootstrapDialog.TYPE_DANGER,
+	                title: '提示信息 ',
+	                message: '数据加载出错请刷新页面！',
+	                buttons: [{
+	                    label: '关闭',
+	                    action: function(dialogItself){
+	                        dialogItself.close();
+	                    }
+	                }]
+	            }); 
 			}
 		});
 	}
@@ -283,15 +292,17 @@ var choseterm;//表示选择的term；
 						}
 					},
 					error : function() {
-						$('body').alert({
-							type : 'primary',
-							title : '提示',
-							content : '数据加载出错请刷新页面！',
-							btntext : '确定',
-							modal : true,
-							draggabled : false,
-							even : 'click'
-						});
+						BootstrapDialog.show({
+			                type:  BootstrapDialog.TYPE_DANGER,
+			                title: '提示信息 ',
+			                message: '数据加载出错请刷新页面！',
+			                buttons: [{
+			                    label: '关闭',
+			                    action: function(dialogItself){
+			                        dialogItself.close();
+			                    }
+			                }]
+			            }); 
 					}
 				});
 	}
@@ -321,15 +332,17 @@ var choseterm;//表示选择的term；
 				}
 			},
 			error : function() {
-				$('body').alert({
-					type : 'primary',
-					title : '提示',
-					content : '数据加载出错请刷新页面！',
-					btntext : '确定',
-					modal : true,
-					draggabled : false,
-					even : 'click'
-				});
+				BootstrapDialog.show({
+	                type:  BootstrapDialog.TYPE_DANGER,
+	                title: '提示信息 ',
+	                message: '数据加载出错请刷新页面！',
+	                buttons: [{
+	                    label: '关闭',
+	                    action: function(dialogItself){
+	                        dialogItself.close();
+	                    }
+	                }]
+	            }); 
 			}
 		});
 	}

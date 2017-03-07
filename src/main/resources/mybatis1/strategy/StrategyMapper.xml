@@ -45,15 +45,34 @@
 		B_CTRL_STRATEGY.json,
 		B_CTRL_STRATEGY.status as status_value,
 		B_CTRL_STRATEGY.tdate,
-		B_STATUS.name as status
+		B_STATUS.name as status,
+		COUNT(C_TERM.id) number 
 		from
-		<include refid="tableName"></include>
+		B_CTRL_STRATEGY
+		left join
+		C_TERM
+		ON
+		B_CTRL_STRATEGY.id = C_TERM.b_ctrl_strategy_id
 		left join
 		B_STATUS
 		ON
 		B_CTRL_STRATEGY.status = B_STATUS.value
 		and b_status_main_id = 1
-		ORDER BY id
+		where 1=1
+		<if test="pd.name!=null and pd.name!=''"><!-- 策略名称检索 -->
+			and 
+			(
+				B_CTRL_STRATEGY.name LIKE CONCAT(CONCAT('%', #{pd.name}),'%')
+			)
+		</if>
+		<if test="pd.explain!=null and pd.explain!=''"><!-- 应用说明检索 -->
+			and 
+			(
+				B_CTRL_STRATEGY.explain LIKE CONCAT(CONCAT('%', #{pd.explain}),'%')
+			)
+		</if> 
+		GROUP BY
+		b_ctrl_strategy.id
 	</select>
 	
 	<!-- 通过id查找 -->
@@ -90,7 +109,7 @@
 		<include refid="tableName"></include>
 		set name                       = #{NAME},
 		    B_CTRL_STRATEGY.explain    = #{EXPLAIN},
-		    json                       = #{JSON},
+		    json                       = #{JSONString},
 		    status                     = #{STATUS}
 		where id = #{ID}
 	</update>

@@ -67,11 +67,10 @@
 					"</div>"+
 					"<div class='btx4'>"+
 						"<h2 class='sh'>"+"亮度值"+":</h2>"+
-						"<select class='s1'>"+
-							"<option value='1'>"+"1"+"</option>"+
-							"<option value='2'>"+"2"+"</option>"+
-							"<option value='3'>"+"3"+"</option>"+
-							"<option value='4'>"+"4"+"</option>"+
+						"<select class='s1'  onchange='change_bright(this.options[this.options.selectedIndex].value)'>"+
+							"<option value='0'>"+"0"+"</option>"+
+							"<option value='50'>"+"50"+"</option>"+
+							"<option value='100'>"+"100"+"</option>"+
 				    	"</select>"+
 				    "</div>"+
     			"</div>"+
@@ -110,10 +109,10 @@
 	        						"<a>"+"位置："+ data .location+"</a>"+
 	        					"</li>"+
 	        					"<li >"+
-        							"<a>"+"断电时间：2017.1.1 19:00:00"+"</a>"+
+        							"<a>"+"断电时间："+ data .powerdown+"</a>"+
         						"</li>"+
         						"<li >"+
-    								"<a>"+"通电时间：2017.1.1 20:00:00"+"</a>"+
+    								"<a>"+"通电时间："+ data .powerup+"</a>"+
     						"</li>"+
 	        				"</ul>"+
 	        			"</div>"+
@@ -124,7 +123,14 @@
 	        	"</div>"+
 	        "</body>"+
 	        "</html>";
-	        
+	        var op="";
+        if(data.cclientgateway!=null){
+      
+        	for(var i = 0; i < data.cclientgateway.length; i++){
+        		op=op+"<option value='1'>"+data.cclientgateway[i]+"</option>";
+        	}
+        	  //console.log(op);
+        }
 	        //网关
 	        var sContent_Gateway =   
 		        "<html>"+
@@ -154,8 +160,12 @@
 		        					"<li >"+
 		        						"<a>"+"位置："+ data .location+"</a>"+
 		        					"</li>"+
-		        					"<li >"+
-	        							"<a>"+"成员列表："+"123"+"</a>"+
+		        					"<li >"+//+JSON.stringify(data.cclientgateway)+
+		        						"<a>"+"成员列表："+"</a>"+
+		        					"</li>"+
+			        					"<select class='s2'>"+
+											op+
+							    	    "</select>"+		
 	        						"</li>"+
 		        				"</ul>"+
 		        			"</div>"+
@@ -166,11 +176,11 @@
 		        	"</div>"+
 		        "</body>"+
 		        "</html>";
-	        if(data.aliastypename=="灯"){
+	        if(data.aliastypename.indexOf("灯" ) >=0){
 	        	return sContent_light;
-	        }else if(data.aliastypename=="断路器"){
+	        }else if(data.aliastypename.indexOf("断路器" ) >=0){
 	        	return sContent_Breaker;
-	        }else if(data.aliastypename=="网关"){
+	        }else if(data.aliastypename.indexOf("网关") >= 0){
 	        	return sContent_Gateway;
 	        }else {
 	        	return "无";

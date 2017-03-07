@@ -1,8 +1,9 @@
 ﻿$(function () {
     //日历
-    $("#datepicker").datepicker();
+    //$("#datepicker").datepicker();
     //左边菜单
-    $('.one').live("click",function () {
+   // $('.one').live("click",function () {
+	$('body').on("click",'.one',function () {
         $('.one').removeClass('one-hover');
         $(this).addClass('one-hover');
         choseterm=$(this);
@@ -16,10 +17,12 @@
         }
        // console.log($(this).attr("id"));
         $('.kid').hide();
-        $(this).parent().find('.kid').toggle();
+     // $(this).parent().find('.kid').toggle();
+        $(this).parent().parent().find('.kid').toggle();
     });
     
-    $('.onekid').live("click",function () {
+  //  $('.onekid').live("click",function () {
+	$('body').on("click",'.onekid',function () {
         $('.onekid').removeClass('one-hover');
         $(this).addClass('one-hover');
         var str=$(this).attr("id");
@@ -46,7 +49,7 @@
         						 var accdivli
         						 if(data[i].coordinate!=null){
         							   
-        						 	   accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[i].coordinate+">"+data[i].name+"</a></li>";
+        						 	   accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[i].coordinate+"><span style=\"font-size:12px;\">"+data[i].name+"</span></a></li>";
         						 	
         						 }
         						 else if(data[i].havenest==true){
@@ -56,7 +59,7 @@
         						 else {
         							 mapTermpage[termid].havenest=false;
         						 }
-        						 choseterm.parent().children("ul").append(accdivli);
+        						 choseterm.parent().parent().children("ul").append(accdivli);
         						 accdivli="";
         					 }
         					 mapTermpage[termid].begin= mapTermpage[termid].begin+ mapTermpage[termid].rows;

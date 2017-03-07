@@ -23,7 +23,7 @@
 	display: inline-block; 
 	height: 86%;  
 	width:100%; 
-	background-color: #fbfbea;
+	background-color: #ffffff;
 }
 .introduction{
 	float:left; 
@@ -47,6 +47,11 @@
 }
 .introduction li a{
 	font-size:15px;
+}
+.introduction .s2{
+	margin-top:5px;
+	width:90px;
+	height:25px;
 }
 .image{
 	width: 172px; 

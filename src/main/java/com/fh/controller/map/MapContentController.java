@@ -51,6 +51,7 @@ public class MapContentController extends BaseController{
 					p.setTermid(listct.get(i).getId());
 					c_client more = new c_client();
 					more.setHavenest(true);
+					more.setTermname(listct.get(i).getName());
 					List<c_client> listc = c_clientService.queryAllterm_client(p);
 					int totalcount = c_clientService.queryCountterm_client(p);
 					if ((p.getBegin() + p.getRows()) >= totalcount) {
@@ -187,7 +188,7 @@ public class MapContentController extends BaseController{
 		// 加载地图的maker
 		@RequestMapping(value = "/addClientMaker", method = RequestMethod.POST)
 		public @ResponseBody List<c_client> addClientMaker(HttpServletRequest request, @RequestBody c_client cc) throws Exception {
-			if(cc.getTermid()!=-999){
+			if(-999!=cc.getTermid()){
 			List<c_client> clientlist = c_clientService.addClientMaker(cc);
 			return clientlist;
 			}else{
