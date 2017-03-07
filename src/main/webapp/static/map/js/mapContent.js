@@ -42,18 +42,18 @@ function init() {
 									success : function(data) {
 										if (data != null) {
 											searchdata = data;// //全局变量，很重要/////////////////////////////////////
-											Conframe.window
-													.changePreMakerdata(data);
+											Conframe.window.changePreMakerdata(data);
 
 											$("#search").remove();
-											var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id=\"search\"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"
+											gpsTObbdSearch(data);
+											/*var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id=\"search\"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"
 													+ "搜索所得终端"
 													+ "</span></a></div><ul class=\"kid\">";
 
 											for (var i = 0; i < data.length; i++) {
 												var accdivli = "<li><b class=\"tip\"></b><a class=\"onekid\"  id="
 														+ data[i].coordinate
-														+ "><span style=\"font-size:12px;\">"
+														+ "><span style=\"font-size:12px;font-family:宋体\">"
 														+ data[i].name
 														+ "</span></a></li>";
 												accdivpre = accdivpre
@@ -61,10 +61,14 @@ function init() {
 											}
 											var accdivaft = "</ul></div>";
 											accdivpre = accdivpre + accdivaft;
-											$('.acc').append(accdivpre);
-
+											$('.acc').append(accdivpre);*/
 											Conframe.window.cleanAllMaker();
-											Conframe.window.addClientMaker(data);
+											var arrpoints=[];
+											for (var i = 0; i < data.length; i++) {
+												arrpoints.push( new BMap.Point(data[i].xcoordinate,data[i].ycoordinate));
+											}
+											//console.log(arrpoints);
+											Conframe.window.gpsTObbd(arrpoints,data);
 											Conframe.window.searchsuccess();
 											
 										} else {

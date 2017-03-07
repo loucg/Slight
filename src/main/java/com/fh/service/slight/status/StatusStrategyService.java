@@ -12,8 +12,22 @@ import com.fh.util.PageData;
 public interface StatusStrategyService {
 	
 	/**
-	 * 获取分组策略的信息列表
+	 * 按日查找
 	 * @return
 	 */
-	public List<PageData> getGroupList(PageData pd) throws Exception;
+	public List<PageData> getDayGroupList(PageData pd) throws Exception;
+	
+	/**
+	 * 按月查找
+	 * @return
+	 */
+	public List<PageData> getMonthGroupList(PageData pd) throws Exception;
+	
+	/**
+	 * 获取策略列表
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> getStrategyList(PageData pd) throws Exception;
 }

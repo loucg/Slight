@@ -16,8 +16,9 @@
 <!-- 下拉框 -->
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
-<%@ include file="../../system/index/top.jsp"%>
-
+<%@ include file="../system/index/top.jsp"%>
+<!-- 日期框 -->
+<link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
 <body class="no-skin">
 
@@ -31,30 +32,58 @@
 						<div class="col-xs-12">
 
 						<!-- 检索  -->
-						<form action="status/strategy/getGroupList" method="post" name="Form" id="Form">
+						<form action="poweranalysis/powerlist" method="post" name="Form" id="Form">
 						<input type="hidden" id="excel" name="excel" value="0"/>
+						<input type="hidden" name="itype" id="itype" value="4">
 						<table style="margin-top:5px;">
 							<tr>
 								
 								<td>
 									<div class="nav-search">
-									    <label>开始时间：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="number" value="${pd.number}" />
+									    <label>组名：</label>
+										<input class="nav-search-input" autocomplete="off" id="groupname" type="text" name="groupname" value="${pd.groupname}" />
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search">
-									    <label style="margin-left:12px;">截止时间：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }"  />
+									    <label style="margin-left:12px;">策略：</label>
+										<input class="nav-search-input" autocomplete="off" id="strategy" type="text" name="strategy" value="${pd.strategy }"  />
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;查询方式：</td>
+								<%-- <td >
+								 	<div class="nav-search" style="display: inline-flex;">
+									    <label style="margin-left:12px;">统计类型：</label>
+									    <select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择统计类型" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
+									 		<option value=""></option>
+									 		<option value="1" <c:if test="${pd.type==1}">selected</c:if>>日</option>
+											<option value="2" <c:if test="${pd.type==2}">selected</c:if>>月</option>
+									  	</select>
+									</div>
+								</td> --%>
 								<td >
-								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择终端类型" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
-										<option value="1" <c:if test="${pd.itype==1}">selected</c:if>>按日</option>
-										<option value="2" <c:if test="${pd.itype==2}">selected</c:if>>按月</option>
-								  	</select>
+									    <label style="margin-left:12px;">统计类型：</label>
+									    </td>
+									    <td>
+									    <select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择统计类型" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
+									 		<option value=""></option>
+									 		<option value="1" <c:if test="${pd.type==1}">selected</c:if>>日</option>
+											<option value="2" <c:if test="${pd.type==2}">selected</c:if>>月</option>
+									  	</select>
 								</td>
+								<td>
+								<div class="nav-search">
+								<label>开始时间：</label>
+								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px;" placeholder="开始日期" title="开始日期"/>
+								</div>
+								</td>
+								<td>
+								<div class="nav-search">
+								<label>截止时间：</label>
+								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px;" placeholder="截止日期" title="截止日期"/>
+								</div>
+								</td>
+								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
+								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								<%-- <td>&nbsp;&nbsp;状态：</td>
 								<td>
 								 	<select class="chosen-select form-control" name="status" id="status" data-placeholder="请选择状态" style="height:30px;width: 160px;margin-left:20px;border-width:1px;border-color:'#fff';border-radius:4px">
@@ -63,9 +92,7 @@
 										<option value="2" <c:if test="${pd.status==2}">selected</c:if>>无效</option>
 								  	</select>
 								</td> --%>
-								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
-								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<%-- <c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if> --%>
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -73,21 +100,13 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center" style="width:50px">终端编号</th>
+									<th class="center" style="width:50px">组名</th>
+									<th class="center">终端编号</th>
 									<th class="center">终端名称</th>
-									<th class="center">终端类型</th>
 									<th class="center">位置</th>
-									<th class="center">坐标</th>
-									<th class="center">电话号码</th>
-									<th class="center">电源规格</th>
-									<th class="center">灯规格</th>
-									<th class="center">传感器规格</th>
-									<th class="center">电线杆</th>
-									<th class="center">电杆号</th>
-									<th class="center">密码</th>
-									<th class="center">备注</th>
-									<th class="center">操作</th>
-
+									<th class="center">灯杆号</th>
+									<th class="center">能耗(KW)</th>
+									<th class="center">策略名称</th>
 								</tr>
 							</thead>
 
@@ -95,30 +114,24 @@
 
 							<!-- 开始循环 -->
 							<c:choose>
-								<c:when test="${not empty deviceList}">
+								<c:when test="${not empty varList}">
 									<c:if test="${QX.cha == 1 }">
-									<c:forEach items="${deviceList}" var="var" varStatus="vs">
+									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
-											<td class="center" style="width:50px">${var.number}</td>
+											<td class="center" style="width:50px">${var.groupname}</td>
+											<td class="center">${var.client_code}</td>
 											<td class="center">${var.name}</td>
-											<td class="center">${var.type}</td>
 											<td class="center">${var.location}</td>
-											<td class="center">${var.coordinate}</td>
-											<td class="center">${var.mobile}</td>
+											<td class="center">${var.lamp_pole_num}</td>
 											<td class="center">${var.power}</td>
-											<td class="center">${var.lamp}</td>
-											<td class="center">${var.sensor}</td>
-											<td class="center">${var.pole}</td>
-											<td class="center">${var.polenumber}</td>
-											<td class="center">${var.password}</td>
-											<td class="center">${var.comment}</td>
+											<td class="center">${var.clname}</td>
 											<!--  <td class="center">${var.CREATETIME}</td>
 											<td style="width: 60px;" class="center">
 												<c:if test="${var.STATUS == '2' }"><span class="label label-important arrowed-in">无效</span></c:if>
 												<c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">有效</span></c:if>
 											</td>
 											-->
-											<td class="center" style="width:50px;">
+											<%-- <td class="center" style="width:50px;">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
@@ -127,7 +140,7 @@
 													<a class="btn btn-xs btn-success" onclick="edit('${var.id}','${var.typeid}');">修改</a>
 													</c:if>
 												</div>
-											</td>
+											</td> --%>
 										</tr>
 
 									</c:forEach>
@@ -149,11 +162,11 @@
 					<div class="page-header position-relative">
 					<table style="width:100%;">
 						<tr>
-							<td style="vertical-align:top;">
+							<%-- <td style="vertical-align:top;">
 								<c:if test="${QX.add == 1 }">
 								<a class="btn btn-sm btn-success" onclick="add();">新增</a>
 								</c:if>
-							</td>
+							</td> --%>
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 						</tr>
 					</table>
@@ -179,13 +192,15 @@
 	<!-- /.main-container -->
 	<!-- basic scripts -->
 	<!-- 页面底部js¨ -->
-	<%@ include file="../../system/index/foot.jsp"%>
+	<%@ include file="../system/index/foot.jsp"%>
 	<!-- ace scripts -->
 	<script src="static/ace/js/ace/ace.js"></script>
 	<!-- 删除时确认窗口 -->
 	<script src="static/ace/js/bootbox.js"></script>
 	<!-- ace scripts -->
 	<script src="static/ace/js/ace/ace.js"></script>
+	<!-- 日期框 -->
+	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!-- 下拉框 -->
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	<!--提示框-->
@@ -214,7 +229,7 @@
 						 top.jzts();
 						 setTimeout("self.location=self.location",100);
 					 }else{
-						 nextPage(${page.currentPage});
+						 nextPage('${page.currentPage}');
 					 }
 				}
 				diag.close();
@@ -233,7 +248,7 @@
 			 diag.Height = 640;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 nextPage(${page.currentPage});
+					 nextPage('${page.currentPage}');
 				}
 				diag.close();
 			 };
@@ -255,7 +270,7 @@
 						 top.jzts();
 						 setTimeout("self.location.reload()",100);
 					 }else{
-						 nextPage(${page.currentPage});
+						 nextPage('${page.currentPage}');
 					 }
 				}
 				diag.close();
@@ -267,7 +282,51 @@
 		function toExcel(){
 			$("#excel").val("1");
 			$("#Form").submit();
+			$("#excel").val("0");
 		}
+		$(function() {
+			//日期框
+			$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
+			
+			//下拉框
+			if(!ace.vars['touch']) {
+				$('.chosen-select').chosen({allow_single_deselect:true}); 
+				$(window)
+				.off('resize.chosen')
+				.on('resize.chosen', function() {
+					$('.chosen-select').each(function() {
+						 var $this = $(this);
+						 $this.next().css({'width': $this.parent().width()});
+					});
+				}).trigger('resize.chosen');
+				$(document).on('settings.ace.chosen', function(e, event_name, event_val) {
+					if(event_name != 'sidebar_collapsed') return;
+					$('.chosen-select').each(function() {
+						 var $this = $(this);
+						 $this.next().css({'width': $this.parent().width()});
+					});
+				});
+				$('#chosen-multiple-style .btn').on('click', function(e){
+					var target = $(this).find('input[type=radio]');
+					var which = parseInt(target.val());
+					if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+					 else $('#form-field-select-4').removeClass('tag-input-style');
+				});
+			}
+
+			
+			//复选框全选控制
+			var active_class = 'active';
+			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
+				var th_checked = this.checked;//checkbox inside "TH" table header
+				$(this).closest('table').find('tbody > tr').each(function(){
+					var row = this;
+					if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+					else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+				});
+			});
+		});
+				
 		</script>
 
 </body>
