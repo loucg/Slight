@@ -3,13 +3,14 @@
 					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
 				</script>
 				<div  id="sidebar-shortcuts">
-					<!-- <div id="sidebar-shortcuts-large">
+					
+					<div id="sidebar-shortcuts-large">
 						
 						<button class="btn btn-info" onclick="changeMenus();" title="切换菜单">
 							<i class="ace-icon fa fa-pencil"></i>
 						</button>
 						
-						<button class="btn btn-success" title="UI实例" onclick="window.open('static/html_UI/html');">
+						<!-- <button class="btn btn-success" title="UI实例" onclick="window.open('static/html_UI/html');">
 							<i class="ace-icon fa fa-signal"></i>
 						</button>
 
@@ -20,10 +21,10 @@
 
 						<button class="btn btn-danger">
 							<i class="ace-icon fa fa-cogs"></i>
-						</button>
+						</button> -->
 
-						/section:basics/sidebar.layout.shortcuts
-					</div> -->
+						<!-- /section:basics/sidebar.layout.shortcuts -->
+					</div>
 
 					<!-- <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 						<span class="btn btn-success"></span>
@@ -49,13 +50,13 @@
 				<c:forEach items="${menuList}" var="menu1">
 				<c:if test="${menu1.hasMenu && '1' == menu1.MENU_STATE}">
 					<li class=""  id="lm${menu1.MENU_ID }">
-						<a style="cursor:pointer;" class="dropdown-toggle">
+						<a style="cursor:pointer;" class="dropdown-toggle" <c:if test="${menu1.MENU_ID==335}">target="mainFrame" onclick="siMenu('z${menu1.MENU_ID}' })"</>>
 							<i class="${menu1.MENU_ICON == null ? 'menu-icon fa fa-leaf black' : menu1.MENU_ICON}"></i>
 							<span class="menu-text">
 								${menu1.MENU_NAME }
 							</span>
 							<c:if test="${'[]' != menu1.subMenu}"><b class="arrow fa fa-angle-down"></b></c:if>
-						</a>
+						
 						<b class="arrow"></b>
 						<c:if test="${'[]' != menu1.subMenu}">
 						<ul class="submenu">

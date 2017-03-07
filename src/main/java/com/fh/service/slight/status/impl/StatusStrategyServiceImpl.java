@@ -17,9 +17,23 @@ public class StatusStrategyServiceImpl implements StatusStrategyService{
 	DaoSupport dao;
 	
 	@Override
-	public List<PageData> getGroupList(PageData pd) throws Exception{
+	public List<PageData> getDayGroupList(PageData pd) throws Exception{
 		// TODO Auto-generated method stub
 		return (List<PageData>)dao.findForList("StatusStrategyMapper.getDayGroup", pd);
 	}
+
+	@Override
+	public List<PageData> getStrategyList(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<PageData>)dao.findForList("StatusStrategyMapper.getStrategyList", pd);
+	}
+
+
+	@Override
+	public List<PageData> getMonthGroupList(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<PageData>)dao.findForList("StatusStrategyMapper.getMonthGroup", pd);
+	}
+	
 	
 }
