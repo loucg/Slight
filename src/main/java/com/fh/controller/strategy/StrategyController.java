@@ -108,7 +108,7 @@ public class StrategyController extends BaseController {
 			strategyList.get(i).put("timestamp", timestamp);
 			strategyList.get(i).put("intensity", intensity);
 		}
-		System.out.println(strategyList);
+		//System.out.println(strategyList);
 		mv.setViewName("strategy/strategy_list");
 		mv.addObject("strategyList", strategyList);
 		mv.addObject("pd", pd);
