@@ -109,16 +109,54 @@ public class APowerController extends BaseController{
 	        pd.put("endtime", firstday.trim());
 	        pd.put("type", "2");
 		}
-		
 		page.setPd(pd);
 		List<PageData>	varList = null ;
 		if(type!=null&&type.equals("1")){
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
+	        Calendar cal = Calendar.getInstance();    
+	        cal.setTime(sdf.parse(pd.getString("starttime")));    
+	        long time1 = cal.getTimeInMillis();                 
+	        cal.setTime(sdf.parse(pd.getString("endtime")));    
+	        long time2 = cal.getTimeInMillis();         
+	        long between_days=(time2-time1)/(1000*3600*24);
+	        if(Integer.parseInt(String.valueOf(between_days))>31){
+	                Date date = sdf.parse(pd.getString("starttime"));
+	                Calendar cl = Calendar.getInstance();
+	                cl.setTime(date);
+	                // cl.set(Calendar.DATE, day);
+	                cl.add(Calendar.DATE, 31);
+	                String temp = "";
+	                temp = sdf.format(cl.getTime());
+	                pd.put("endtime", temp);
+	        }
 			varList = analysispowerService.list(page);	//列出Dictionaries列表
 		}
-		else if((type!=null&&type.equals("2"))||(null == type || "".equals(type))){
+		else if((type!=null&&type.equals("2"))){
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar c1 = Calendar.getInstance();
+	        Calendar c2 = Calendar.getInstance();
+	        c1.setTime(sdf.parse(pd.getString("starttime")));
+	        c2.setTime(sdf.parse(pd.getString("endtime")));
+	        int result1 = c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH);
+	        int result2 = c2.get(Calendar.YEAR) - c1.get(Calendar.YEAR);
+	        int result = result2*12+result1;
+	        if(result>13){
+	        	Calendar c = Calendar.getInstance();//获得一个日历的实例
+	            Date date = sdf.parse(pd.getString("starttime"));
+	            c.setTime(date);//设置日历时间
+	            c.add(Calendar.MONTH,13);//在日历的月份上增加6个月
+	            String lasttime=sdf.format(c.getTime());
+	            c = Calendar.getInstance(); 
+		        Date date1 = sdf.parse(lasttime);
+		        c.setTime(date1);
+		        c.add(Calendar.MONTH, 1);  
+		        c.set(Calendar.DAY_OF_MONTH, 0);  
+		        lasttime = sdf.format(c.getTime());
+	            pd.put("endtime", lasttime);
+	        }
 			varList = analysispowerService.monthlist(page);	//列出Dictionaries列表
 		}
-		if((null == starttime || "".equals(starttime))&&(null == endtime || "".equals(endtime))&&(null == type || "".equals(type))){
+		else if((null == starttime || "".equals(starttime))&&(null == endtime || "".equals(endtime))&&(null == type || "".equals(type))){
 			varList = analysispowerService.firstmonthlist(page);
 			 Calendar cale = null;  
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -136,6 +174,9 @@ public class APowerController extends BaseController{
 		        pd.put("starttime", firstday.trim());
 		        pd.put("endtime", lastday.trim());
 			
+		}
+		else if (null == type || "".equals(type)){
+			varList = analysispowerService.monthlist(page);	//列出Dictionaries列表
 		}
 		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){
 			ObjectExcelView erv = new ObjectExcelView();					//执行excel操作

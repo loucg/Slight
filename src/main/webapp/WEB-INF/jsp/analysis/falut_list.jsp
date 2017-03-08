@@ -62,11 +62,16 @@
 										<input class="nav-search-input" autocomplete="off" id="location" type="text" name="location" value="${pd.location }"  />
 									</div>
 								</td>
+								
+								<%-- <c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
+								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if> --%>
+								</tr>
+								<tr>
 								<td >
-									<div class="nav-search" style="display: inline-flex;">
-										<label style="margin-left:12px;">故障类型：</label>
+									<div class="nav-search" style="display: -webkit-inline-box;">
+										<label style="font-size:14px">故障类型：</label>
 									<div class="nav-search">
-									 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择故障类型" style="height:30px;width: 152px;border-width:1px;border-color:'#fff';border-radius:4px">
+									 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择故障类型" style="height:30px;width: 128px;border-width:1px;border-color:'#fff';border-radius:4px">
 									 		<option value=""></option>
 									 		<option value="1" <c:if test="${pd.type==1}">selected</c:if>>灯开路</option>
 											<option value="2" <c:if test="${pd.type==2}">selected</c:if>>灯短路</option>
@@ -77,23 +82,19 @@
 								  	</div>
 								  	</div>
 								</td>
-								<%-- <c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if> --%>
-								</tr>
-								<tr>
 								<td>
-								<div class="nav-search">
+								<div class="nav-search" style="padding-left:12px">
 								<label>开始时间：</label>
-								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px;" placeholder="开始时间" title="开始时间"/>
+								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px; height:28px;" placeholder="开始时间" title="开始时间"/>
 								</div>
 								</td>
 								<td>
-								<div class="nav-search">
+								<div class="nav-search" style="padding-left:12px">
 								<label>结束时间：</label>
-								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px;" placeholder="结束时间" title="结束时间"/>
+								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px; height:28px;" placeholder="结束时间" title="结束时间"/>
 								</div>
 								</td>
-								<td style="vertical-align:inherit;padding-left:2px;">
+								<td style="vertical-align:inherit;padding-left:12px;">
 								<c:if test="${QX.cha == 1 }"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></c:if>
 								<c:if test="${QX.toExcel == 1 }"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></c:if>
 								</td>
