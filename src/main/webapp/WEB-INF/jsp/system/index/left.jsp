@@ -46,17 +46,16 @@
 						<b class="arrow"></b>
 					</li>
 
-
 				<c:forEach items="${menuList}" var="menu1">
 				<c:if test="${menu1.hasMenu && '1' == menu1.MENU_STATE}">
 					<li class=""  id="lm${menu1.MENU_ID }">
-						<a style="cursor:pointer;" class="dropdown-toggle" <c:if test="${menu1.MENU_ID==335}">target="mainFrame" onclick="siMenu('z${menu1.MENU_ID}' })"</>>
+						<a style="cursor:pointer;" class="dropdown-toggle" <c:if test="${menu1.MENU_ID==335}">target="mainFrame" onclick="openFrame()" })"</c:if>>
 							<i class="${menu1.MENU_ICON == null ? 'menu-icon fa fa-leaf black' : menu1.MENU_ICON}"></i>
 							<span class="menu-text">
 								${menu1.MENU_NAME }
 							</span>
 							<c:if test="${'[]' != menu1.subMenu}"><b class="arrow fa fa-angle-down"></b></c:if>
-						
+						</a>
 						<b class="arrow"></b>
 						<c:if test="${'[]' != menu1.subMenu}">
 						<ul class="submenu">
@@ -125,5 +124,9 @@
 				<!-- /section:basics/sidebar.layout.minimize -->
 				<script type="text/javascript">
 					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+					
+					function openFrame(){
+						top.mainFrame.tabAddHandler(335,"路灯状态","status/main/getMainData");
+					}
 				</script>
 			</div>

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseController;
 import com.fh.hzy.util.DateUtils;
+import com.fh.hzy.util.Strategy;
 import com.fh.hzy.util.UserUtils;
 import com.fh.service.slight.status.StatusStrategyService;
 import com.fh.util.Jurisdiction;
@@ -62,7 +64,10 @@ public class StatusStrategyController extends BaseController{
 			tableList = statusStrategyService.getMonthGroupList(pd);
 		}
 		List<PageData> strategyList = statusStrategyService.getStrategyList(pd);
-		if(strategyList.size()==0)mv.addObject("groupList", null);
+		if(strategyList==null){
+			System.out.println("size为0");
+			mv.addObject("groupList", null);
+		}
 		else{
 			List<List<PageData>> groupList = new ArrayList<List<PageData>>();
 			int table_number = tableList.size()/10+1;
@@ -81,9 +86,11 @@ public class StatusStrategyController extends BaseController{
 			}
 			mv.addObject("groupList", groupList);
 		}
+		
+		
 		mv.addObject("QX", Jurisdiction.getHC());
 		mv.addObject("pd", pd);
-		
+		System.out.println(strategyList);
 		mv.addObject("strategyList", strategyList);
 		mv.setViewName(strategyJsp);
 		return mv;

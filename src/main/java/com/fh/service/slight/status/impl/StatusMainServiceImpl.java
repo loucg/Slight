@@ -8,7 +8,7 @@ import com.fh.dao.DaoSupport;
 import com.fh.service.slight.status.StatusMainService;
 import com.fh.util.PageData;
 @Service("statusMainService")
-public class StateMainServiceImpl implements StatusMainService{
+public class StatusMainServiceImpl implements StatusMainService{
 
 	@Resource(name="daoSupport")
 	DaoSupport dao;

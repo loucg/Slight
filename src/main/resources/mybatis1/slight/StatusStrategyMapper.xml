@@ -60,6 +60,7 @@
 		FROM <include refid="strategy"></include> AS a
 	</select>
 	
+	<!-- 获得组数和策略数 -->
 	<select id="getStgAndGroupCnt" parameterType="pd" resultType="pd">
 		SELECT COUNT(a.id) AS strategy_number, c.group_number
 		FROM <include refid="strategy"></include> AS a
@@ -119,7 +120,7 @@
 	</select>
 	<!-- 获得总能耗 -->
 	<select id="getTodayPower" parameterType="pd" resultType="pd">
-		SELECT SUM(a.power)
+		SELECT SUM(a.power) AS power
 		FROM b_term_power_daily_report AS a
 		WHERE a.`day` = CURDATE()
 	</select>

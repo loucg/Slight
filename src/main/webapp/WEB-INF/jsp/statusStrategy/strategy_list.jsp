@@ -8,6 +8,7 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,19 +36,14 @@ function fp_ready(){
 }
 </script>
 
-<script type="text/javascript" src="static/zhexiantu/jquery.min.js"></script>
-<script type="text/javascript" src="static/zhexiantu/jquery.pista.js" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="static/zhexiantu/normalize.css"/>
-<link rel="stylesheet" type="text/css" href="static/zhexiantu/style.css"/>
-
 
 <!-- 下拉框 -->
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../system/index/top.jsp"%>
-
+<
 </head>
-<body class="no-skin">
+<body class="no-skin" ">
 	<!-- /section:basics/navbar.layout -->
 	<div class="main-container" id="main-container">
 		<!-- /section:basics/sidebar -->
@@ -133,7 +129,7 @@ function fp_ready(){
 						</c:choose>
 						<c:if test="${QX.cha==1 }">
 							<h3>策略折线图</h3>
-							<div id="multi"></div>
+							<div id="main" style="height:400px" onload="loadChart()"></div>
 						</c:if>
 					</form>
 					</div>
@@ -145,11 +141,6 @@ function fp_ready(){
 		</div>
 	</div>
 	<!-- /.main-content -->
-
-	<!-- 返回顶部 -->
-	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-		<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-	</a>
 
 	</div>
 	<!-- /.main-container -->
@@ -165,54 +156,79 @@ function fp_ready(){
 	<!-- 下拉框 -->
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	
+	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+	<script type="text/javascript">
+	
+		function loadChart(){
+			
+			
+			
+	        // 路径配置
+	        require.config({
+	            paths: {
+	                echarts: 'http://echarts.baidu.com/build/dist'
+	            }
+	        });
+	        // 使用
+	        require(
+	            [
+	                'echarts',
+	                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+	            ],
+	            function (ec) {
+	                // 基于准备好的dom，初始化echarts图表
+	                var myChart = ec.init(document.getElementById('main')); 
+		                
+	                var option = {
+	                    tooltip: {
+	                        trigger:'axis'
+	                    },
+	                    legend: {
+	                        data:['策略一','策略二']
+	                    },
+	                    toolbox: {
+	                        show : true,
+	                        feature : {
+	                            
+	                            saveAsImage : {show: true}
+	                        }
+	                    },
+	                    calculable : true,
+	                    xAxis : [
+	                        {
+	                            type : 'category',
+	                            boundaryGap:false,
+	                            data : ['0:00','1:00','2:00','3:00','4:00','5:00','6:00','7:00','8:00','9:00','10:00','11:00','12:00'
+	                            	,'13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00']
+	                        }
+	                    ],
+	                    yAxis : [
+	                        {
+	                            type : 'value'
+	                        }
+	                    ],
+	                    series : [
+	                        {
+	                            "name":"策略一",
+	                            "type":"line",
+	                            "data":[10, 20, 40, 10, 10, 20,10, 20, 40, 10, 10, 20,10, 20, 40, 10, 10, 20,10, 20, 40, 10, 10, 20]
+	                        },
+	                        {
+	                            "name":"策略二",
+	                            "type":"line",
+	                            "data":[10, 40, 40, 40, 40, 30,30, 10, 50, 20, 10, 30,30, 30, 20, 20, 50, 100,100, 100, 40, 40, 40, 50]
+	                        }
+	                    ]
+	                };
+	        
+	                // 为echarts对象加载数据 
+	                myChart.setOption(option); 
+	            }
+	        );
+		}
+    </script>
 	<script src="src/jquery-2.1.1.min.js"></script>
 	<script async src="static/datepicker/dist/flatpickr.js" onload="fp_ready()"></script>
-	<script type="text/javascript">
-	/* $(document).ready(function(){
-		
-		var strateList = ${strateList}
-		var data = new Array();
-		for(var i=0;i<strategyList.length;i++){
-			var json = strategyList[i][json];
-			var jsondata = JSON.stringify(json).data;
-			var newdata = new Object();
-			for(var j=0;j<jsondata.length;j++){
-				var time = jsondata[j][time];
-				var value = jsondata[j][value];
-				newdata[date] = time;
-				newdata[value] = value;
-			}
-			data[i] = newdata;
-			
-		}
-		
-		/* 
-		var data= [   { name:"first",
-		      data:[
-		          {value:12, date:"12/14/2014"},
-		          {value:32, date:"12/15/2014"},
-		          {value:56, date:"12/17/2014"},
-		          {value:45, date:"12/19/2014"}
-		        
-		        ]
-		      },
-		      { name:"second",
-		      data:[
-		          {value:13, date:"12/13/2014"},
-		          {value:30, date:"12/15/2014"},
-		          {value:26.6, date:"12/18/2014"},
-		          {value:33, date:"12/19/2014"}
-		        
-		        ]
-		      }
-		    ] */
-		    // Multiple lines
-		    options={
-		        height: 300,
-		        width: 900,
-		     }
-		     $("#multi").pista(data, options);
-	}) */
-	</script>
+
 </body>
 </html>

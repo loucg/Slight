@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseController;
+import com.fh.hzy.util.Strategy;
 import com.fh.hzy.util.UserUtils;
 import com.fh.service.slight.status.StatusMainService;
 import com.fh.util.PageData;
@@ -22,7 +24,7 @@ public class StatusMainController extends BaseController{
 	
 	@Resource(name="statusMainService")
 	StatusMainService statusMainService;
-	String statusMainJsp = "statusStrategy/state_main";
+	String statusMainJsp = "statusStrategy/status_main";
 	
 	@RequestMapping("/getMainData")
 	public ModelAndView getMainData() throws Exception{
@@ -42,9 +44,11 @@ public class StatusMainController extends BaseController{
 		mv.addObject("clientFault", statusMainService.getClientFaultCnt(pd));
 		
 		pd.put("state", 2);
-		int v = Integer.valueOf(statusMainService.getGatewayFaultCnt(pd).getString("fgateway"))+Integer.valueOf(statusMainService.getClientFaultCnt(pd).getString("fclient"));
-		mv.addObject("pressure", v);
+		long v = (long)statusMainService.getGatewayFaultCnt(pd).get("fgateway")+(long)(statusMainService.getClientFaultCnt(pd).get("fclient"));
+		mv.addObject("pressureFault", v);
+		mv.addObject("todayPower", statusMainService.getTodayPower(pd));
 		mv.setViewName(statusMainJsp);
+	
 		return mv;
 	}
 	
