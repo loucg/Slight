@@ -265,7 +265,7 @@ body {
 		drawingManager.close();
 	});
 	//map.addEventListener("click", showInfo);
-	function getClientsData(mapTermpage2) {
+	function getClientsData(mapTermpage2,mapcenter,mapzoom) {
 		$.ajax({
 			url : "gomap/addClientMaker",
 			type : "POST",
@@ -280,7 +280,7 @@ body {
 						arrpoints.push( new BMap.Point(clientdata[i].xcoordinate,clientdata[i].ycoordinate));
 					}
 					preMakerdata = clientdata;
-					gpsTObbd(arrpoints,clientdata);
+					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);
 					//preMakerdata = data;
 					//console.log(data);
 					//setTimeout(function(){addClientMaker(data);},1000);
@@ -313,7 +313,7 @@ body {
 			}
 		});
 	}
-	function gpsTObbd(arrpoints,clientdata) {
+	function gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom) {
 	    var convertor = new BMap.Convertor();
         convertor.translate(arrpoints, 1, 5, function (data){
         	if(data.status === 0) {
@@ -321,7 +321,7 @@ body {
         		clientdata[i].coordinate=data.points[i].lng+","+data.points[i].lat;
         		clientdata[i].xcoordinate=data.points[i].lng;
         		clientdata[i].ycoordinate=data.points[i].lat;
-        		if(i+1>= data.points.length){addClientMaker(clientdata);}
+        		if(i+1>= data.points.length){addClientMaker(clientdata,mapcenter,mapzoom);}
             	}
         	}
         });
@@ -329,7 +329,7 @@ body {
 	
 	//添加覆盖物 
 	var infoWindow;//全局变量，相当重要/////////////////////////////////////////////////////
-	function addClientMaker(data) {
+	function addClientMaker(data,mapcenter,mapzoom) {
 		for (var i = 0; i < data.length; i++) {
 			var markerpoint = new BMap.Point(data[i].xcoordinate,
 					data[i].ycoordinate);
@@ -340,9 +340,9 @@ body {
 			//8、 为自定义覆盖物添加点击事件      
 			(function(k) {
 				mySquare.addEventListener('click', function(e) {//这里是自定义覆盖物的事件   
-					choseMaker = this;//this.style.backgroundImage = "url('map/img/light_red.png')";
+					//choseMaker = mySquare;
 					choseMakerdata = data[k];
-					getMakerIconAndInfo(choseMaker, choseMakerdata);/////////////////////////////
+					
 					var sContent = getInfoContent(data[k]);
 					var opts = {
 						width : 304, // 信息窗口宽度
@@ -386,8 +386,7 @@ body {
 			ycoordinate : Ycoordinate
 		};
 		changeZoom(centerdata, minXcoordinate, minYcoordinate, maxXcoordinate,
-				maxYcoordinate);//设置zoom大小
-		changeCenter(centerdata);//设置中心点
+				maxYcoordinate,mapcenter,mapzoom);//设置zoom大小
 	}
 
 	map.addEventListener("click",closeinfowindow);
@@ -397,32 +396,51 @@ body {
 	}
 	//叠加层点击事件       
 	function fo(e) {
+		//console.log(choseMaker._data);
 		map.removeEventListener("click", fo); //这里取消绑定。
 		var point = new BMap.Point(e.point.lng, e.point.lat);
 		map.openInfoWindow(infoWindow, point); //开启信息窗口     
 		//map.removeEventListener("click", fo); //这里取消绑定。                
 	}
-	//0.5秒后改变地图的展示中心       
+	//0.5秒后根据id改变地图的展示中心       
+	function changeCenterByid(id) {
+		for(var i=0;i<preMakerdata.length;i++){
+			if(id==preMakerdata[i].id)
+				{
+				var x=preMakerdata[i].xcoordinate;
+				var y=preMakerdata[i].ycoordinate;
+				setTimeout(function() {
+					map.panTo(new BMap.Point(x,y)); 
+				}, 300);
+				}
+			
+		}
+
+	}
+	//0.5秒后根据Point改变地图的展示中心       
 	function changeCenter(data) {
 		//console.log(data.xcoordinate, data.ycoordinate);
 		setTimeout(function() {
 			map.panTo(new BMap.Point(data.xcoordinate, data.ycoordinate)); //两秒后移动到第一个点
-		}, 500);
+		}, 300);
 
 	}
 	//改变地图的zoom大小    
-	function changeZoom(center, minx, miny, maxx, maxy) {
-		for (var i = 19; i > 0; i--) {
-			map.centerAndZoom(new BMap.Point(center.xcoordinate,
+	function changeZoom(center, minx, miny, maxx, maxy,mapcenter,mapzoom) {
+		if(mapcenter!=null && mapzoom!=null){
+			map.centerAndZoom(mapcenter,mapzoom);
+		}else{
+			for (var i = 19; i > 0; i--) {
+				map.centerAndZoom(new BMap.Point(center.xcoordinate,
 					center.ycoordinate), i);
-			var bs = map.getBounds(); //获取可视区域
-			var bssw = bs.getSouthWest(); //可视区域左下角
-			var bsne = bs.getNorthEast(); //可视区域右上角
-			if (bssw.lng < minx && bssw.lat<miny&&bsne.lng>maxx
+				var bs = map.getBounds(); //获取可视区域
+				var bssw = bs.getSouthWest(); //可视区域左下角
+				var bsne = bs.getNorthEast(); //可视区域右上角
+				if (bssw.lng < minx && bssw.lat<miny&&bsne.lng>maxx
 					&& bsne.lat > maxy)
 				break;
-			//console.log("当前地图可视范围是：" + bssw.lng + "," + bssw.lat + "到" + bsne.lng + "," + bsne.lat);
-			//console.log(i)
+			
+			}
 		}
 	}
 	//清除所有覆盖物   
@@ -482,7 +500,13 @@ body {
 								cleanAllMaker();//清除所有覆盖物
 								var a = parent.getmapTermpagein()[choseMakerdata.termid];
 								//console.log(a);
-								getClientsData(a);
+								var mapcenter=map.getCenter();
+								var mapzoom=map.getZoom();
+								getClientsData(a,mapcenter,mapzoom);
+								//map.setCenter(mapcenter);
+								//console.log(mapcenter);
+								//console.log(mapzoom);
+								//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);				
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
 						                title: '提示信息 ',
@@ -557,8 +581,10 @@ body {
 								//choseMaker.style.backgroundImage = "url('map/img/light_grey.png')";
 								cleanAllMaker();//清除所有覆盖物
 								var a = parent.getmapTermpagein()[choseMakerdata.termid];
-								//console.log(a);
-								getClientsData(a);
+								var mapcenter=map.getCenter();
+								var mapzoom=map.getZoom();
+								getClientsData(a,mapcenter,mapzoom);
+								//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
 						                title: '提示信息 ',
@@ -619,8 +645,10 @@ body {
 				if (data.status == "SUCCESS") {
 					cleanAllMaker();//清除所有覆盖物
 					var a = parent.getmapTermpagein()[choseMakerdata.termid];
-					//console.log(a);
-					getClientsData(a);
+					var mapcenter=map.getCenter();
+					var mapzoom=map.getZoom();
+					getClientsData(a,mapcenter,mapzoom);
+					//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_PRIMARY,
 		                title: '提示信息 ',
