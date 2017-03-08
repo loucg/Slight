@@ -36,7 +36,21 @@ public class C_clientService implements C_clientManager{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<c_client> queryAllterm_client(c_client p) throws Exception  {
-		return  (List<c_client>)dao.findForList("C_clientMapper.queryAllterm_client",p);
+		List<c_client> adm=(List<c_client>)dao.findForList("C_clientMapper.queryAllterm_client",p);
+		 c_client c=new c_client();
+		 for(int i=0;i<adm.size();i++){
+			 c=adm.get(i);
+			 String coordinate=c.getCoordinate();
+			 coordinate=coordinate.trim();
+			 coordinate=coordinate.replace(" ","");
+			 String[] coordsplit = coordinate.split(",");
+			 double xcoordinate=Double.parseDouble(coordsplit[0]);
+			 double ycoordinate=Double.parseDouble(coordsplit[1]);
+			 c.setCoordinate(coordinate);
+			 c.setXcoordinate(xcoordinate);
+			 c.setYcoordinate(ycoordinate);
+			 }
+		return  adm;
 	}
 	@SuppressWarnings("unchecked")
 	@Override

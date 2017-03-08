@@ -16,6 +16,7 @@
 		where cct.c_term_id=#{termid} and ct.id=#{termid} and cct.c_client_id=cca.c_client_id
 		GROUP BY
 		cct.c_client_id
+		ORDER BY cct.c_client_id ASC
 		limit
 		#{begin},#{rows}
   	</select>
@@ -23,6 +24,7 @@
   		select cg.id as id ,cga.name as name ,cga.coordinate as  coordinate, cga.location as location ,cga.lamp_pole_num as lamppolenum ,cgt.name as typename ,-999 as termid ,bs.`name` as status ,"网关/断路器组"  as termname , cgt.name as aliastypename
 		from c_gateway cg ,c_gateway_attr1 cga ,c_gateway_type cgt ,b_status bs
 		where cg.id=cga.c_gateway_id and cga.c_gateway_type_id=cgt.id and bs.b_status_main_id=3 and bs.`value`=cga.staus
+		ORDER BY cg.id ASC
 		limit
 		#{begin},#{rows}
   	</select>
@@ -46,6 +48,7 @@
   		select cc.id,cca.name,cca.lamp_pole_num as lamppolenum ,cca.location,cca.coordinate ,ct.name as termname,ccus.brightness ,ccty.name as typename , ct.id as termid ,ccty.id as typeid ,bs.`name` as status,"灯" as aliastypename 
 		from c_client cc, c_client_attr1 cca ,c_client_term cct,c_term ct ,c_client_upload_status ccus ,c_client_type ccty,b_status bs
 		where cc.id=cca.c_client_id and cc.id=cct.c_client_id and cct.c_term_id=ct.id and cc.id=ccus.c_client_id and ccty.id=cca.c_client_type_id and cca.staus=bs.`value`  and bs.b_status_main_id=3 and ct.id=#{termid}
+		ORDER BY cct.c_client_id ASC
 		limit
 		#{begin},#{rows}
   	</select>
@@ -131,6 +134,7 @@
 			<if test="id!=null and id!=''">
 			and ( cc.id=#{id})
 			</if>
+			ORDER BY cct.c_client_id ASC
   	</select>
 
 	<select id="getSearchGateway"  resultType="cclient" parameterType="cclient">
@@ -149,6 +153,7 @@
 			<if test="id!=null and id!=''">
 			and (cga.c_gateway_id=#{id})
 			</if>
+			ORDER BY cga.c_gateway_id ASC
   	</select>
   	<!-- 上方搜索框结束 -->
   	<update id="updateClientAttr_statusON"  parameterType="cclient">

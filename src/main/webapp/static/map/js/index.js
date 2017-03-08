@@ -44,12 +44,12 @@
         		dataType : "json",
         		success : function(data) {
         			if (data != null) {
+        				gpsTObbdMore(data,termid,choseterm);
         				//console.log(data);
-        					 for(var i=0;i<data.length;i++){
+        					 /*for(var i=0;i<data.length;i++){
         						 var accdivli
-        						 if(data[i].coordinate!=null){
-        							   
-        						 	   accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[i].coordinate+"><span style=\"font-size:12px;\">"+data[i].name+"</span></a></li>";
+        						 if(data[i].coordinate!=null){  
+        						 	   accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[i].coordinate+"><span style=\"font-size:12px;font-weight:normal;\">"+data[i].name+"</span></a></li>";
         						 	
         						 }
         						 else if(data[i].havenest==true){
@@ -61,7 +61,7 @@
         						 }
         						 choseterm.parent().parent().children("ul").append(accdivli);
         						 accdivli="";
-        					 }
+        					 }*/
         					 mapTermpage[termid].begin= mapTermpage[termid].begin+ mapTermpage[termid].rows;
         					 mapTermpagein[termid].rows= mapTermpagein[termid].rows+ mapTermpagein[termid].rows;
         					 Conframe.window.cleanAllMaker();//清除所有覆盖物

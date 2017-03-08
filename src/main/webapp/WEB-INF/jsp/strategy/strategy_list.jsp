@@ -57,13 +57,13 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center" style="width:50px;">序号</th>
+									<th class="center" style="width:50px">序号</th>
 									<th class="center">策略名称</th>
 									<th class="center">应用说明</th>
-									<th class="center">终端组数量</th>
-									<th class="center">状态</th>
+									<th class="center" style="width:100px">终端组数量</th>
+									<th class="center" style="width:100px">状态</th>
 									<th class="center">时间及亮度值</th>
-									<th class="center">操作</th>
+									<th class="center" style="width:150px">操作</th>
 								</tr>
 							</thead>
 													
@@ -76,7 +76,7 @@
 									<c:forEach items="${strategyList}" var="strategy" varStatus="vs">
 												
 										<tr>
-											<td class='center' style="width: 30px;">${vs.index+1+(page.currentPage-1)*page.showCount}</td>
+											<td class='center'>${vs.index+1+(page.currentPage-1)*page.showCount}</td>
 											<td class="center">${strategy.name }</td>
 											<td class="center">${strategy.explain }</td>
 											<td class="center"><a onclick="viewStrategyGroups('${strategy.id}')" style="cursor:pointer;">${strategy.number }</a></td>
@@ -99,7 +99,7 @@
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
-												<div class="hidden-sm hidden-xs btn-group">
+												<div class="btn-group">
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-mini btn-info" title="修改" onclick="editStrategy('${strategy.id}');">
 														修改

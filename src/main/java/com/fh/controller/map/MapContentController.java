@@ -51,6 +51,8 @@ public class MapContentController extends BaseController{
 					p.setTermid(listct.get(i).getId());
 					c_client more = new c_client();
 					more.setHavenest(true);
+					more.setXcoordinate(120.147428);
+					more.setYcoordinate(30.277798);
 					more.setTermname(listct.get(i).getName());
 					List<c_client> listc = c_clientService.queryAllterm_client(p);
 					int totalcount = c_clientService.queryCountterm_client(p);
@@ -65,6 +67,8 @@ public class MapContentController extends BaseController{
 			p.setTermid(-999);
 			c_client more = new c_client();
 			more.setHavenest(true);
+			more.setXcoordinate(120.147428);
+			more.setYcoordinate(30.277798);
 			List<c_client> listg = c_clientService.queryAllterm_gateway(p);
 			int totalcountg = c_clientService.queryCountgateway(p);
 			if ((p.getBegin() + p.getRows()) >= totalcountg) {
@@ -82,6 +86,8 @@ public class MapContentController extends BaseController{
 			int totalcount = c_clientService.queryCountterm_client(p);
 			//c_client more = new c_client(p);
 			c_client more = new c_client();
+			more.setXcoordinate(120.147428);
+			more.setYcoordinate(30.277798);
 			more.setHavenest(true);
 			if ((p.getBegin() + p.getRows()) >= totalcount) {
 				more.setHavenest(false);
@@ -94,6 +100,8 @@ public class MapContentController extends BaseController{
 				//c_client more = new c_client(p);
 				c_client more = new c_client();
 				more.setHavenest(true);
+				more.setXcoordinate(120.147428);
+				more.setYcoordinate(30.277798);
 				if ((p.getBegin() + p.getRows()) >= totalcount) {
 					more.setHavenest(false);
 				}

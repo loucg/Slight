@@ -274,8 +274,16 @@ body {
 			dataType : "json",
 			success : function(clientdata) {
 				if (clientdata != null) {
+				
+					var arrpoints=[];
+					for (var i = 0; i < clientdata.length; i++) {
+						arrpoints.push( new BMap.Point(clientdata[i].xcoordinate,clientdata[i].ycoordinate));
+					}
 					preMakerdata = clientdata;
-					addClientMaker(clientdata);
+					gpsTObbd(arrpoints,clientdata);
+					//preMakerdata = data;
+					//console.log(data);
+					//setTimeout(function(){addClientMaker(data);},1000);
 				} else {
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_INFO,
@@ -305,12 +313,28 @@ body {
 			}
 		});
 	}
+	function gpsTObbd(arrpoints,clientdata) {
+	    var convertor = new BMap.Convertor();
+        convertor.translate(arrpoints, 1, 5, function (data){
+        	if(data.status === 0) {
+        		for (var i = 0; i < data.points.length; i++) {
+        		clientdata[i].coordinate=data.points[i].lng+","+data.points[i].lat;
+        		clientdata[i].xcoordinate=data.points[i].lng;
+        		clientdata[i].ycoordinate=data.points[i].lat;
+        		if(i+1>= data.points.length){addClientMaker(clientdata);}
+            	}
+        	}
+        });
+	}
+	
 	//添加覆盖物 
 	var infoWindow;//全局变量，相当重要/////////////////////////////////////////////////////
 	function addClientMaker(data) {
 		for (var i = 0; i < data.length; i++) {
 			var markerpoint = new BMap.Point(data[i].xcoordinate,
 					data[i].ycoordinate);
+			//console.log(data[i].id+"     "+data[i].xcoordinate+"   "+data[i].ycoordinate);
+			//console.log(markerpoint);
 			var mySquare = new SquareOverlay(markerpoint, 25, data[i]);
 			map.addOverlay(mySquare);
 			//8、 为自定义覆盖物添加点击事件      
