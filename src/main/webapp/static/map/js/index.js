@@ -28,10 +28,12 @@
         var str=$(this).attr("id");
        // console.log($(this).attr("id"));
         if(str!="more"){
-        	var coordinate= new Array(); //定义一数组 
-        	coordinate=str.split(","); //字符分割 
-        	var centerdata={xcoordinate:coordinate[0],ycoordinate:coordinate[1]};
-        	Conframe.window.changeCenter(centerdata);
+        	Conframe.window.changeCenterByid(str);
+        	//var coordinate= new Array(); //定义一数组 
+        	//coordinate=str.split(","); //字符分割 
+        	//var centerdata={xcoordinate:coordinate[0],ycoordinate:coordinate[1]};
+        	//Conframe.window.changeCenter(centerdata);
+        	//Conframe.window.changeCenter(centerdata);
         }else{
         	$(this).parent().remove();
         	var termid=choseterm.attr("id");
