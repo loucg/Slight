@@ -127,19 +127,8 @@ function getmapTermpagein()
 }
 function gpsTObbdLfet_c(clientdata)
 {
-	//var arrpoints=[];
-	//for (var i = 0; i < clientdata.length; i++) {
-		//arrpoints.push( new BMap.Point(clientdata[i].xcoordinate,clientdata[i].ycoordinate));
-	//}
-	//var convertor = new BMap.Convertor();
-   // convertor.translate(arrpoints, 1, 5, function (data){
-    	//if(data.status === 0) {
-    		//for (var i = 0; i < data.points.length; i++) {
-    		//clientdata[i].coordinate=data.points[i].lng+","+data.points[i].lat;
-    		//clientdata[i].xcoordinate=data.points[i].lng;
-    		//clientdata[i].ycoordinate=data.points[i].lat;
-    		//if(i+1>= data.points.length){
-    			 var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"><a style=\"padding-left:1px;\" class=\"one\" id="+clientdata[0].termid+"><span style=\"font-size:14px;font-weight:normal; font-family:宋体\">"+clientdata[0].termname+"</span></a></div><ul class=\"kid\">";
+
+    			 var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"><a style=\"\" class=\"one\" id="+clientdata[0].termid+"><span style=\"font-size:14px;font-weight:normal; font-family:宋体\">"+clientdata[0].termname+"</span></a></div><ul class=\"kid\">";
 				 for(var i=0;i<clientdata.length;i++){
 					 if(clientdata[i].id!=null){
 					 		var accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+clientdata[i].id+"><span style=\"font-size:12px;font-family:宋体\">"+clientdata[i].name+"</span></a></li>";
@@ -157,10 +146,6 @@ function gpsTObbdLfet_c(clientdata)
 				 var accdivaft= "</ul></div>"; 
 				 accdivpre=accdivpre+accdivaft;
 				 $('.acc').append(accdivpre);
-    			//}
-        	//}
-    	//}
-   // });
 }
 function gpsTObbdMore(clientdata,termid,choseterm)
 {/* 

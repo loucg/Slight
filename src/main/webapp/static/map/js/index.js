@@ -1,24 +1,25 @@
 ﻿$(function () {
-    //日历
-    //$("#datepicker").datepicker();
-    //左边菜单
-   // $('.one').live("click",function () {
 	$('body').on("click",'.one',function () {
         $('.one').removeClass('one-hover');
         $(this).addClass('one-hover');
         choseterm=$(this);
         if($(this).attr("id")!="search"){
         Conframe.window.cleanAllMaker();//清除所有覆盖物
-        //console.log(mapTermpagein[$(this).attr("id")]);
         Conframe.window.getClientsData(mapTermpagein[$(this).attr("id")]);//加载对应组的终端maker
         }else{
         Conframe.window.cleanAllMaker();//清除所有覆盖物
         Conframe.window.addClientMaker(searchdata);
         }
-       // console.log($(this).attr("id"));
-        $('.kid').hide();
-     // $(this).parent().find('.kid').toggle();
-        $(this).parent().parent().find('.kid').toggle();
+        //$('.kid').hide();
+        //$(this).parent().parent().find('.kid').toggle();// $(this)指<a>
+       // console.log( $(this).parent().parent().find('.kid').is(":visible"));
+        if($(this).parent().parent().find('.kid').is(":visible")){
+        		$('.kid').hide();
+        		$(this).parent().parent().find('.kid').hide();
+        	}else{
+        		$('.kid').hide();
+        		$(this).parent().parent().find('.kid').show();
+        	}
     });
     
   //  $('.onekid').live("click",function () {
@@ -26,14 +27,8 @@
         $('.onekid').removeClass('one-hover');
         $(this).addClass('one-hover');
         var str=$(this).attr("id");
-       // console.log($(this).attr("id"));
         if(str!="more"){
         	Conframe.window.changeCenterByid(str);
-        	//var coordinate= new Array(); //定义一数组 
-        	//coordinate=str.split(","); //字符分割 
-        	//var centerdata={xcoordinate:coordinate[0],ycoordinate:coordinate[1]};
-        	//Conframe.window.changeCenter(centerdata);
-        	//Conframe.window.changeCenter(centerdata);
         }else{
         	$(this).parent().remove();
         	var termid=choseterm.attr("id");
