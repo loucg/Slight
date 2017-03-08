@@ -412,6 +412,24 @@
 	    var flag = new Boolean(true);
 	    var s3 = document.getElementById("sortList"); //获取第一个表格 
 		for(var i=1;i<s3.rows.length;i++){//过滤表头  
+			if(s3.rows[i].cells[0].childNodes[0].value == ""){
+				$(s3.rows[i].cells[0].childNodes[0]).tips({
+ 					side:2,
+ 		            msg:'时间为空！',
+ 		            bg:'#AE81FF',
+ 		            time:2
+ 		        });
+				flag = false;
+			}
+			if(s3.rows[i].cells[1].childNodes[0].value == ""){
+				$(s3.rows[i].cells[1].childNodes[0]).tips({
+ 					side:3,
+ 		            msg:'亮度为空！',
+ 		            bg:'#AE81FF',
+ 		            time:2
+ 		        });
+				flag = false;
+			}
 			for(var j = 1; j < s3.rows.length; j++){
 				if(s3.rows[j].cells[0].childNodes[0].value == s3.rows[i].cells[0].childNodes[0].value && i != j){
 	     			$(s3.rows[i].cells[0].childNodes[0]).tips({
