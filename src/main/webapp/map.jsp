@@ -509,17 +509,17 @@ body {
 	}
 	//判断是否在选择框内
 	function judgeSelection(bound) {
-		//console.log(preMakerdata.length);
+		var drawtata=[];
 		for(var i=0;i<preMakerdata.length;i++){
-			var judgepoint = new BMap.Point(preMakerdata[i].xcoordinate,
-					preMakerdata[i].ycoordinate);
+			var judgepoint = new BMap.Point(preMakerdata[i].xcoordinate,preMakerdata[i].ycoordinate);
 			if(bound.containsPoint(judgepoint))
 				{
-				console.log(preMakerdata[i].id);
+				 drawtata.push(preMakerdata[i]);
 				}
-			
 		}
-		
+		parent.cleardrawdata();//删除原有的左边
+		parent.changedrawdata(drawtata);
+		parent.gpsTObbddrawing(drawtata);//添加左边
 	}
 	function TurnOnLight() {
 		if (choseMakerdata.brightness != 0) {

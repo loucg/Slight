@@ -134,69 +134,76 @@ function getmapTermpagein()
 	return data;
 }
 function gpsTObbdLfet_c(clientdata)
-{
-
-    			 var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"><a style=\"\" class=\"one\" id="+clientdata[0].termid+"><span style=\"font-size:14px;font-weight:normal; font-family:宋体\">"+clientdata[0].termname+"</span></a></div><ul class=\"kid\">";
-				 for(var i=0;i<clientdata.length;i++){
-					 if(clientdata[i].id!=null){
-					 		var accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+clientdata[i].id+"><span style=\"font-size:12px;font-family:宋体\">"+clientdata[i].name+"</span></a></li>";
-					 		accdivpre=accdivpre+accdivli;
-					 }
-					 else if(clientdata[i].havenest==true){
-						 mapTermpage[clientdata[0].termid].havenest=true;
-						 var accdivli ="<li id=\"moreli\"><b class=\"tip\"></b><a class=\"onekid\"  id="+"more"+">"+"....."+"</a></li>";
-						 accdivpre=accdivpre+accdivli;
-					 }
-					 else {
+{	
+	var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"><a style=\"\" class=\"one\" id="+clientdata[0].termid+"><span style=\"font-size:14px;font-weight:normal; font-family:宋体\">"+clientdata[0].termname+"</span></a></div><ul class=\"kid\">";
+	for(var i=0;i<clientdata.length;i++){
+		if(clientdata[i].id!=null){
+			var accdivli ="<li><b class=\"tip\"></b><a style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="+clientdata[i].id+"><span style=\"font-size:12px;font-family:宋体\">"+clientdata[i].name+"</span></a></li>";
+			accdivpre=accdivpre+accdivli;
+			}else if(clientdata[i].havenest==true){
+				mapTermpage[clientdata[0].termid].havenest=true;
+				var accdivli ="<li id=\"moreli\"><b class=\"tip\"></b><a  style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="+"more"+">"+"....."+"</a></li>";
+				accdivpre=accdivpre+accdivli;
+				} else {
 						 mapTermpage[clientdata[0].termid].havenest=false;
 					 }
 				 }
-				 var accdivaft= "</ul></div>"; 
-				 accdivpre=accdivpre+accdivaft;
-				 $('.acc').append(accdivpre);
+	var accdivaft= "</ul></div>"; 
+	accdivpre=accdivpre+accdivaft;
+	$('.acc').append(accdivpre);
 }
 function gpsTObbdMore(clientdata,termid,choseterm)
 {
-        			for(var i=0;i<clientdata.length;i++){
-						 var accdivli
-						 if(clientdata[i].id!=null){
-						 	   accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+clientdata[i].id+"><span style=\"font-size:12px;font-family:宋体\">"+clientdata[i].name+"</span></a></li>";
-						 	
-						 }
-						 else if(clientdata[i].havenest==true){
-							  mapTermpage[termid].havenest=true;
-							 
-							  accdivli ="<li id=\"moreli\"><b class=\"tip\"></b><a class=\"onekid\"  id="+"more"+">"+"....."+"</a></li>";
-						 } 
-						 else {
-							 
-							 mapTermpage[termid].havenest=false;
-							
-						 }
-						 choseterm.parent().parent().children("ul").append(accdivli);
-						 accdivli="";
-					 }
- 
-    	
+    for(var i=0;i<clientdata.length;i++){
+		var accdivli
+		if(clientdata[i].id!=null){
+		accdivli ="<li><b class=\"tip\"></b><a  style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="+clientdata[i].id+"><span style=\"font-size:12px;font-family:宋体\">"+clientdata[i].name+"</span></a></li>";
+		}else if(clientdata[i].havenest==true){
+			mapTermpage[termid].havenest=true;
+			accdivli ="<li id=\"moreli\"><b class=\"tip\"></b><a  style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="+"more"+">"+"....."+"</a></li>";
+		}else {
+				mapTermpage[termid].havenest=false;
+		}
+		choseterm.parent().parent().children("ul").append(accdivli);
+		accdivli="";
+	}   	
 }
 
 function gpsTObbdSearch(clientdata)
 {
-        			var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"><a class=\"one\" id=\"search\"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"
-						+ "搜索所得终端"
-						+ "</span></a></div><ul class=\"kid\">";
-        			for(var i=0;i<clientdata.length;i++){
-        				var accdivli = "<li><b class=\"tip\"></b><a class=\"onekid\"  id="
-							+ clientdata[i].id
-							+ "><span style=\"font-size:12px;font-family:宋体\">"
-							+ clientdata[i].name
-							+ "</span></a></li>";
-					     accdivpre = accdivpre+ accdivli;
-					 }
-        			var accdivaft = "</ul></div>";
-					accdivpre = accdivpre + accdivaft;
-					$('.searchacc').append(accdivpre);
+    var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"><a class=\"one\" id=\"search\"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"
+		+ "搜索所得终端"
+		+ "</span></a></div><ul class=\"kid\">";
+        for(var i=0;i<clientdata.length;i++){
+        	var accdivli = "<li><b class=\"tip\"></b><a  style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="
+				+ clientdata[i].id
+				+ "><span style=\"font-size:12px;font-family:宋体\">"
+				+ clientdata[i].name
+				+ "</span></a></li>";
+			accdivpre = accdivpre+ accdivli;
+		}
+    var accdivaft = "</ul></div>";
+	accdivpre = accdivpre + accdivaft;
+	$('.searchacc').append(accdivpre);
         			
+}
+
+function gpsTObbddrawing(clientdata)
+{
+    var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"><a class=\"one\" id=\"draw\"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"
+		+ "框选所得终端"
+		+ "</span></a></div><ul class=\"kid\">";
+        for(var i=0;i<clientdata.length;i++){
+        	var accdivli = "<li><b class=\"tip\"></b><a  style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="
+				+ clientdata[i].id
+				+ "><span style=\"font-size:12px;font-family:宋体\">"
+				+ clientdata[i].name
+				+ "</span></a></li>";
+			accdivpre = accdivpre+ accdivli;
+		}
+    var accdivaft = "</ul></div>";
+	accdivpre = accdivpre + accdivaft;
+	$('.searchacc').append(accdivpre);      			
 }
 var choseterm;//表示选择的term；
 //加载左边的列表
@@ -390,6 +397,15 @@ var choseterm;//表示选择的term；
 	 });
 	 */
 	var searchdata;//全局变量，很重要
+	var drawdata;//全局变量，很重要
+	function changedrawdata(data)
+	{
+		drawdata=data;
+	}
+	function cleardrawdata()
+	{
+		$("#draw").parent().parent().remove();
+	}
 	$(function() {
 		init();
 	});

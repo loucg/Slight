@@ -15,15 +15,17 @@
 					$(this).parent().parent().find('.kid').show();
 
 					choseterm = $(this);
-					if ($(this).attr("id") != "search") {
+					//console.log($(this).attr("id"));
+					if ($(this).attr("id") != "search" && $(this).attr("id") != "draw") {
 						Conframe.window.cleanAllMaker();// 清除所有覆盖物
-						//console.log($(this).attr("id"));
-						//console.log(mapTermpagein[$(this).attr("id")]);
 						Conframe.window.getClientsData(mapTermpagein[$(this)
 								.attr("id")]);// 加载对应组的终端maker
-					} else {
+					} else if ($(this).attr("id") == "search"){
 						Conframe.window.cleanAllMaker();// 清除所有覆盖物
 						Conframe.window.addClientMaker(searchdata);
+					}else if ($(this).attr("id") == "draw"){
+						Conframe.window.cleanAllMaker();// 清除所有覆盖物
+						Conframe.window.addClientMaker(drawdata);
 					}
 				}
 			});
