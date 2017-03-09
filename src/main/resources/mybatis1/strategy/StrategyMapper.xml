@@ -97,7 +97,7 @@
 		) values (
 		#{NAME},
 		#{EXPLAIN},
-		#{JSON},
+		#{JSONString},
 		#{STATUS},
 		#{TDATE}
 		)

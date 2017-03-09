@@ -41,11 +41,11 @@
 						    </tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>策略名称:</td>
-								<td><input type="text" name="NAME" id="name" value="${pd.name }" maxlength="100" title="名称" style="width:98%;" /></td>
+								<td><input type="text" name="NAME" id="name" value="${pd.name }" maxlength="100" title="名称" style="width:98%;" placeholder="请输入策略名称"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>应用说明:</td>
-								<td><input type="text" name="EXPLAIN" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" /></td>
+								<td><input type="text" name="EXPLAIN" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" placeholder="请输入应用说明"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>状态:</td>
@@ -223,9 +223,10 @@
 			{
 				obj.options.add(new Option(i,i));
 			}
-			for(var j=0;j<${pd.t_i}.length;j++){
-				autoAdd(${pd.t_i}[j].timestamp,${pd.t_i}[j].intensity);
-			}
+			var t_i = ${pd.t_i};
+			for(var j=0;j<t_i.length;j++){
+			    autoAdd(t_i[j].timestamp,t_i[j].intensity);
+		    }
 		});
             
 			//清除空格
