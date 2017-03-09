@@ -74,7 +74,7 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
-													<td class='center' style="width: 30px;">${vs.index+1}</td>
+													<td class='center' style="width: 30px;">${vs.index+1+(page.currentPage-1)*page.showCount}</td>
 													<td class="center">${var.NAME}</td>
 													<td class="center">${var.VALUE}</td>
 													<td class="center">${var.TYPE}</td>
