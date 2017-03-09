@@ -1,28 +1,34 @@
 ﻿$(function () {
-	$('body').on("click",'.one',function () {
-        $('.one').removeClass('one-hover');
-        $(this).addClass('one-hover');
-        choseterm=$(this);
-        if($(this).attr("id")!="search"){
-        Conframe.window.cleanAllMaker();//清除所有覆盖物
-        Conframe.window.getClientsData(mapTermpagein[$(this).attr("id")]);//加载对应组的终端maker
-        }else{
-        Conframe.window.cleanAllMaker();//清除所有覆盖物
-        Conframe.window.addClientMaker(searchdata);
-        }
-        //$('.kid').hide();
-        //$(this).parent().parent().find('.kid').toggle();// $(this)指<a>
-       // console.log( $(this).parent().parent().find('.kid').is(":visible"));
-        if($(this).parent().parent().find('.kid').is(":visible")){
-        		$('.kid').hide();
-        		$(this).parent().parent().find('.kid').hide();
-        	}else{
-        		$('.kid').hide();
-        		$(this).parent().parent().find('.kid').show();
-        	}
-    });
+	$('body').on("click",'.one',function() {
+				// $('.one').removeClass('one-hover');
+				// $(this).addClass('one-hover');
+				// $('.kid').hide();
+				// $(this).parent().parent().find('.kid').toggle();//
+				// $(this)指<a>
+				// console.log(
+				// $(this).parent().parent().find('.kid').is(":visible"));
+				if ($(this).parent().parent().find('.kid').is(":visible")) {
+					$('.kid').hide();
+					$(this).parent().parent().find('.kid').hide();
+				} else {
+					$('.kid').hide();
+					$(this).parent().parent().find('.kid').show();
+
+					choseterm = $(this);
+					if ($(this).attr("id") != "search") {
+						Conframe.window.cleanAllMaker();// 清除所有覆盖物
+						//console.log($(this).attr("id"));
+						//console.log(mapTermpagein[$(this).attr("id")]);
+						Conframe.window.getClientsData(mapTermpagein[$(this)
+								.attr("id")]);// 加载对应组的终端maker
+					} else {
+						Conframe.window.cleanAllMaker();// 清除所有覆盖物
+						Conframe.window.addClientMaker(searchdata);
+					}
+				}
+			});
     
-  //  $('.onekid').live("click",function () {
+  // $('.onekid').live("click",function () {
 	$('body').on("click",'.onekid',function () {
         $('.onekid').removeClass('one-hover');
         $(this).addClass('one-hover');

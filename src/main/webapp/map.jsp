@@ -201,15 +201,7 @@ body {
 			map.removeOverlay(CircleAndRectangle);
 			CircleAndRectangle = null;
 		}
-	}/* , {
-		text : '不要点，缩小',
-		callback : function() {
-			map.zoomOut();
-			CircleAndRectangle.removeContextMenu(menu);
-			map.removeOverlay(CircleAndRectangle);
-			CircleAndRectangle = null;
-		}
-	} */, {
+	}, {
 		text : '清除',
 		callback : function() {
 			CircleAndRectangle.removeContextMenu(menu);
@@ -273,17 +265,14 @@ body {
 			data : JSON.stringify(mapTermpage2),
 			dataType : "json",
 			success : function(clientdata) {
-				if (clientdata != null) {
-				
+				if (clientdata.length!=0) {
+				//console.log(clientdata.length);
 					var arrpoints=[];
 					for (var i = 0; i < clientdata.length; i++) {
 						arrpoints.push( new BMap.Point(clientdata[i].xcoordinate,clientdata[i].ycoordinate));
 					}
 					preMakerdata = clientdata;
 					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);
-					//preMakerdata = data;
-					//console.log(data);
-					//setTimeout(function(){addClientMaker(data);},1000);
 				} else {
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_INFO,
@@ -300,9 +289,9 @@ body {
 			},
 			error : function() {
 				BootstrapDialog.show({
-	                type:  BootstrapDialog.TYPE_INFO,
+	                type:  BootstrapDialog.TYPE_DANGER,
 	                title: '提示信息 ',
-	                message: '该分组没有终端',
+	                message: '查询出错',
 	                buttons: [{
 	                    label: '关闭',
 	                    action: function(dialogItself){
@@ -732,7 +721,7 @@ function searchsuccess() {
 	.show({
 		type : BootstrapDialog.TYPE_PRIMARY,
 		title : '提示信息 ',
-		message : '搜索成功，具体列表请查看左侧！',
+		message : '搜索成功，请查看左侧路灯列表二！',
 		buttons : [ {
 			label : '关闭',
 			action : function(dialogItself) {
@@ -754,6 +743,19 @@ function searcherr() {
 			}
 		} ]
 	});
+}
+function searchConerr() {
+	BootstrapDialog.show({
+        type:  BootstrapDialog.TYPE_DANGER,
+        title: '提示信息 ',
+        message: '数据加载出错请刷新页面！',
+        buttons: [{
+            label: '关闭',
+            action: function(dialogItself){
+                dialogItself.close();
+            }
+        }]
+    }); 
 }
  function PolicyControl() {
 	 BootstrapDialog.show({

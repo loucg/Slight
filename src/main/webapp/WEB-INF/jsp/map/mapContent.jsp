@@ -53,14 +53,22 @@
 <div class="warp">
 		<!--左边菜单开始-->
 		<div class="left_c left">
-			<div class="panel  panel-primary">
+			<!-- <div class="panel  panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">路灯列表</h3>
 				</div>
-			</div>
+			</div>  -->
 			<!-- <h1>路灯列表</h1> -->
-			<div class="acc" >
-			</div>
+		 <div style="width: 235px;height:40px; border-bottom: 1px solid ;">
+			<nav class="navbar navbar-default" style="height:40px;border:0px;" role="navigation">
+				<ul class="nav navbar-nav" style="height:40px;width:235px;">
+					<li class="active"  style="border-width: 0px 0px 1px 0px;height:40px;width:117px;text-align:center;"><a id="g"   style="height:40px;font-size:17px;font-weight:normal; font-family:宋体 ;text-align:center;">路灯列表一</a></li>
+					<li style="border-width: 0px 0px 1px 0px; height:40px;width:117px;text-align:center;"><a id="s" style="height:40px;font-size:17px;font-weight:normal; font-family:宋体 ;text-align:center;" >路灯列表二</a></li>
+				</ul>
+			</nav>
+		</div>
+			<div class="acc"></div>
+			<div class="searchacc"></div>
 		</div>
 		<!--左边菜单结束-->
 		<!--右边框架开始-->
@@ -148,19 +156,7 @@ function gpsTObbdLfet_c(clientdata)
 				 $('.acc').append(accdivpre);
 }
 function gpsTObbdMore(clientdata,termid,choseterm)
-{/* 
-	var arrpoints=[];
-	for (var i = 0; i < clientdata.length; i++) {
-		arrpoints.push( new BMap.Point(clientdata[i].xcoordinate,clientdata[i].ycoordinate));
-	}
-	 var convertor = new BMap.Convertor();
-    convertor.translate(arrpoints, 1, 5, function (data){
-    	if(data.status === 0) {
-    		for (var i = 0; i < data.points.length; i++) {
-        		clientdata[i].coordinate=data.points[i].lng+","+data.points[i].lat;
-        		clientdata[i].xcoordinate=data.points[i].lng;
-        		clientdata[i].ycoordinate=data.points[i].lat;
-        		if(i+1>= data.points.length){ */
+{
         			for(var i=0;i<clientdata.length;i++){
 						 var accdivli
 						 if(clientdata[i].id!=null){
@@ -180,10 +176,7 @@ function gpsTObbdMore(clientdata,termid,choseterm)
 						 choseterm.parent().parent().children("ul").append(accdivli);
 						 accdivli="";
 					 }
-        		/* 	}
-        		}
-    		}
-   	 }); */
+ 
     	
 }
 
@@ -202,7 +195,7 @@ function gpsTObbdSearch(clientdata)
 					 }
         			var accdivaft = "</ul></div>";
 					accdivpre = accdivpre + accdivaft;
-					$('.acc').append(accdivpre);
+					$('.searchacc').append(accdivpre);
         			
 }
 var choseterm;//表示选择的term；
@@ -256,22 +249,7 @@ var choseterm;//表示选择的term；
 		}
 	});
 
-	/* 
 
-	 jQuery.getJSON("map/lefe_c", function(data) {	
-	 //console.log(data);
-	 for(var key in data)   {
-	 var accdivpre = "<div><a class=\"one\" id="+data[key][0].termid+">"+data[key][0].termname+"</a><ul class=\"kid\">";
-	 for(var i=0;i<data[key].length;i++){
-	 var accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[key][i].coordinate+">"+data[key][i].name+"</a></li>";
-	 accdivpre=accdivpre+accdivli;
-	 }
-	 var accdivaft= "</ul></div>"; 
-	 accdivpre=accdivpre+accdivaft;
-	 $('.acc').append(accdivpre);
-	 }
-	 });
-	 */
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 获取路灯搜索条件
 	//加载组名
@@ -291,8 +269,7 @@ var choseterm;//表示选择的term；
 		$("#terminalname").empty();
 		$("#terminalid").empty();
 
-		jQuery
-				.getJSON("gomap/getTypenameByGroup/" + $("#groupname").val(),
+		jQuery.getJSON("gomap/getTypenameByGroup/" + $("#groupname").val(),
 						function(data) {
 							$("#terminaltype").append(
 									"<option  value=\"\"> </option>");
@@ -332,17 +309,7 @@ var choseterm;//表示选择的term；
 				}
 			},
 			error : function() {
-				BootstrapDialog.show({
-	                type:  BootstrapDialog.TYPE_DANGER,
-	                title: '提示信息 ',
-	                message: '数据加载出错请刷新页面！',
-	                buttons: [{
-	                    label: '关闭',
-	                    action: function(dialogItself){
-	                        dialogItself.close();
-	                    }
-	                }]
-	            }); 
+				Conframe.window. searchConerr();
 			}
 		});
 	}
@@ -375,17 +342,7 @@ var choseterm;//表示选择的term；
 						}
 					},
 					error : function() {
-						BootstrapDialog.show({
-			                type:  BootstrapDialog.TYPE_DANGER,
-			                title: '提示信息 ',
-			                message: '数据加载出错请刷新页面！',
-			                buttons: [{
-			                    label: '关闭',
-			                    action: function(dialogItself){
-			                        dialogItself.close();
-			                    }
-			                }]
-			            }); 
+						Conframe.window. searchConerr();
 					}
 				});
 	}
@@ -415,17 +372,8 @@ var choseterm;//表示选择的term；
 				}
 			},
 			error : function() {
-				BootstrapDialog.show({
-	                type:  BootstrapDialog.TYPE_DANGER,
-	                title: '提示信息 ',
-	                message: '数据加载出错请刷新页面！',
-	                buttons: [{
-	                    label: '关闭',
-	                    action: function(dialogItself){
-	                        dialogItself.close();
-	                    }
-	                }]
-	            }); 
+				Conframe.window. searchConerr();
+				
 			}
 		});
 	}
@@ -446,4 +394,25 @@ var choseterm;//表示选择的term；
 		init();
 	});
 </script>
+
+	<script type="text/javascript">
+	$('.searchacc').hide();
+	$(function () {
+	   $('#s').click(function () {
+		   $('#g').parent().removeClass("active");
+		   $('.acc').hide();
+		   $('.searchacc').show();
+	  		$(this).parent().addClass("active");
+	   });
+				
+   $('#g').click(function () {
+		   $('#s').parent().removeClass("active");
+		   $('.searchacc').hide();
+		   $('.acc').show();
+	  		 $(this).parent().addClass("active");
+	   });
+	
+	});
+	
+	</script>
 </html>
