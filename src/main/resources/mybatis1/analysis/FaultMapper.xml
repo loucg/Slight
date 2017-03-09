@@ -48,7 +48,7 @@
 		<if test="pd.endtime != null and pd.endtime != '' and pd.starttime==pd.endtime and pd.starttime != null and pd.starttime != ''"><!-- 关键词检索 -->
 			and a.tdate LIKE CONCAT(CONCAT('%', #{pd.starttime}),'%')
 		</if>
-		group by a.c_client_id
+		group by a.id
 		order by c.name
 	</select>
 	</mapper>
