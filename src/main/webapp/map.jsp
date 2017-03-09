@@ -302,7 +302,7 @@ body {
 			}
 		});
 	}
-	function gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom) {
+/* 	function gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom) {
 	    var convertor = new BMap.Convertor();
         convertor.translate(arrpoints, 1, 5, function (data){
         	if(data.status === 0) {
@@ -315,6 +315,67 @@ body {
         	}
         });
 	}
+	 */
+	 
+		function gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom) {
+		 	var len = arrpoints.length;//所有点的长度  
+	        var points = [];//将大数组分成小数组存放。  50个一组
+	        var endPoints = [];//将大数组分成小数组存放。  50个一组
+	        var ajaxId = 0;//第几组请求  
+	        var i = 0 ;  
+	        var j = 0 ;  
+	        var ajaxLen =0;//要发起几次请求。  
+	  
+	        //数组分装  
+	        for (; i < len; i++) {     
+	            if(i%50 == 0){  //分成小数组
+	                ajaxId = Math.floor(i/50);  
+	                points[ajaxId] = [];  
+	            }  
+	            points[ajaxId].push(arrpoints[i]);    
+	        }  
+	  
+	        ajaxLen = points.length;  //一共有几个小数组就有几次请求
+	        //闭包和回调。  
+	        for (; j < ajaxLen; j++) {  
+	            (function() {  
+	                var jj = j;  //记录第几次转换
+	                //回调函数，添加marker。  
+	                var callback = function(data){  
+	                    var ajaxId = jj;   
+	                    var len = arrpoints.length,i,maker;   
+	                    var base = ajaxId * 50; //本数组在原始大数组中的起始位。  
+	                    if(data.status === 0) {  
+	                        var dateLen = data.points.length;   
+	                        for(i=0;i <dateLen;i++){  
+	                            //marker = new BMap.Marker(data.points[i]);   
+	                           // map.addOverlay(marker);
+	                           clientdata[base+i].coordinate=data.points[i].lng+","+data.points[i].lat;
+        					   clientdata[base+i].xcoordinate=data.points[i].lng;
+        		               clientdata[base+i].ycoordinate=data.points[i].lat;   
+	                           endPoints[base+i]=data.points[i];  
+	                            if(arrpoints.length == endPoints.length){//加载完毕。  
+	                            	addClientMaker(clientdata,mapcenter,mapzoom); 
+	                            }  
+	                        }  
+	                    }  
+	                    callback = null;//清理内存。  
+	                    jj = null;  
+	                }  
+	                posTrans(points[j],callback);//坐标转换新的数据图标添加到地图上。  
+	            })();         
+	        }  
+	  
+		}
+	//坐标转换  
+    function posTrans(points,callback){  
+        var BdPoints = [],len = points.length,i;  
+        for (i = 0; i < len; i++) {  
+            BdPoints.push(new BMap.Point(points[i].lng,points[i].lat))  
+        }  
+        var convertor = new BMap.Convertor();  
+        convertor.translate(BdPoints, 1, 5, callback);//百度的坐标转换接口。  
+    } 
 	
 	//添加覆盖物 
 	var infoWindow;//全局变量，相当重要/////////////////////////////////////////////////////
@@ -322,8 +383,6 @@ body {
 		for (var i = 0; i < data.length; i++) {
 			var markerpoint = new BMap.Point(data[i].xcoordinate,
 					data[i].ycoordinate);
-			//console.log(data[i].id+"     "+data[i].xcoordinate+"   "+data[i].ycoordinate);
-			//console.log(markerpoint);
 			var mySquare = new SquareOverlay(markerpoint, 25, data[i]);
 			map.addOverlay(mySquare);
 			//8、 为自定义覆盖物添加点击事件      
