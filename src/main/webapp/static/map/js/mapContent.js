@@ -82,9 +82,9 @@ function init() {
 					});
 	$("#reset").click(function() {
 		$("#groupname").val("");
-		$("#terminaltype").val("");
-		$("#address").val("");
-		$("#terminalname").val("");
-		$("#terminalid").val("");
+		$("#terminaltype").empty();$("#terminaltype").append("<option  value=\"\"> </option>");
+		$("#address").empty();$("#address").append("<option  value=\"\"> </option>");
+		$("#terminalname").empty();$("#terminalname").append("<option  value=\"\"> </option>");
+		$("#terminalid").append("<option  value=\"\"> </option>");
 	});
 }

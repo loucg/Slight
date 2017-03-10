@@ -205,6 +205,7 @@ body {
 		text : '清除',
 		callback : function() {
 			CircleAndRectangle.removeContextMenu(menu);
+			parent.cleardrawdata();//删除原有的左边框选列表
 			map.removeOverlay(CircleAndRectangle);
 			CircleAndRectangle = null;
 		}
@@ -517,9 +518,9 @@ body {
 				 drawtata.push(preMakerdata[i]);
 				}
 		}
-		parent.cleardrawdata();//删除原有的左边
-		parent.changedrawdata(drawtata);
-		parent.gpsTObbddrawing(drawtata);//添加左边
+		parent.cleardrawdata();//删除原有的左边框选列表
+		parent.changedrawdata(drawtata);//用于再次点击时可以加载出来
+		parent.gpsTObbddrawing(drawtata);//添加左边框选列表
 	}
 	function TurnOnLight() {
 		if (choseMakerdata.brightness != 0) {

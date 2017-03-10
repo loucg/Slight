@@ -5,8 +5,6 @@
 				// $('.kid').hide();
 				// $(this).parent().parent().find('.kid').toggle();//
 				// $(this)指<a>
-				// console.log(
-				// $(this).parent().parent().find('.kid').is(":visible"));
 				if ($(this).parent().parent().find('.kid').is(":visible")) {
 					$('.kid').hide();
 					$(this).parent().parent().find('.kid').hide();
@@ -22,9 +20,11 @@
 								.attr("id")]);// 加载对应组的终端maker
 					} else if ($(this).attr("id") == "search"){
 						Conframe.window.cleanAllMaker();// 清除所有覆盖物
-						Conframe.window.addClientMaker(searchdata);
+						changePreMakerdata(searchdata);
+						Conframe.window.addClientMaker(searchdata);	
 					}else if ($(this).attr("id") == "draw"){
 						Conframe.window.cleanAllMaker();// 清除所有覆盖物
+						changePreMakerdata(drawtata);
 						Conframe.window.addClientMaker(drawdata);
 					}
 				}
@@ -32,8 +32,8 @@
     
   // $('.onekid').live("click",function () {
 	$('body').on("click",'.onekid',function () {
-        $('.onekid').removeClass('one-hover');
-        $(this).addClass('one-hover');
+        //$('.onekid').removeClass('one-hover');
+        //$(this).addClass('one-hover');
         var str=$(this).attr("id");
         if(str!="more"){
         	Conframe.window.changeCenterByid(str);
@@ -50,28 +50,11 @@
         		success : function(data) {
         			if (data != null) {
         				gpsTObbdMore(data,termid,choseterm);
-        				//console.log(data);
-        					 /*for(var i=0;i<data.length;i++){
-        						 var accdivli
-        						 if(data[i].coordinate!=null){  
-        						 	   accdivli ="<li><b class=\"tip\"></b><a class=\"onekid\"  id="+data[i].coordinate+"><span style=\"font-size:12px;font-weight:normal;\">"+data[i].name+"</span></a></li>";
-        						 	
-        						 }
-        						 else if(data[i].havenest==true){
-        							  mapTermpage[termid].havenest=true;
-        							  accdivli ="<li id=\"moreli\"><b class=\"tip\"></b><a class=\"onekid\"  id="+"more"+">"+"....."+"</a></li>";
-        						 } 
-        						 else {
-        							 mapTermpage[termid].havenest=false;
-        						 }
-        						 choseterm.parent().parent().children("ul").append(accdivli);
-        						 accdivli="";
-        					 }*/
-        					 mapTermpage[termid].begin= mapTermpage[termid].begin+ mapTermpage[termid].rows;
-        					 mapTermpagein[termid].rows= mapTermpagein[termid].rows+ mapTermpagein[termid].rows;
-        					 Conframe.window.cleanAllMaker();//清除所有覆盖物
-        					 //console.log(mapTermpagein[termid]);
-        				     Conframe.window.getClientsData(mapTermpagein[termid]);//加载对应组的终端maker
+        				mapTermpage[termid].begin= mapTermpage[termid].begin+ mapTermpage[termid].rows;
+        				mapTermpagein[termid].rows= mapTermpagein[termid].rows+ mapTermpagein[termid].rows;
+        				Conframe.window.cleanAllMaker();//清除所有覆盖物
+        				//console.log(mapTermpagein[termid]);
+        				Conframe.window.getClientsData(mapTermpagein[termid]);//加载对应组的终端maker
         			} else {
         			}      			
         		},
