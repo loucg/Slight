@@ -76,13 +76,13 @@
 								<td>
 								<div class="nav-search">
 								<label  style="margin-left:12px;">开始时间：</label>
-								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px;height:28px" placeholder="开始日期" title="开始日期"/>
+								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px;height:28px" placeholder="开始时间" title="开始时间"/>
 								</div>
 								</td>
 								<td>
 								<div class="nav-search">
 								<label  style="margin-left:12px;">结束时间：</label>
-								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px;height:28px" placeholder="结束日期" title="结束日期"/>
+								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px;height:28px" placeholder="结束时间" title="结束时间"/>
 								</div>
 								</td>
 								<td style="vertical-align:inherit;padding-left:12px;">
