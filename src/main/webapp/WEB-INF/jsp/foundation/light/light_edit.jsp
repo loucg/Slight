@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp"%>  <!--国际化标签  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +21,10 @@
 
 	//保存
 	function save(){
-			if($("#name").val()==""){
+		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,
-	            msg:'请输入规格/名称',
+	            msg:'<%=please_type_standard_name%>',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -33,7 +34,7 @@
 		if($("#vendor").val()==""){
 			$("#vendor").tips({
 				side:3,
-	            msg:'请输入厂家',
+	            msg:'<%=please_type_vendor%>',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -91,33 +92,33 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">规格/名称:</td>
-								<td><input style="width:95%;" type="text" name="name" id="name" value="${pd.name}" maxlength="500" placeholder="这里输入规格/名称" title="规格/名称"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=standard %>/<%=name %>:</td>
+								<td><input style="width:95%;" type="text" name="name" id="name" value="${pd.name}" maxlength="500" title="<%=standard %>/<%=name %>"/></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">厂家:</td>
-								<td><input style="width:95%;" type="text" name="vendor" id="vendor" value="${pd.vendor}" maxlength="500" placeholder="这里输入厂家" title="厂家"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=vendor %>:</td>
+								<td><input style="width:95%;" type="text" name="vendor" id="vendor" value="${pd.vendor}" maxlength="500" title="<%=standard %>"/></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">类型:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=type %>:</td>
 								<td>
-									<label style="float:left;padding-left: 12px;"><input class="ace" name="form-field-radio" id="form-field-radio1" onclick="setType('1');" <c:if test="${pd.type == '1' }">checked="checked"</c:if> type="radio" value="icon-edit"><span class="lbl">系统</span></label>
-									<label style="float:left;padding-left: 5px;"><input class="ace"  name="form-field-radio" id="form-field-radio2" onclick="setType('2');" <c:if test="${pd.type == '2' }">checked="checked"</c:if> type="radio" value="icon-edit"><span class="lbl">自备</span></label>
+									<label style="float:left;padding-left: 12px;"><input class="ace" name="form-field-radio" id="form-field-radio1" onclick="setType('1');" <c:if test="${pd.type == '1' }">checked="checked"</c:if> type="radio" value="icon-edit"><span class="lbl"><%=system %></span></label>
+									<label style="float:left;padding-left: 5px;"><input class="ace"  name="form-field-radio" id="form-field-radio2" onclick="setType('2');" <c:if test="${pd.type == '2' }">checked="checked"</c:if> type="radio" value="icon-edit"><span class="lbl"><%=self %></span></label>
 								</td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">备注:</td>
-								<td><input style="width:95%;" type="text" name="comment" id="comment" value="${pd.comment}" maxlength="500" placeholder="这里输入备注" title="备注"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=comment %>:</td>
+								<td><input style="width:95%;" type="text" name="comment" id="comment" value="${pd.comment}" maxlength="500"  title="<%=comment %>"/></td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+									<a class="btn btn-mini btn-primary" onclick="save();"><%=save %></a>
+									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel %></a>
 								</td>
 							</tr>
 						</table>
 						</div>
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %></h4></div>
 					</form>
 
 					</div>

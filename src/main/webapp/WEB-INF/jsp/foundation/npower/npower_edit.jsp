@@ -7,22 +7,6 @@
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@include file="../../international.jsp"%>  <!--国际化标签  -->
-<% 
-	//国际化，添加配置文件的值
-	String standard = properties.getProperty("standard");
-	String vendor = properties.getProperty("vendor");
-	String number = properties.getProperty("number");
-	String name = properties.getProperty("name");
-	String type = properties.getProperty("type");
-	String power = properties.getProperty("power");
-	String comment = properties.getProperty("comment");
-	String operate = properties.getProperty("operate");
-	String edit = properties.getProperty("edit");
-	String self = properties.getProperty("self");
-	String system = properties.getProperty("system");
-	String save = properties.getProperty("save");
-	String cancel = properties.getProperty("cancel");
-%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -58,8 +42,8 @@
 							<input type="hidden" name="id" id="id" value="${pd.id}"/>
 							<input type="hidden" name="type" id="type" value="${pd.type}"/>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;"><%=standard %><%=name %>:</td>
-								<td><input type="text" name="name" id="name" value="${pd.name}" maxlength="100" title="<%=standard %><%=name %>" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=standard %>/<%=name %>:</td>
+								<td><input type="text" name="name" id="name" value="${pd.name}" maxlength="100" title="<%=standard %>/<%=name %>" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><%=vendor %>:</td>
@@ -73,8 +57,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;"><%=power %>:</td>
-								<td><input type="text" name="power" id="power" value="${pd.power}" maxlength="100" title="<%=power %>" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=power_rate %>:</td>
+								<td><input type="text" name="power" id="power" value="${pd.power}" maxlength="100" title="<%=power_rate %>" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><%=comment %>:</td>
@@ -115,6 +99,27 @@
 		$(top.hangge());
 		//保存
 		function save(){
+			if($("#name").val()==""){
+				$("#name").tips({
+					side:3,
+		            msg:'<%=please_type_standard_name%>',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#name").focus();
+				return false;
+			}
+			if($("#vendor").val()==""){
+				$("#vendor").tips({
+					side:3,
+		            msg:'<%=please_type_vendor%>',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#vendor").focus();
+				return false;
+			}
+			
 			$("#npowerForm").submit();
 			$("#zhongxin").hide();
 			$("#zhongxin2").show();

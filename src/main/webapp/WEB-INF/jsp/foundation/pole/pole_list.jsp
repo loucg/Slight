@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp"%>  <!--国际化标签  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,20 +39,20 @@
 
 								<td >
 								 	<div class="nav-search">
-									    <label style="margin-left:12px;">规格：</label>
+									    <label style="margin-left:12px;"><%=standard %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }"/>
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search">
-									    <label style="margin-left:12px;">厂家：</label>
+									    <label style="margin-left:12px;"><%=vendor %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="vendor" value="${pd.vendor}" />
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
-								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="<%=search %>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="<%=export %>"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="<%=importt %>"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								</c:if>
 							</tr>
 						</table>
@@ -61,12 +62,12 @@
 							<thead>
 								<tr>
 
-									<th class="center" style="width: 50px;">序号</th>
-									<th class="center">规格/名称</th>
-									<th class="center">厂家</th>
-								    <th class="center">类型</th>
-								    <th class="center">备注</th>
-									<th class="center">操作</th>
+									<th class="center" style="width: 50px;"><%=number %></th>
+									<th class="center"><%=standard %>/<%=name %></th>
+									<th class="center"><%=vendor%></th>
+								    <th class="center"><%=type %></th>
+								    <th class="center"><%=comment %></th>
+									<th class="center"><%=operate %></th>
 								</tr>
 							</thead>
 
@@ -83,17 +84,17 @@
 												<td class="center">${var.name}</td>
 												<td class="center">${fn:substring(var.vendor ,0,50)}</td>											
 												<td style="width: 60px;" class="center">
-													<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in">系统</span></c:if>
-													<c:if test="${var.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
+													<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in"><%=system %></span></c:if>
+													<c:if test="${var.type == '2' }"><span class="label label-success arrowed"><%=self %></span></c:if>
 												</td>
 												<td class="center">${var.comment}</td>
 												<td class="center" style="width:50px;"> 
 													<c:if test="${QX.edit != 1 && QX.del != 1 }">
-													<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+													<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="<%=no_permission %>"></i></span>
 													</c:if>
 													<div class="hidden-sm hidden-xs btn-group">
 														<c:if test="${QX.edit == 1 }">
-														<a class="btn btn-xs btn-success" onclick="edit('${var.id}');">编辑</a>
+														<a class="btn btn-xs btn-success" onclick="edit('${var.id}');"><%=edit %></a>
 														</c:if>
 													</div>
 												</td>
@@ -103,13 +104,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -120,7 +121,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-sm btn-success" onclick="add();">新增</a>
+									<a class="btn btn-sm btn-success" onclick="add();"><%=add%></a>
 									</c:if>
 	
 								</td>
@@ -175,7 +176,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="新增";
+			 diag.Title ="<%=add%>";
 			 diag.URL = '<%=basePath%>pole/goPoleCreate';
 			 diag.Width = 650;
 			 diag.Height = 224;
@@ -200,7 +201,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="编辑";
+			 diag.Title ="<%=edit %>";
 			 diag.URL = '<%=basePath%>pole/goPoleEdit?id='+Id;
 			 diag.Width = 650;
 			 diag.Height = 224;
@@ -228,7 +229,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="EXCEL 导入到数据库";
+			 diag.Title ="<%=importt %>";
 			 diag.URL = '<%=basePath%>pole/goUploadExcel';
 			 diag.Width = 300;
 			 diag.Height = 150;

@@ -12,27 +12,6 @@
 			+ path + "/";
 %>
 <%@include file="../../international.jsp"%>  <!--国际化标签  -->
-<% 
-	//国际化，添加配置文件的值
-	String standard = properties.getProperty("standard");
-	String vendor = properties.getProperty("vendor");
-	String number = properties.getProperty("number");
-	String name = properties.getProperty("name");
-	String type = properties.getProperty("type");
-	String power = properties.getProperty("power");
-	String comment = properties.getProperty("comment");
-	String operate = properties.getProperty("operate");
-	String edit = properties.getProperty("edit");
-	String self = properties.getProperty("self");
-	String system = properties.getProperty("system");
-	String create = properties.getProperty("create");
-	String importt = properties.getProperty("import");
-	String export = properties.getProperty("export");
-	String search = properties.getProperty("search");
-	String no_permission = properties.getProperty("no_permission");
-	String you_have_no_permission = properties.getProperty("you_have_no_permission");
-	String no_relative_data = properties.getProperty("no_relative_data");
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,10 +69,10 @@
 							<thead>
 								<tr>
 									<th class="center" style="width:50px;"><%=number %></th>
-									<th class="center"><%=standard %><%=name %></th>
+									<th class="center"><%=standard %>/<%=name %></th>
 									<th class="center"><%=vendor %></th>
 									<th class="center"><%=type %></th>
-									<th class="center"><%=power %></th>
+									<th class="center"><%=power_rate %></th>
 									<th class="center"><%=comment %></th>
 									<th class="center"><%=operate %></th>
 								</tr>
@@ -138,7 +117,7 @@
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" ><%=no_relative_data %></td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -149,7 +128,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-success" onclick="add();"><%=create %></a>
+									<a class="btn btn-mini btn-success" onclick="add();"><%=add %></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -208,7 +187,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="EXCEL 导入到数据库";
+			 diag.Title ="<%=importt%>";
 			 diag.URL = '<%=basePath%>npower/goUploadExcel';
 			 diag.Width = 300;
 			 diag.Height = 150;
@@ -231,7 +210,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="<%=create%>";
+			 diag.Title ="<%=add%>";
 			 diag.URL = '<%=basePath%>npower/goNPowerCreate';
 			 diag.Width = 460;
 			 diag.Height = 265;

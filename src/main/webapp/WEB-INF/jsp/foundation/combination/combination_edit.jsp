@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp"%>  <!--国际化标签  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

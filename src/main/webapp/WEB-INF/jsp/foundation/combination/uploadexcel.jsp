@@ -8,6 +8,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp"%>  <!--国际化标签  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +36,7 @@
 									</tr>
 									<tr>
 										<td style="text-align: center;padding-top: 10px;">
-											<a class="btn btn-mini btn-primary" onclick="save();">导入</a>
+											<a class="btn btn-mini btn-primary" onclick="save();"><%=importt%></a>
 											<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
 											<a class="btn btn-mini btn-success" onclick="window.location.href='<%=basePath%>/config/downExcel'">下载模版</a>
 										</td>
