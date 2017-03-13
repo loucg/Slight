@@ -33,7 +33,7 @@
 						<table id="table_report" class="table table-striped table-bordered table-hover" style="margin-top:15px;">
 						<c:if test="${msg == 'edit'}">
 						<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">上级:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">上级部门:</td>
 								<td>
 									<div class="col-xs-4 label label-lg label-light arrowed-in arrowed-right">
 										<b>${null == pd.SUPERIOR_DEPARTMENT_ID ?'(无) 此部门为顶级':pds.NAME}</b>
@@ -42,8 +42,8 @@
 							</tr>
 						</c:if>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">名称:</td>
-								<td><input type="text" name="NAME" id="NAME" value="${pd.NAME}" maxlength="50" placeholder="这里输入名称" title="名称" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">部门名称:</td>
+								<td><input type="text" name="NAME" id="NAME" value="${pd.NAME}" maxlength="50" placeholder="这里输入部门名称" title="部门名称" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">上级部门:</td>
@@ -111,7 +111,7 @@
 			if($("#NAME").val()==""){
 				$("#NAME").tips({
 					side:3,
-		            msg:'请输入名称',
+		            msg:'请输入部门名称',
 		            bg:'#AE81FF',
 		            time:2
 		        });

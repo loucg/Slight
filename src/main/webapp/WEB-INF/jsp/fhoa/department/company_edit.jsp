@@ -130,7 +130,7 @@
 			if($("#NAME").val()==""){
 			$("#NAME").tips({
 				side:3,
-	            msg:'请输入名字',
+	            msg:'请输入公司名称',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -172,7 +172,7 @@
 				
 				$("#tp").tips({
 					side:3,
-		            msg:'请选图片',
+		            msg:'请选择图片',
 		            bg:'#AE81FF',
 		            time:3
 		        });

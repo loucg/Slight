@@ -32,7 +32,7 @@
 									<table id="table_report" class="table table-striped table-bordered table-hover">
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;">登录名:</td>
-											<td><input type="text" name="USERNAME" id="username" value="${pd.USERNAME }" maxlength="32" placeholder="这里输入登录名" title="登录名" style="width:98%;"/></td>
+											<td><input type="text" name="USERNAME" id="username" value="${pd.USERNAME }" maxlength="32" placeholder="" title="登录名" style="width:98%;"/></td>
 										</tr>
 										<tr>	
 											<td style="width:79px;text-align: right;padding-top: 4px;">原始密码:</td>
@@ -60,11 +60,11 @@
 										</tr>
 										<tr>
 										<td style="width:79px;text-align: right;padding-top: 4px;">职务:</td>
-										<td><input type="text" name="POSITION" id="position"  value="${pd.POSITION }"  maxlength="32" placeholder="无" title="职务" style="width:98%;"/></td>
+										<td><input type="text" name="POSITION" id="position"  value="${pd.POSITION }"  maxlength="32" placeholder="" title="职务" style="width:98%;"/></td>
 										</tr>
 										<tr>
 										<td style="width:79px;text-align: right;padding-top: 4px;">公司:</td>
-										<td><input type="text" name="COMPANY" id="company"  value="${pd.COMPANY }"  maxlength="32" placeholder="无" title="公司" style="width:98%;"/></td>
+										<td><input type="text" name="COMPANY" id="company"  value="${pd.COMPANY }"  maxlength="32" placeholder="" title="公司" style="width:98%;"/></td>
 										</tr>
 										<tr>
 										<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>语言:</td>

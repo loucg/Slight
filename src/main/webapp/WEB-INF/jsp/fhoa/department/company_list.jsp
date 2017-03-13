@@ -34,13 +34,13 @@
 								<td >
 								 	<div class="nav-search">
 									    <label>公司名：</label>
-										<input class="nav-search-input" autocomplete="off" id="company" type="text" name="companyname" value="${page.pd.companyname }" />
+										<input class="nav-search-input" autocomplete="off" id="companyname" type="text" name="companyname" value="${page.pd.companyname }" />
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search">
 									    <label style="margin-left:12px;">联系人：</label>
-										<input class="nav-search-input" autocomplete="off" id="companycontact" type="text" name="companyname" value="${page.pd.companycontact }" />
+										<input class="nav-search-input" autocomplete="off" id="companycontact" type="text" name="companycontact" value="${page.pd.companycontact }" />
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
