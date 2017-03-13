@@ -61,12 +61,12 @@
 											<td><input type="text" name="NAME" id="name"  value="${pd.NAME }"  maxlength="32" placeholder="这里输入姓名" title="姓名" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">位置:</td>
-											<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="这里输入位置" title="位置" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;">联系地址:</td>
+											<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="这里输入联系地址" title="位置" style="width:98%;"/></td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>手机:</td>
-											<td><input type="number" name="PHONE" id="phone"  value="${pd.PHONE }"  maxlength="32" placeholder="这里输入手机号码" title="手机号码" style="width:98%;"/></td>
+											<td><input type="number" name="PHONE" id="phone"  value="${pd.PHONE }"  maxlength="32" placeholder="这里输入手机号" title="手机号码" style="width:98%;"/></td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;">邮箱:</td>
