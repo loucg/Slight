@@ -41,28 +41,28 @@
         			"</div>"+
         		"</div>"+
         		"<div class='bottom'>"+
-	        		"<div class='b1'>"+
+	        		"<div class='b1' onclick ='TurnOnLight()'>"+
 						"<div class='bimg1'>"+
 							"<img src='static/map/img/bulb_on.png'>"+
 						"</div>"+
 						"<div class='btx1'>"+
-							"<a href='javascript:void(0)' onclick ='TurnOnLight()'>开灯</a>"+
+							"<a href='javascript:void(0)' >开灯</a>"+
 						"</div>"+
 					"</div>"+
-					"<div class='b2'>"+
+					"<div class='b2' onclick ='TurnOffLight()'>"+
 						"<div class='bimg2'>"+
 								"<img src='static/map/img/bulb_off.png'>"+
 						"</div>"+
 						"<div class='btx2'>"+
-							"<a href='javascript:void(0)' onclick ='TurnOffLight()'>关灯</a>"+
+							"<a href='javascript:void(0)' >关灯</a>"+
 						"</div>"+
 					"</div>"+
-					"<div class='b3'>"+
+					"<div class='b3' onclick ='PolicyControl()'>"+
 						"<div class='bimg3'>"+
 								"<img src='static/map/img/policy_control.png'>"+
 						"</div>"+
 						"<div class='btx3'>"+
-							"<a href='javascript:void(0)' onclick ='PolicyControl()'>策略控制</a>"+
+							"<a href='javascript:void(0)' >策略控制</a>"+
 						"</div>"+
 					"</div>"+
 					"<div class='btx4'>"+

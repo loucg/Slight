@@ -24,9 +24,19 @@ html, body {
 	position: absolute;
 	z-index=100;
 	bottom: 0;
-	top: 36px;
+	top: 41px;
 	width: 100%;
 	overflow: auto;
+}
+.left_c .searchacc {
+	position: absolute;
+	z-index=100;
+	bottom: 0;
+	top: 41px;
+	width: 100%;
+	overflow: auto;
+	/*  visibility:hidden; 
+	background-color: red; */
 }
 
 /* .left_c h1 {

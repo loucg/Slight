@@ -62,29 +62,30 @@
 										<input class="nav-search-input" autocomplete="off" id="location" type="text" name="location" value="${pd.location }"  />
 									</div>
 								</td>
-								<td >
-									<div class="nav-search">
-										<label style="margin-left:12px;">网关：</label>
-									 	<input class="nav-search-input" autocomplete="off" id="wgname" type="text" name="wgname" value="${pd.wgname }"  />
-								  	</div>
-								</td>
+								
 								<%-- <c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if> --%>
 								</tr>
 								<tr>
+								<td >
+									<div class="nav-search">
+										<label>网关：</label>
+									 	<input class="nav-search-input" autocomplete="off" id="wgname" type="text" name="wgname" value="${pd.wgname }"  />
+								  	</div>
+								</td>
 								<td>
 								<div class="nav-search">
-								<label>开始时间：</label>
-								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px;" placeholder="开始日期" title="开始日期"/>
+								<label  style="margin-left:12px;">开始时间：</label>
+								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px;height:28px" placeholder="开始日期" title="开始日期"/>
 								</div>
 								</td>
 								<td>
 								<div class="nav-search">
-								<label>结束时间：</label>
-								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px;" placeholder="结束日期" title="结束日期"/>
+								<label  style="margin-left:12px;">结束时间：</label>
+								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px;height:28px" placeholder="结束日期" title="结束日期"/>
 								</div>
 								</td>
-								<td style="vertical-align:inherit;padding-left:2px;">
+								<td style="vertical-align:inherit;padding-left:12px;">
 								<c:if test="${QX.cha == 1 }"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></c:if>
 								<c:if test="${QX.toExcel == 1 }"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></c:if>
 								</td>

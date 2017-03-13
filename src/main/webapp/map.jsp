@@ -201,18 +201,11 @@ body {
 			map.removeOverlay(CircleAndRectangle);
 			CircleAndRectangle = null;
 		}
-	}/* , {
-		text : '不要点，缩小',
-		callback : function() {
-			map.zoomOut();
-			CircleAndRectangle.removeContextMenu(menu);
-			map.removeOverlay(CircleAndRectangle);
-			CircleAndRectangle = null;
-		}
-	} */, {
+	}, {
 		text : '清除',
 		callback : function() {
 			CircleAndRectangle.removeContextMenu(menu);
+			parent.cleardrawdata();//删除原有的左边框选列表
 			map.removeOverlay(CircleAndRectangle);
 			CircleAndRectangle = null;
 		}
@@ -265,7 +258,7 @@ body {
 		drawingManager.close();
 	});
 	//map.addEventListener("click", showInfo);
-	function getClientsData(mapTermpage2) {
+	function getClientsData(mapTermpage2,mapcenter,mapzoom) {
 		$.ajax({
 			url : "gomap/addClientMaker",
 			type : "POST",
@@ -273,17 +266,14 @@ body {
 			data : JSON.stringify(mapTermpage2),
 			dataType : "json",
 			success : function(clientdata) {
-				if (clientdata != null) {
-				
+				if (clientdata.length!=0) {
+				//console.log(clientdata.length);
 					var arrpoints=[];
 					for (var i = 0; i < clientdata.length; i++) {
 						arrpoints.push( new BMap.Point(clientdata[i].xcoordinate,clientdata[i].ycoordinate));
 					}
 					preMakerdata = clientdata;
-					gpsTObbd(arrpoints,clientdata);
-					//preMakerdata = data;
-					//console.log(data);
-					//setTimeout(function(){addClientMaker(data);},1000);
+					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);
 				} else {
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_INFO,
@@ -300,9 +290,9 @@ body {
 			},
 			error : function() {
 				BootstrapDialog.show({
-	                type:  BootstrapDialog.TYPE_INFO,
+	                type:  BootstrapDialog.TYPE_DANGER,
 	                title: '提示信息 ',
-	                message: '该分组没有终端',
+	                message: '查询出错',
 	                buttons: [{
 	                    label: '关闭',
 	                    action: function(dialogItself){
@@ -313,7 +303,7 @@ body {
 			}
 		});
 	}
-	function gpsTObbd(arrpoints,clientdata) {
+/* 	function gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom) {
 	    var convertor = new BMap.Convertor();
         convertor.translate(arrpoints, 1, 5, function (data){
         	if(data.status === 0) {
@@ -321,28 +311,87 @@ body {
         		clientdata[i].coordinate=data.points[i].lng+","+data.points[i].lat;
         		clientdata[i].xcoordinate=data.points[i].lng;
         		clientdata[i].ycoordinate=data.points[i].lat;
-        		if(i+1>= data.points.length){addClientMaker(clientdata);}
+        		if(i+1>= data.points.length){addClientMaker(clientdata,mapcenter,mapzoom);}
             	}
         	}
         });
 	}
+	 */
+	 
+		function gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom) {
+		 	var len = arrpoints.length;//所有点的长度  
+	        var points = [];//将大数组分成小数组存放。  50个一组
+	        var endPoints = [];//将大数组分成小数组存放。  50个一组
+	        var ajaxId = 0;//第几组请求  
+	        var i = 0 ;  
+	        var j = 0 ;  
+	        var ajaxLen =0;//要发起几次请求。  
+	  
+	        //数组分装  
+	        for (; i < len; i++) {     
+	            if(i%50 == 0){  //分成小数组
+	                ajaxId = Math.floor(i/50);  
+	                points[ajaxId] = [];  
+	            }  
+	            points[ajaxId].push(arrpoints[i]);    
+	        }  
+	  
+	        ajaxLen = points.length;  //一共有几个小数组就有几次请求
+	        //闭包和回调。  
+	        for (; j < ajaxLen; j++) {  
+	            (function() {  
+	                var jj = j;  //记录第几次转换
+	                //回调函数，添加marker。  
+	                var callback = function(data){  
+	                    var ajaxId = jj;   
+	                    var len = arrpoints.length,i,maker;   
+	                    var base = ajaxId * 50; //本数组在原始大数组中的起始位。  
+	                    if(data.status === 0) {  
+	                        var dateLen = data.points.length;   
+	                        for(i=0;i <dateLen;i++){  
+	                            //marker = new BMap.Marker(data.points[i]);   
+	                           // map.addOverlay(marker);
+	                           clientdata[base+i].coordinate=data.points[i].lng+","+data.points[i].lat;
+        					   clientdata[base+i].xcoordinate=data.points[i].lng;
+        		               clientdata[base+i].ycoordinate=data.points[i].lat;   
+	                           endPoints[base+i]=data.points[i];  
+	                            if(arrpoints.length == endPoints.length){//加载完毕。  
+	                            	addClientMaker(clientdata,mapcenter,mapzoom); 
+	                            }  
+	                        }  
+	                    }  
+	                    callback = null;//清理内存。  
+	                    jj = null;  
+	                }  
+	                posTrans(points[j],callback);//坐标转换新的数据图标添加到地图上。  
+	            })();         
+	        }  
+	  
+		}
+	//坐标转换  
+    function posTrans(points,callback){  
+        var BdPoints = [],len = points.length,i;  
+        for (i = 0; i < len; i++) {  
+            BdPoints.push(new BMap.Point(points[i].lng,points[i].lat))  
+        }  
+        var convertor = new BMap.Convertor();  
+        convertor.translate(BdPoints, 1, 5, callback);//百度的坐标转换接口。  
+    } 
 	
 	//添加覆盖物 
 	var infoWindow;//全局变量，相当重要/////////////////////////////////////////////////////
-	function addClientMaker(data) {
+	function addClientMaker(data,mapcenter,mapzoom) {
 		for (var i = 0; i < data.length; i++) {
 			var markerpoint = new BMap.Point(data[i].xcoordinate,
 					data[i].ycoordinate);
-			//console.log(data[i].id+"     "+data[i].xcoordinate+"   "+data[i].ycoordinate);
-			//console.log(markerpoint);
 			var mySquare = new SquareOverlay(markerpoint, 25, data[i]);
 			map.addOverlay(mySquare);
 			//8、 为自定义覆盖物添加点击事件      
 			(function(k) {
 				mySquare.addEventListener('click', function(e) {//这里是自定义覆盖物的事件   
-					choseMaker = this;//this.style.backgroundImage = "url('map/img/light_red.png')";
+					//choseMaker = mySquare;
 					choseMakerdata = data[k];
-					getMakerIconAndInfo(choseMaker, choseMakerdata);/////////////////////////////
+					
 					var sContent = getInfoContent(data[k]);
 					var opts = {
 						width : 304, // 信息窗口宽度
@@ -386,8 +435,7 @@ body {
 			ycoordinate : Ycoordinate
 		};
 		changeZoom(centerdata, minXcoordinate, minYcoordinate, maxXcoordinate,
-				maxYcoordinate);//设置zoom大小
-		changeCenter(centerdata);//设置中心点
+				maxYcoordinate,mapcenter,mapzoom);//设置zoom大小
 	}
 
 	map.addEventListener("click",closeinfowindow);
@@ -397,32 +445,51 @@ body {
 	}
 	//叠加层点击事件       
 	function fo(e) {
+		//console.log(choseMaker._data);
 		map.removeEventListener("click", fo); //这里取消绑定。
 		var point = new BMap.Point(e.point.lng, e.point.lat);
 		map.openInfoWindow(infoWindow, point); //开启信息窗口     
 		//map.removeEventListener("click", fo); //这里取消绑定。                
 	}
-	//0.5秒后改变地图的展示中心       
+	//0.5秒后根据id改变地图的展示中心       
+	function changeCenterByid(id) {
+		for(var i=0;i<preMakerdata.length;i++){
+			if(id==preMakerdata[i].id)
+				{
+				var x=preMakerdata[i].xcoordinate;
+				var y=preMakerdata[i].ycoordinate;
+				setTimeout(function() {
+					map.panTo(new BMap.Point(x,y)); 
+				}, 300);
+				}
+			
+		}
+
+	}
+	//0.5秒后根据Point改变地图的展示中心       
 	function changeCenter(data) {
 		//console.log(data.xcoordinate, data.ycoordinate);
 		setTimeout(function() {
 			map.panTo(new BMap.Point(data.xcoordinate, data.ycoordinate)); //两秒后移动到第一个点
-		}, 500);
+		}, 300);
 
 	}
 	//改变地图的zoom大小    
-	function changeZoom(center, minx, miny, maxx, maxy) {
-		for (var i = 19; i > 0; i--) {
-			map.centerAndZoom(new BMap.Point(center.xcoordinate,
+	function changeZoom(center, minx, miny, maxx, maxy,mapcenter,mapzoom) {
+		if(mapcenter!=null && mapzoom!=null){
+			map.centerAndZoom(mapcenter,mapzoom);
+		}else{
+			for (var i = 19; i > 0; i--) {
+				map.centerAndZoom(new BMap.Point(center.xcoordinate,
 					center.ycoordinate), i);
-			var bs = map.getBounds(); //获取可视区域
-			var bssw = bs.getSouthWest(); //可视区域左下角
-			var bsne = bs.getNorthEast(); //可视区域右上角
-			if (bssw.lng < minx && bssw.lat<miny&&bsne.lng>maxx
+				var bs = map.getBounds(); //获取可视区域
+				var bssw = bs.getSouthWest(); //可视区域左下角
+				var bsne = bs.getNorthEast(); //可视区域右上角
+				if (bssw.lng < minx && bssw.lat<miny&&bsne.lng>maxx
 					&& bsne.lat > maxy)
 				break;
-			//console.log("当前地图可视范围是：" + bssw.lng + "," + bssw.lat + "到" + bsne.lng + "," + bsne.lat);
-			//console.log(i)
+			
+			}
 		}
 	}
 	//清除所有覆盖物   
@@ -443,17 +510,17 @@ body {
 	}
 	//判断是否在选择框内
 	function judgeSelection(bound) {
-		//console.log(preMakerdata.length);
+		var drawtata=[];
 		for(var i=0;i<preMakerdata.length;i++){
-			var judgepoint = new BMap.Point(preMakerdata[i].xcoordinate,
-					preMakerdata[i].ycoordinate);
+			var judgepoint = new BMap.Point(preMakerdata[i].xcoordinate,preMakerdata[i].ycoordinate);
 			if(bound.containsPoint(judgepoint))
 				{
-				console.log(preMakerdata[i].id);
+				 drawtata.push(preMakerdata[i]);
 				}
-			
 		}
-		
+		parent.cleardrawdata();//删除原有的左边框选列表
+		parent.changedrawdata(drawtata);//用于再次点击时可以加载出来
+		parent.gpsTObbddrawing(drawtata);//添加左边框选列表
 	}
 	function TurnOnLight() {
 		if (choseMakerdata.brightness != 0) {
@@ -482,7 +549,13 @@ body {
 								cleanAllMaker();//清除所有覆盖物
 								var a = parent.getmapTermpagein()[choseMakerdata.termid];
 								//console.log(a);
-								getClientsData(a);
+								var mapcenter=map.getCenter();
+								var mapzoom=map.getZoom();
+								getClientsData(a,mapcenter,mapzoom);
+								//map.setCenter(mapcenter);
+								//console.log(mapcenter);
+								//console.log(mapzoom);
+								//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);				
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
 						                title: '提示信息 ',
@@ -557,8 +630,10 @@ body {
 								//choseMaker.style.backgroundImage = "url('map/img/light_grey.png')";
 								cleanAllMaker();//清除所有覆盖物
 								var a = parent.getmapTermpagein()[choseMakerdata.termid];
-								//console.log(a);
-								getClientsData(a);
+								var mapcenter=map.getCenter();
+								var mapzoom=map.getZoom();
+								getClientsData(a,mapcenter,mapzoom);
+								//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
 						                title: '提示信息 ',
@@ -619,8 +694,10 @@ body {
 				if (data.status == "SUCCESS") {
 					cleanAllMaker();//清除所有覆盖物
 					var a = parent.getmapTermpagein()[choseMakerdata.termid];
-					//console.log(a);
-					getClientsData(a);
+					var mapcenter=map.getCenter();
+					var mapzoom=map.getZoom();
+					getClientsData(a,mapcenter,mapzoom);
+					//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_PRIMARY,
 		                title: '提示信息 ',
@@ -704,7 +781,7 @@ function searchsuccess() {
 	.show({
 		type : BootstrapDialog.TYPE_PRIMARY,
 		title : '提示信息 ',
-		message : '搜索成功，具体列表请查看左侧！',
+		message : '搜索成功，请查看左侧路灯列表二！',
 		buttons : [ {
 			label : '关闭',
 			action : function(dialogItself) {
@@ -726,6 +803,19 @@ function searcherr() {
 			}
 		} ]
 	});
+}
+function searchConerr() {
+	BootstrapDialog.show({
+        type:  BootstrapDialog.TYPE_DANGER,
+        title: '提示信息 ',
+        message: '数据加载出错请刷新页面！',
+        buttons: [{
+            label: '关闭',
+            action: function(dialogItself){
+                dialogItself.close();
+            }
+        }]
+    }); 
 }
  function PolicyControl() {
 	 BootstrapDialog.show({

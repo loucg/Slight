@@ -53,6 +53,7 @@ public class MapContentController extends BaseController{
 					more.setHavenest(true);
 					more.setXcoordinate(120.147428);
 					more.setYcoordinate(30.277798);
+					more.setTermid(listct.get(i).getId());
 					more.setTermname(listct.get(i).getName());
 					List<c_client> listc = c_clientService.queryAllterm_client(p);
 					int totalcount = c_clientService.queryCountterm_client(p);
@@ -67,6 +68,7 @@ public class MapContentController extends BaseController{
 			p.setTermid(-999);
 			c_client more = new c_client();
 			more.setHavenest(true);
+			more.setTermid(-999);
 			more.setXcoordinate(120.147428);
 			more.setYcoordinate(30.277798);
 			List<c_client> listg = c_clientService.queryAllterm_gateway(p);

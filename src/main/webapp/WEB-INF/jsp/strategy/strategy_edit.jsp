@@ -41,11 +41,11 @@
 						    </tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>策略名称:</td>
-								<td><input type="text" name="NAME" id="name" value="${pd.name }" maxlength="100" title="名称" style="width:98%;" /></td>
+								<td><input type="text" name="NAME" id="name" value="${pd.name }" maxlength="100" title="名称" style="width:98%;" placeholder="请输入策略名称"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>应用说明:</td>
-								<td><input type="text" name="EXPLAIN" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" /></td>
+								<td><input type="text" name="EXPLAIN" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" placeholder="请输入应用说明"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>状态:</td>
@@ -75,7 +75,7 @@
 							<tr>
 							<td style="text-align: center;">请输入时间(24小时制)</td>
 							<td style="text-align: center;">请选择亮度(%)</td>
-							<td style="text-align: center;">操作</td>
+							<td style="text-align: center; width:50px">操作</td>
 							</tr>
 							<tr>
       						<td style="text-align: center;"><input class="span10 time-picker" type="text" name="TIMESTAMP" id="timestamp" maxlength="100" title="时间" style="text-align: center;width:98%;" placeholder="例：20:00(24小时制)"/></td>
@@ -184,10 +184,12 @@
 				$("#timestamp").focus();
 				return false;
 	        }
-	            document.getElementById("JSONString").value=JSONString();
-				$("#strategyForm").submit();
-				$("#zhongxin").hide();
-				$("#zhongxin2").show();
+			if(!checkAll())
+				return false;
+	        document.getElementById("JSONString").value=JSONString();
+		    $("#strategyForm").submit();
+			$("#zhongxin").hide();
+			$("#zhongxin2").show();
 			
 		}
 		
@@ -198,8 +200,8 @@
 			var s3 = document.getElementById("sortList"); //获取第一个表格  
 	        for(var i=1;i<s3.rows.length;i++){//过滤表头  
 	        	t_i.push(new Object());
-	            t_i[i-1].timestamp = s3.rows[i].cells[0].innerHTML;
-	            t_i[i-1].intensity = s3.rows[i].cells[1].innerHTML;
+	            t_i[i-1].timestamp = s3.rows[i].cells[0].childNodes[0].value;
+	            t_i[i-1].intensity = s3.rows[i].cells[1].childNodes[0].value;
 	        	}
 			temp.t_i = t_i;
 			var json = JSON.stringify(temp);
@@ -221,9 +223,10 @@
 			{
 				obj.options.add(new Option(i,i));
 			}
-			for(var j=0;j<${pd.t_i}.length;j++){
-				autoAdd(${pd.t_i}[j].timestamp,${pd.t_i}[j].intensity);
-			}
+			var t_i = ${pd.t_i};
+			for(var j=0;j<t_i.length;j++){
+			    autoAdd(t_i[j].timestamp,t_i[j].intensity);
+		    }
 		});
             
 			//清除空格
@@ -231,28 +234,90 @@
 		     return this.replace(/(^\s*)|(\s*$)/g,'');
 		};
 		
+		function timestampInput(timestamp){
+			var timestampNode = document.createElement("input");
+			timestampNode.setAttribute("type", "text");
+			timestampNode.setAttribute("class", "span10 time-picker");
+			timestampNode.setAttribute("name", "TIMESTAMP");
+			timestampNode.setAttribute("id", "timestamp");
+			timestampNode.setAttribute("maxlength", "100");
+			timestampNode.setAttribute("title", "时间");
+			timestampNode.setAttribute("style", "text-align: center;width:98%;");
+			timestampNode.setAttribute("placeholder", "例：20:00(24小时制)");
+			//timestampNode.setAttribute("onchange", "checkTimestamp(this)");
+			timestampNode.value = timestamp;
+			return timestampNode;
+		}
+		
+		/* function checkTimestamp(obj){
+			 var s3 = document.getElementById("sortList"); //获取第一个表格 
+			 for(var i=1;i<s3.rows.length;i++){//过滤表头  
+	        	if(s3.rows[i].cells[0].childNodes[0].value == obj.value && s3.rows[i].cells[0].childNodes[0] != obj){
+	        			$(obj).tips({
+	    					side:3,
+	    		            msg:'时间重复！',
+	    		            bg:'#AE81FF',
+	    		            time:0.5
+	    		        });
+	        			//$(obj).focus();
+	    				return false;
+	        	} 
+	        } 
+		} */
+		
+		function intensitySelect(index){
+			var intensityNode = document.createElement("select");
+			intensityNode.setAttribute("id","intensity"); 
+			var option1 = document.createElement('option');
+			option1.text="请选择亮度";
+			option1.value="";
+			intensityNode.add(option1,null);
+			for (var i=1;i<101;i++)
+			{
+				var optionNumber = document.createElement('option');
+				optionNumber.text=i;
+				optionNumber.value=i;
+				intensityNode.add(optionNumber,null);
+			}
+			intensityNode.selectedIndex = index;
+			return intensityNode;
+		}
+		
 		function autoAdd(timestamp,intensity){
 	        var s3 = document.getElementById("sortList"); //获取第一个表格  
             var row = document.createElement("tr");
             var cell1 = document.createElement("td");
             cell1.setAttribute("style","text-align: center"); 
-            var timestampNode = document.createTextNode(timestamp);
+            var timestampNode = timestampInput(timestamp);
             cell1.appendChild(timestampNode);
             row.appendChild(cell1);
 			var cell2 = document.createElement("td");
 			cell2.setAttribute("style","text-align: center"); 
-			var intensityNode = document.createTextNode(intensity);
+			var intensityNode = intensitySelect(intensity);
 		    cell2.appendChild(intensityNode);
 			row.appendChild(cell2);
+			/* var editButton = document.createElement("a");
+            editButton.setAttribute("class","btn btn-mini btn-purple"); 
+            editButton.innerHTML = '修改';
+            editButton.onclick = function(){editSort(this);}; */
             var deleteButton = document.createElement("a");
             deleteButton.setAttribute("class","btn btn-warning btn-mini"); 
             deleteButton.innerHTML = '删除';
-            deleteButton.onclick = function (){deleteSort(this);};
+            deleteButton.onclick = function(){deleteSort(this);};
+            var div1 = document.createElement("div");
+            div1.setAttribute("class","btn-group");
+            /* div1.appendChild(editButton); */
+            div1.appendChild(deleteButton);
             var cell3 = document.createElement("td");
-            cell3.setAttribute("style","text-align: center"); 
-            cell3.appendChild(deleteButton);
+            cell3.setAttribute("style","text-align: center");
+            cell3.appendChild(div1);
             row.appendChild(cell3);
             document.getElementById("sortList").appendChild(row);
+            $('.time-picker').timepicker({
+			    minuteStep: 1,
+			    showMeridian: false,//am,pm
+			    defaultTime: false
+			});
 		}
 		
 		function addSort(){
@@ -276,8 +341,8 @@
 				$("#intensity").focus();
 				return false;
 			}
-            var timestampInput = document.getElementById('timestamp');
-			var intensityInput = document.getElementById('intensity');
+            var timestamp = document.getElementById('timestamp');
+			var intensity = document.getElementById('intensity');
 			//遍历表格   
 	        var s3 = document.getElementById("sortList"); //获取第一个表格  
 	        if(s3.rows.length >= 13){
@@ -291,45 +356,107 @@
 				return false;
 	        }
 	        for(var i=1;i<s3.rows.length;i++){//过滤表头  
-	        	if(s3.rows[i].cells[0].innerHTML == timestampInput.value){
-	    				$("#timestamp").tips({
-	    					side:3,
+	        	if(s3.rows[i].cells[0].childNodes[0].value == timestamp.value){
+	    				 $("#timestamp").tips({
+	    					side:2,
 	    		            msg:'时间重复！',
 	    		            bg:'#AE81FF',
 	    		            time:2
-	    		        });
+	    		        }); 
 	    				$("#timestamp").focus();
 	    				return false;
 	        	} 
-	        }    
+	        }  
             var row = document.createElement("tr");
             var cell1 = document.createElement("td");
             cell1.setAttribute("style","text-align: center"); 
-            var timestampNode = document.createTextNode(timestampInput.value);
+            var timestampNode = timestampInput(timestamp.value);
             cell1.appendChild(timestampNode);
             row.appendChild(cell1);
 			var cell2 = document.createElement("td");
 			cell2.setAttribute("style","text-align: center"); 
-			var intensityNode = document.createTextNode(intensityInput.value);
+			var intensityNode = intensitySelect(intensity.value);
 		    cell2.appendChild(intensityNode);
 			row.appendChild(cell2);
+			/* var editButton = document.createElement("a");
+            editButton.setAttribute("class","btn btn-mini btn-purple"); 
+            editButton.innerHTML = '修改';
+            editButton.onclick = function(){editSort(this);}; */
             var deleteButton = document.createElement("a");
             deleteButton.setAttribute("class","btn btn-warning btn-mini"); 
             deleteButton.innerHTML = '删除';
             deleteButton.onclick = function (){deleteSort(this);};
+            var div1 = document.createElement("div");
+            div1.setAttribute("class","btn-group");
+            /* div1.appendChild(editButton); */
+            div1.appendChild(deleteButton);
             var cell3 = document.createElement("td");
             cell3.setAttribute("style","text-align: center"); 
-            cell3.appendChild(deleteButton);
+            cell3.appendChild(div1);
             row.appendChild(cell3);
             document.getElementById("sortList").appendChild(row);
-            timestampInput.value = "";
-			intensityInput.value = "";
+            timestamp.value = "";
+			intensity.value = "";
+			$('.time-picker').timepicker({
+			    minuteStep: 1,
+			    showMeridian: false,//am,pm
+			    defaultTime: false
+			});
 		}
   function deleteSort(node){
-      var rowToDelete = node.parentNode.parentNode;
+      var rowToDelete = node.parentNode.parentNode.parentNode;
       var sortList = document.getElementById("sortList");
       sortList.removeChild(rowToDelete);
   }
+  
+  function checkAll(){
+	    var flag = new Boolean(true);
+	    var s3 = document.getElementById("sortList"); //获取第一个表格 
+		for(var i=1;i<s3.rows.length;i++){//过滤表头  
+			if(s3.rows[i].cells[0].childNodes[0].value == ""){
+				$(s3.rows[i].cells[0].childNodes[0]).tips({
+ 					side:2,
+ 		            msg:'时间为空！',
+ 		            bg:'#AE81FF',
+ 		            time:2
+ 		        });
+				flag = false;
+			}
+			if(s3.rows[i].cells[1].childNodes[0].value == ""){
+				$(s3.rows[i].cells[1].childNodes[0]).tips({
+ 					side:3,
+ 		            msg:'亮度为空！',
+ 		            bg:'#AE81FF',
+ 		            time:2
+ 		        });
+				flag = false;
+			}
+			for(var j = 1; j < s3.rows.length; j++){
+				if(s3.rows[j].cells[0].childNodes[0].value == s3.rows[i].cells[0].childNodes[0].value && i != j){
+	     			$(s3.rows[i].cells[0].childNodes[0]).tips({
+	 					side:2,
+	 		            msg:'时间重复！',
+	 		            bg:'#AE81FF',
+	 		            time:2
+	 		        });
+	     			$(s3.rows[j].cells[0].childNodes[0]).tips({
+	 					side:2,
+	 		            msg:'时间重复！',
+	 		            bg:'#AE81FF',
+	 		            time:2
+	 		        });
+	     			flag = false;
+	     			//$(obj).focus();
+	     	} 
+		}
+     }
+	    return flag;
+  }
+  /* function editSort(node){
+      var rowToDelete = node.parentNode.parentNode.parentNode;
+      var sortList = document.getElementById("sortList");
+      sortList.removeChild(rowToDelete);
+  } */
   
 		</script>
 </body>

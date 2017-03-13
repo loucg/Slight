@@ -44,7 +44,7 @@ function init() {
 											searchdata = data;// //全局变量，很重要/////////////////////////////////////
 											Conframe.window.changePreMakerdata(data);
 
-											$("#search").remove();
+											$("#search").parent().parent().remove();
 											gpsTObbdSearch(data);
 											/*var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id=\"search\"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"
 													+ "搜索所得终端"
@@ -82,9 +82,9 @@ function init() {
 					});
 	$("#reset").click(function() {
 		$("#groupname").val("");
-		$("#terminaltype").val("");
-		$("#address").val("");
-		$("#terminalname").val("");
-		$("#terminalid").val("");
+		$("#terminaltype").empty();$("#terminaltype").append("<option  value=\"\"> </option>");
+		$("#address").empty();$("#address").append("<option  value=\"\"> </option>");
+		$("#terminalname").empty();$("#terminalname").append("<option  value=\"\"> </option>");
+		$("#terminalid").append("<option  value=\"\"> </option>");
 	});
 }

@@ -125,6 +125,8 @@ public class StrategyController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<Object> t_i = new ArrayList<Object>();
+		pd.put("t_i", t_i);
 		mv.setViewName("strategy/strategy_edit");
 		mv.addObject("msg", "saveS");
 		mv.addObject("pd", pd);
@@ -151,8 +153,8 @@ public class StrategyController extends BaseController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String TDATE = df.format(new Date());
 		pd.put("TDATE", TDATE);				//创建时间
+		//System.out.println(pd);
 		strategyService.addStrategy(pd);
-		
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -180,6 +182,7 @@ public class StrategyController extends BaseController {
 			}	
 		}
 		pd.put("t_i", t_i);
+		System.out.println(pd);
 		mv.setViewName("strategy/strategy_edit");
 		mv.addObject("msg", "editS");
 		mv.addObject("pd", pd);
