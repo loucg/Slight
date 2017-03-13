@@ -33,4 +33,12 @@ public class FaultServiceImpl implements FaultService {
 		return (List<PageData>)dao.findForList("FaultMapper.lampfaultlistPage", page);
 	}
 
+	/**
+	 * 列表
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> listVoFault(Page page) throws Exception {
+		return (List<PageData>)dao.findForList("FaultMapper.vofaultlistPage", page);
+	}
+
 }

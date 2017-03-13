@@ -40,7 +40,7 @@
   </style>
   <script>
   		//window.setTimeout(showfh,3000); 
-  		var timer;
+	var timer;
 		function showfh(){
 			fhi = 1;
 			//关闭提示晃动屏幕，注释掉这句话即可
@@ -66,29 +66,28 @@
 			current ++;
 			if(current2 == 1){current2 = -1;}else{current2 = 1;}
 			fhi++;
-		};
+		}; 
 	</script>
 </head>
 <body>
 
-	<c:if test="${pd.isMusic == 'yes' }">
+<%-- 	<c:if test="${pd.isMusic == 'yes' }">
 	<div style="display: none">
 	    <audio src="static/login/music/fh1.mp3" autoplay=""></audio>
 	</div>	
-	</c:if>
+	</c:if> --%>
 	<canvas class="cavs"></canvas>
 	<div style="width:100%;text-align: center;margin: 0 auto;position: absolute;">
 		<!-- 登录 -->
 		<div id="windows1">
-		<div id="loginbox" >
+		<div id="loginbox" style="margin-top:280px;margin-left:300px;">
 			<form action="" method="post" name="loginForm" id="loginForm">
-				<div class="control-group normal_text">
+				<!-- <div class="control-group normal_text">
 					<h3>
-						捷步路灯管理系统
-						<!-- <img src="static/login/logo.png" alt="Logo" /> -->
+						<img src="static/login/logo.png" alt="Logo" />
 					</h3>
-				</div>
-				<div class="control-group">
+				</div> -->
+				<div class="control-group" >
 					<div class="controls">
 						<div class="main_input_box">
 							<span class="add-on bg_lg">
@@ -135,22 +134,22 @@
 					</div>
 				</div>
 			</form>
-			<div class="controls">
+			<!-- <div class="controls">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr"></span></font>
+					<font color="white"><span id="nameerr">Copyright © FHqq313596790 2100</span></font>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		</div>
 		<!-- 注册 -->
 		<div id="windows2" style="display: none;">
 		<div id="loginbox">
 			<form action="" method="post" name="loginForm" id="loginForm">
-				<div class="control-group normal_text">
+				<!-- <div class="control-group normal_text">
 					<h3>
 						<img src="static/login/logo.png" alt="Logo" />
 					</h3>
-				</div>
+				</div> -->
 				<div class="control-group">
 					<div class="controls">
 						<div class="main_input_box">
@@ -214,36 +213,19 @@
 					</div>
 				</div>
 			</form>
-			<div class="controls">
+			<!-- <div class="controls">
 				<div class="main_input_box">
 					<font color="white"><span id="nameerr">Copyright © FHqq313596790 2100</span></font>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		</div>
 		
 	</div>
-	<div id="templatemo_banner_slide" class="container_wapper">
-		<div class="camera_wrap camera_emboss" id="camera_slide">
-			<!-- 背景图片 -->
-			<c:choose>
-				<c:when test="${not empty pd.listImg}">
-					<c:forEach items="${pd.listImg}" var="var" varStatus="vs">
-						<div data-src="static/login/images/${var.FILEPATH }"></div>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<div data-src="static/login/images/banner_slide_01.jpg"></div>
-					<div data-src="static/login/images/banner_slide_02.jpg"></div>
-					<div data-src="static/login/images/banner_slide_03.jpg"></div>
-					<div data-src="static/login/images/banner_slide_04.jpg"></div>
-					<div data-src="static/login/images/banner_slide_05.jpg"></div>
-				</c:otherwise>
-			</c:choose>
-		</div>
-		<!-- #camera_wrap_3 -->
-	</div>
-
+ 
+<div style="margin-top:2px,margin-bottom:2px">
+<img src="static/login/images/login.jpg" />
+</div>
 	<script type="text/javascript">
 		//服务器校验
 		function severCheck(){

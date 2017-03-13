@@ -17,15 +17,83 @@
 <%@ include file="../index/top.jsp"%>
 <!-- 百度echarts -->
 <script src="plugins/echarts/echarts.min.js"></script>
-</head>
-<body class="no-skin">
 
-	<!-- /section:basics/navbar.layout -->
-	<div class="main-container" id="main-container">
+<style type="text/css"> /** 重置浏览器默认标签样式 */ 
+
+body,ul,li{	margin:0;
+			padding:0;
+			}
+.xttblog{   width: 800px;
+			padding-top:140px; 
+			margin-left: 140px;
+ 			 
+ 			 }
+.box{		margin-left: 5px;
+			margin-top: 5px;
+			margin-bottom:10px;
+			list-style-type:none;
+			}
+.box:after{ content: ".";
+ 			display: block;
+  			line-height: 10;
+   			width:0;
+    		height: 0;
+     		clear: both;
+      		visibility: hidden;
+       		overflow: hidden;
+       		 }
+.box li{	float:left;
+			line-height: 20px;
+			}
+.box li a,.box li a:visited{ 
+			display:block;
+			border: 0px solid #ccc; 
+			width: 180px;
+			/* height: 230px; */ 
+			text-align: center;
+			margin-left: -5px; 
+			margin-top: -5px;
+			position: relative;
+			z-index: 1; 
+			}
+.box li a:hover{
+			border-color: #f00;
+			z-index: 2;
+			} 
+</style>
+</head>
+<body >
+ 
+<!-- <div style="margin-top:2px">
+<img src="static/login/images/main.jpg" />
+</div> -->
+ 	<!-- /section:basics/navbar.layout -->
+	<div class="main-container" id="main-container" style="background:url('static/login/images/bg1.jpg') no-repeat;width:100%;height:566px;margin-top:5px;background-size:cover;margin-right:5px">	
+	     <div class="xttblog"> 		
+			<ul class="box">
+			<li><a onclick="edit(3,'日志管理','fhlog/list.do');"><img src="static/login/images/czrz.jpg"/></a></li> 
+			<li><a onclick="edit(314,'管理','strategy/listStrategys.do');"><img src="static/login/images/clkz.jpg"/></a></li>
+			<li><a onclick="edit(347,'地图控制','gomap/content.do');"><img src="static/login/images/dtkz.jpg"/></a></li>
+			<li><a onclick="edit(371,'故障统计','analysis/faultlist');"><img src="static/login/images/gzbj.jpg"/></a></li>
+			
+			</ul>
+			 <ul class="box">
+			<li><a onclick="edit(67,'基础配置','config/goCombination');"><img src="static/login/images/jcpz.jpg"/></a></li>
+			<li><a onclick="edit(336,'分组策略','status/strategy/getGroupList');"><img src="static/login/images/ldfz.jpg"/></a></li>
+			<li><a onclick="edit(368,'数据分析','');"><img src="static/login/images/sjfx.jpg"/></a></li>
+			<li><a onclick="edit(344,'维修记录','repair/weixiu');"><img src="static/login/images/wxjl.jpg"/></a></li> 
+			</ul>
+			</div> 
+			
+			<div style="margin-left:846px;margin-top:-353px"> 
+			 <ul>
+			<a onclick="edit(338,'路灯状态','state/lamp/listLamps.do');"><img src="static/login/images/ldfx.jpg"/></a>
+			</ul>
+		 </div>
 		<!-- /section:basics/sidebar -->
-		<div class="main-content">
-			<div class="main-content-inner">
-				<div class="page-content">
+		<!-- <div class="main-content">
+			<div class="main-content-inner"> -->
+				<!-- <div class="page-content">
 					<div class="hr hr-18 dotted hr-double"></div>
 					<div class="row">
 						<div class="col-xs-12">
@@ -35,11 +103,16 @@
 									<i class="ace-icon fa fa-times"></i>
 								</button>
 								<i class="ace-icon fa fa-check green"></i>
-								欢迎使用捷布路灯控制系统&nbsp;&nbsp;
+								欢迎使用 FH Admin 系统&nbsp;&nbsp;
+								<strong class="green">
+									&nbsp;QQ:313596790
+									<a href="http://www.fhadmin.org" target="_blank"><small>(&nbsp;www.fhadmin.org&nbsp;)</small></a>
+								</strong>
 							</div>
 							
 							
 							<div id="main" style="width: 600px;height:300px;"></div>
+							
 							<script type="text/javascript">
 						        // 基于准备好的dom，初始化echarts实例
 						        var myChart = echarts.init(document.getElementById('main'));
@@ -47,7 +120,7 @@
 						        // 指定图表的配置项和数据
 								var option = {
 						            title: {
-						                text: '捷布路灯系统用户统计'
+						                text: 'FH Admin用户统计'
 						            },
 						            tooltip: {},
 						            xAxis: {
@@ -77,21 +150,20 @@
 						    </script>
 							
 						</div>
-						<!-- /.col -->
+						/.col
 					</div>
-					<!-- /.row -->
+					/.row
 				</div>
+			  -->
 				<!-- /.page-content -->
-			</div>
+		<!-- 	</div>
 		</div>
+		 -->
 		<!-- /.main-content -->
 
 
-		<!-- 返回顶部 -->
-		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-		</a>
-
+		
+    
 	</div>
 	<!-- /.main-container -->
 
@@ -103,7 +175,13 @@
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
 		$(top.hangge());
+		
+		//修改
+		function edit(id, name, url){
+			top.mainFrame.tabAddHandler(id,name,url);
+		}
 	</script>
-<script type="text/javascript" src="static/ace/js/jquery.js"></script>
+<script type="text/javascript" src="static/ace/js/jquery.js"></script>  
+ 
 </body>
 </html>

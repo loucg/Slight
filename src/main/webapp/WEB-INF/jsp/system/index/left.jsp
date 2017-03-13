@@ -6,9 +6,9 @@
 					
 					<div id="sidebar-shortcuts-large">
 						
-						<button class="btn btn-info" onclick="changeMenus();" title="切换菜单">
+						<!-- <button class="btn btn-info" onclick="changeMenus();" title="切换菜单">
 							<i class="ace-icon fa fa-pencil"></i>
-						</button>
+						</button> -->
 						
 						<!-- <button class="btn btn-success" title="UI实例" onclick="window.open('static/html_UI/html');">
 							<i class="ace-icon fa fa-signal"></i>
@@ -124,7 +124,11 @@
 				<!-- /section:basics/sidebar.layout.minimize -->
 				<script type="text/javascript">
 					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-					
+					window.onload=function(){
+						if(document.getElementById("lm335")==null){
+							changeMenus();
+						}
+					}
 					function openFrame(){
 						top.mainFrame.tabAddHandler(335,"路灯状态","status/main/getMainData");
 					}

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseController;
-import com.fh.hzy.util.Strategy;
+import com.fh.entity.system.Strategy;
 import com.fh.hzy.util.UserUtils;
 import com.fh.service.slight.status.StatusMainService;
 import com.fh.util.PageData;

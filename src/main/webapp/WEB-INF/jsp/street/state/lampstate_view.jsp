@@ -34,7 +34,7 @@
 								<td style="width:75px;text-align: right;padding-top: 13px;">组名:</td>
 								<td><input type="text" name="" id="" value="${pd.term_name}" maxlength="50" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">终端编号:</td>
-								<td><input type="te""name="" id="" value="${pd.client_code}" maxlength="50" style="width:98%;"/></td>
+								<td><input type="text""name="" id="" value="${pd.client_code}" maxlength="50" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">终端名称:</td>
 								<td><input type="text" name="" id="" value="${pd.name}" maxlength="50" style="width:98%;"/></td>
 							</tr>

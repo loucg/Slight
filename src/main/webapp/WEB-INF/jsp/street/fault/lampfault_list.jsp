@@ -39,7 +39,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="tname" value="${lampfault.tname }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="tname" value="${pd.tname }"/>
 										</span>
 									</div>
 								</td>
@@ -47,7 +47,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="cname" value="${lampfault.cname }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="cname" value="${pd.cname }"/>
 										</span>
 									</div>
 								</td>
@@ -55,7 +55,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="ccode" value="${lampfault.ccode }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="ccode" value="${pd.ccode }"/>
 										</span>
 									</div>
 								</td>
@@ -63,7 +63,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="location" value="${lampfault.location }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="location" value="${pd.location }"/>
 										</span>
 									</div>
 								</td>
@@ -72,11 +72,12 @@
 								 	<select class="chosen-select form-control" name="lstatus" id="lstatus" data-placeholder=" " style="vertical-align:top;width: 130px;">
 									<option value=""></option>
 									<option value="">全部</option>
-									<option value="2" <c:if test="${lampfault.lstatus == '2' }">selected</c:if> >过压</option>
-									<option value="3" <c:if test="${lampfault.lstatus == '3' }">selected</c:if> >过温</option>
-									<option value="4" <c:if test="${lampfault.lstatus == '4' }">selected</c:if> >开路</option>
-									<option value="5" <c:if test="${lampfault.lstatus == '5' }">selected</c:if> >短路</option>
-									<option value="6" <c:if test="${lampfault.lstatus == '6' }">selected</c:if> >异常</option>
+									<option value="2" <c:if test="${pd.lstatus == '2' }">selected</c:if> >过压</option>
+									<option value="3" <c:if test="${pd.lstatus == '3' }">selected</c:if> >过温</option>
+									<option value="4" <c:if test="${pd.lstatus == '4' }">selected</c:if> >开路</option>
+									<option value="5" <c:if test="${pd.lstatus == '5' }">selected</c:if> >短路</option>
+									<option value="6" <c:if test="${pd.lstatus == '6' }">selected</c:if> >异常</option>
+									<option value="8" <c:if test="${pd.lstatus == '8' }">selected</c:if> >欠压</option>
 									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">

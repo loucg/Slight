@@ -37,5 +37,29 @@ public interface LampStateService {
 	 */
 	PageData viewLampDetail(PageData pd)throws Exception;
 
+	/**
+	 * 调节等的亮度
+	 * @param pd
+	 * @throws Exception
+	 */
+	void adjustBrt(PageData pd)throws Exception;
+
+	/**
+	 * 获取策略列表
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	List<PageData> getStrategy(Page page) throws Exception;
+
+	/**
+	 * 更新组对应得策略
+	 * @param pd
+	 * @throws Exception
+	 */
+	void upTermStrid(PageData pd)throws Exception;
+
+	
+
 
 }

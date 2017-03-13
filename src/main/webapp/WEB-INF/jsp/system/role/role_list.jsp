@@ -51,7 +51,7 @@
 								</tr>
 							</table>
 							
-							<%-- <table>
+							<table>
 								<tr height="7px;"><td colspan="100"></td></tr>
 								<tr>
 								<td><font color="#808080">本组：</font></td>
@@ -83,7 +83,7 @@
 									</c:choose>
 								</td>
 								</tr>
-							</table> --%>
+							</table>
 							
 							<table id="dynamic-table" class="table table-striped table-bordered table-hover" style="margin-top:7px;">
 								<thead>

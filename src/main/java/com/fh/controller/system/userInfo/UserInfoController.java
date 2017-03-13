@@ -29,7 +29,10 @@ import com.fh.entity.system.Department;
 import com.fh.entity.system.Language;
 import com.fh.entity.system.Role;
 import com.fh.entity.system.User;
+import com.fh.hzy.util.InternationalUtils;
+import com.fh.hzy.util.UserUtils;
 import com.fh.service.fhoa.department.DepartmentManager;
+import com.fh.service.slight.language.InternationalService;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.language.LanguageManager;
 import com.fh.service.system.menu.MenuManager;
@@ -66,6 +69,8 @@ public class UserInfoController extends BaseController {
 	private FHlogManager FHLOG;
 	@Resource(name="languageService")
 	private LanguageManager languageService;
+	@Resource(name="internationalService")
+	private InternationalService internationalService;
 	
 	/**显示用户信息
 	 * @param page
@@ -137,6 +142,10 @@ public class UserInfoController extends BaseController {
 			pd.put("NEWPASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("NEWPASSWORD")).toString());//密码加密
 		}
 		userService.editUserInfo(pd);	//执行修改
+		
+		pd.put("userid",UserUtils.getUserid());
+		String language = InternationalUtils.getLanguage(internationalService, pd);
+		Jurisdiction.getSession().setAttribute(Const.SESSION_LANGUAGE, language);
 		FHLOG.save(Jurisdiction.getUsername(), "修改用户信息："+pd.getString("USERNAME"));
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RepairMapper">
+
+<!-- 终端维修记录查询 -->
+	<select id="getWeixiulistPage" parameterType="page" resultType="pd">
+		SELECT  a.id AS id,
+				a.type,
+				a.tdate AS startime,
+				a.comment,
+				b.register,
+				b.repairman,
+				b.tdate,
+				b.result,
+				b.explain,
+				c.name,
+				c.location,
+				c.lamp_pole_num AS polenumber,
+				d.client_code AS code,				 
+				g.name AS cname
+		FROM b_client_fault AS a
+			LEFT JOIN b_client_repair AS b ON a.id = b.b_client_fault_id
+			LEFT JOIN c_client_attr1 AS c ON a.c_client_id = c.c_client_id
+			LEFT JOIN c_client AS d ON c.c_client_id = d.id 
+			LEFT JOIN c_client_term AS f ON a.c_client_id = f.c_client_id
+			LEFT JOIN c_term AS g ON f.c_term_id = g.id
+		 
+		WHERE 1=1
+		<if test="pd.name!=null and pd.name!=''">
+			AND c.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
+		</if>
+		<if test="pd.location!=null and pd.location!=''">
+			AND c.location LIKE CONCAT(CONCAT('%', #{pd.location}), '%')
+		</if>
+		<if test="pd.code!=null and pd.code!=''">
+			AND d.client_code LIKE CONCAT(CONCAT('%', #{pd.code}), '%')
+		</if>
+		<if test="pd.cname!=null and pd.cname!=''">
+			AND g.name LIKE CONCAT(CONCAT('%', #{pd.cname}), '%')
+		</if>
+		
+		
+		 <if test="pd.Start!=null and pd.Start!=''">
+			AND a.tdate  &gt; #{pd.Start}
+		</if>
+		
+		<if test="pd.End!=null and pd.End!='' ">
+			AND a.tdate  &lt; #{pd.End}
+		</if>
+		
+	</select>
+
+<!-- 根据id获取终端维修记录 -->
+	<select id="getWeixiuById" resultType="pd">
+	SELECT a.id AS id,
+					    a.type,
+						a.tdate AS startime,
+						a.comment,
+						b.register,
+						b.repairman,
+						b.tdate,
+						b.result,
+						b.explain,
+						
+						c.name,
+						c.location,
+						c.lamp_pole_num AS polenumber,
+						d.client_code AS code,				 
+						g.name AS cname
+		FROM b_client_fault AS a
+			LEFT JOIN b_client_repair AS b ON a.id = b.b_client_fault_id
+			LEFT JOIN c_client_attr1 AS c ON a.c_client_id = c.c_client_id
+			LEFT JOIN c_client AS d ON c.c_client_id = d.id 
+			LEFT JOIN c_client_term AS f ON a.c_client_id = f.c_client_id
+			LEFT JOIN c_term AS g ON f.c_term_id = g.id
+		WHERE a.id = #{id ,jdbcType=INTEGER}
+	</select>
+	
+	
+		<!-- 终端维修记录修改 -->
+	<update id="editWeixiu" parameterType="pd">
+		UPDATE b_client_repair AS a
+		SET a.register         =#{register},
+			a.repairman        =#{repairman}, 
+			a.tdate            =#{tdate},
+			a.result           =#{result},
+			a.explain          =#{explain}
+		WHERE 
+			a.b_client_fault_id 		 =#{id}
+	</update>
+			<!-- 终端维修记录新增 -->
+	<insert id="createWeixiu" parameterType="pd">
+	insert into b_client_repair (
+		b_client_fault_id,
+		register,
+		repairman,
+		tdate,
+		result,
+		b_client_repair.`explain`
+		)
+	values
+		(
+		           #{id},
+		           #{register},
+			       #{repairman}, 
+			       #{tdate},
+			       #{result},
+			       #{explain}
+		 )
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+<!-- 网关维修记录查询 -->
+	<select id="getGatewaylistPage" parameterType="page" resultType="pd">
+		SELECT          a.id AS id,
+					    a.type,
+						a.tdate AS startime,
+						a.comment,
+						b.register,
+						b.repairman,
+						b.tdate,
+						b.result,
+						b.explain,
+						c.name,
+						c.location,
+						c.lamp_pole_num AS polenumber,
+						d.gateway_code AS code
+		FROM b_gateway_fault AS a
+			LEFT JOIN b_gateway_repair AS b ON a.id = b.b_gateway_fault_id
+			LEFT JOIN c_gateway_attr1 AS c ON a.c_gateway_id = c.c_gateway_id
+			LEFT JOIN c_gateway AS d ON c.c_gateway_id = d.id
+		WHERE 1=1
+		<if test="pd.name!=null and pd.name!=''">
+			AND c.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
+		</if>
+		<if test="pd.code!=null and pd.code!=''">
+			AND d.gateway_code LIKE CONCAT(CONCAT('%', #{pd.code}), '%')
+		</if>
+		<if test="pd.location!=null and pd.location!=''">
+			AND c.location LIKE CONCAT(CONCAT('%', #{pd.location}), '%')
+		</if>
+		 <if test="pd.Start!=null and pd.Start!=''">
+			AND a.tdate  &gt; #{pd.Start}
+		</if>
+		
+		<if test="pd.End!=null and pd.End!='' ">
+			AND a.tdate  &lt; #{pd.End}
+		</if>
+	</select>
+	
+<!-- 根据id获取网关维修记录 -->
+	<select id="getGatewayById" resultType="pd">
+	SELECT          a.id AS id,
+					    a.type,
+						a.tdate AS startime,
+						a.comment,
+						b.register,
+						b.repairman,
+						b.tdate,
+						b.result,
+						b.explain,
+						c.name,
+						c.location,
+						c.lamp_pole_num AS polenumber,
+						d.gateway_code AS code
+		FROM b_gateway_fault AS a
+			LEFT JOIN b_gateway_repair AS b ON a.id = b.b_gateway_fault_id
+			LEFT JOIN c_gateway_attr1 AS c ON a.c_gateway_id = c.c_gateway_id
+			LEFT JOIN c_gateway AS d ON c.c_gateway_id = d.id
+		WHERE a.id = #{id ,jdbcType=INTEGER}
+	</select>
+	
+	
+		<!-- 网关维修记录修改 -->
+	<update id="editGateway" parameterType="pd">
+		UPDATE b_gateway_repair AS a
+		SET a.register         =#{register},
+			a.repairman        =#{repairman}, 
+			a.tdate            =#{tdate},
+			a.result           =#{result},
+			a.explain          =#{explain}
+		WHERE 
+			a.b_gateway_fault_id 		 =#{id}
+	</update>
+	
+				<!-- 网关维修记录新增 -->
+	<insert id="createGateway" parameterType="pd">
+	insert into b_gateway_repair (
+		b_gateway_fault_id,
+		register,
+		repairman,
+		tdate,
+		result,
+		b_gateway_repair.`explain`
+		)
+	values
+		(
+		           #{id},
+		           #{register},
+			       #{repairman}, 
+			       #{tdate},
+			       #{result},
+			       #{explain}
+		 )
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 新增网关查询 -->
+	<select id="getNewnetlistPage" parameterType="page" resultType="pd">
+		SELECT  a.c_gateway_id AS id,
+					    a.name,
+						a.location,
+						a.comment,
+						a.staus AS status,
+						count(c.c_client_id) as number,
+						b.gateway_code AS code
+		FROM c_gateway_attr1 AS a
+			LEFT JOIN c_gateway AS b ON a.c_gateway_id = b.id
+			LEFT JOIN c_client_gateway AS c ON a.c_gateway_id = c.c_gateway_id
+		
+		 WHERE 1=1
+		<if test="pd.name!=null and pd.name!=''">
+			AND a.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
+		</if>
+		<if test="pd.code!=null and pd.code!=''">
+			AND b.gateway_code LIKE CONCAT(CONCAT('%', #{pd.code}), '%')
+		</if>
+		group by c.c_gateway_id	
+	</select>
+<!-- 根据id获取终端维修记录 -->
+	<select id="getNewnetById" resultType="pd">
+	SELECT  a.c_gateway_id AS id,
+					    a.name,
+						a.location,
+						a.comment,
+						a.staus AS status,
+						count(c.c_client_id) as number,
+						b.gateway_code AS code
+		FROM c_gateway_attr1 AS a
+			LEFT JOIN c_gateway AS b ON a.c_gateway_id = b.id
+			LEFT JOIN c_client_gateway AS c ON a.c_gateway_id = c.c_gateway_id
+		WHERE a.c_gateway_id = #{id ,jdbcType=INTEGER}
+	</select>
+	
+			<!-- 普通终端修改 -->
+	<update id="editNewnet" parameterType="pd">
+		UPDATE b_gateway_repair AS a
+		SET a.register         =#{register},
+			a.repairman        =#{repairman}, 
+			a.tdate            =#{tdate},
+			a.result           =#{result},
+			a.explain          =#{explain}
+		WHERE 
+			a.c_gateway_id 					=#{id}
+	</update>
+	
+ 		 
+	<insert id="createNewnet" parameterType="pd">
+		insert into c_gateway_attr1(
+			name,	
+			location,	
+			comment,	
+			staus,	
+			explain,	
+			c_client_id
+		) values (
+			#{register},	
+			#{repairman},	
+			#{tdate},	
+			#{result},	
+			#{explain},	
+			#{c_client_id}
+		)
+	</insert>  
+	<!-- end -->
+</mapper>

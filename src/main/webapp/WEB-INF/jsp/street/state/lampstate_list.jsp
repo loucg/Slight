@@ -39,7 +39,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="tname" value="${lampState.tname }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="tname" value="${pd.tname }"/>
 										</span>
 									</div>
 								</td>
@@ -47,7 +47,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="cname" value="${lampState.cname }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="cname" value="${pd.cname }"/>
 										</span>
 									</div>
 								</td>
@@ -55,7 +55,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="ccode" value="${lampState.ccode }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="ccode" value="${pd.ccode }"/>
 										</span>
 									</div>
 								</td>
@@ -63,22 +63,23 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="location" value="${lampState.location }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="location" value="${pd.location }"/>
 										</span>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;状态：</td>
 								<td style="vertical-align:top;padding-left:2px;"> 
 								 	<select class="chosen-select form-control" name="lstatus" id="lstatus" data-placeholder=" " style="vertical-align:top;width: 130px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="1" <c:if test="${lampState.lstatus == '1' }">selected</c:if> >正常</option>
-									<option value="2" <c:if test="${lampState.lstatus == '2' }">selected</c:if> >过压</option>
-									<option value="3" <c:if test="${lampState.lstatus == '3' }">selected</c:if> >过温</option>
-									<option value="4" <c:if test="${lampState.lstatus == '4' }">selected</c:if> >开路</option>
-									<option value="5" <c:if test="${lampState.lstatus == '5' }">selected</c:if> >短路</option>
-									<option value="6" <c:if test="${lampState.lstatus == '6' }">selected</c:if> >异常</option>
-									<option value="7" <c:if test="${lampState.lstatus == '7' }">selected</c:if> >断电</option>
+										<option value=""></option>
+										<option value="">全部</option>
+										<option value="正常" <c:if test="${pd.lstatus == '正常' }">selected</c:if> >正常</option>
+										<option value="过压" <c:if test="${pd.lstatus == '过压' }">selected</c:if> >过压</option>
+										<option value="过温" <c:if test="${pd.lstatus == '过温' }">selected</c:if> >过温</option>
+										<option value="开路" <c:if test="${pd.lstatus == '开路' }">selected</c:if> >开路</option>
+										<option value="短路" <c:if test="${pd.lstatus == '短路' }">selected</c:if> >短路</option>
+										<option value="异常" <c:if test="${pd.lstatus == '异常' }">selected</c:if> >异常</option>
+										<option value="断电" <c:if test="${pd.lstatus == '断电' }">selected</c:if> >断电</option>
+										<option value="欠压" <c:if test="${pd.lstatus == '欠压' }">selected</c:if> >欠压</option>
 									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -117,7 +118,7 @@
 									<c:forEach items="${lampStateList}" var="lampState" varStatus="vs">
 										<tr>
 											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.FHFILE_ID}" class="ace" /><span class="lbl"></span></label>
+												<label class="pos-rel"><input type='checkbox' name='ids' value="${lampState.id}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${lampState.tname}</td>
@@ -157,7 +158,7 @@
 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要开灯吗?');" title="开灯" >开灯</a>
 									</c:if>
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要开灯吗?');" title="关灯" >关灯</a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要关灯吗?');" title="关灯" >关灯</a>
 									</c:if>
 									<c:if test="${QX.edit == 1 }">
 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要调节亮度吗?');" title="亮度调节" >亮度调节</a>
@@ -268,17 +269,17 @@
 					for(var i=0;i < document.getElementsByName('ids').length;i++)
 					{
 						  if(document.getElementsByName('ids')[i].checked){
-						  	if(onlamp=='') onlamp += document.getElementsByName('ids')[i].id;
-						  	else onlamp += ';' + document.getElementsByName('ids')[i].id;
+						  	if(onlamp=='') onlamp += document.getElementsByName('ids')[i].value;
+						  	else onlamp += ';' + document.getElementsByName('ids')[i].value;
 						  	
-						  	if(offlamp=='') offlamp += document.getElementsByName('ids')[i].alt;
-						  	else offlamp += ';' + document.getElementsByName('ids')[i].alt;
+						  	if(offlamp=='') offlamp += document.getElementsByName('ids')[i].value;
+						  	else offlamp += ';' + document.getElementsByName('ids')[i].value;
 						  	
-						  	if(bright=='') bright += document.getElementsByName('ids')[i].title;
-						  	else bright += ';' + document.getElementsByName('ids')[i].title;
+						  	if(bright=='') bright += document.getElementsByName('ids')[i].value;
+						  	else bright += ';' + document.getElementsByName('ids')[i].value;
 						  	
 						  	if(str=='') str += document.getElementsByName('ids')[i].value;
-						  	else str += ',' + document.getElementsByName('ids')[i].value;
+						  	else str += ';' + document.getElementsByName('ids')[i].value;
 						  }
 					}
 					if(str==''){
@@ -301,7 +302,7 @@
 							$.ajax({
 								type: "POST",
 								url: '<%=basePath%>state/lamp/openLight.do',
-						    	data: {USER_IDS:onlamp},
+						    	data: {DATA_IDS:onlamp},
 								dataType:'json',
 								//beforeSend: validateData,
 								cache: false,
@@ -316,7 +317,7 @@
 							$.ajax({
 								type: "POST",
 								url: '<%=basePath%>state/lamp/offLight.do',
-						    	data: {USER_IDS:offlamp},
+						    	data: {DATA_IDS:offlamp},
 								dataType:'json',
 								//beforeSend: validateData,
 								cache: false,
@@ -329,7 +330,7 @@
 						}else if(msg == '确定要调节亮度吗?'){
 							adjustBrt(bright);
 						}else if(msg == '确定要调节策略吗?'){
-							adjudtStr(str);
+							adjustStr(str);
 						}
 					}
 				}
@@ -342,9 +343,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="亮度调节";
-			<%--  diag.URL = '<%=basePath%>state/lamp/goAdjustBrt.do?DATA_IDS='+ bright; --%>
+			 diag.URL = '<%=basePath%>state/lamp/goAdjustBrt.do?DATA_IDS='+ bright; 
 			 diag.Width = 469;
-			 diag.Height = 200;
+			 diag.Height = 150;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					nextPage(${page.currentPage});
@@ -355,14 +356,14 @@
 		}
 		
 		//去调节策略界面
-		function adjustStr(bright){
+		function adjustStr(str){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="计划调节亮度";
-			 <%-- diag.URL = '<%=basePath%>state/lamp/goAdjustStr.do?DATA_IDS='+ str; --%>
+			 diag.URL = '<%=basePath%>state/lamp/goAdjustStr.do?DATA_IDS='+ str;
 			 diag.Width = 469;
-			 diag.Height = 200;
+			 diag.Height = 300;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					nextPage(${page.currentPage});
@@ -380,7 +381,7 @@
 			 diag.Title ="详细信息";
 			 diag.URL = '<%=basePath%>state/lamp/goViewDetail.do?lamp_code='+lamp_code; 
 			 diag.Width = 800;
-			 diag.Height = 400;
+			 diag.Height = 320;
 			 diag.CancelEvent = function(){ //关闭事件
 				diag.close();
 			 };

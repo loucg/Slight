@@ -58,4 +58,10 @@ public class DateUtils {
 		c.add(Calendar.MONTH, +1);
 		return c.getTime();
 	}
+	
+	public static String toDateString(Date date){
+		
+		return format.format(date);
+		
+	}
 }

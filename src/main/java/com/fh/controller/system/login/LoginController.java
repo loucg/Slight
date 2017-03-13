@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.service.fhoa.datajur.DatajurManager;
+import com.fh.service.slight.language.InternationalService;
 import com.fh.service.system.appuser.AppuserManager;
 import com.fh.service.system.buttonrights.ButtonrightsManager;
 import com.fh.service.system.fhbutton.FhbuttonManager;
@@ -31,6 +32,7 @@ import com.fh.service.system.menu.MenuManager;
 import com.fh.entity.system.Menu;
 import com.fh.entity.system.Role;
 import com.fh.entity.system.User;
+import com.fh.hzy.util.InternationalUtils;
 import com.fh.service.system.role.RoleManager;
 import com.fh.service.system.user.UserManager;
 import com.fh.util.AppUtil;
@@ -70,6 +72,8 @@ public class LoginController extends BaseController {
 	private FHlogManager FHLOG;
 	@Resource(name="loginimgService")
 	private LogInImgManager loginimgService;
+	@Resource(name="internationalService")
+	private InternationalService internationalService;
 	
 	/**访问登录页
 	 * @return
@@ -126,9 +130,16 @@ public class LoginController extends BaseController {
 						user.setIP(pd.getString("IP"));
 						user.setSTATUS(pd.getString("STATUS"));
 						session.setAttribute(Const.SESSION_USER, user);			//把用户信息放session中
+						//获取语言
+						pd.put("userid", user.getUSER_ID());
+						String language = InternationalUtils.getLanguage(internationalService, pd);
+						session.setAttribute(Const.SESSION_LANGUAGE, language);
+						
 						session.removeAttribute(Const.SESSION_SECURITY_CODE);	//清除登录验证码的session
 						//shiro加入身份验证
 						Subject subject = SecurityUtils.getSubject(); 
+						
+						
 					    UsernamePasswordToken token = new UsernamePasswordToken(USERNAME, PASSWORD); 
 					    try { 
 					        subject.login(token); 

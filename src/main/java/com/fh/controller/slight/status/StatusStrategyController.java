@@ -1,7 +1,8 @@
 package com.fh.controller.slight.status;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -56,6 +57,7 @@ public class StatusStrategyController extends BaseController{
 			if(type==2)pd.put("endtime", DateUtils.getDefaultNextMonth());
 		}else{
 			pd.put("endtime", DateUtils.getDate(pd.getString("endtime")));
+			
 		}
 		List<PageData> tableList;
 		if(type==1){
@@ -64,11 +66,10 @@ public class StatusStrategyController extends BaseController{
 			tableList = statusStrategyService.getMonthGroupList(pd);
 		}
 		List<PageData> strategyList = statusStrategyService.getStrategyList(pd);
-		if(strategyList==null){
-			System.out.println("size为0");
+		
+		if(tableList.get(0)==null){
 			mv.addObject("groupList", null);
-		}
-		else{
+		}else{
 			List<List<PageData>> groupList = new ArrayList<List<PageData>>();
 			int table_number = tableList.size()/10+1;
 			List<PageData> temp = null; 
@@ -77,7 +78,6 @@ public class StatusStrategyController extends BaseController{
 				for(int j=0;j<10;j++){
 					try{
 						temp.add(tableList.get(j+10*i));
-						
 					}catch(Exception e){
 						temp.add(new PageData());
 					}
@@ -87,14 +87,24 @@ public class StatusStrategyController extends BaseController{
 			mv.addObject("groupList", groupList);
 		}
 		
+
+		for(int i=0;i<strategyList.size();i++){
+			Strategy strategy = JSON.parseObject(strategyList.get(i).getString("json"), Strategy.class);
+			Collections.sort(strategy.getT_i());
+			String json = JSON.toJSONString(strategy);
+			strategyList.get(i).put("json", json);
+		}
 		
 		mv.addObject("QX", Jurisdiction.getHC());
+		System.out.println(DateUtils.toDateString((Date)pd.get("starttime")));
+		System.out.println(DateUtils.toDateString((Date)pd.get("endtime")));
+		pd.put("starttime", DateUtils.toDateString((Date)pd.get("starttime")));
+		pd.put("endtime", DateUtils.toDateString((Date)pd.get("endtime")));
 		mv.addObject("pd", pd);
-		System.out.println(strategyList);
+		
 		mv.addObject("strategyList", strategyList);
 		mv.setViewName(strategyJsp);
 		return mv;
 	}
-	
 
 }

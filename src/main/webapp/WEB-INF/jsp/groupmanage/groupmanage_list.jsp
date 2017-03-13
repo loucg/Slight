@@ -39,7 +39,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${group.name }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${pd.name }"/>
 										</span>
 									</div>
 								</td>
@@ -47,7 +47,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="explain" value="${group.explain }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="explain" value="${pd.explain }"/>
 										</span>
 									</div>
 								</td>
@@ -66,7 +66,7 @@
 									<th class="center">简述</th>
 									<th class="center">状态</th>
 									<th class="center">成员数量</th>
-									<th class="center">操作</th>
+									<th class="center" style="width: 150px;">操作</th>
 								</tr>
 							</thead>
 													
@@ -83,7 +83,7 @@
 											<td class='center'>${group.STATUS}</td>
 											<td class='center'><a onclick="viewGroupMems('${group.id}')" style="cursor:pointer;">${group.number }</a></td>
 									   <%-- <td class='center'>${group.number}</td> --%>
-											<td class="center" style="width: 180px;">
+											<td class='center'>
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
@@ -104,7 +104,68 @@
 														踢删
 													</a>
 													</c:if>
-												</div>
+													
+													
+													<div class="inline pos-rel">
+														<button
+															class="btn btn-minier btn-blue dropdown-toggle"
+															data-toggle="dropdown" data-position="auto">
+															<i
+																class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+														</button>
+	
+														<ul class="dropdown-menu dropdown-only-icon dropdown-blue dropdown-menu-right dropdown-caret dropdown-close">
+															<c:if test="${QX.edit == 1 }">
+															<li><a class="tooltip-info" data-rel="tooltip" title="智能拆分组_奇偶" onclick="groupOddeven('${group.id}');">
+																<span class="black">智能拆分组_奇偶
+																	<!-- <i class="ace-icon glyphicon glyphicon-picture bigger-120" title="智能拆分组_奇偶"></i> -->
+																</span>
+															</a></li>
+															<li><a class="tooltip-success" data-rel="tooltip" title="智能拆分组_功率" onclick="groupPower('${group.id}');">
+																<span class="black">智能拆分组_功率
+																	<!-- <i class="ace-icon fa fa-pencil-square-o bigger-120" title="智能拆分组_功率"></i> -->
+																</span>
+															</a></li>
+															</c:if>
+														</ul>
+													</div>
+												
+													
+												</div> 
+												
+												<%-- <div class="hidden-md hidden-lg">
+													<div class="inline pos-rel">
+														<button
+															class="btn btn-minier btn-yellow dropdown-toggle"
+															data-toggle="dropdown" data-position="auto">
+															<i
+																class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+														</button>
+	
+														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+															<c:if test="${QX.edit == 1 }">
+															<li><a class="tooltip-info" data-rel="tooltip" title="编辑" onclick="editGroup('${group.id}');">
+																<span class="blue">
+																	<i class="ace-icon glyphicon glyphicon-picture bigger-120" title="编辑"></i>
+																</span>
+															</a></li>
+															<li><a class="tooltip-success" data-rel="tooltip" onclick="addCrew('${group.id}');">
+																<span class="green">
+																	<i class="ace-icon fa fa-pencil-square-o bigger-120" title="新增"></i>
+																</span>
+															</a></li>
+															</c:if>
+															<c:if test="${QX.del == 1 }">
+															<li><a class="tooltip-error" data-rel="tooltip" onclick="delCrew('${group.id}','${group.name}' );">
+																<span class="red"> <i class="ace-icon fa fa-trash-o bigger-120"  title="踢删"></i>
+																</span>
+															</a></li>
+															</c:if>
+														</ul>
+													</div>
+												</div>  --%>
+												
+												
 											</td>
 										</tr>
 									
@@ -288,7 +349,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="踢删组员";
-			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id+'&title='+'tishan';
+			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;
 			 diag.Modal = true;				//有无遮罩窗口
@@ -315,14 +376,58 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="组成员";
-			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id+'&title='+'chakan';
+			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;
+			 diag.Modal = true;				//有无遮罩窗口
+			 diag. ShowMaxButton = true;	//最大化按钮
+		     diag.ShowMinButton = true;		//最小化按钮
 			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 top.jzts();
+						 setTimeout("self.location=self.location",100);
+					 }else{
+						 nextPage(${page.currentPage});
+					 }
+				}
 				diag.close();
 			 };
 			 diag.show();
 		}
+		
+		
+		//智能拆分组-奇偶分组
+		function groupOddeven(id){
+			
+		}
+		
+		
+		
+		//智能拆分组-功率分组
+		function groupPower(id){
+			bootbox.confirm("确定要根据功率进行智能拆分组吗?", function(result) {
+				if(result) {
+					//top.jzts();
+					var url = '<%=basePath%>smartgroup/groupPower.do?id='+id;
+					$.get(url,function(data){
+						if(data){
+							nextPage(${page.currentPage});
+							console.info("----------");
+						}else{
+							
+							bootbox.confirm("此分组无法根据功率进行智能拆分组！！！", function(result2) {
+								nextPage(${page.currentPage});
+								console.info("haha");
+							});
+							
+						}
+					});
+				}
+			});
+		}
+		
+		
 		
 		
 	</script>

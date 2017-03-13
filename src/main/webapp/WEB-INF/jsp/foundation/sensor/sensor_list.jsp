@@ -64,7 +64,7 @@
 									<th class="center" style="width: 50px;">序号</th>
 									<th class="center">规格/名称</th>
 									<th class="center">厂家</th>
-								    <th class="center">类型（系统、自备）</th>
+								    <th class="center">类型</th>
 								    <th class="center">备注</th>
 									<th class="center">操作</th>
 								</tr>

@@ -37,15 +37,15 @@
 		LEFT JOIN <include refid="strategy"></include> AS b ON a.b_ctrl_strategy_id = b.id
 		LEFT JOIN <include refid="groupDayPowerTableName"></include> AS c ON a.id = c.c_term_id
 		WHERE a.sys_user_id = #{userid}
-		<!-- 	AND c.day &gt;= #{starttime}
-			AND c.day &lt;=#{endtime} -->
+			AND c.day &gt;=#{starttime}
+			AND c.day &lt;=#{endtime}
 		GROUP BY a.`name`
-	</select>
+	</select> 
 	
 	
 	<!-- 获取月分组策略信息-->
 	<select id="getMonthGroup" parameterType="pd" resultType="pd">
-		SELECT a.`name`, TRUNCATE(AVG(c.per)+0.005,2),c.power,b.`name` AS strategy 
+		SELECT a.`name`, TRUNCATE(AVG(c.per)+0.005,2) AS per,c.power,b.`name` AS strategy 
 		FROM <include refid="groupTableName"></include> AS a
 		LEFT JOIN <include refid="strategy"></include> AS b ON a.b_ctrl_strategy_id = b.id
 		LEFT JOIN <include refid="groupMonthPowerTablename"></include> AS c ON a.id = c.c_term_id
@@ -65,7 +65,8 @@
 		SELECT COUNT(a.id) AS strategy_number, c.group_number
 		FROM <include refid="strategy"></include> AS a
 		JOIN (SELECT COUNT(b.id) AS group_number
-		FROM <include refid="groupTableName"></include> AS b) AS c
+		FROM <include refid="groupTableName"></include> AS b
+		WHERE b.sys_user_id = #{userid}) AS c
 	</select>
 	<!-- 获得终端总数 -->
 	<select id="getClientTotal" parameterType="pd" resultType="pd">
@@ -122,6 +123,10 @@
 	<select id="getTodayPower" parameterType="pd" resultType="pd">
 		SELECT SUM(a.power) AS power
 		FROM b_term_power_daily_report AS a
+		LEFT JOIN c_term AS b ON a.c_term_id = b.id
 		WHERE a.`day` = CURDATE()
+			AND b.sys_user_id = #{userid}
 	</select>
+	
+
 </mapper>

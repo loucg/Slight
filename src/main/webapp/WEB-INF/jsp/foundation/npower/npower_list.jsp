@@ -3,12 +3,37 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp"%>  <!--国际化标签  -->
+<% 
+	//国际化，添加配置文件的值
+	String standard = properties.getProperty("standard");
+	String vendor = properties.getProperty("vendor");
+	String number = properties.getProperty("number");
+	String name = properties.getProperty("name");
+	String type = properties.getProperty("type");
+	String power = properties.getProperty("power");
+	String comment = properties.getProperty("comment");
+	String operate = properties.getProperty("operate");
+	String edit = properties.getProperty("edit");
+	String self = properties.getProperty("self");
+	String system = properties.getProperty("system");
+	String create = properties.getProperty("create");
+	String importt = properties.getProperty("import");
+	String export = properties.getProperty("export");
+	String search = properties.getProperty("search");
+	String no_permission = properties.getProperty("no_permission");
+	String you_have_no_permission = properties.getProperty("you_have_no_permission");
+	String no_relative_data = properties.getProperty("no_relative_data");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,11 +42,12 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../../system/index/top.jsp"%>
+<fmt:setLocale value="en_US"/>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
 <body class="no-skin">
-
+	
 	<!-- /section:basics/navbar.layout -->
 	<div class="main-container" id="main-container">
 		<!-- /section:basics/sidebar -->
@@ -36,7 +62,7 @@
 						<input type="hidden" id="excel" name="excel" value="0"/>
 						<table style="margin-top:5px;">
 							<tr>
-								<td>规格：</td>
+								<td><%=standard %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -44,7 +70,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;厂家：</td>
+								<td>&nbsp;&nbsp;<%=vendor %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -52,9 +78,9 @@
 										</span>
 									</div>
 								</td>
-								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td></c:if>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
-								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search %>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="<%=importt %>"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="<%=export %>"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								
 							</tr>
 						</table>
@@ -63,13 +89,13 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width:50px;">序号</th>
-									<th class="center">规格名称</th>
-									<th class="center">厂家</th>
-									<th class="center">类型</th>
-									<th class="center">功率</th>
-									<th class="center">备注</th>
-									<th class="center">操作</th>
+									<th class="center" style="width:50px;"><%=number %></th>
+									<th class="center"><%=standard %><%=name %></th>
+									<th class="center"><%=vendor %></th>
+									<th class="center"><%=type %></th>
+									<th class="center"><%=power %></th>
+									<th class="center"><%=comment %></th>
+									<th class="center"><%=operate %></th>
 								</tr>
 							</thead>
 													
@@ -85,18 +111,18 @@
 											<td class="center">${var.name}</td>
 											<td class="center">${ fn:substring(var.vendor ,0,50)}</td>											
 											<td style="width: 60px;" class="center">
-												<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in">系统</span></c:if>
-												<c:if test="${var.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
+												<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in"><%=system %></span></c:if>
+												<c:if test="${var.type == '2' }"><span class="label label-success arrowed"><%=self %></span></c:if>
 											</td>
 											<td class='center'>${var.power}</td>
 											<td class="center">${var.comment}</td>
 											<td class="center" style="width:50px;">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
-												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="<%=no_permission %>"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" onclick="edit('${var.id}');">编辑</a>
+													<a class="btn btn-xs btn-success" onclick="edit('${var.id}');"><%=edit %></a>
 													</c:if>
 												</div>
 											</td>
@@ -106,57 +132,16 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relative_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
-	<%-- 						<!-- 开始循环 -->	
-							<c:choose>
-								<c:when test="${not empty nPowerList}">
-									<c:if test="${QX.cha == 1 }">
-									<c:forEach items="${nPowerList}" var="npower" varStatus="vs">
-										<tr>
-											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${npower.name}</td>
-											<td class='center'>${npower.vendor}</td>
-											<td style="width: 60px;" class="center">
-												<c:if test="${npower.type == '1' }"><span class="label label-important arrowed-in">系统</span></c:if>
-												<c:if test="${npower.type == '2' }"><span class="label label-success arrowed">自备</span></c:if>
-											</td>
-											<td class='center'>${npower.power}</td>
-											<td class='center'>${npower.comment}</td>
-											<td class="center" style="width:50px;>
-												<c:if test="${QX.edit != 1 && QX.del != 1 }">
-												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
-												</c:if>
-												<div class="hidden-sm hidden-xs btn-group">
-													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" onclick="edit('${npower.id}');">编辑</a>
-													</c:if>
-												</div>
-											</td>
-										</tr>
-									
-									</c:forEach>
-									</c:if>
-									<c:if test="${QX.cha == 0 }">
-										<tr>
-											<td colspan="100" class="center">您无权查看</td>
-										</tr>
-									</c:if>
-								</c:when>
-								<c:otherwise>
-									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
-									</tr>
-								</c:otherwise>
-							</c:choose> --%>
 							</tbody>
 						</table>
 						<div class="page-header position-relative">
@@ -164,7 +149,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-success" onclick="add();">新增</a>
+									<a class="btn btn-mini btn-success" onclick="add();"><%=create %></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -246,7 +231,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="新增";
+			 diag.Title ="<%=create%>";
 			 diag.URL = '<%=basePath%>npower/goNPowerCreate';
 			 diag.Width = 460;
 			 diag.Height = 265;
@@ -272,7 +257,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="编辑";
+			 diag.Title ="<%=edit%>";
 			 diag.URL = '<%=basePath%>npower/goNPowerEdit?id='+id;
 			 diag.Width = 460;
 			 diag.Height = 265;

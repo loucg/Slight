@@ -40,7 +40,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="location" value="${groupmem.location }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="location" value="${pd.location }"/>
 										</span>
 									</div>
 								</td>
@@ -48,7 +48,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="clientname" value="${groupmem.clientname }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="clientname" value="${pd.clientname }"/>
 										</span>
 									</div>
 								</td>
@@ -56,7 +56,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="lamp_pole_num" value="${groupmem.lamp_pole_num }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="lamp_pole_num" value="${pd.lamp_pole_num }"/>
 										</span>
 									</div>
 								</td>
@@ -64,7 +64,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="client_code" value="${groupmem.client_code }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="client_code" value="${pd.client_code }"/>
 										</span>
 									</div>
 								</td>

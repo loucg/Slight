@@ -39,7 +39,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="gateway_code" value="${electricity.gateway_code }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="gateway_code" value="${pd.gateway_code }"/>
 										</span>
 									</div>
 								</td>
@@ -47,7 +47,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${electricity.name }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${pd.name }"/>
 										</span>
 									</div>
 								</td>

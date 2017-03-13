@@ -39,7 +39,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${gatewayState.name }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${pd.name }"/>
 										</span>
 									</div>
 								</td>
@@ -47,7 +47,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="gateway_code" value="${gatewayState.gateway_code }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="gateway_code" value="${pd.gateway_code }"/>
 										</span>
 									</div>
 								</td>
@@ -55,18 +55,23 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="location" value="${gatewayState.location }"/>
+											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="location" value="${pd.location }"/>
 										</span>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;状态：</td>
 								<td style="vertical-align:top;padding-left:2px;"> 
 								 	<select class="chosen-select form-control" name="status" id="status" data-placeholder=" " style="vertical-align:top;width: 130px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="1" <c:if test="${gatewayState.status == '1' }">selected</c:if> >正常</option>
-									<option value="2" <c:if test="${gatewayState.status == '2' }">selected</c:if> >异常</option>
-									<option value="3" <c:if test="${gatewayState.status == '3' }">selected</c:if> >断电</option>
+										<option value=""></option>
+										<option value="">全部</option>
+										<option value="正常" <c:if test="${pd.status == '正常' }">selected</c:if> >正常</option>
+										<option value="过压" <c:if test="${pd.status == '过压' }">selected</c:if> >过压</option>
+										<option value="过温" <c:if test="${pd.status == '过温' }">selected</c:if> >过温</option>
+										<option value="开路" <c:if test="${pd.status == '开路' }">selected</c:if> >开路</option>
+										<option value="短路" <c:if test="${pd.status == '短路' }">selected</c:if> >短路</option>
+										<option value="异常" <c:if test="${pd.status == '异常' }">selected</c:if> >异常</option>
+										<option value="断电" <c:if test="${pd.status == '断电' }">selected</c:if> >断电</option>
+										<option value="欠压" <c:if test="${pd.status == '欠压' }">selected</c:if> >欠压</option>
 									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">

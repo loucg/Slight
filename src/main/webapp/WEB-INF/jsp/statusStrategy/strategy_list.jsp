@@ -8,7 +8,6 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
-	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,23 +26,15 @@
 <script async src="static/datepicker/assets/themer.js"></script>
 <script async id="locale_script"></script>
 <script async src="static/datepicker/assets/localizr.js"></script>
-<script async>
-	
-function fp_ready(){
-	document.getElementById("starttime").flatpickr();
-	document.getElementById("endtime").flatpickr();
-	top.hangge()
-}
-</script>
 
+<script src="static/echart/echarts.js"></script>
 
 <!-- 下拉框 -->
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../system/index/top.jsp"%>
-<
 </head>
-<body class="no-skin" ">
+<body class="no-skin">
 	<!-- /section:basics/navbar.layout -->
 	<div class="main-container" id="main-container">
 		<!-- /section:basics/sidebar -->
@@ -52,26 +43,24 @@ function fp_ready(){
 				<div class="page-content">
 					<div class="row">
 						<div class="col-xs-12">
-
 						<!-- 检索  -->
 						<form action="status/strategy/getGroupList" method="post" name="Form" id="Form">
 						<input type="hidden" id="excel" name="excel" value="0"/>
 						<table style="margin-top:5px;">
 							<tr>
-								
 								<td>
 									<div class="nav-search">
 									    <label>开始时间：</label>
-									    <input class="nav-search-input" id="starttime" name="starttime" value="${starttime }">
+									    <input class="nav-search-input" id="starttime" name="starttime" value="${pd.starttime }">
 									</div>
 								</td>
 								<td>
 								 	<div class="nav-search">
 									    <label style="margin-left:12px;">截止时间：</label>
-										<input class="nav-search-input" id="endtime" name="endtime" value="${endtime }">
+										<input class="nav-search-input" id="endtime" name="endtime" value="${pd.endtime }">
 									</div>
 								</td>
-								<td valign="middle">&nbsp;&nbsp;查询方式：</td>
+								<td style="background-color:#ffffff;">&nbsp;&nbsp;查询方式：</td>
 								<td >
 								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择终端类型" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
 										<option value="1" <c:if test="${pd.type==1}">selected</c:if>>按日</option>
@@ -128,8 +117,13 @@ function fp_ready(){
 							</c:otherwise>
 						</c:choose>
 						<c:if test="${QX.cha==1 }">
-							<h3>策略折线图</h3>
-							<div id="main" style="height:400px" onload="loadChart()"></div>
+							<div id="strategy">
+								<c:forEach items="${strategyList }" var="strategy" varStatus="vs">
+									<h3 hidden="true">${strategy.name }</h3>
+									<p hidden="true">${strategy.json}</p> 
+									<div id="${vs.index}" title="${strategy.name }" style="height:400px;"></div>
+								</c:forEach>
+							</div>
 						</c:if>
 					</form>
 					</div>
@@ -156,79 +150,52 @@ function fp_ready(){
 	<!-- 下拉框 -->
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	
-	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 	<script type="text/javascript">
-	
-		function loadChart(){
+		
+		window.onload = function loadChart(){
+			document.getElementById("starttime").flatpickr();
+			document.getElementById("endtime").flatpickr();
+			top.hangge();
 			
-			
-			
-	        // 路径配置
-	        require.config({
-	            paths: {
-	                echarts: 'http://echarts.baidu.com/build/dist'
-	            }
-	        });
-	        // 使用
-	        require(
-	            [
-	                'echarts',
-	                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
-	            ],
-	            function (ec) {
-	                // 基于准备好的dom，初始化echarts图表
-	                var myChart = ec.init(document.getElementById('main')); 
-		                
-	                var option = {
-	                    tooltip: {
-	                        trigger:'axis'
-	                    },
-	                    legend: {
-	                        data:['策略一','策略二']
-	                    },
-	                    toolbox: {
-	                        show : true,
-	                        feature : {
-	                            
-	                            saveAsImage : {show: true}
-	                        }
-	                    },
-	                    calculable : true,
-	                    xAxis : [
-	                        {
-	                            type : 'category',
-	                            boundaryGap:false,
-	                            data : ['0:00','1:00','2:00','3:00','4:00','5:00','6:00','7:00','8:00','9:00','10:00','11:00','12:00'
-	                            	,'13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00']
-	                        }
-	                    ],
-	                    yAxis : [
-	                        {
-	                            type : 'value'
-	                        }
-	                    ],
-	                    series : [
-	                        {
-	                            "name":"策略一",
-	                            "type":"line",
-	                            "data":[10, 20, 40, 10, 10, 20,10, 20, 40, 10, 10, 20,10, 20, 40, 10, 10, 20,10, 20, 40, 10, 10, 20]
-	                        },
-	                        {
-	                            "name":"策略二",
-	                            "type":"line",
-	                            "data":[10, 40, 40, 40, 40, 30,30, 10, 50, 20, 10, 30,30, 30, 20, 20, 50, 100,100, 100, 40, 40, 40, 50]
-	                        }
-	                    ]
-	                };
-	        
-	                // 为echarts对象加载数据 
-	                myChart.setOption(option); 
-	            }
-	        );
-		}
+            var div = document.getElementById("strategy");
+            var jsons = div.getElementsByTagName("p"); //p节点存储了json的值获取所有p
+            var names = div.getElementsByTagName("h3");
+            for(var i=0;i<names.length;i++){
+            	var jsonObj = $.parseJSON(jsons[i].innerHTML);
+            	var x_data = new Array();
+            	var series_data = new Array();
+            	for(var j=0;j<jsonObj.t_i.length;j++){
+            		x_data[x_data.length] = jsonObj.t_i[j].timestamp;
+            		series_data[series_data.length] = jsonObj.t_i[j].intensity;
+            	} 
+            	
+               	var myChart = echarts.init(document.getElementById(i)); 
+                   // 指定图表的配置项和数据
+                var option = {
+                    title: {
+                        text: names[i].innerHTML
+                    },
+                    tooltip: {},
+                    xAxis: {
+                        data: x_data
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: names[i].innerHTML,
+                        type: 'line',
+                        data: series_data
+                    }]
+                };
+                   
+                myChart.setOption(option);          
+            }
+      
+		 } 
+		
+		
     </script>
 	<script src="src/jquery-2.1.1.min.js"></script>
-	<script async src="static/datepicker/dist/flatpickr.js" onload="fp_ready()"></script>
+	<script async src="static/datepicker/dist/flatpickr.js"></script>
 
 </body>
 </html>

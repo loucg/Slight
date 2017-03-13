@@ -1,6 +1,10 @@
 package com.fh.controller.slight.configure;
-
+import java.util.Properties;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.hzy.util.InternationalUtils;
+import com.fh.hzy.util.UserUtils;
 import com.fh.service.slight.configure.ConfigureService;
+import com.fh.service.slight.language.InternationalService;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Const;
 import com.fh.util.FileDownload;
@@ -39,7 +46,7 @@ public class NPowerController extends BaseController{
 	private ConfigureService configureService;
 	@Resource(name="fhlogService")
 	private FHlogManager FHLOG;
-	
+
 	
 	/**
 	 * 获取普通电源列表
@@ -65,8 +72,12 @@ public class NPowerController extends BaseController{
 			mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 			mv.addObject("nPowerList", nPList);
 			mv.setViewName(nPowerJsp);
+			pd.put("userid", UserUtils.getUserid());
 			return mv;
 		}
+		
+		
+		
 	}
 	
 	/**
@@ -76,7 +87,7 @@ public class NPowerController extends BaseController{
 	 * @throws Exception
 	 */
 	@RequestMapping("/goNPowerEdit")
-	public ModelAndView goNPowerEdit() throws Exception{
+	public ModelAndView goNPowerEdit()throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -84,6 +95,8 @@ public class NPowerController extends BaseController{
 		mv.addObject("pd", pd);
 		mv.addObject("msg", "editNPower");
 		mv.setViewName(nPowerEditJsp);
+
+		
 		return mv;
 	
 	}

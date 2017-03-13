@@ -27,4 +27,12 @@ public interface FaultService {
 	 */
 	List<PageData> listLampFault(Page page)throws Exception;
 
+	/**
+	 * 获取电压异常列表
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	List<PageData> listVoFault(Page page)throws Exception;
+
 }

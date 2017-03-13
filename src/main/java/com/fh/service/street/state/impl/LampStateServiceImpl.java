@@ -39,6 +39,29 @@ public class LampStateServiceImpl implements LampStateService {
 	public PageData viewLampDetail(PageData pd) throws Exception {
 		return (PageData)dao.findForObject("LampStateMapper.lampDetail", pd);
 	}
+
+	/**
+	 * 调节灯的亮度
+	 */
+	public void adjustBrt(PageData pd) throws Exception {
+		dao.update("LampStateMapper.adjustBrt", pd);
+	}
+
+	/**
+	 * 查询策略
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> getStrategy(Page page) throws Exception {
+		return (List<PageData>)dao.findForList("LampStateMapper.findStrategy", page);
+	}
+
+	/**
+	 * 调节组的策略
+	 */
+	public void upTermStrid(PageData pd) throws Exception {
+		dao.update("LampStateMapper.adjustStr", pd);
+	}
+
 	
 
 }
