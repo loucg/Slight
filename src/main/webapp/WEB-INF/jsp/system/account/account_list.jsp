@@ -38,13 +38,13 @@
 								<td>姓名：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name"/>
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" placeholder="请输入姓名"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;登录名：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="username"/>
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="username" placeholder="请输入登录名"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;公司：</td>
@@ -68,7 +68,7 @@
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="searchs();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								<!-- 
 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
@@ -250,7 +250,7 @@ function add(){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
-	 diag.Title ="新增";
+	 diag.Title ="新增帐号";
 	 diag.URL = '<%=basePath%>account/goAddA.do';
 	 diag.Width = 351;
 	 diag.Height = 520;
@@ -273,7 +273,7 @@ function editAccount(user_id){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
-	 diag.Title ="账户信息";
+	 diag.Title ="修改帐号";
 	 diag.URL = '<%=basePath%>account/goEditA.do?USER_ID='+user_id;
 	 diag.Width = 351;
 	 diag.Height = 520;
