@@ -38,17 +38,17 @@
 							    <td>策略名称：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name"/>
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" placeholder="请输入策略名称"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;应用说明：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="explain"/>
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="explain" placeholder="请输入应用说明"/>
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="searchs();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -287,7 +287,7 @@ function editStrategy(strategy_id){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
-	 diag.Title ="资料";
+	 diag.Title ="修改策略";
 	 diag.URL = '<%=basePath%>strategy/goEditS.do?id='+strategy_id;
 	 diag.Width = 469;
 	 diag.Height = 510;
