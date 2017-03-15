@@ -1,7 +1,5 @@
 ﻿$(function () {
 	$('body').on("click",'.one',function() {
-				// $('.one').removeClass('one-hover');
-				// $(this).addClass('one-hover');
 				// $('.kid').hide();
 				// $(this).parent().parent().find('.kid').toggle();//
 				// $(this)指<a>
@@ -20,12 +18,17 @@
 								.attr("id")]);// 加载对应组的终端maker
 					} else if ($(this).attr("id") == "search"){
 						Conframe.window.cleanAllMaker();// 清除所有覆盖物
-						changePreMakerdata(searchdata);
-						Conframe.window.addClientMaker(searchdata);	
+						//Conframe.window.changePreMakerdata(searchdata);
+						console.log(mapTermpage[-1]);
+						Conframe.window.getClientsData(mapTermpage[-1]);
+						//Conframe.window.addClientMaker(searchdata);	
 					}else if ($(this).attr("id") == "draw"){
 						Conframe.window.cleanAllMaker();// 清除所有覆盖物
-						changePreMakerdata(drawtata);
-						Conframe.window.addClientMaker(drawdata);
+						console.log(mapTermpage[-2]);
+						Conframe.window.getClientsData(mapTermpage[-2]);
+						//Conframe.window.changePreMakerdata(drawdata);
+						//console.log(drawdata);
+						//Conframe.window.addClientMaker(drawdata);
 					}
 				}
 			});
@@ -48,7 +51,7 @@
         		data : JSON.stringify(mapTermpage[termid]),
         		dataType : "json",
         		success : function(data) {
-        			if (data != null) {
+        			if (data.length != 0) {
         				gpsTObbdMore(data,termid,choseterm);
         				mapTermpage[termid].begin= mapTermpage[termid].begin+ mapTermpage[termid].rows;
         				mapTermpagein[termid].rows= mapTermpagein[termid].rows+ mapTermpagein[termid].rows;

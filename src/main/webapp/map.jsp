@@ -267,14 +267,16 @@ body {
 			dataType : "json",
 			success : function(clientdata) {
 				if (clientdata.length!=0) {
-				//console.log(clientdata.length);
+				//console.log(clientdata);
 					var arrpoints=[];
 					for (var i = 0; i < clientdata.length; i++) {
 						arrpoints.push( new BMap.Point(clientdata[i].xcoordinate,clientdata[i].ycoordinate));
 					}
 					preMakerdata = clientdata;
 					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);
+					//return clientdata;
 				} else {
+					map.centerAndZoom("杭州", 15);
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_INFO,
 		                title: '提示信息 ',
@@ -468,7 +470,7 @@ body {
 	}
 	//0.5秒后根据Point改变地图的展示中心       
 	function changeCenter(data) {
-		//console.log(data.xcoordinate, data.ycoordinate);
+		//console.log(data.xcoordinate, data.ycoordinate);setTimeout(function() {}, 300);
 		setTimeout(function() {
 			map.panTo(new BMap.Point(data.xcoordinate, data.ycoordinate)); //两秒后移动到第一个点
 		}, 300);
@@ -511,15 +513,23 @@ body {
 	//判断是否在选择框内
 	function judgeSelection(bound) {
 		var drawtata=[];
+		var drawid=[];
 		for(var i=0;i<preMakerdata.length;i++){
 			var judgepoint = new BMap.Point(preMakerdata[i].xcoordinate,preMakerdata[i].ycoordinate);
 			if(bound.containsPoint(judgepoint))
 				{
+				 drawid.push(preMakerdata[i].id);
+				 preMakerdata[i].searchconditions=null;
 				 drawtata.push(preMakerdata[i]);
 				}
 		}
+		for(var i=0;i<drawtata.length;i++){
+			var a=drawtata[i];
+			a.drawid=drawid;
+		}
 		parent.cleardrawdata();//删除原有的左边框选列表
-		parent.changedrawdata(drawtata);//用于再次点击时可以加载出来
+		parent.setmapTermpage(-2,drawtata[0]);
+		//parent.changedrawdata(drawtata);//用于再次点击时可以加载出来
 		parent.gpsTObbddrawing(drawtata);//添加左边框选列表
 	}
 	function TurnOnLight() {
@@ -527,7 +537,7 @@ body {
 			 BootstrapDialog.show({
 	                type:  BootstrapDialog.TYPE_DANGER,
 	                title: '提示信息 ',
-	                message: '路灯已开启',
+	                message: '路灯已是开启状态',
 	                buttons: [{
 	                    label: '关闭',
 	                    action: function(dialogItself){
@@ -536,8 +546,8 @@ body {
 	                }]
 	            });  
 		} else {
-			$
-					.ajax({
+			//console.log(choseMakerdata);
+			$.ajax({
 						url : "gomap/updateClientAttr_status",
 						type : "POST",
 						contentType : "application/json; charset=UTF-8",
@@ -547,15 +557,15 @@ body {
 							if (data.status == "SUCCESS") {
 								//choseMaker.style.backgroundImage = "url('map/img/light_green.png')";
 								cleanAllMaker();//清除所有覆盖物
-								var a = parent.getmapTermpagein()[choseMakerdata.termid];
-								//console.log(a);
+								var a;
 								var mapcenter=map.getCenter();
 								var mapzoom=map.getZoom();
-								getClientsData(a,mapcenter,mapzoom);
-								//map.setCenter(mapcenter);
-								//console.log(mapcenter);
-								//console.log(mapzoom);
-								//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);				
+								if(choseMakerdata.searchconditions!=null)
+									{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changesearchdata(preMakerdata);}, 1000);}
+								else if(choseMakerdata.drawid.length!=0)
+									{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changedrawdata(preMakerdata);}, 1000);}
+								else
+									{a = parent.getmapTermpagein()[choseMakerdata.termid];getClientsData(a,mapcenter,mapzoom);}
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
 						                title: '提示信息 ',
@@ -609,7 +619,7 @@ body {
 			BootstrapDialog.show({
                 type:  BootstrapDialog.TYPE_DANGER,
                 title: '提示信息 ',
-                message: '路灯已关闭',
+                message: '路灯已是关闭状态',
                 buttons: [{
                     label: '关闭',
                     action: function(dialogItself){
@@ -629,11 +639,16 @@ body {
 							if (data.status == "SUCCESS") {
 								//choseMaker.style.backgroundImage = "url('map/img/light_grey.png')";
 								cleanAllMaker();//清除所有覆盖物
-								var a = parent.getmapTermpagein()[choseMakerdata.termid];
+								var a;
 								var mapcenter=map.getCenter();
 								var mapzoom=map.getZoom();
-								getClientsData(a,mapcenter,mapzoom);
-								//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);
+								if(choseMakerdata.searchconditions!=null)
+								{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changesearchdata(preMakerdata);}, 1000);}
+							else if(choseMakerdata.drawid.length!=0)
+								{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changedrawdata(preMakerdata);}, 1000);}
+							else
+									{a = parent.getmapTermpagein()[choseMakerdata.termid];getClientsData(a,mapcenter,mapzoom);}
+								
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
 						                title: '提示信息 ',
@@ -693,11 +708,16 @@ body {
 			success : function(data) {
 				if (data.status == "SUCCESS") {
 					cleanAllMaker();//清除所有覆盖物
-					var a = parent.getmapTermpagein()[choseMakerdata.termid];
+					var a;
 					var mapcenter=map.getCenter();
 					var mapzoom=map.getZoom();
-					getClientsData(a,mapcenter,mapzoom);
-					//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);
+					if(choseMakerdata.searchconditions!=null)
+					{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changesearchdata(preMakerdata);}, 1000);}
+				else if(choseMakerdata.drawid.length!=0)
+					{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changedrawdata(preMakerdata);}, 1000);}
+				else
+						{a = parent.getmapTermpagein()[choseMakerdata.termid];getClientsData(a,mapcenter,mapzoom);}
+					
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_PRIMARY,
 		                title: '提示信息 ',
@@ -744,7 +764,7 @@ body {
 </script>
 <script type="text/javascript">
 	jQuery.getJSON("gomap/getFirstTermId/", function(data) {
-		if (data != null) {
+		if (data != -1000) {
 			//alert(data);
 			var mapTermpage2 = {
 				page : 1,
@@ -760,7 +780,7 @@ body {
 			BootstrapDialog.show({
                 type:  BootstrapDialog.TYPE_INFO,
                 title: '提示信息 ',
-                message: '暂时没有数据',
+                message: '暂时没有任何分组数据',
                 buttons: [{
                     label: '关闭',
                     action: function(dialogItself){
@@ -770,10 +790,6 @@ body {
             });
 		}
 	});
-
-	$(function() {
-		//getClientsData(1);
-	});
 </script>
 <script type="text/javascript"> 
 function searchsuccess() {
@@ -781,7 +797,7 @@ function searchsuccess() {
 	.show({
 		type : BootstrapDialog.TYPE_PRIMARY,
 		title : '提示信息 ',
-		message : '搜索成功，请查看左侧路灯列表二！',
+		message : '搜索成功，请查看左侧搜索结果！',
 		buttons : [ {
 			label : '关闭',
 			action : function(dialogItself) {
@@ -795,7 +811,7 @@ function searcherr() {
 	.show({
 		type : BootstrapDialog.TYPE_DANGER,
 		title : '提示信息 ',
-		message : '查询的终端不存在或查询出错！',
+		message : '查询的终端不存在！',
 		buttons : [ {
 			label : '关闭',
 			action : function(dialogItself) {
@@ -826,7 +842,7 @@ function searchConerr() {
              label: '确定',
              action: function(dialogItself) {
             	 dialogItself.close();
-            	 window.parent.location.href="strategy/listStrategys.do";
+            	// window.parent.location.href="strategy/listStrategys.do";
              }
          },{
              label: '取消',
