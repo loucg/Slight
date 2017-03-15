@@ -80,6 +80,7 @@ body {
   opacity: 0 !important;
   filter: alpha(opacity=0) !important;
 }
+/* 让弹出框不出现蓝色边框 */
 *{outline:none;}
 </style>
 </head>
@@ -282,7 +283,7 @@ body {
 					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);
 					//return clientdata;
 				} else {
-					map.centerAndZoom("杭州", 15);
+					map.centerAndZoom("杭州", 14);
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_INFO,
 		                title: '提示信息 ',

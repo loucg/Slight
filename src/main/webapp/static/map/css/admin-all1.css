@@ -234,13 +234,4 @@ html, body {
 	margin-right:10px;
 	margin-left:0px;
 }
-.modal-dialog{
-outline: none;
-}
-.modal-content{
-outline: none;
-}
-.modal-backdrop {
-  opacity: 0 !important;
-  filter: alpha(opacity=0) !important;
-}
+
