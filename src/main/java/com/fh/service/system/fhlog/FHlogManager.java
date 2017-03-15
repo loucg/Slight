@@ -17,7 +17,7 @@ public interface FHlogManager{
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void save(String USERNAME, String CONTENT)throws Exception;
+	public void save(String USERNAME, String CONTENT, String TYPE)throws Exception;
 	
 	/**删除
 	 * @param pd

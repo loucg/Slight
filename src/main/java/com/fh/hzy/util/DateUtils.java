@@ -34,7 +34,14 @@ public class DateUtils {
 	 */
 	public static Date getCurrentDate(){
 		
-		return Calendar.getInstance().getTime();
+		String time = format.format(Calendar.getInstance().getTime());
+		try {
+			return format.parse(time);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new Date();
+		}
 	}
 	
 	/**

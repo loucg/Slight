@@ -333,7 +333,6 @@ public class ConfigureController extends BaseController{
 			@RequestParam(value="excel",required=false) MultipartFile file
 			) throws Exception{
 		
-		FHLOG.save(Jurisdiction.getUsername(), "从EXCEL导入到数据库");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();

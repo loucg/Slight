@@ -42,4 +42,11 @@ public interface GroupMemService {
 	 */
 	void removeMember(PageData pd) throws Exception;
 
+	/**
+	 * 修改组员
+	 * @param highp
+	 * @throws Exception
+	 */
+	void update(PageData pd)throws Exception;
+
 }

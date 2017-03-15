@@ -12,7 +12,8 @@
 		USERNAME,	
 		CZTIME,	
 		CONTENT,	
-		FHLOG_ID
+		FHLOG_ID,
+		TYPE
 	</sql>
 	
 	<!-- 字段值 -->
@@ -20,7 +21,8 @@
 		#{USERNAME},	
 		#{CZTIME},	
 		#{CONTENT},	
-		#{FHLOG_ID}
+		#{FHLOG_ID},
+		#{TYPE}
 	</sql>
 	
 	<!-- 新增-->

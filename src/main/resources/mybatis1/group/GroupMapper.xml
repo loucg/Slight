@@ -86,6 +86,9 @@
 	
 	<!-- 新增分组 -->
  	<insert id="saveGroup" parameterType="pd" >
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey> 
 		insert into <include refid="tableName"></include> (
 			<include refid="Field"></include>
 		) values (
@@ -116,6 +119,14 @@
 			where 
 				c_term.id = #{id}
 	</update>
+	
+	<!-- 删除分组 -->
+	<delete id="deleteById" parameterType="String">
+		DELETE 
+		FROM c_term
+		WHERE
+		id = #{id}
+	</delete>
 	
 	
 </mapper>

@@ -47,4 +47,11 @@ public class GroupMemServiceImpl implements GroupMemService {
 		dao.delete("GroupMemMapper.removeMember", pd);
 	}
 
+	/**
+	 * 修改组员
+	 */
+	public void update(PageData pd) throws Exception {
+		dao.update("GroupMemMapper.updateMember", pd);
+	}
+
 }

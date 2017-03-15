@@ -98,11 +98,9 @@ public class ButtonrightsController extends BaseController {
 		String errInfo = "success";
 		if(null != buttonrightsService.findById(pd)){	//判断关联表是否有数据 是:删除/否:新增
 			buttonrightsService.delete(pd);		//删除
-			FHLOG.save(Jurisdiction.getUsername(), "删除按钮权限"+pd);
 		}else{
 			pd.put("RB_ID", this.get32UUID());	//主键
 			buttonrightsService.save(pd);		//新增
-			FHLOG.save(Jurisdiction.getUsername(), "新增按钮权限pd"+pd);
 		}
 		map.put("result", errInfo);
 		return AppUtil.returnObject(new PageData(), map);

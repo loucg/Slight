@@ -47,10 +47,19 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	/**
-	 * 根据用户名获取sys_user_id
+	 * 获取灯杆数
 	 */
-	/*public String getUserId(String username) {
-		return dao.;
-	}*/
+	public PageData getLampCount(PageData pd) throws Exception {
+		return (PageData)dao.findForObject("GroupMapper.findById", pd);
+	}
+
+	/**
+	 * 删除分组
+	 */
+	public void deleteGroup(String id) throws Exception {
+		dao.delete("GroupMapper.deleteById", id);
+	}
+
+	
 
 }

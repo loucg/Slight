@@ -55,14 +55,14 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width:35px;">
+								<!-- 	<th class="center" style="width:35px;">
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
-									<th class="center" style="width:50px;">序号</th>
+									<th class="center" style="width:50px;">序号</th> -->
 									<th class="center">用户名</th>
+									<th class="center">类型</th>
 									<th class="center">事件</th>
 									<th class="center">操作时间</th>
-									<th class="center">操作</th>
 								</tr>
 							</thead>
 													
@@ -73,14 +73,15 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
-											<td class='center'>
+											<%-- <td class='center'>
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.FHLOG_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
-											<td class='center' style="width: 30px;">${vs.index+1}</td>
+											<td class='center' style="width: 30px;">${vs.index+1}</td> --%>
 											<td class='center' style="width: 200px;">${var.USERNAME}</td>
+											<td class='center' style="width:100px";">${var.TYPE}</td>
 											<td class='center'>${var.CONTENT}</td>
 											<td class='center' style="width: 150px;">${var.CZTIME}</td>
-											<td class="center" style="width: 50px;">
+											<%-- <td class="center" style="width: 50px;">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
@@ -110,7 +111,7 @@
 														</ul>
 													</div>
 												</div>
-											</td>
+											</td> --%>
 										</tr>
 									
 									</c:forEach>
@@ -132,11 +133,11 @@
 						<div class="page-header position-relative">
 						<table style="width:100%;">
 							<tr>
-								<td style="vertical-align:top;">
+								<%-- <td style="vertical-align:top;">
 									<c:if test="${QX.del == 1 }">
 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
 									</c:if>
-								</td>
+								</td> --%>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 							</tr>
 						</table>

@@ -29,6 +29,7 @@ import com.fh.entity.Page;
 import com.fh.entity.system.Department;
 import com.fh.entity.system.Role;
 import com.fh.entity.system.User;
+import com.fh.hzy.util.LogType;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.menu.MenuManager;
@@ -121,7 +122,6 @@ public class UserController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		userService.deleteU(pd);
-		FHLOG.save(Jurisdiction.getUsername(), "删除系统用户："+pd);
 		out.write("success");
 		out.close();
 	}
@@ -165,7 +165,7 @@ public class UserController extends BaseController {
 		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//密码加密
 		if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 			userService.saveU(pd); 					//执行保存
-			FHLOG.save(Jurisdiction.getUsername(), "新增系统用户："+pd.getString("USERNAME"));
+			FHLOG.save(Jurisdiction.getUsername(), "新增系统用户："+pd.getString("USERNAME"), LogType.CREATE_ACCOUNT);
 			mv.addObject("msg","success");
 		}else{
 			mv.addObject("msg","failed");
@@ -341,7 +341,7 @@ public class UserController extends BaseController {
 			pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("NEWPASSWORD")).toString());
 		}
 		userService.editU(pd);	//执行修改
-		FHLOG.save(Jurisdiction.getUsername(), "修改系统用户："+pd.getString("USERNAME"));
+		FHLOG.save(Jurisdiction.getUsername(), "修改系统用户："+pd.getString("USERNAME"), LogType.EDIT_ACCOUNT);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -356,7 +356,6 @@ public class UserController extends BaseController {
 	public Object deleteAllU() throws Exception {
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
 		logBefore(logger, Jurisdiction.getUsername()+"批量删除user");
-		FHLOG.save(Jurisdiction.getUsername(), "批量删除user");
 		PageData pd = new PageData();
 		Map<String,Object> map = new HashMap<String,Object>();
 		pd = this.getPageData();
@@ -380,7 +379,6 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value="/excel")
 	public ModelAndView exportExcel() throws Exception{
-		FHLOG.save(Jurisdiction.getUsername(), "导出用户信息到EXCEL");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -462,7 +460,6 @@ public class UserController extends BaseController {
 	public ModelAndView readExcel(
 			@RequestParam(value="excel",required=false) MultipartFile file
 			) throws Exception{
-		FHLOG.save(Jurisdiction.getUsername(), "从EXCEL导入到数据库");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}

@@ -10,8 +10,8 @@
 		c_gateway_attr1.location,
 		c_gateway_attr1.`comment`,
 		c_gateway_upload_status.voltage,
-		b_status.`name` STATUS,
-		c_gateway_attr1.tdate
+		c_gateway_upload_status.`status` STATUS,
+		c_gateway_upload_status.tdate
 		FROM
 		c_gateway
 		LEFT JOIN
@@ -22,12 +22,12 @@
 		c_gateway_upload_status
 		ON
 		c_gateway.id = c_gateway_upload_status.c_gateway_id
-	    LEFT JOIN
+	   <!--  LEFT JOIN
 		b_status
 		ON
 		c_gateway_attr1.staus = b_status.`value`
 		AND
-		b_status.b_status_main_id = 3
+		b_status.b_status_main_id = 4 -->
 		WHERE 1=1
 		AND
 		c_gateway_attr1.sys_user_id = #{pd.sys_user_id}
@@ -52,7 +52,7 @@
 		<if test="pd.status!=null and pd.status!=''">
 			and 
 			(
-				c_gateway_attr1.staus = #{pd.status}
+				c_gateway_upload_status.`status` = #{pd.status}
 			)
 		</if>
 		GROUP BY

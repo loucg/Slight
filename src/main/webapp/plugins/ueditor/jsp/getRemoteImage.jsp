@@ -2,7 +2,7 @@
     <%@ page import="java.io.*"%>
     <%@ page import="java.net.*"%>
     <%@ page import="java.util.*"%>
-    <%@ page import="ueditor.Uploader" %>
+    <%@ page import="ueditor.Uploader"%>
     <%
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
@@ -64,7 +64,7 @@
    	outstr = outstr.substring(0,outstr.lastIndexOf("ue_separate_ue"));
    	response.getWriter().print("{'url':'" + outstr + "','tip':'"+state+"','srcUrl':'" + url + "'}" );
 
-    %>
+   %>
     <%!
     public String getFileType(String fileName){
     	String[] fileType = {".gif" , ".png" , ".jpg" , ".jpeg" , ".bmp"};
@@ -77,4 +77,4 @@
     	}
     	return "";
     }
-    %>
+   %>

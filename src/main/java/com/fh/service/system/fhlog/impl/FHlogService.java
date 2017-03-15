@@ -30,12 +30,14 @@ public class FHlogService implements FHlogManager{
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void save(String USERNAME, String CONTENT)throws Exception{
+	public void save(String USERNAME, String CONTENT, String TYPE)throws Exception{
 		PageData pd = new PageData();
 		pd.put("USERNAME", USERNAME);					//用户名
 		pd.put("CONTENT", CONTENT);						//事件
+		pd.put("TYPE", TYPE);
 		pd.put("FHLOG_ID", UuidUtil.get32UUID());		//主键
 		pd.put("CZTIME", Tools.date2Str(new Date()));	//操作时间
+		
 		dao.save("FHlogMapper.save", pd);
 	}
 	
