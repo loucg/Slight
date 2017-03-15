@@ -1,4 +1,4 @@
-<%@page import="com.fusioncharts.helper.FCParameters" %>
+<%@page import="com.fusioncharts.helper.FCParameters"%>
 <%
 	/*
 	 * Version 2.0: 
@@ -125,8 +125,8 @@
 			<% if(renderAt.equals(chartId+"Div")) { 
 			// output this chartIdDiv div only if chart is being rendered in it
 			%>
-			<div id='<%=chartId %>Div' align='center'>Chart.</div>
-			<% } %>
+			<div id='<%=chartId%>Div' align='center'>Chart.</div>
+			<% }%>
 			<script type='text/javascript'>
 				var chart_<%=chartId%> = new FusionCharts(<%=paramsInJSON%>).render();
 			</script>

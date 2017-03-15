@@ -105,7 +105,6 @@ public class MenuController extends BaseController {
 			menu.setMENU_ID(String.valueOf(Integer.parseInt(menuService.findMaxId(pd).get("MID").toString())+1));
 			menu.setMENU_ICON("menu-icon fa fa-leaf black");//默认菜单图标
 			menuService.saveMenu(menu); //保存菜单
-			FHLOG.save(Jurisdiction.getUsername(), "新增菜单"+menu.getMENU_NAME());
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 			mv.addObject("msg","failed");
@@ -131,7 +130,6 @@ public class MenuController extends BaseController {
 				errInfo = "false";
 			}else{
 				menuService.deleteMenuById(MENU_ID);
-				FHLOG.save(Jurisdiction.getUsername(), "删除菜单ID"+MENU_ID);
 				errInfo = "success";
 			}
 		} catch(Exception e){
@@ -180,7 +178,6 @@ public class MenuController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		try{
 			menuService.edit(menu);
-			FHLOG.save(Jurisdiction.getUsername(), "修改菜单"+menu.getMENU_NAME());
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}

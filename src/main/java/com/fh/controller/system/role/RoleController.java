@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.system.Menu;
 import com.fh.entity.system.Role;
+import com.fh.hzy.util.LogType;
 import com.fh.service.system.appuser.AppuserManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.role.RoleManager;
@@ -128,7 +129,7 @@ public class RoleController extends BaseController {
 			pd.put("EDIT_QX", "0");	//修改权限
 			pd.put("CHA_QX", "0");	//查看权限
 			roleService.add(pd);
-			FHLOG.save(Jurisdiction.getUsername(), "新增角色:"+pd.getString("ROLE_NAME"));
+			FHLOG.save(Jurisdiction.getUsername(), "新增角色:"+pd.getString("ROLE_NAME"), LogType.ASSIGN_ROLE);
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 			mv.addObject("msg","failed");
@@ -172,7 +173,7 @@ public class RoleController extends BaseController {
 		try{
 			pd = this.getPageData();
 			roleService.edit(pd);
-			FHLOG.save(Jurisdiction.getUsername(), "修改角色:"+pd.getString("ROLE_NAME"));
+			FHLOG.save(Jurisdiction.getUsername(), "修改角色:"+pd.getString("ROLE_NAME"), LogType.EDIT_ROLE);
 			mv.addObject("msg","success");
 		} catch(Exception e){
 			logger.error(e.toString(), e);
@@ -207,7 +208,6 @@ public class RoleController extends BaseController {
 					errInfo = "false2";
 				}else{
 				roleService.deleteRoleById(ROLE_ID);	//执行删除
-				FHLOG.save(Jurisdiction.getUsername(), "删除角色ID为:"+ROLE_ID);
 				errInfo = "success";
 				}
 			}
@@ -253,7 +253,6 @@ public class RoleController extends BaseController {
 	public void saveMenuqx(@RequestParam String ROLE_ID,@RequestParam String menuIds,PrintWriter out)throws Exception{
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){} //校验权限
 		logBefore(logger, Jurisdiction.getUsername()+"修改菜单权限");
-		FHLOG.save(Jurisdiction.getUsername(), "修改角色菜单权限，角色ID为:"+ROLE_ID);
 		PageData pd = new PageData();
 		try{
 			if(null != menuIds && !"".equals(menuIds.trim())){
@@ -344,7 +343,7 @@ public class RoleController extends BaseController {
 	public void saveB4Button(@RequestParam String ROLE_ID,@RequestParam String menuIds,@RequestParam String msg,PrintWriter out)throws Exception{
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){} //校验权限
 		logBefore(logger, Jurisdiction.getUsername()+"修改"+msg+"权限");
-		FHLOG.save(Jurisdiction.getUsername(), "修改"+msg+"权限，角色ID为:"+ROLE_ID);
+		FHLOG.save(Jurisdiction.getUsername(), "修改"+msg+"权限，角色ID为:"+ROLE_ID, LogType.ASSIGN_ROLE);
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		try{

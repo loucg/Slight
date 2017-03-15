@@ -43,10 +43,20 @@ public interface GroupService {
 	void updateGroup(PageData pd)throws Exception;
 
 	/**
-	 * 根据用户名获取sys_user_id
-	 * @param username
+	 * 获取该分组下的灯杆的数量
+	 * @param pd
 	 * @return
+	 * @throws Exception
 	 */
-	//String getUserId(String username);
+	PageData getLampCount(PageData pd)throws Exception;
+
+	/**
+	 * 根据id删除分组
+	 * @param high_id
+	 * @throws Exception
+	 */
+	void deleteGroup(String id)throws Exception;
+
+	
 
 }

@@ -30,6 +30,7 @@ import com.fh.entity.system.Language;
 import com.fh.entity.system.Role;
 import com.fh.entity.system.User;
 import com.fh.hzy.util.InternationalUtils;
+import com.fh.hzy.util.LogType;
 import com.fh.hzy.util.UserUtils;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.slight.language.InternationalService;
@@ -146,7 +147,7 @@ public class UserInfoController extends BaseController {
 		pd.put("userid",UserUtils.getUserid());
 		String language = InternationalUtils.getLanguage(internationalService, pd);
 		Jurisdiction.getSession().setAttribute(Const.SESSION_LANGUAGE, language);
-		FHLOG.save(Jurisdiction.getUsername(), "修改用户信息："+pd.getString("USERNAME"));
+		FHLOG.save(Jurisdiction.getUsername(), "修改用户信息："+pd.getString("USERNAME"), LogType.EDIT_USERINFO);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -172,7 +173,7 @@ public class UserInfoController extends BaseController {
 		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//密码加密
 		if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 			userService.saveU(pd); 					//执行保存
-			FHLOG.save(Jurisdiction.getUsername(), "新增系统用户："+pd.getString("USERNAME"));
+			FHLOG.save(Jurisdiction.getUsername(), "新增系统用户："+pd.getString("USERNAME"), LogType.CREATE_ACCOUNT);
 			mv.addObject("msg","success");
 		}else{
 			mv.addObject("msg","failed");

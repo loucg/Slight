@@ -192,7 +192,7 @@
 	</insert>
 	
 	<!-- 删除给定组的组成员 -->
-	<insert id="removeMember" parameterType="pd" >
+	<delete id="removeMember" parameterType="pd" >
 		DELETE
 		FROM
 		c_client_term
@@ -200,6 +200,30 @@
 		c_term_id = #{c_term_id}
 		AND
 		c_client_id = #{c_client_id}
-	</insert>
+	</delete>
+	
+	<!-- 更新表c_client_term -->
+	<update id="updateMember" parameterType="pd" >
+		UPDATE
+		c_client_term
+		SET
+		c_term_id = #{c_term_id}
+		WHERE
+		1=1
+		<!-- c_client_id = #{c_client_id} -->
+		<if test="c_client_id!=null and c_client_id!=''">
+			and 
+			(
+				c_client_id = #{c_client_id}
+			)
+		</if>
+		<if test="lamp_pole_num!=null and lamp_pole_num!=''">
+			and 
+			(
+				c_client_id IN (SELECT c_client_id FROM c_client_attr1 WHERE lamp_pole_num = #{lamp_pole_num})
+			)
+		</if>
+		
+	</update>
 	
 </mapper>

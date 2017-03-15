@@ -116,12 +116,12 @@
 	
 														<ul class="dropdown-menu dropdown-only-icon dropdown-blue dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
-															<li><a class="tooltip-info" data-rel="tooltip" title="智能拆分组_奇偶" onclick="groupOddeven('${group.id}');">
+															<li><a class="tooltip-info" data-rel="tooltip" title="智能拆分组_奇偶" onclick="groupOddeven('${group.id}','${group.number}');">
 																<span class="black">智能拆分组_奇偶
 																	<!-- <i class="ace-icon glyphicon glyphicon-picture bigger-120" title="智能拆分组_奇偶"></i> -->
 																</span>
 															</a></li>
-															<li><a class="tooltip-success" data-rel="tooltip" title="智能拆分组_功率" onclick="groupPower('${group.id}');">
+															<li><a class="tooltip-success" data-rel="tooltip" title="智能拆分组_功率" onclick="groupPower('${group.id}','${group.number}');">
 																<span class="black">智能拆分组_功率
 																	<!-- <i class="ace-icon fa fa-pencil-square-o bigger-120" title="智能拆分组_功率"></i> -->
 																</span>
@@ -398,27 +398,45 @@
 		
 		
 		//智能拆分组-奇偶分组
-		function groupOddeven(id){
-			
-		}
-		
-		
-		
-		//智能拆分组-功率分组
-		function groupPower(id){
-			bootbox.confirm("确定要根据功率进行智能拆分组吗?", function(result) {
+		function groupOddeven(id,number){
+			bootbox.confirm("确定要进行智能拆分组-奇偶分组吗?", function(result) {
 				if(result) {
 					//top.jzts();
-					var url = '<%=basePath%>smartgroup/groupPower.do?id='+id;
+					var url = '<%=basePath%>smartgroup/groupOddeven.do?id='+id+'&number='+number;
 					$.get(url,function(data){
 						if(data){
 							nextPage(${page.currentPage});
 							console.info("----------");
 						}else{
 							
-							bootbox.confirm("此分组无法根据功率进行智能拆分组！！！", function(result2) {
+							bootbox.confirm("此分组无法实现智能拆分组-奇偶分组！！！", function(result2) {
 								nextPage(${page.currentPage});
-								console.info("haha");
+								
+							});
+							
+						}
+					});
+				}
+			});
+		}
+		
+		
+		
+		//智能拆分组-功率分组
+		function groupPower(id, number){
+			bootbox.confirm("确定要进行智能拆分组-功率分组吗?", function(result) {
+				if(result) {
+					//top.jzts();
+					var url = '<%=basePath%>smartgroup/groupPower.do?id='+id+'&number='+number;
+					$.get(url,function(data){
+						if(data){
+							nextPage(${page.currentPage});
+							console.info("----------");
+						}else{
+							
+							bootbox.confirm("此分组无法实现智能拆分组-功率分组！！！", function(result2) {
+								nextPage(${page.currentPage});
+								
 							});
 							
 						}

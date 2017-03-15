@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.hzy.util.LogType;
 import com.fh.service.analysis.power.PoweranalysisManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Jurisdiction;
@@ -181,7 +182,7 @@ public class APowerController extends BaseController{
 		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){
 			ObjectExcelView erv = new ObjectExcelView();					//执行excel操作
 			mv = new ModelAndView(erv,FaultUtils.exportPower(varList));
-			FHLOG.save(Jurisdiction.getUsername(), "导出能耗统计excel");
+			FHLOG.save(Jurisdiction.getUsername(), "导出能耗统计excel", LogType.POWER_EXPORT);
 			return mv;
 		}else{
 			mv.addObject("pd", pd);		//传入上级所有信息
@@ -196,7 +197,6 @@ public class APowerController extends BaseController{
 			mv.addObject("varList", varList);
 			mv.addObject("QX",Jurisdiction.getHC());				//按钮权限
 	*/		
-			FHLOG.save(Jurisdiction.getUsername(), "查看能耗统计");
 			return mv;
 		}
 		

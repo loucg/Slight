@@ -72,7 +72,6 @@ public class SysUserController extends BaseController {
 						pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//密码加密
 						if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 							userService.saveU(pd); 					//执行保存
-							FHLOG.save(pd.getString("USERNAME"), "新注册");
 						}else{
 							result = "04"; 	//用户名已存在
 						}

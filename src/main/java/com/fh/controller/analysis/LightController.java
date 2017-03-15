@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.controller.slight.configure.ConfigureUtils;
 import com.fh.entity.Page;
+import com.fh.hzy.util.LogType;
 import com.fh.service.analysis.light.LightanalysisManager;
 import com.fh.service.analysis.repair.RepairanalysisManager;
 import com.fh.service.system.fhlog.FHlogManager;
@@ -86,7 +87,7 @@ public class LightController extends BaseController{
 		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){
 			ObjectExcelView erv = new ObjectExcelView();					//执行excel操作
 			mv = new ModelAndView(erv,FaultUtils.exportLight(varList));
-			FHLOG.save(Jurisdiction.getUsername(), "导出亮灯统计excel");
+			FHLOG.save(Jurisdiction.getUsername(), "导出亮灯统计excel", LogType.LIGHT_EXPORT);
 			return mv;
 		}else{
 			mv.addObject("pd", pd);		//传入上级所有信息
@@ -101,7 +102,6 @@ public class LightController extends BaseController{
 			mv.addObject("varList", varList);
 			mv.addObject("QX",Jurisdiction.getHC());				//按钮权限
 	*/		
-			FHLOG.save(Jurisdiction.getUsername(), "查看亮灯统计");
 			return mv;
 		}
 		

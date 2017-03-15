@@ -79,8 +79,8 @@ body,ul,li{	margin:0;
 			</ul>
 			 <ul class="box">
 			<li><a onclick="edit(67,'基础配置','config/goCombination');"><img src="static/login/images/jcpz.jpg"/></a></li>
-			<li><a onclick="edit(336,'分组策略','status/strategy/getGroupList');"><img src="static/login/images/ldfz.jpg"/></a></li>
-			<li><a onclick="edit(368,'数据分析','');"><img src="static/login/images/sjfx.jpg"/></a></li>
+			<li><a onclick="edit(80,'分组设置','group/listGroups.do');"><img src="static/login/images/ldfz.jpg"/></a></li>
+			<li><a onclick="edit(369,'能耗统计','poweranalysis/powerlist');"><img src="static/login/images/sjfx.jpg"/></a></li>
 			<li><a onclick="edit(344,'维修记录','repair/weixiu');"><img src="static/login/images/wxjl.jpg"/></a></li> 
 			</ul>
 			</div> 

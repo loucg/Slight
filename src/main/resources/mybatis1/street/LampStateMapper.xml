@@ -6,7 +6,7 @@
 <!--路灯列表  -->
 	<select id="lampstatelistPage" parameterType="page" resultType="pd">
 		SELECT
-		c_term.`name` tname, c_client.client_code, c_client_attr1.`name` cname,
+		c_term.`name` tname, c_client.id, c_client.client_code, c_client_attr1.`name` cname,
 		c_client_attr1.location, c_client_attr1.lamp_pole_num, c_client_upload_status.temperature,
 		c_client_upload_status.Vo, c_client_upload_status.power_factor, c_client_upload_status.`status`,
 		c_client_attr1.`comment`,  c_client_upload_status.tdate
@@ -91,5 +91,51 @@
 		c_client.client_code = #{lamp_code}
 		
 	</select>
+	
+	
+	<!-- 修改一个灯的亮度 -->
+	<update id="adjustBrt" parameterType="pd" >
+		update c_client_upload_status cus
+			SET
+			cus.brightness = #{brightness},
+			tdate          = #{tdate}	
+			WHERE
+			cus.c_client_id = #{id}
+	</update>
+	
+	<!-- 查询策略 -->
+	<select id="findStrategy" parameterType="page" resultType="pd">
+		SELECT
+		id,
+		`name`,
+		json
+		FROM
+		b_ctrl_strategy
+		WHERE 1=1
+		 <if test="pd.str_id!=null and pd.str_id!=''">
+			and 
+			(
+				id = #{pd.str_id}
+			)
+		</if>
+	</select>
+	
+	<!-- 修改一个组的策略 -->
+	<update id="adjustStr" parameterType="pd" >
+		update c_term
+			SET
+			 b_ctrl_strategy_id = #{str_id}
+			WHERE
+			sys_user_id = #{sys_user_id}
+			AND
+			id IN (
+				SELECT
+				c_client_term.c_term_id
+				FROM
+				c_client_term
+				WHERE
+				c_client_term.c_client_id = #{id}
+			)
+	</update>
 	
 </mapper>

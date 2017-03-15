@@ -66,8 +66,8 @@ public class StatusStrategyController extends BaseController{
 			tableList = statusStrategyService.getMonthGroupList(pd);
 		}
 		List<PageData> strategyList = statusStrategyService.getStrategyList(pd);
-		
-		if(tableList.get(0)==null){
+		System.out.println(tableList);
+		if(tableList==null||tableList.isEmpty()||tableList.get(0)==null){
 			mv.addObject("groupList", null);
 		}else{
 			List<List<PageData>> groupList = new ArrayList<List<PageData>>();

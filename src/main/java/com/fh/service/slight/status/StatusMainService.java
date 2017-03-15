@@ -3,7 +3,6 @@ package com.fh.service.slight.status;
 import com.fh.util.PageData;
 
 public interface StatusMainService {
-
 	
 	public PageData getStgAndGroupCnt(PageData pd) throws Exception;
 	

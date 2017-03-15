@@ -54,11 +54,11 @@
 							<table>
 								<tr height="7px;"><td colspan="100"></td></tr>
 								<tr>
-								<td><font color="#808080">本组：</font></td>
+								<!-- <td><font color="#808080">本组：</font></td> -->
 								<td>
-								<c:if test="${QX.edit == 1 }">
+								<%-- <c:if test="${QX.edit == 1 }">
 								<a class="btn btn-mini btn-info" onclick="editRole('${pd.ROLE_ID }');">修改组名称<i class="icon-arrow-right  icon-on-right"></i></a>
-								</c:if>
+								</c:if> --%>
 									<c:choose>
 										<c:when test="${pd.ROLE_ID == '99'}">
 										</c:when>
@@ -67,7 +67,7 @@
 										<a class="btn btn-mini btn-purple" onclick="editRights('${pd.ROLE_ID }');">
 											<i class="icon-pencil"></i>
 											<c:if test="${pd.ROLE_ID == '1'}">Admin 菜单权限</c:if>
-											<c:if test="${pd.ROLE_ID != '1'}">组菜单权限</c:if>
+											<%-- <c:if test="${pd.ROLE_ID != '1'}">组菜单权限</c:if> --%>
 										</a>
 										</c:if>
 										</c:otherwise>

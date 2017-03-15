@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <%
@@ -41,7 +41,7 @@
 						<input type="hidden" id="excel" name="excel" value="0"/>
 						<table style="margin-top:5px;">
 							<tr>
-								<td><%=standard %>：</td>
+								<td><%=standard%>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -49,7 +49,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;<%=vendor %>：</td>
+								<td>&nbsp;&nbsp;<%=vendor%>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -57,9 +57,9 @@
 										</span>
 									</div>
 								</td>
-								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search %>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td></c:if>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="<%=importt %>"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
-								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="<%=export %>"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search1%>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="<%=importt%>"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="<%=export_to_excel%>"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								
 							</tr>
 						</table>
@@ -68,13 +68,13 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width:50px;"><%=number %></th>
-									<th class="center"><%=standard %>/<%=name %></th>
-									<th class="center"><%=vendor %></th>
-									<th class="center"><%=type %></th>
-									<th class="center"><%=power_rate %></th>
-									<th class="center"><%=comment %></th>
-									<th class="center"><%=operate %></th>
+									<th class="center" style="width:50px;"><%=number%></th>
+									<th class="center"><%=standard%>/<%=name%></th>
+									<th class="center"><%=vendor%></th>
+									<th class="center"><%=type%></th>
+									<th class="center"><%=power_rate%></th>
+									<th class="center"><%=comment%></th>
+									<th class="center"><%=operate%></th>
 								</tr>
 							</thead>
 													
@@ -90,18 +90,18 @@
 											<td class="center">${var.name}</td>
 											<td class="center">${ fn:substring(var.vendor ,0,50)}</td>											
 											<td style="width: 60px;" class="center">
-												<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in"><%=system %></span></c:if>
-												<c:if test="${var.type == '2' }"><span class="label label-success arrowed"><%=self %></span></c:if>
+												<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in"><%=system%></span></c:if>
+												<c:if test="${var.type == '2' }"><span class="label label-success arrowed"><%=self_prepare%></span></c:if>
 											</td>
 											<td class='center'>${var.power}</td>
 											<td class="center">${var.comment}</td>
 											<td class="center" style="width:50px;">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
-												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="<%=no_permission %>"></i></span>
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="<%=no_permission%>"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" onclick="edit('${var.id}');"><%=edit %></a>
+													<a class="btn btn-xs btn-success" onclick="edit('${var.id}');"><%=edit%></a>
 													</c:if>
 												</div>
 											</td>
@@ -111,13 +111,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center"><%=no_permission %></td>
+											<td colspan="100" class="center"><%=no_permission%></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" ><%=no_relevant_data %></td>
+										<td colspan="100" class="center" ><%=no_relevant_data%></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -128,7 +128,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-success" onclick="add();"><%=add %></a>
+									<a class="btn btn-mini btn-success" onclick="add();"><%=add2%></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -210,7 +210,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="<%=add%>";
+			 diag.Title ="<%=add2%>";
 			 diag.URL = '<%=basePath%>npower/goNPowerCreate';
 			 diag.Width = 460;
 			 diag.Height = 265;
