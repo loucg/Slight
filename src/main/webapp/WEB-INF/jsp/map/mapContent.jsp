@@ -142,11 +142,11 @@ function gpsTObbdLfet_c(clientdata)
 	var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"> <a style=\" float:left;width:10px;height:10px;border:1px solid #000}\" ><span class=\"glyphicon glyphicon-hand-right\"></span></a><a style=\"\" class=\"one\" id="+clientdata[0].termid+"><span style=\"font-size:12px;font-weight:normal; color:black;font-family:宋体\">"+clientdata[0].termname+"</span></a></div><ul class=\"kid\">";
 	for(var i=0;i<clientdata.length;i++){
 		if(clientdata[i].id!=null){
-			var accdivli ="<li><b class=\"tip\"></b><a style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="+clientdata[i].id+"><span style=\"font-size:11px;color:black; font-family:宋体\">"+clientdata[i].name+"</span></a></li>";
+			var accdivli ="<li><b class=\"tip\"></b><a style=\" outline: none; margin-left:25px;\" class=\"onekid\"  id="+clientdata[i].id+"><span style=\"font-size:11px;color:black; font-family:宋体\">"+clientdata[i].name+"</span></a></li>";
 			accdivpre=accdivpre+accdivli;
 			}else if(clientdata[i].havenest==true){
 				mapTermpage[clientdata[0].termid].havenest=true;
-				var accdivli ="<li id=\"moreli\"><b class=\"tip\"></b><a  style=\" outline: none; margin-left:20px;\" class=\"onekid\" color:black;  id="+"more"+">"+"....."+"</a></li>";
+				var accdivli ="<li id=\"moreli\"><b class=\"tip\"></b><a  style=\" outline: none; margin-left:25px;\" class=\"onekid\" color:black;  id="+"more"+"><span style=\"color:black;\">"+"....."+"</span></a></li>";
 				accdivpre=accdivpre+accdivli;
 				} else {
 						 mapTermpage[clientdata[0].termid].havenest=false;
@@ -161,10 +161,10 @@ function gpsTObbdMore(clientdata,termid,choseterm)
     for(var i=0;i<clientdata.length;i++){
 		var accdivli
 		if(clientdata[i].id!=null){
-		accdivli ="<li><b class=\"tip\"></b><a  style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="+clientdata[i].id+"><span style=\"font-size:11px;color:black;  font-family:宋体\">"+clientdata[i].name+"</span></a></li>";
+		accdivli ="<li><b class=\"tip\"></b><a  style=\" outline: none; margin-left:25px;\" class=\"onekid\"  id="+clientdata[i].id+"><span style=\"font-size:11px;color:black;  font-family:宋体\">"+clientdata[i].name+"</span></a></li>";
 		}else if(clientdata[i].havenest==true){
 			mapTermpage[termid].havenest=true;
-			accdivli ="<li id=\"moreli\"><b class=\"tip\"></b><a  style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="+"more"+">"+"....."+"</a></li>";
+			accdivli ="<li id=\"moreli\"><b class=\"tip\"></b><a  style=\" outline: none; margin-left:25px;\" class=\"onekid\"  id="+"more"+"><span style=\"color:black;\">"+"....."+"</span></a></li>";
 		}else {
 				mapTermpage[termid].havenest=false;
 		}
@@ -179,7 +179,7 @@ function gpsTObbdSearch(clientdata)
 		+ "搜索结果"
 		+ "</span></a></div><ul class=\"kid\">";
         for(var i=0;i<clientdata.length;i++){
-        	var accdivli = "<li><b class=\"tip\"></b><a  style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="
+        	var accdivli = "<li><b class=\"tip\"></b><a  style=\" outline: none; margin-left:25px;\" class=\"onekid\"  id="
 				+ clientdata[i].id
 				+ "><span style=\"font-size:11px;color:black;  font-family:宋体\">"
 				+ clientdata[i].name
