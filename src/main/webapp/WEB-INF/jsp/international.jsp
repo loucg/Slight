@@ -87,7 +87,7 @@
 	String none_this_department_is_top = properties.getProperty("none_this_department_is_top");
 	String return1 = properties.getProperty("return1");
 	String please_enter_company_name = properties.getProperty("please_enter_company_name");
-	String language = properties.getProperty("language");
+	String language1 = properties.getProperty("language1");
 	String set_up_and_down_electricity_time = properties.getProperty("set_up_and_down_electricity_time");
 	String success_delete = properties.getProperty("success_delete");
 	String modify = properties.getProperty("modify");
