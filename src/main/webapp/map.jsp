@@ -71,10 +71,16 @@ body {
 #container {
 	height: 100%
 }
-
+/* 不出现百度logo */
 .anchorBL {
 	display: none
 }
+/* 让弹出框背景不变暗 */
+.modal-backdrop {
+  opacity: 0 !important;
+  filter: alpha(opacity=0) !important;
+}
+*{outline:none;}
 </style>
 </head>
 <body>
@@ -836,6 +842,8 @@ function searchConerr() {
  function PolicyControl() {
 	 BootstrapDialog.show({
          title: '策略控制',
+         /* cssClass :'dialog', */
+       /*   draggable: true, */
         // message:$('<div></div>').load('remote.html'),
         message:"跳转到策略控制页面吗",
          buttons: [{
