@@ -312,20 +312,6 @@ body {
 			}
 		});
 	}
-/* 	function gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom) {
-	    var convertor = new BMap.Convertor();
-        convertor.translate(arrpoints, 1, 5, function (data){
-        	if(data.status === 0) {
-        		for (var i = 0; i < data.points.length; i++) {
-        		clientdata[i].coordinate=data.points[i].lng+","+data.points[i].lat;
-        		clientdata[i].xcoordinate=data.points[i].lng;
-        		clientdata[i].ycoordinate=data.points[i].lat;
-        		if(i+1>= data.points.length){addClientMaker(clientdata,mapcenter,mapzoom);}
-            	}
-        	}
-        });
-	}
-	 */
 	 
 		function gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom) {
 		 	var len = arrpoints.length;//所有点的长度  
@@ -368,7 +354,9 @@ body {
 	                            	addClientMaker(clientdata,mapcenter,mapzoom); 
 	                            }  
 	                        }  
-	                    }  
+	                    } else{
+	                    	alert("有脏数据，坐标转换失败！");
+	                    } 
 	                    callback = null;//清理内存。  
 	                    jj = null;  
 	                }  
@@ -446,19 +434,19 @@ body {
 		changeZoom(centerdata, minXcoordinate, minYcoordinate, maxXcoordinate,
 				maxYcoordinate,mapcenter,mapzoom);//设置zoom大小
 	}
-
+///////////////////////////////////////////////////////////////////////////////////////////
 	map.addEventListener("click",closeinfowindow);
 	function closeinfowindow(){
-		 map.closeInfoWindow();
+		//setTimeout(function() {map.closeInfoWindow();}, 300);
 		  
 	}
 	//叠加层点击事件       
 	function fo(e) {
-		//console.log(choseMaker._data);
-		map.removeEventListener("click", fo); //这里取消绑定。
+		setTimeout(function() {map.removeEventListener("click", fo);}, 300); //这里取消绑定。         
 		var point = new BMap.Point(e.point.lng, e.point.lat);
-		map.openInfoWindow(infoWindow, point); //开启信息窗口     
-		//map.removeEventListener("click", fo); //这里取消绑定。                
+		map.openInfoWindow(infoWindow, point); //开启信息窗口    
+		infoWindow=null;
+		setTimeout(function() {map.removeEventListener("click", fo);}, 300); //这里取消绑定。                
 	}
 	//0.5秒后根据id改变地图的展示中心       
 	function changeCenterByid(id) {
