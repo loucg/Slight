@@ -68,8 +68,11 @@
 					"<div class='btx4'>"+
 						"<h2 class='sh'>"+"亮度值"+":</h2>"+
 						"<select class='s1'  onchange='change_bright(this.options[this.options.selectedIndex].value)'>"+
+							"<option value=''>"+""+"</option>"+
 							"<option value='0'>"+"0"+"</option>"+
-							"<option value='50'>"+"50"+"</option>"+
+							"<option value='20'>"+"20"+"</option>"+
+							"<option value='60'>"+"60"+"</option>"+
+							"<option value='80'>"+"80"+"</option>"+
 							"<option value='100'>"+"100"+"</option>"+
 				    	"</select>"+
 				    "</div>"+

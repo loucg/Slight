@@ -442,6 +442,7 @@ body {
 	}
 	//叠加层点击事件       
 	function fo(e) {
+		infoWindow.enableCloseOnClick();
 		setTimeout(function() {map.removeEventListener("click", fo);}, 300); //这里取消绑定。         
 		var point = new BMap.Point(e.point.lng, e.point.lat);
 		map.openInfoWindow(infoWindow, point); //开启信息窗口    
