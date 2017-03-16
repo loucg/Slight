@@ -39,39 +39,39 @@
 							<tr>
 								
 								<td>
-									<div class="nav-search">
-									    <label>组名：</label>
-										<input class="nav-search-input" autocomplete="off" id="groupname" type="text" name="groupname" value="${pd.groupname}" />
+									<div class="nav-search" style="display:flex ">
+									    <label style="width:42px">组名：</label>
+										<input class="nav-search-input" autocomplete="off" id="groupname" type="text" name="groupname" value="${pd.groupname}" style="width:105px"/>
 									</div>
 								</td>
 								<td >
-								 	<div class="nav-search">
-									    <label style="margin-left:12px;">名称：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }"  />
+								 	<div class="nav-search" style="display:flex">
+									    <label style="margin-left:12px;width:42px">名称：</label>
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }"  style="width:105px"/>
 									</div>
 								</td>
 								<td >
-								 	<div class="nav-search">
-									    <label style="margin-left:12px;">编号：</label>
-										<input class="nav-search-input" autocomplete="off" id="number" type="text" name="number" value="${pd.number }"  />
+								 	<div class="nav-search" style="display:flex">
+									    <label style="margin-left:12px;width:42px">编号：</label>
+										<input class="nav-search-input" autocomplete="off" id="number" type="text" name="number" value="${pd.number }"  style="width:105px"/>
 									</div>
 								</td>
 								<td >
-								 	<div class="nav-search">
-									    <label style="margin-left:12px;">位置：</label>
-										<input class="nav-search-input" autocomplete="off" id="location" type="text" name="location" value="${pd.location }"  />
+								 	<div class="nav-search" style="display:flex">
+									    <label style="margin-left:12px;width:42px">位置：</label>
+										<input class="nav-search-input" autocomplete="off" id="location" type="text" name="location" value="${pd.location }"  style="width:105px"/>
 									</div>
 								</td>
 								<td>
-								<div class="nav-search" style="padding-left:12px">
-								<label>开始时间：</label>
-								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px; height:28px" placeholder="开始时间" title="开始时间"/>
+								<div class="nav-search" style="padding-left:12px;display:flex">
+								<label style="width:70px">开始时间：</label>
+								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:85px; height:28px" placeholder="开始时间" title="开始时间"/>
 								</div>
 								</td>
 								<td>
-								<div class="nav-search" style="padding-left:12px">
-								<label>结束时间：</label>
-								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px; height:28px" placeholder="结束时间" title="结束时间"/>
+								<div class="nav-search" style="padding-left:12px;display:flex">
+								<label style="width:70px">结束时间：</label>
+								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:85px; height:28px" placeholder="结束时间" title="结束时间"/>
 								</div>
 								</td>
 								<c:if test="${QX.cha == 1 }"><td style="vertical-align:middle;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
