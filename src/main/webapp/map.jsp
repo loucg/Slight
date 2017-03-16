@@ -283,6 +283,7 @@ body {
 					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);
 					//return clientdata;
 				} else {
+					preMakerdata = [];
 					map.centerAndZoom("杭州", 14);
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_INFO,
@@ -523,10 +524,12 @@ body {
 			var a=drawtata[i];
 			a.drawid=drawid;
 		}
-		parent.cleardrawdata();//删除原有的左边框选列表
-		parent.setmapTermpage(-2,drawtata[0]);
-		//parent.changedrawdata(drawtata);//用于再次点击时可以加载出来
-		parent.gpsTObbddrawing(drawtata);//添加左边框选列表
+		if(drawtata.length>0){
+			parent.cleardrawdata();//删除原有的左边框选列表
+			parent.setmapTermpage(-2,drawtata[0]);
+			//parent.changedrawdata(drawtata);//用于再次点击时可以加载出来
+			parent.gpsTObbddrawing(drawtata);//添加左边框选列表
+		}
 	}
 	function TurnOnLight() {
 		if (choseMakerdata.brightness != 0) {
