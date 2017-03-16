@@ -397,7 +397,9 @@ body {
 					};
 					infoWindow = new BMap.InfoWindow(sContent, opts); // 创建信息窗口对象
 					infoWindow.enableCloseOnClick();
-					map.addEventListener('click', fo);
+					var point = new BMap.Point(data[k].xcoordinate, data[k].ycoordinate);
+					map.openInfoWindow(infoWindow, point); //开启信息窗口    
+					//map.addEventListener('click', fo);
 				});
 			}(i));
 		}
