@@ -449,7 +449,7 @@ body {
 
 	map.addEventListener("click",closeinfowindow);
 	function closeinfowindow(){
-		  if(infoWindow.isOpen())map.removeOverlay(infoWindow);
+		 map.closeInfoWindow();
 		  
 	}
 	//叠加层点击事件       

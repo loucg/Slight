@@ -41,7 +41,7 @@
         if(str!="more"){
         	Conframe.window.changeCenterByid(str);
         }else{
-        	$(this).parent().parent().remove();
+        	$(this).parent().remove();
         	var termid=choseterm.attr("id");
            	//Conframe.window.getClientsData(mapTermpage[termid]);//加载对应组的终端maker/////////////////////////
         	$.ajax({
