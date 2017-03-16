@@ -129,7 +129,7 @@ public class RoleController extends BaseController {
 			pd.put("EDIT_QX", "0");	//修改权限
 			pd.put("CHA_QX", "0");	//查看权限
 			roleService.add(pd);
-			FHLOG.save(Jurisdiction.getUsername(), "新增角色:"+pd.getString("ROLE_NAME"), LogType.ASSIGN_ROLE);
+			FHLOG.save(Jurisdiction.getUsername(), "新增角色:"+pd.getString("ROLE_NAME"), LogType.assignrole);
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 			mv.addObject("msg","failed");
@@ -173,7 +173,7 @@ public class RoleController extends BaseController {
 		try{
 			pd = this.getPageData();
 			roleService.edit(pd);
-			FHLOG.save(Jurisdiction.getUsername(), "修改角色:"+pd.getString("ROLE_NAME"), LogType.EDIT_ROLE);
+			FHLOG.save(Jurisdiction.getUsername(), "修改角色:"+pd.getString("ROLE_NAME"), LogType.editrole);
 			mv.addObject("msg","success");
 		} catch(Exception e){
 			logger.error(e.toString(), e);
@@ -343,7 +343,7 @@ public class RoleController extends BaseController {
 	public void saveB4Button(@RequestParam String ROLE_ID,@RequestParam String menuIds,@RequestParam String msg,PrintWriter out)throws Exception{
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){} //校验权限
 		logBefore(logger, Jurisdiction.getUsername()+"修改"+msg+"权限");
-		FHLOG.save(Jurisdiction.getUsername(), "修改"+msg+"权限，角色ID为:"+ROLE_ID, LogType.ASSIGN_ROLE);
+		FHLOG.save(Jurisdiction.getUsername(), "修改"+msg+"权限，角色ID为:"+ROLE_ID, LogType.assignrole);
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		try{

@@ -168,7 +168,7 @@ public class AccountController extends BaseController {
 		pd = this.getPageData();
 		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), "cba#321").toString());	//密码加密，初始密码为cba#321
 		userService.resetP(pd);	//执行修改
-		FHLOG.save(Jurisdiction.getUsername(), "重置密码："+pd.getString("USERNAME"), LogType.RESET_PASSWORD);
+		FHLOG.save(Jurisdiction.getUsername(), "重置密码："+pd.getString("USERNAME"), LogType.resetpassword);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -185,7 +185,7 @@ public class AccountController extends BaseController {
 		pd = this.getPageData();
 		userService.editA(pd);	//执行账户修改
 		userService.editAccountDP(pd);	//执行账户部门职务修改
-		FHLOG.save(Jurisdiction.getUsername(), "修改帐号："+pd.getString("USERNAME"), LogType.EDIT_ACCOUNT);
+		FHLOG.save(Jurisdiction.getUsername(), "修改帐号："+pd.getString("USERNAME"), LogType.editaccount);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -239,7 +239,7 @@ public class AccountController extends BaseController {
 		if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 			userService.saveA(pd); 					//执行帐号保存
 			userService.saveAccountDP(pd); 			//执行帐号职务保存
-			FHLOG.save(Jurisdiction.getUsername(), "新增帐号："+pd.getString("USERNAME"), LogType.EDIT_ACCOUNT);
+			FHLOG.save(Jurisdiction.getUsername(), "新增帐号："+pd.getString("USERNAME"), LogType.editaccount);
 			mv.addObject("msg","success");
 		}else{
 			mv.addObject("msg","failed");

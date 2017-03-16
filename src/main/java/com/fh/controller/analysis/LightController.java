@@ -87,7 +87,7 @@ public class LightController extends BaseController{
 		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){
 			ObjectExcelView erv = new ObjectExcelView();					//执行excel操作
 			mv = new ModelAndView(erv,FaultUtils.exportLight(varList));
-			FHLOG.save(Jurisdiction.getUsername(), "导出亮灯统计excel", LogType.LIGHT_EXPORT);
+			FHLOG.save(Jurisdiction.getUsername(), "导出亮灯统计excel", LogType.lightexport);
 			return mv;
 		}else{
 			mv.addObject("pd", pd);		//传入上级所有信息

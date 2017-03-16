@@ -165,7 +165,7 @@ public class UserController extends BaseController {
 		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//密码加密
 		if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 			userService.saveU(pd); 					//执行保存
-			FHLOG.save(Jurisdiction.getUsername(), "新增系统用户："+pd.getString("USERNAME"), LogType.CREATE_ACCOUNT);
+			FHLOG.save(Jurisdiction.getUsername(), "新增系统用户："+pd.getString("USERNAME"), LogType.createaccount);
 			mv.addObject("msg","success");
 		}else{
 			mv.addObject("msg","failed");
@@ -341,7 +341,7 @@ public class UserController extends BaseController {
 			pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("NEWPASSWORD")).toString());
 		}
 		userService.editU(pd);	//执行修改
-		FHLOG.save(Jurisdiction.getUsername(), "修改系统用户："+pd.getString("USERNAME"), LogType.EDIT_ACCOUNT);
+		FHLOG.save(Jurisdiction.getUsername(), "修改系统用户："+pd.getString("USERNAME"), LogType.editaccount);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;

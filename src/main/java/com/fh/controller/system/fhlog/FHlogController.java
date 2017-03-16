@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.hzy.util.LogUtils;
 import com.fh.util.AppUtil;
 import com.fh.util.ObjectExcelView;
 import com.fh.util.PageData;
@@ -62,16 +63,12 @@ public class FHlogController extends BaseController {
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"列表FHlog");
-		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		String keywords = pd.getString("keywords");				//关键词检索条件
-		if(null != keywords && !"".equals(keywords)){
-			pd.put("keywords", keywords.trim());
-		}
-		String lastStart = pd.getString("lastStart");	//开始时间
-		String lastEnd = pd.getString("lastEnd");		//结束时间
+		String lastStart = pd.getString("starttime");	//开始时间
+		String lastEnd = pd.getString("endtime");		//结束时间
 		if(lastStart != null && !"".equals(lastStart)){
 			pd.put("lastStart", lastStart+" 00:00:00");
 		}
@@ -82,6 +79,8 @@ public class FHlogController extends BaseController {
 		List<PageData>	varList = fhlogService.list(page);		//列出FHlog列表
 		mv.setViewName("system/fhlog/fhlog_list");
 		mv.addObject("varList", varList);
+		mv.addObject("logtypeList", LogUtils.getTypeList());
+		System.out.println("logtypeList:=+"+LogUtils.getTypeList());
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());				//按钮权限
 		return mv;

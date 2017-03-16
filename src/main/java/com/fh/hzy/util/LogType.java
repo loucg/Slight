@@ -1,30 +1,97 @@
 package com.fh.hzy.util;
 
+import java.util.List;
+
 /**
  * 
  * @author hongzhiyuanzj
  *
  */
 public class LogType {
-	public static final String LOGIN = "账号登录";
-	public static final String LOGOUT = "账号退出";
-	public static final String EDIT_USERINFO = "修改个人信息";
-	public static final String GROUP_DIVIDE = "新组分组";
-	public static final String EDIT_GROUP = "修改分组";
-	public static final String EDIT_GROUP_MEMBER = "修改分组成员";
-	public static final String NEW_GROUP_STRATEGY = "新组策略";
-	public static final String EDIT_STRATEGY = "修改策略";
-	public static final String EDIT_STRATEGY_APP = "修改策略应用";
-	public static final String REPAIRE_LOGIN = "维修登记";
-	public static final String DEVICE_CONTROL= "终端控制";
-	public static final String POWER_EXPORT = "能耗导出";
-	public static final String LIGHT_EXPORT = "亮灯导出";
-	public static final String FAULT_EXPORT = "故障导出";
-	public static final String REPARE_EXPORT = "维修导出";
-	public static final String CREATE_ACCOUNT = "创建用户";
-	public static final String EDIT_ACCOUNT = "修改用户";
-	public static final String RESET_PASSWORD = "重置密码";
-	public static final String EDIT_ROLE = "修改角色";
-	public static final String ASSIGN_ROLE = "分配角色";
-	public static final String SYSTEM = "系统配置";
+	public static final String login = "账号登录";
+	public static final String logout = "账号退出";
+	public static final String edituserinfo = "修改个人信息";
+	public static final String groupdivide = "新组分组";
+	public static final String editgroup = "修改分组";
+	public static final String editgroupmember = "修改分组成员";
+	public static final String newgroupstrategy = "新组策略";
+	public static final String editstrategy = "修改策略";
+	public static final String editstrategyapp = "修改策略应用";
+	public static final String repairlogin = "维修登记";
+	public static final String devicecontrol= "终端控制";
+	public static final String powerexport = "能耗导出";
+	public static final String lightexport = "亮灯导出";
+	public static final String faultexport = "故障导出";
+	public static final String repairexport = "维修导出";
+	public static final String createaccount = "创建用户";
+	public static final String editaccount = "修改用户";
+	public static final String resetpassword = "重置密码";
+	public static final String editrole = "修改角色";
+	public static final String assignrole = "分配角色";
+	public static final String system = "系统配置";
+	public static String getLogin() {
+		return login;
+	}
+	public static String getLogout() {
+		return logout;
+	}
+	public static String getEdituserinfo() {
+		return edituserinfo;
+	}
+	public static String getGroupdivide() {
+		return groupdivide;
+	}
+	public static String getEditgroup() {
+		return editgroup;
+	}
+	public static String getEditgroupmember() {
+		return editgroupmember;
+	}
+	public static String getNewgroupstrategy() {
+		return newgroupstrategy;
+	}
+	public static String getEditstrategy() {
+		return editstrategy;
+	}
+	public static String getEditstrategyapp() {
+		return editstrategyapp;
+	}
+	public static String getRepairlogin() {
+		return repairlogin;
+	}
+	public static String getDevicecontrol() {
+		return devicecontrol;
+	}
+	public static String getPowerexport() {
+		return powerexport;
+	}
+	public static String getLightexport() {
+		return lightexport;
+	}
+	public static String getFaultexport() {
+		return faultexport;
+	}
+	public static String getRepairexport() {
+		return repairexport;
+	}
+	public static String getCreateaccount() {
+		return createaccount;
+	}
+	public static String getEditaccount() {
+		return editaccount;
+	}
+	public static String getResetpassword() {
+		return resetpassword;
+	}
+	public static String getEditrole() {
+		return editrole;
+	}
+	public static String getAssignrole() {
+		return assignrole;
+	}
+	public static String getSystem() {
+		return system;
+	}
+	
+	
 }

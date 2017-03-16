@@ -16,16 +16,6 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
-<link rel="stylesheet" type="text/css" href="static/datepicker/css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="static/datepicker/css/htmleaf-demo.css">
-<link rel="stylesheet" type="text/css" href="static/datepicker/assets/site.css">
-<link rel="stylesheet" id=cal_style type="text/css" href="static/datepicker/dist/flatpickr.min.css">
-
-<script async src="static/datepicker/assets/prettify.js?skin=none" onload="prettyPrint()"></script>
-<script async src="static/datepicker/assets/table-of-contents.js"></script>
-<script async src="static/datepicker/assets/themer.js"></script>
-<script async id="locale_script"></script>
-<script async src="static/datepicker/assets/localizr.js"></script>
 
 <script src="static/echart/echarts.js"></script>
 
@@ -33,6 +23,8 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../system/index/top.jsp"%>
+<!-- 日期框 -->
+<link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
 <body class="no-skin">
 	<!-- /section:basics/navbar.layout -->
@@ -48,23 +40,24 @@
 						<input type="hidden" id="excel" name="excel" value="0"/>
 						<table style="margin-top:5px;">
 							<tr>
+							
 								<td>
-									<div class="nav-search">
-									    <label>开始时间：</label>
-									    <input class="nav-search-input" id="starttime" name="starttime" value="${pd.starttime }">
-									</div>
+								<div class="nav-search">
+								<label>开始时间：</label>
+								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px; height:28px" placeholder="开始时间" title="开始时间"/>
+								</div>
 								</td>
 								<td>
-								 	<div class="nav-search">
-									    <label style="margin-left:12px;">截止时间：</label>
-										<input class="nav-search-input" id="endtime" name="endtime" value="${pd.endtime }">
-									</div>
+								<div class="nav-search" style="padding-left:12px;">
+								<label>截止时间：</label>
+								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px;height:28px" placeholder="截止时间" title="截止时间"/>
+								</div>
 								</td>
 								<td style="background-color:#ffffff;">&nbsp;&nbsp;查询方式：</td>
 								<td >
 								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择终端类型" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
-										<option value="1" <c:if test="${pd.type==1}">selected</c:if>>按日</option>
-										<option value="2" <c:if test="${pd.type==2}">selected</c:if>>按月</option>
+										<option value="1" <c:if test="${pd.type==1}">selected</c:if>>日</option>
+										<option value="2" <c:if test="${pd.type==2}">selected</c:if>>月</option>
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
@@ -149,13 +142,15 @@
 	<script src="static/ace/js/ace/ace.js"></script>
 	<!-- 下拉框 -->
 	<script src="static/ace/js/chosen.jquery.js"></script>
-	
+	<!-- 日期框 -->
+	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">
 		
-		window.onload = function loadChart(){
-			document.getElementById("starttime").flatpickr();
-			document.getElementById("endtime").flatpickr();
+		$(function(){
+			//日期框
+			
 			top.hangge();
+			$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
 			
             var div = document.getElementById("strategy");
             var jsons = div.getElementsByTagName("p"); //p节点存储了json的值获取所有p
@@ -189,13 +184,11 @@
                    
                 myChart.setOption(option);          
             }
-      
-		 } 
+		});
+	
 		
 		
     </script>
-	<script src="src/jquery-2.1.1.min.js"></script>
-	<script async src="static/datepicker/dist/flatpickr.js"></script>
-
+	
 </body>
 </html>

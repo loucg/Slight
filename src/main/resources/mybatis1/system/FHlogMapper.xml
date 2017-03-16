@@ -57,25 +57,27 @@
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
-		<include refid="Field"></include>
+			a.USERNAME, a.CZTIME,a.CONTENT,a.TYPE
 		from 
-		<include refid="tableName"></include>
+		<include refid="tableName"></include> as a
+		left join sys_user as b on a.USERNAME = b.USERNAME
 		where 1=1
-		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
-			and
-				(
-					USERNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-					or
-					CONTENT LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-				)
+		<if test="pd.userid!=null and pd.userid!=''">
+			and b.USER_ID = #{pd.userid}
+		</if> 
+		<if test="pd.username!=null and pd.username!=''">
+			and a.USERNAME LIKE CONCAT(CONCAT('%', #{pd.username}),'%')
+		</if>
+		<if test="pd.type!=null and pd.type!=''">
+			and a.TYPE = #{pd.type}
 		</if>
 		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
-			and CZTIME &gt;= #{pd.lastStart} 
+			and a.CZTIME &gt;= #{pd.lastStart} 
 		</if>
 		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
-			and CZTIME &lt;= #{pd.lastEnd} 
+			and a.CZTIME &lt;= #{pd.lastEnd} 
 		</if>
-		order by CZTIME desc
+		order by a.CZTIME desc
 	</select>
 	
 	<!-- 列表(全部) -->

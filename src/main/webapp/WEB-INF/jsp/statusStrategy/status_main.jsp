@@ -68,7 +68,7 @@
                     <td>路灯</td>
                     <td><a onclick="openFrame(340, '路灯异常', 'fault/street/listLamps.do')">${clientFault.fclient }</a></td>
                     <td>总功率</td>
-                    <td><a onclick="openFrame(342, '能耗状态', 'power/street/graphPowers.do')">${todayPower.power }KW</a></td>
+                    <td><a onclick="openFrame(342, '能耗状态', 'power/street/graphPowers.do')"><c:if test="${empty todayPower.power}">0</c:if><c:if test="${not empty todayPower.power }">${todayPower.power }</c:if>KW</a></td>
                     <td>平均功率因数</td>
                     <td>——</td>
                 </tr>

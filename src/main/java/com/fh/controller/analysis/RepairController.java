@@ -90,7 +90,7 @@ public class RepairController extends BaseController{
 		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){
 			ObjectExcelView erv = new ObjectExcelView();					//执行excel操作
 			mv = new ModelAndView(erv,FaultUtils.exportRepair(varList));
-			FHLOG.save(Jurisdiction.getUsername(), "导出维修统计excel", LogType.REPARE_EXPORT);
+			FHLOG.save(Jurisdiction.getUsername(), "导出维修统计excel", LogType.repairexport);
 			return mv;
 		}else{
 			mv.addObject("pd", pd);		//传入上级所有信息

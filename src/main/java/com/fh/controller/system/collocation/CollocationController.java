@@ -56,7 +56,7 @@ public class CollocationController extends BaseController{
 		mv.addObject("varList", varList);
 		mv.addObject("QX",Jurisdiction.getHC());				//按钮权限
 */		
-		FHLOG.save(Jurisdiction.getUsername(), "查看配置", LogType.SYSTEM);
+		FHLOG.save(Jurisdiction.getUsername(), "查看配置", LogType.system);
 		return mv;
 	}
 	

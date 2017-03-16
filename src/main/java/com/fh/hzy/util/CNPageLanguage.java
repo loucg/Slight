@@ -16,7 +16,7 @@ public class CNPageLanguage implements IPageLanguage{
 	@Override
 	public String getItem() {
 		// TODO Auto-generated method stub
-		return "页";
+		return "条";
 	}
 
 	@Override
