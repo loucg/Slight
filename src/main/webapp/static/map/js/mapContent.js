@@ -1,8 +1,6 @@
 function init() {
 
-	$("#check")
-			.click(
-					function() {
+	$("#check").click(function() {
 						var termid = $("#groupname").val();
 						if (termid == "") {
 							termid = null;
@@ -31,9 +29,9 @@ function init() {
 							"name" : name,
 							"id" : id
 						};
-						//console.log(postSearchData);
-						$
-								.ajax({
+						if(postSearchData.termid==null||postSearchData.termid==""){Conframe.window.searcherr();}
+						else{
+						$.ajax({
 									url : "gomap/getSearchClient",
 									type : "POST",
 									contentType : "application/json; charset=UTF-8",
@@ -65,6 +63,7 @@ function init() {
 										Conframe.window.searcherr();
 									}
 								});
+						}
 					});
 	$("#reset").click(function() {
 		$("#groupname").val("");

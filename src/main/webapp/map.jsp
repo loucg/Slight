@@ -377,7 +377,7 @@ body {
     } 
 	
 	//添加覆盖物 
-	var infoWindow;//全局变量，相当重要/////////////////////////////////////////////////////
+	//var infoWindow;//全局变量，相当重要/////////////////////////////////////////////////////
 	function addClientMaker(data,mapcenter,mapzoom) {
 		for (var i = 0; i < data.length; i++) {
 			var markerpoint = new BMap.Point(data[i].xcoordinate,
@@ -395,7 +395,7 @@ body {
 						width : 304, // 信息窗口宽度
 						height : 204, // 信息窗口高度
 					};
-					infoWindow = new BMap.InfoWindow(sContent, opts); // 创建信息窗口对象
+					var infoWindow = new BMap.InfoWindow(sContent, opts); // 创建信息窗口对象
 					infoWindow.enableCloseOnClick();
 					var point = new BMap.Point(data[k].xcoordinate, data[k].ycoordinate);
 					map.openInfoWindow(infoWindow, point); //开启信息窗口    
