@@ -27,11 +27,8 @@
 				<div class="page-content">
 					<div class="row">
 						<div class="col-xs-12">
-							<table style="margin-top: 8px;">
+						<%-- 	<table style="margin-top: 8px;">
 								<tr height="35">
-									<%-- <c:if test="${QX.add == 1 }">
-									<td style="width:69px;"><a href="javascript:addRole(0);" class="btn btn-sm btn-success">新增组</a></td>
-									</c:if> --%>
 										<c:choose>
 										<c:when test="${not empty roleList}">
 										<c:forEach items="${roleList}" var="role" varStatus="vs">
@@ -49,16 +46,12 @@
 										</c:choose>
 									<td></td>
 								</tr>
-							</table>
+							</table> --%>
 							
 							<table>
 								<tr height="7px;"><td colspan="100"></td></tr>
 								<tr>
-								<!-- <td><font color="#808080">本组：</font></td> -->
 								<td>
-								<%-- <c:if test="${QX.edit == 1 }">
-								<a class="btn btn-mini btn-info" onclick="editRole('${pd.ROLE_ID }');">修改组名称<i class="icon-arrow-right  icon-on-right"></i></a>
-								</c:if> --%>
 									<c:choose>
 										<c:when test="${pd.ROLE_ID == '99'}">
 										</c:when>
@@ -67,7 +60,6 @@
 										<a class="btn btn-mini btn-purple" onclick="editRights('${pd.ROLE_ID }');">
 											<i class="icon-pencil"></i>
 											<c:if test="${pd.ROLE_ID == '1'}">Admin 菜单权限</c:if>
-											<%-- <c:if test="${pd.ROLE_ID != '1'}">组菜单权限</c:if> --%>
 										</a>
 										</c:if>
 										</c:otherwise>
@@ -91,10 +83,12 @@
 									<th class="center" style="width: 50px;">序号</th>
 									<th class='center'>角色</th>
 									<c:if test="${QX.edit == 1 }">
-									<th class="center">增</th>
+									<th class="center">读</th>
+									<th class="center">写</th>
+									<!-- <th class="center">增</th>
 									<th class="center">删</th>
 									<th class="center">改</th>
-									<th class="center">查</th>
+									<th class="center">查</th> -->
 									</c:if>
 									<th style="width:155px;"  class="center">操作</th>
 								</tr>
@@ -108,10 +102,12 @@
 										<td class='center' style="width:30px;">${vs.index+1}</td>
 										<td id="ROLE_NAMETd${var.ROLE_ID }">${var.ROLE_NAME }</td>
 										<c:if test="${QX.edit == 1 }">
-										<td style="width:30px;"><a onclick="roleButton('${var.ROLE_ID }','add_qx');" class="btn btn-warning btn-mini" title="分配新增权限"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i></a></td>
+										<td style="width:30px;"><a onclick="roleButton('${var.ROLE_ID }','read_qx');" class="btn btn-warning btn-mini" title="分配可读权限"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i></a></td>
+										<td style="width:30px;"><a onclick="roleButton('${var.ROLE_ID }','write_qx');" class="btn btn-warning btn-mini" title="分配可写权限"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i></a></td>
+										<%-- <td style="width:30px;"><a onclick="roleButton('${var.ROLE_ID }','add_qx');" class="btn btn-warning btn-mini" title="分配新增权限"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i></a></td>
 										<td style="width:30px;"><a onclick="roleButton('${var.ROLE_ID }','del_qx');" class="btn btn-warning btn-mini" title="分配删除权限"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i></a></td>
 										<td style="width:30px;"><a onclick="roleButton('${var.ROLE_ID }','edit_qx');" class="btn btn-warning btn-mini" title="分配修改权限"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i></a></td>
-										<td style="width:30px;"><a onclick="roleButton('${var.ROLE_ID }','cha_qx');" class="btn btn-warning btn-mini" title="分配查看权限"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i></a></td>
+										<td style="width:30px;"><a onclick="roleButton('${var.ROLE_ID }','cha_qx');" class="btn btn-warning btn-mini" title="分配查看权限"><i class="ace-icon fa fa-wrench bigger-110 icon-only"></i></a></td> --%>
 										</c:if>
 										<td style="width:155px;">
 										<c:if test="${QX.edit != 1 && QX.del != 1 }">
@@ -289,15 +285,20 @@
 		//按钮权限(增删改查)
 		function roleButton(ROLE_ID,msg){
 			top.jzts();
-			if(msg == 'add_qx'){
-				var Title = "授权新增权限(此角色下打勾的菜单拥有新增权限)";
+			if(msg=='read_qx'){
+				var Title = "授权可读权限"
+			}else if(msg=='write_qx'){
+				var Title = "授权可写权限"
+			}
+			/* if(msg == 'add_qx'){
+				var Title = "授权可读权限(此角色下打勾的菜单拥有新增权限)";
 			}else if(msg == 'del_qx'){
 				Title = "授权删除权限(此角色下打勾的菜单拥有删除权限)";
 			}else if(msg == 'edit_qx'){
 				Title = "授权修改权限(此角色下打勾的菜单拥有修改权限)";
 			}else if(msg == 'cha_qx'){
 				Title = "授权查看权限(此角色下打勾的菜单拥有查看权限)";
-			}
+			} */
 			 var diag = new top.Dialog();
 			 diag.Drag = true;
 			 diag.Title = Title;

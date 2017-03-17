@@ -36,9 +36,6 @@ import com.fh.util.Tools;
 @RequestMapping("/config")
 public class ConfigureController extends BaseController{
 	
-	String menuUrl = "config/getNPowerList"; //菜单地址(权限用)
-	
-	
 	
 	private String deviceJsp = "foundation/combination/combination_list";
 	private String deviceEditJsp = "foundation/combination/combination_edit";
@@ -229,9 +226,21 @@ public class ConfigureController extends BaseController{
 		}else if(typeid==3||typeid==4||typeid==5){
 			pd = configureService.getGatewayAndBreakById(pd);
 		}
-		String[] zuobiao = pd.getString("coordinate").split(",");
-		pd.put("longitude", zuobiao[0]);
-		pd.put("latitude", zuobiao.length==1?"":zuobiao[1]);
+		String coordinate = pd.getString("coordinate");
+		if(coordinate.equals(",")){
+			pd.put("longitude", "");
+			pd.put("latitude", "");
+		}else if(coordinate.substring(0, 1).equals(",")){
+			pd.put("longitude", "");
+			pd.put("latitude", coordinate.substring(1));
+		}else if(coordinate.substring(coordinate.length()-1).equals(",")){
+			pd.put("longitude", coordinate.substring(0, coordinate.length()-1));
+			pd.put("latitude", "");
+		}else{
+			String[] zuobiao = coordinate.split(",");
+			pd.put("longitude", zuobiao[0]);
+			pd.put("latitude", zuobiao[1]);
+		}
 		mv.addObject("pd", pd);
 		mv.addObject("powerList",nPList);
 		mv.addObject("lampList", lampList);
@@ -336,7 +345,6 @@ public class ConfigureController extends BaseController{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}
 		if (null != file && !file.isEmpty()) {
 			String filePath = PathUtil.getClasspath() + Const.FILEPATHFILE;								//文件上传路径
 			String fileName =  FileUpload.fileUp(file, filePath, "userexcel");							//执行上传

@@ -56,7 +56,6 @@ public class NPowerController extends BaseController{
 	 */
 	@RequestMapping("/getNPowerList")
 	public ModelAndView getNPowerList(Page page) throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();

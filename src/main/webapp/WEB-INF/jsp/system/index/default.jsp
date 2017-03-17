@@ -44,6 +44,7 @@ body,ul,li{	margin:0;
        		 }
 .box li{	float:left;
 			line-height: 20px;
+			cursor: pointer;
 			}
 .box li a,.box li a:visited{ 
 			display:block;
@@ -57,24 +58,36 @@ body,ul,li{	margin:0;
 			z-index: 1; 
 			}
 .box li a:hover{
-			border-color: #f00;
+			display:block;
+			border: 5px solid #ccc; 
+			background:#ddd;
+			color:#f00;
+			z-index: 2;
+			} 
+.max a:hover{
+			display:block;
+			border: 5px solid #ccc; 
+			background:#ddd;
+			color:#f00;
 			z-index: 2;
 			} 
 </style>
 </head>
 <body >
+
+ 
  
 <!-- <div style="margin-top:2px">
 <img src="static/login/images/main.jpg" />
 </div> -->
  	<!-- /section:basics/navbar.layout -->
-	<div class="main-container" id="main-container" style="background:url('static/login/images/bg1.jpg') no-repeat;width:100%;height:566px;margin-top:5px;background-size:cover;margin-right:5px">	
+	<div class="main-container" id="main-container" style="background:url('static/login/images/bg2.jpg') no-repeat;width:100%;height:566px;margin-top:5px;background-size:cover">	
 	     <div class="xttblog"> 		
 			<ul class="box">
-			<li><a onclick="edit(3,'日志管理','fhlog/list.do');"><img src="static/login/images/czrz.jpg"/></a></li> 
-			<li><a onclick="edit(314,'管理','strategy/listStrategys.do');"><img src="static/login/images/clkz.jpg"/></a></li>
-			<li><a onclick="edit(347,'地图控制','gomap/content.do');"><img src="static/login/images/dtkz.jpg"/></a></li>
-			<li><a onclick="edit(371,'故障统计','analysis/faultlist');"><img src="static/login/images/gzbj.jpg"/></a></li>
+			<li><a onclick="edit(3,'日志管理','fhlog/list.do');" title="日志管理"><img src="static/login/images/czrz.jpg"/></a></li> 
+			<li><a onclick="edit(314,'管理','strategy/listStrategys.do');" title="管理"><img src="static/login/images/clkz.jpg"/></a></li>
+			<li><a onclick="edit(347,'地图控制','gomap/content.do');" title="地图控制"><img src="static/login/images/dtkz.jpg"/></a></li>
+			<li><a onclick="edit(371,'故障统计','analysis/faultlist');" title="故障统计"><img src="static/login/images/gzbj.jpg"/></a></li>
 			
 			</ul>
 			 <ul class="box">
@@ -85,8 +98,8 @@ body,ul,li{	margin:0;
 			</ul>
 			</div> 
 			
-			<div style="margin-left:846px;margin-top:-353px"> 
-			 <ul>
+			<div style="margin-left:846px;margin-top:-353px;cursor: pointer;width: 180px;"> 
+			 <ul class="max">
 			<a onclick="edit(338,'路灯状态','state/lamp/listLamps.do');"><img src="static/login/images/ldfx.jpg"/></a>
 			</ul>
 		 </div>

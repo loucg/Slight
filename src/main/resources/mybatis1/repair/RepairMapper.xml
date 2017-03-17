@@ -110,22 +110,6 @@
 		 )
 	</insert>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 <!-- 网关维修记录查询 -->
 	<select id="getGatewaylistPage" parameterType="page" resultType="pd">
 		SELECT          a.id AS id,
@@ -220,17 +204,6 @@
 		 )
 	</insert>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	<!-- 新增网关查询 -->
 	<select id="getNewnetlistPage" parameterType="page" resultType="pd">
 		SELECT  a.c_gateway_id AS id,
@@ -244,7 +217,10 @@
 			LEFT JOIN c_gateway AS b ON a.c_gateway_id = b.id
 			LEFT JOIN c_client_gateway AS c ON a.c_gateway_id = c.c_gateway_id
 		
-		 WHERE 1=1
+		 WHERE a.c_gateway_type_id = 3
+		<if test="pd.userid!=null and pd.userid=''">
+			AND b.sys_user_id = #{pd.userid}
+		</if>
 		<if test="pd.name!=null and pd.name!=''">
 			AND a.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
 		</if>
@@ -252,8 +228,27 @@
 			AND b.gateway_code LIKE CONCAT(CONCAT('%', #{pd.code}), '%')
 		</if>
 		group by c.c_gateway_id	
+		order by 
 	</select>
-<!-- 根据id获取终端维修记录 -->
+	
+	<select id="getClientlistPage" parameterType="page" resultType="pd">
+		SELECT a.client_code AS number, b.`name`, b.`comment`,b.staus AS status, b.lamp_pole_num AS polenumber
+		FROM c_client AS a
+		LEFT JOIN c_client_attr1 AS b ON a.id = b.c_client_id
+		WHERE b.sys_user_id = #{pd.userid}	
+		<if test="pd.name!=null and pd.name!=''">
+			AND a.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
+		</if>
+		<if test="pd.code!=null and pd.code!=''">
+			AND b.gateway_code LIKE CONCAT(CONCAT('%', #{pd.code}), '%')
+		</if>
+	</select>
+	
+	<insert id="addClient" parameterType="pd">
+		INSERT INTO c_client_gateway(c_client_id, c_gateway_id, type)
+		VALUES(#{client}, #{gateway}, #{type, jdbcType=INTEGER})
+	</insert>
+<!-- 根据id获取网关 -->
 	<select id="getNewnetById" resultType="pd">
 	SELECT  a.c_gateway_id AS id,
 					    a.name,
@@ -268,35 +263,5 @@
 		WHERE a.c_gateway_id = #{id ,jdbcType=INTEGER}
 	</select>
 	
-			<!-- 普通终端修改 -->
-	<update id="editNewnet" parameterType="pd">
-		UPDATE b_gateway_repair AS a
-		SET a.register         =#{register},
-			a.repairman        =#{repairman}, 
-			a.tdate            =#{tdate},
-			a.result           =#{result},
-			a.explain          =#{explain}
-		WHERE 
-			a.c_gateway_id 					=#{id}
-	</update>
-	
- 		 
-	<insert id="createNewnet" parameterType="pd">
-		insert into c_gateway_attr1(
-			name,	
-			location,	
-			comment,	
-			staus,	
-			explain,	
-			c_client_id
-		) values (
-			#{register},	
-			#{repairman},	
-			#{tdate},	
-			#{result},	
-			#{explain},	
-			#{c_client_id}
-		)
-	</insert>  
 	<!-- end -->
 </mapper>

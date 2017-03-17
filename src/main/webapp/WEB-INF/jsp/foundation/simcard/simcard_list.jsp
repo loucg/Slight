@@ -82,8 +82,8 @@
 								<tr>
 									 
 									<th class="center" style="width: 50px;">序号</th>
-									<th class="center" style="width: 80px;">ICCID</th>
-									<th class="center" style="width: 50px;">电话号码</th>
+									<th class="center" >ICCID</th>
+									<th class="center" >电话号码</th>
 									<th class="center" >类型</th>
 									<th class="center" >状态</th>
 									<th class="center" >余额</th>

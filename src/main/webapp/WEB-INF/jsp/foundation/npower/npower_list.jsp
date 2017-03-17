@@ -111,7 +111,7 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center"><%=no_permission%></td>
+											<td colspan="100" class="center"><%=you_have_no_permission%></td>
 										</tr>
 									</c:if>
 								</c:when>

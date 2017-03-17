@@ -36,7 +36,6 @@ public class GatewayController extends BaseController{
 	 */
 	@RequestMapping("/gateway")
 	public ModelAndView getGatewayList(Page page) throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();

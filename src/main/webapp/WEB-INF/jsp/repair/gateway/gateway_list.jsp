@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -34,9 +34,8 @@
 						<form action="repair/gateway" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
-							   
 								 <td>
-									<div class="nav-search" style="margin-left:16px;">
+									<div class="nav-search" style="margin-left:8px;">
 									    <label>网关名称 ：</label>
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name}" placeholder="请输入名称" />
 									</div>
@@ -48,16 +47,14 @@
 									</div>
 								</td>
 								 <td>
-									<div class="nav-search" style="margin-left:8px;">
+									<div class="nav-search" style="margin-left:14px;">
 									    <label>位置：</label>
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="location" value="${pd.location}" placeholder="请输入位置" />
 									</div>
 								</td>
-								</tr>
-								<tr>
-								<td style="padding-left:16px;"><label>开始时间  &nbsp：</label><input class="span10 date-picker" name="Start" id="Start"  value="${pd.Start}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:108px;" placeholder="请选择开始时间" title="最近登录开始"/></td>
-								<td style="padding-left:16px;"><label>结束时间：</label><input class="span10 date-picker" name="End" name="End"  value="${pd.End}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:108px;" placeholder="请选择结束时间" title="最近登录结束"/></td>
-								<td style="vertical-align:right;padding-left:54px;"><button class="btn btn-mini btn-light" onclick="search();"  title="查询"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i>查询</button></td>
+								<td style="padding-left:2px;padding-bottom:4px;"><label></label><input class="span10 date-picker" name="Start" id="Start"  value="${pd.Start}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:80px;height:28px;" placeholder="开始时间" title="登录开始"/></td>
+								<td style="padding-left:4px;padding-bottom:4px;"><label></label><input class="span10 date-picker" name="End" name="End"  value="${pd.End}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:80px;height:28px;" placeholder="结束时间" title="登录结束"/></td>
+								<td style="vertical-align:right;padding-left:4px;padding-bottom:4px;"><button class="btn btn-mini btn-light" onclick="search();"  title="查询"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td>
 							</tr>
 						</table>
 						<!-- 检索  -->

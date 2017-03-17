@@ -49,7 +49,6 @@ public class LampController extends BaseController{
 	 */
 	@RequestMapping("/getLampList")
 	public ModelAndView getLampList(Page page) throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();

@@ -80,7 +80,6 @@ public class FHlogController extends BaseController {
 		mv.setViewName("system/fhlog/fhlog_list");
 		mv.addObject("varList", varList);
 		mv.addObject("logtypeList", LogUtils.getTypeList());
-		System.out.println("logtypeList:=+"+LogUtils.getTypeList());
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());				//按钮权限
 		return mv;

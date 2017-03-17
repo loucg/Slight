@@ -80,7 +80,7 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center" style="width:50px">终端编号</th>
+									<th class="center">终端编号</th>
 									<th class="center">终端名称</th>
 									<th class="center">终端类型</th>
 									<th class="center">位置</th>

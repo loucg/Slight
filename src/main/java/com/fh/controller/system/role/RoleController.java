@@ -70,11 +70,11 @@ public class RoleController extends BaseController {
 			}
 			PageData fpd = new PageData();
 			fpd.put("ROLE_ID", "0");
-			List<Role> roleList = roleService.listAllRolesByPId(fpd);		//列出组(页面横向排列的一级组)
+//			List<Role> roleList = roleService.listAllRolesByPId(fpd);		//列出组(页面横向排列的一级组)
 			List<Role> roleList_z = roleService.listAllRolesByPId(pd);		//列出此组下架角色
 			pd = roleService.findObjectById(pd);							//取得点击的角色组(横排的)
 			mv.addObject("pd", pd);
-			mv.addObject("roleList", roleList);
+//			mv.addObject("roleList", roleList);
 			mv.addObject("roleList_z", roleList_z);
 			mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 			mv.setViewName("system/role/role_list");
@@ -293,7 +293,14 @@ public class RoleController extends BaseController {
 			List<Menu> menuList = menuService.listAllMenuQx("0"); //获取所有菜单
 			Role role = roleService.getRoleById(ROLE_ID);		  //根据角色ID获取角色对象
 			String roleRights = "";
-			if("add_qx".equals(msg)){
+			if("read_qx".equals(msg)){
+				roleRights = role.getCHA_QX();
+			}else if("write_qx".equals(msg)){
+				roleRights = role.getDEL_QX();
+				roleRights = role.getADD_QX();
+				roleRights = role.getEDIT_QX();
+			}
+			/*if("add_qx".equals(msg)){
 				roleRights = role.getADD_QX();	//新增权限
 			}else if("del_qx".equals(msg)){
 				roleRights = role.getDEL_QX();	//删除权限
@@ -301,7 +308,7 @@ public class RoleController extends BaseController {
 				roleRights = role.getEDIT_QX();	//修改权限
 			}else if("cha_qx".equals(msg)){
 				roleRights = role.getCHA_QX();	//查看权限
-			}
+			}*/
 			menuList = this.readMenu(menuList, roleRights);		//根据角色权限处理菜单权限状态(递归处理)
 			JSONArray arr = JSONArray.fromObject(menuList);
 			String json = arr.toString();
