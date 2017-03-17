@@ -190,21 +190,57 @@ public class MapContentController extends BaseController{
 		public @ResponseBody int getFirstTermId() throws Exception {
 			List<c_term> listct = c_clientService.queryAllterm();
 			if (listct.size() != 0) {
-				return listct.get(0).getId();
+				for(int i=0;i<listct.size();i++)
+				{
+					c_client c=new c_client();
+					c.setTermid(listct.get(i).getId());
+					int countCbytermid = c_clientService.queryCountterm_client(c);
+					if(countCbytermid!=0)
+					{
+						return listct.get(i).getId();
+					}
+				}
 			} else
-				return (Integer) null;
+				return -1000;
+			return -1000;///////////////////????????
 		}
+
 
 		// 加载地图的maker
 		@RequestMapping(value = "/addClientMaker", method = RequestMethod.POST)
 		public @ResponseBody List<c_client> addClientMaker(HttpServletRequest request, @RequestBody c_client cc) throws Exception {
 			if(-999!=cc.getTermid()){
-			List<c_client> clientlist = c_clientService.addClientMaker(cc);
-			return clientlist;
+				if(cc.getRows()!=0){
+					List<c_client> clientlist = c_clientService.addClientMaker(cc);
+					return clientlist;
+					}else{ 
+						if(cc.getDrawid().size()!=0){
+							System.out.println(cc.getDrawid().size());
+							List<c_client> cd = c_clientService.getClientByDraw(cc.getDrawid());
+							System.out.println("1111111111111111111111");
+							System.out.println(cd.size());
+							return cd;
+						}else{
+							List<c_client> clientlist = c_clientService.getSearchClient(cc);
+							return clientlist;
+							}
+			}
 			}else{
-			List<c_client> gatewaylist = c_clientService.queryAllterm_gateway(cc);
-			 //System.out.println(gatewaylist.size());
-			return gatewaylist;
+				if(cc.getRows()!=0){
+					List<c_client> gatewaylist = c_clientService.queryAllterm_gateway(cc);					
+					return gatewaylist;
+					}else{
+						if(cc.getDrawid().size()!=0){
+							//System.out.println(cc.getDrawid().size());
+							List<c_client> cd = c_clientService.getGatewayByDraw(cc.getDrawid());
+							//System.out.println("1111111111111111111111");
+							//System.out.println(cd.size());
+							return cd;
+						}else{
+							List<c_client> gatewaylist = c_clientService.getSearchGateway(cc);					
+							return gatewaylist;
+					}
+				}
 			}
 			
 		}

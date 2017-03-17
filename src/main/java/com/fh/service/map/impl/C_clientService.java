@@ -108,6 +108,7 @@ public class C_clientService implements C_clientManager{
 			 cc.setCoordinate(coordinate);
 			 cc.setXcoordinate(xcoordinate);
 			 cc.setYcoordinate(ycoordinate);
+			 cc.setSearchconditions(cc1);
 			 }
 		return scl;
 	}
@@ -176,6 +177,36 @@ public class C_clientService implements C_clientManager{
 	}
 	@Override
 	@SuppressWarnings("unchecked")
+	public List<c_client> getSearchGateway(c_client cc1) throws Exception  {
+		List<c_client> gcl= (List<c_client>)dao.findForList("C_clientMapper.getSearchGateway",cc1);
+		 c_client cc=new c_client();
+		 ArrayList<String> a=new ArrayList<String>();
+		 ArrayList<c_client> b=new  ArrayList<c_client>();
+		 for(int i=0;i<gcl.size();i++){
+			 cc=gcl.get(i);
+			 String coordinate=cc.getCoordinate();
+			 coordinate=coordinate.trim();
+			 coordinate=coordinate.replace(" ","");
+			 String[] coordsplit = coordinate.split(",");
+			 double xcoordinate=Double.parseDouble(coordsplit[0]);
+			 double ycoordinate=Double.parseDouble(coordsplit[1]);
+			 cc.setCoordinate(coordinate);
+			 cc.setXcoordinate(xcoordinate);
+			 cc.setYcoordinate(ycoordinate);
+			 cc.setSearchconditions(cc1);
+			 if(cc.getTypename().contains("网关")){
+					a=(ArrayList<String>) querGatewayClient(cc);
+					 cc.setCclientgateway(a);
+				 }else{
+					b=(ArrayList<c_client>) querGatewayPower(cc);
+					cc.setPowerup(b.get(0).getPowerup());
+					cc.setPowerdown(b.get(0).getPowerdown());
+				 }
+			 }
+		return gcl;
+	}
+	@Override
+	@SuppressWarnings("unchecked")
 	public List<c_client> querGatewayPower(c_client p) throws Exception {
 		return  (List<c_client>)dao.findForList("C_clientMapper.querGatewayPower",p);
 	}
@@ -209,13 +240,13 @@ public class C_clientService implements C_clientManager{
 	public List<c_client> getClientigBynameGateway(c_client cc) throws Exception  {
 		return  (List<c_client>)dao.findForList("C_clientMapper.getClientigBynameGateway",cc);
 	}
-	@Override
 	@SuppressWarnings("unchecked")
-	public List<c_client> getSearchGateway(c_client cc1) throws Exception  {
-		List<c_client> gcl= (List<c_client>)dao.findForList("C_clientMapper.getSearchGateway",cc1);
+	@Override
+	public List<c_client> getClientByDraw(List  list) throws Exception {
+		List<c_client> scl= (List<c_client>)dao.findForList("C_clientMapper.getClientByDraw",list);
 		 c_client cc=new c_client();
-		 for(int i=0;i<gcl.size();i++){
-			 cc=gcl.get(i);
+		 for(int i=0;i<scl.size();i++){
+			 cc=scl.get(i);
 			 String coordinate=cc.getCoordinate();
 			 coordinate=coordinate.trim();
 			 coordinate=coordinate.replace(" ","");
@@ -225,8 +256,42 @@ public class C_clientService implements C_clientManager{
 			 cc.setCoordinate(coordinate);
 			 cc.setXcoordinate(xcoordinate);
 			 cc.setYcoordinate(ycoordinate);
+			 cc.setDrawid((ArrayList<Integer>) list);
 			 }
-		return gcl;
+		return scl;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<c_client> getGatewayByDraw(List  list) throws Exception {	
+		List<c_client> qtg= (List<c_client>)dao.findForList("C_clientMapper.getGatewayByDraw",list);
+		c_client c=new c_client();
+		 ArrayList<String> a=new ArrayList<String>();
+		 ArrayList<c_client> b=new  ArrayList<c_client>();
+		 for(int i=0;i<qtg.size();i++){
+			 c=qtg.get(i);
+			 String coordinate=c.getCoordinate();
+			 coordinate=coordinate.trim();
+			 coordinate=coordinate.replace(" ","");
+			 String[] coordsplit = coordinate.split(",");
+			 double xcoordinate=Double.parseDouble(coordsplit[0]);
+			 double ycoordinate=Double.parseDouble(coordsplit[1]);
+			 c.setCoordinate(coordinate);
+			 c.setXcoordinate(xcoordinate);
+			 c.setYcoordinate(ycoordinate);
+			 c.setDrawid((ArrayList<Integer>) list);
+			 if(c.getTypename().contains("网关")){
+				a=(ArrayList<String>) querGatewayClient(c);
+				 c.setCclientgateway(a);
+			 }else{
+				b=(ArrayList<c_client>) querGatewayPower(c);
+				c.setPowerup(b.get(0).getPowerup());
+				c.setPowerdown(b.get(0).getPowerdown());
+			 }
+			 }
+		return qtg;
+
+	}
+
+	
 	
 }

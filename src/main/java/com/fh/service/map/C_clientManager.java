@@ -1,5 +1,6 @@
 package com.fh.service.map;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fh.entity.map.c_client;
@@ -34,6 +35,8 @@ public interface C_clientManager {
 	public List<c_client> getClientnameByaddressGateway(c_client cc) throws Exception ;
 	public List<c_client> getClientigBynameGateway(c_client cc) throws Exception ;
 	public List<c_client> getSearchGateway(c_client cc) throws Exception ;
+	public List<c_client> getClientByDraw(List  list) throws Exception;
+	public List<c_client> getGatewayByDraw(List  list) throws Exception;
 	
 		
 }

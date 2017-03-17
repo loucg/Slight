@@ -2,21 +2,23 @@
 #main{
 	width: 300px; 
 	height: 200px; 
-	background-color: #d3d3d3;
+	background-color: #f8f8f8;/* d3d3d3; */
 	border-radius: 5px;
+	border: 1px solid #f8f8f8;
 }
 .head{
 	height: 14%; 
 	width:100%;
-	border-radius: 5px 5px 0 0;
-	background:-webkit-linear-gradient(top, #cfd6e9, #9da6c3);
-	text-align: center;
+	/* border-radius: 5px 5px 0 0;
+	background:-webkit-linear-gradient(top, #cfd6e9, #9da6c3); */
+	text-align: left;
 }
 .head p {
-	font-size: 17px;
+	font-size: 13px;
 	/* font-weight: bold; */
-	color: #ffffff;
+	/* color: #ffffff; */
 	line-height: 28px;
+	margin-left: 8px;
 }
 .mid{
 	display: inline-block; 
@@ -28,8 +30,10 @@
 	float:left; 
 	display:inline-block;
 	height: 100%; 
-	width: 160px;
+	width: 140px;
 	word-break:break-all;
+    margin-left: 10px;
+	
 }
 .introduction ul{
 	margin-top: 0px; 
@@ -45,13 +49,17 @@
 	margin-top: 10px;
 }
 .image{
-	width: 140px; 
+/* 	width: 140px; 
 	height: 140px; 
-	float:right;
+	float:right; */
+	width: 120px;
+    height: 120px;
+    float: right;
+    padding: 10px;
 }
 .image img{
-	width: 140px; 
-	height: 140px; 
+	width: 120px; 
+	height: 120px; 
 }
 .bottom{
 	text-align:center;
@@ -69,10 +77,10 @@
 	border-radius: 3px;
 }
 .bottom .b1:hover{
-	background-color: #697295;
+	background-color: #ebe2e3;
 }
 .bottom .b1:active{
-	background-color: #999fb7;
+	background-color: #ddcecf;
 }
 .bottom .b1 .bimg1{
 	float:left;
@@ -92,10 +100,10 @@
 	border-radius: 3px;
 }
 .bottom .b2:hover{
-	background-color: #697295;
+	background-color: #ebe2e3;
 }
 .bottom .b2:active{
-	background-color: #999fb7;
+	background-color: #ddcecf;
 }
 .bottom .b2 .bimg2{
 	float:left;
@@ -115,10 +123,10 @@
 	border-radius: 3px;
 }
 .bottom .b3:hover{
-	background-color: #697295;
+	background-color: #ebe2e3;
 }
 .bottom .b3:active{
-	background-color: #999fb7;
+	background-color: #ddcecf;
 }
 .bottom .b3 .bimg3{
 	float:left;
@@ -149,7 +157,7 @@
 	line-height: 30px;
 }
 .bottom .s1{
-	height:27px;
+	height:25px;
 	width:50px;
 	margin-left:5px;
 	float:left;

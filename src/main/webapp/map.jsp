@@ -71,10 +71,17 @@ body {
 #container {
 	height: 100%
 }
-
+/* 不出现百度logo */
 .anchorBL {
 	display: none
 }
+/* 让弹出框背景不变暗 */
+.modal-backdrop {
+  opacity: 0 !important;
+  filter: alpha(opacity=0) !important;
+}
+/* 让弹出框不出现蓝色边框 */
+*{outline:none;}
 </style>
 </head>
 <body>
@@ -188,7 +195,8 @@ body {
 	var top_left_navigation = new BMap.NavigationControl(); //左上角，添加默认缩放平移控件
 	map.addControl(top_left_navigation);
 	map.enableScrollWheelZoom(true);//启用滚轮放大缩小
-	map.setDefaultCursor("url('bird.cur')"); //设置地图默认的鼠标指针样式
+	//map.setDefaultCursor("url('bird.cur')"); //设置地图默认的鼠标指针样式
+	map.setDefaultCursor("default"); //设置地图默认的鼠标指针样式
 	map.disableDoubleClickZoom(true);
 
 	var menu = new BMap.ContextMenu();
@@ -267,14 +275,16 @@ body {
 			dataType : "json",
 			success : function(clientdata) {
 				if (clientdata.length!=0) {
-				//console.log(clientdata.length);
+				//console.log(clientdata);
 					var arrpoints=[];
 					for (var i = 0; i < clientdata.length; i++) {
 						arrpoints.push( new BMap.Point(clientdata[i].xcoordinate,clientdata[i].ycoordinate));
 					}
-					preMakerdata = clientdata;
-					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);
+					preMakerdata = clientdata;//记录当前展示的数据
+					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);//////坐标转换
 				} else {
+					preMakerdata = [];
+					map.centerAndZoom("杭州", 14);
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_INFO,
 		                title: '提示信息 ',
@@ -303,20 +313,6 @@ body {
 			}
 		});
 	}
-/* 	function gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom) {
-	    var convertor = new BMap.Convertor();
-        convertor.translate(arrpoints, 1, 5, function (data){
-        	if(data.status === 0) {
-        		for (var i = 0; i < data.points.length; i++) {
-        		clientdata[i].coordinate=data.points[i].lng+","+data.points[i].lat;
-        		clientdata[i].xcoordinate=data.points[i].lng;
-        		clientdata[i].ycoordinate=data.points[i].lat;
-        		if(i+1>= data.points.length){addClientMaker(clientdata,mapcenter,mapzoom);}
-            	}
-        	}
-        });
-	}
-	 */
 	 
 		function gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom) {
 		 	var len = arrpoints.length;//所有点的长度  
@@ -329,8 +325,8 @@ body {
 	  
 	        //数组分装  
 	        for (; i < len; i++) {     
-	            if(i%50 == 0){  //分成小数组
-	                ajaxId = Math.floor(i/50);  
+	            if(i%10 == 0){  //分成小数组
+	                ajaxId = Math.floor(i/10);  
 	                points[ajaxId] = [];  
 	            }  
 	            points[ajaxId].push(arrpoints[i]);    
@@ -345,7 +341,7 @@ body {
 	                var callback = function(data){  
 	                    var ajaxId = jj;   
 	                    var len = arrpoints.length,i,maker;   
-	                    var base = ajaxId * 50; //本数组在原始大数组中的起始位。  
+	                    var base = ajaxId * 10; //本数组在原始大数组中的起始位。  
 	                    if(data.status === 0) {  
 	                        var dateLen = data.points.length;   
 	                        for(i=0;i <dateLen;i++){  
@@ -359,7 +355,9 @@ body {
 	                            	addClientMaker(clientdata,mapcenter,mapzoom); 
 	                            }  
 	                        }  
-	                    }  
+	                    } else{
+	                    	alert("有脏数据，坐标转换失败！");
+	                    } 
 	                    callback = null;//清理内存。  
 	                    jj = null;  
 	                }  
@@ -379,7 +377,7 @@ body {
     } 
 	
 	//添加覆盖物 
-	var infoWindow;//全局变量，相当重要/////////////////////////////////////////////////////
+	//var infoWindow;//全局变量，相当重要/////////////////////////////////////////////////////
 	function addClientMaker(data,mapcenter,mapzoom) {
 		for (var i = 0; i < data.length; i++) {
 			var markerpoint = new BMap.Point(data[i].xcoordinate,
@@ -388,6 +386,12 @@ body {
 			map.addOverlay(mySquare);
 			//8、 为自定义覆盖物添加点击事件      
 			(function(k) {
+				mySquare.addEventListener('mouseover', function(e) {//这里是自定义覆盖物的事件   		
+					map.setDefaultCursor("pointer");
+				});
+				mySquare.addEventListener('mouseout', function(e) {//这里是自定义覆盖物的事件   		
+					map.setDefaultCursor("default"); //设置地图默认的鼠标指针样式
+				});
 				mySquare.addEventListener('click', function(e) {//这里是自定义覆盖物的事件   
 					//choseMaker = mySquare;
 					choseMakerdata = data[k];
@@ -397,9 +401,11 @@ body {
 						width : 304, // 信息窗口宽度
 						height : 204, // 信息窗口高度
 					};
-					infoWindow = new BMap.InfoWindow(sContent, opts); // 创建信息窗口对象
+					var infoWindow = new BMap.InfoWindow(sContent, opts); // 创建信息窗口对象
 					infoWindow.enableCloseOnClick();
-					map.addEventListener('click', fo);
+					var point = new BMap.Point(data[k].xcoordinate, data[k].ycoordinate);
+					map.openInfoWindow(infoWindow, point); //开启信息窗口    
+					//map.addEventListener('click', fo);
 				});
 			}(i));
 		}
@@ -437,19 +443,20 @@ body {
 		changeZoom(centerdata, minXcoordinate, minYcoordinate, maxXcoordinate,
 				maxYcoordinate,mapcenter,mapzoom);//设置zoom大小
 	}
-
+///////////////////////////////////////////////////////////////////////////////////////////
 	map.addEventListener("click",closeinfowindow);
 	function closeinfowindow(){
-		  if(infoWindow.isOpen())map.removeOverlay(infoWindow);
+		//setTimeout(function() {map.closeInfoWindow();}, 300);
 		  
 	}
-	//叠加层点击事件       
+	//叠加层点击事件    ////已经没有用了   
 	function fo(e) {
-		//console.log(choseMaker._data);
-		map.removeEventListener("click", fo); //这里取消绑定。
+		infoWindow.enableCloseOnClick();
+		setTimeout(function() {map.removeEventListener("click", fo);}, 300); //这里取消绑定。         
 		var point = new BMap.Point(e.point.lng, e.point.lat);
-		map.openInfoWindow(infoWindow, point); //开启信息窗口     
-		//map.removeEventListener("click", fo); //这里取消绑定。                
+		map.openInfoWindow(infoWindow, point); //开启信息窗口    
+		infoWindow=null;
+		setTimeout(function() {map.removeEventListener("click", fo);}, 300); //这里取消绑定。                
 	}
 	//0.5秒后根据id改变地图的展示中心       
 	function changeCenterByid(id) {
@@ -466,9 +473,9 @@ body {
 		}
 
 	}
-	//0.5秒后根据Point改变地图的展示中心       
+	//0.3秒后根据Point改变地图的展示中心       
 	function changeCenter(data) {
-		//console.log(data.xcoordinate, data.ycoordinate);
+		//console.log(data.xcoordinate, data.ycoordinate);setTimeout(function() {}, 300);
 		setTimeout(function() {
 			map.panTo(new BMap.Point(data.xcoordinate, data.ycoordinate)); //两秒后移动到第一个点
 		}, 300);
@@ -511,23 +518,34 @@ body {
 	//判断是否在选择框内
 	function judgeSelection(bound) {
 		var drawtata=[];
+		var drawid=[];
 		for(var i=0;i<preMakerdata.length;i++){
 			var judgepoint = new BMap.Point(preMakerdata[i].xcoordinate,preMakerdata[i].ycoordinate);
 			if(bound.containsPoint(judgepoint))
 				{
+				 drawid.push(preMakerdata[i].id);
+				 preMakerdata[i].searchconditions=null;
 				 drawtata.push(preMakerdata[i]);
 				}
 		}
-		parent.cleardrawdata();//删除原有的左边框选列表
-		parent.changedrawdata(drawtata);//用于再次点击时可以加载出来
-		parent.gpsTObbddrawing(drawtata);//添加左边框选列表
+		for(var i=0;i<drawtata.length;i++){
+			var a=drawtata[i];
+			a.drawid=drawid;
+		}
+		if(drawtata.length>0){
+			parent.cleardrawdata();//删除原有的左边框选列表
+			parent.setmapTermpage(-2,drawtata[0]);
+			//parent.changedrawdata(drawtata);//用于再次点击时可以加载出来
+			parent.gpsTObbddrawing(drawtata);//添加左边框选列表
+		}
+		else{alert("没有框中任何数据");}
 	}
 	function TurnOnLight() {
 		if (choseMakerdata.brightness != 0) {
 			 BootstrapDialog.show({
 	                type:  BootstrapDialog.TYPE_DANGER,
 	                title: '提示信息 ',
-	                message: '路灯已开启',
+	                message: '路灯已是开启状态',
 	                buttons: [{
 	                    label: '关闭',
 	                    action: function(dialogItself){
@@ -536,8 +554,8 @@ body {
 	                }]
 	            });  
 		} else {
-			$
-					.ajax({
+			//console.log(choseMakerdata);
+			$.ajax({
 						url : "gomap/updateClientAttr_status",
 						type : "POST",
 						contentType : "application/json; charset=UTF-8",
@@ -547,15 +565,15 @@ body {
 							if (data.status == "SUCCESS") {
 								//choseMaker.style.backgroundImage = "url('map/img/light_green.png')";
 								cleanAllMaker();//清除所有覆盖物
-								var a = parent.getmapTermpagein()[choseMakerdata.termid];
-								//console.log(a);
+								var a;
 								var mapcenter=map.getCenter();
 								var mapzoom=map.getZoom();
-								getClientsData(a,mapcenter,mapzoom);
-								//map.setCenter(mapcenter);
-								//console.log(mapcenter);
-								//console.log(mapzoom);
-								//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);				
+								if(choseMakerdata.searchconditions!=null)
+									{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changesearchdata(preMakerdata);}, 1000);}
+								else if(choseMakerdata.drawid.length!=0)
+									{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changedrawdata(preMakerdata);}, 1000);}
+								else
+									{a = parent.getmapTermpagein()[choseMakerdata.termid];getClientsData(a,mapcenter,mapzoom);}
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
 						                title: '提示信息 ',
@@ -609,7 +627,7 @@ body {
 			BootstrapDialog.show({
                 type:  BootstrapDialog.TYPE_DANGER,
                 title: '提示信息 ',
-                message: '路灯已关闭',
+                message: '路灯已是关闭状态',
                 buttons: [{
                     label: '关闭',
                     action: function(dialogItself){
@@ -629,11 +647,16 @@ body {
 							if (data.status == "SUCCESS") {
 								//choseMaker.style.backgroundImage = "url('map/img/light_grey.png')";
 								cleanAllMaker();//清除所有覆盖物
-								var a = parent.getmapTermpagein()[choseMakerdata.termid];
+								var a;
 								var mapcenter=map.getCenter();
 								var mapzoom=map.getZoom();
-								getClientsData(a,mapcenter,mapzoom);
-								//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);
+								if(choseMakerdata.searchconditions!=null)
+								{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changesearchdata(preMakerdata);}, 1000);}
+							else if(choseMakerdata.drawid.length!=0)
+								{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changedrawdata(preMakerdata);}, 1000);}
+							else
+									{a = parent.getmapTermpagein()[choseMakerdata.termid];getClientsData(a,mapcenter,mapzoom);}
+								
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
 						                title: '提示信息 ',
@@ -693,11 +716,16 @@ body {
 			success : function(data) {
 				if (data.status == "SUCCESS") {
 					cleanAllMaker();//清除所有覆盖物
-					var a = parent.getmapTermpagein()[choseMakerdata.termid];
+					var a;
 					var mapcenter=map.getCenter();
 					var mapzoom=map.getZoom();
-					getClientsData(a,mapcenter,mapzoom);
-					//setTimeout(function() {map.centerAndZoom(mapcenter, mapzoom);}, 1000);
+					if(choseMakerdata.searchconditions!=null)
+					{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changesearchdata(preMakerdata);}, 1000);}
+				else if(choseMakerdata.drawid.length!=0)
+					{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changedrawdata(preMakerdata);}, 1000);}
+				else
+						{a = parent.getmapTermpagein()[choseMakerdata.termid];getClientsData(a,mapcenter,mapzoom);}
+					
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_PRIMARY,
 		                title: '提示信息 ',
@@ -744,7 +772,7 @@ body {
 </script>
 <script type="text/javascript">
 	jQuery.getJSON("gomap/getFirstTermId/", function(data) {
-		if (data != null) {
+		if (data != -1000) {
 			//alert(data);
 			var mapTermpage2 = {
 				page : 1,
@@ -760,7 +788,7 @@ body {
 			BootstrapDialog.show({
                 type:  BootstrapDialog.TYPE_INFO,
                 title: '提示信息 ',
-                message: '暂时没有数据',
+                message: '暂时没有任何分组数据',
                 buttons: [{
                     label: '关闭',
                     action: function(dialogItself){
@@ -770,10 +798,6 @@ body {
             });
 		}
 	});
-
-	$(function() {
-		//getClientsData(1);
-	});
 </script>
 <script type="text/javascript"> 
 function searchsuccess() {
@@ -781,7 +805,7 @@ function searchsuccess() {
 	.show({
 		type : BootstrapDialog.TYPE_PRIMARY,
 		title : '提示信息 ',
-		message : '搜索成功，请查看左侧路灯列表二！',
+		message : '搜索成功，请查看左侧搜索结果！',
 		buttons : [ {
 			label : '关闭',
 			action : function(dialogItself) {
@@ -795,7 +819,7 @@ function searcherr() {
 	.show({
 		type : BootstrapDialog.TYPE_DANGER,
 		title : '提示信息 ',
-		message : '查询的终端不存在或查询出错！',
+		message : '查询的终端不存在！',
 		buttons : [ {
 			label : '关闭',
 			action : function(dialogItself) {
@@ -820,13 +844,15 @@ function searchConerr() {
  function PolicyControl() {
 	 BootstrapDialog.show({
          title: '策略控制',
+         /* cssClass :'dialog', */
+       /*   draggable: true, */
         // message:$('<div></div>').load('remote.html'),
         message:"跳转到策略控制页面吗",
          buttons: [{
              label: '确定',
              action: function(dialogItself) {
             	 dialogItself.close();
-            	 window.parent.location.href="strategy/listStrategys.do";
+            	// window.parent.location.href="strategy/listStrategys.do";
              }
          },{
              label: '取消',

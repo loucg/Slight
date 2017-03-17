@@ -153,17 +153,6 @@
 		}
 		*/
 		
-		if($("#language_id").val()==""){
-			$("#yuyan").tips({
-				side:3,
-	            msg:'选择语言',
-	            bg:'#AE81FF',
-	            time:2
-	        });
-			$("#language_id").focus();
-			return false;
-		}
-		
 		if($("#newPassword").val()!="" && $("#oldPassword").val() == ""){ //当用户输入新密码而原始密码为空时
 			$("#oldPassword").tips({
 				side:3,
@@ -185,6 +174,7 @@
 			$("#name").focus();
 			return false;
 		}
+		
 		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
 		if($("#phone").val()==""){
 			
@@ -206,6 +196,35 @@
 			$("#phone").focus();
 			return false;
 		}
+		
+		if($("#email").val()!=""){
+			if(!ismail($("#email").val())){
+				$("#email").tips({
+					side:3,
+		            msg:'邮箱格式不正确',
+		            bg:'#AE81FF',
+		            time:3
+		        });
+				$("#email").focus();
+				return false;
+			}
+			}
+		
+		if($("#language_id").val()==""){
+			$("#yuyan").tips({
+				side:3,
+	            msg:'选择语言',
+	            bg:'#AE81FF',
+	            time:2
+	        });
+			$("#language_id").focus();
+			return false;
+		}
+		
+		
+		
+		
+		
 		/*
 		if($("#EMAIL").val()==""){
 			
@@ -220,18 +239,7 @@
 		}
 		*/
 		
-		if($("#email").val()!=""){
-		if(!ismail($("#email").val())){
-			$("#email").tips({
-				side:3,
-	            msg:'邮箱格式不正确',
-	            bg:'#AE81FF',
-	            time:3
-	        });
-			$("#email").focus();
-			return false;
-		}
-		}
+		
 		
 		if($("#user_id").val()==""){
 			hasU();

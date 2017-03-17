@@ -1,8 +1,6 @@
 function init() {
 
-	$("#check")
-			.click(
-					function() {
+	$("#check").click(function() {
 						var termid = $("#groupname").val();
 						if (termid == "") {
 							termid = null;
@@ -31,43 +29,29 @@ function init() {
 							"name" : name,
 							"id" : id
 						};
-						//console.log(postSearchData);
-						$
-								.ajax({
+						if(postSearchData.termid==null||postSearchData.termid==""){Conframe.window.searcherr();}
+						else{
+						$.ajax({
 									url : "gomap/getSearchClient",
 									type : "POST",
 									contentType : "application/json; charset=UTF-8",
 									data : JSON.stringify(postSearchData),
 									dataType : "json",
 									success : function(data) {
-										if (data != null) {
-											searchdata = data;// //全局变量，很重要/////////////////////////////////////
-											Conframe.window.changePreMakerdata(data);
-
+										if (data.length!= 0) {
+											//searchdata = data;// //全局变量，很重要/////////////////////////////////////
+											//Conframe.window.changePreMakerdata(data);
+											//console.log(data);
+											//data[0].searchconditions.drawid=null;
+											mapTermpage[-1]=data[0].searchconditions;
+											//console.log(mapTermpage);
 											$("#search").parent().parent().remove();
-											gpsTObbdSearch(data);
-											/*var accdivpre = "<div class=\"panel-info\"><div class=\"panel-heading\"><a class=\"one\" id=\"search\"><span style=\"font-size:14px;font-weight:normal;font-family:宋体\">"
-													+ "搜索所得终端"
-													+ "</span></a></div><ul class=\"kid\">";
-
-											for (var i = 0; i < data.length; i++) {
-												var accdivli = "<li><b class=\"tip\"></b><a class=\"onekid\"  id="
-														+ data[i].coordinate
-														+ "><span style=\"font-size:12px;font-family:宋体\">"
-														+ data[i].name
-														+ "</span></a></li>";
-												accdivpre = accdivpre
-														+ accdivli;
-											}
-											var accdivaft = "</ul></div>";
-											accdivpre = accdivpre + accdivaft;
-											$('.acc').append(accdivpre);*/
+											gpsTObbdSearch(data);//左边加框
 											Conframe.window.cleanAllMaker();
 											var arrpoints=[];
 											for (var i = 0; i < data.length; i++) {
 												arrpoints.push( new BMap.Point(data[i].xcoordinate,data[i].ycoordinate));
 											}
-											//console.log(arrpoints);
 											Conframe.window.gpsTObbd(arrpoints,data);
 											Conframe.window.searchsuccess();
 											
@@ -79,6 +63,7 @@ function init() {
 										Conframe.window.searcherr();
 									}
 								});
+						}
 					});
 	$("#reset").click(function() {
 		$("#groupname").val("");

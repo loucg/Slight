@@ -173,6 +173,114 @@
 	});
 	//保存
 	function save(){
+		
+		if($("#company").val()==""){
+			$("#company").tips({
+				side:3,
+	            msg:'选择公司',
+	            bg:'#AE81FF',
+	            time:3
+	        });
+			$("#company").focus();
+			return false;
+		}
+		
+		if($("#department").val()==""){
+			$("#department").tips({
+				side:3,
+	            msg:'选择部门',
+	            bg:'#AE81FF',
+	            time:3
+	        });
+			$("#department").focus();
+			return false;
+		}
+		
+		/* if($("#username").val()=="" || $("#username").val()=="此登录名已存在!"){
+			$("#username").tips({
+				side:3,
+	            msg:'输入登录名',
+	            bg:'#AE81FF',
+	            time:3
+	        });
+			$("#username").focus();
+			$("#username").val('');
+			$("#username").css("background-color","white");
+			return false;
+		}else{
+			$("#username").val(jQuery.trim($('#username').val()));
+		} */
+		
+		if($("#username").val()==""){
+			$("#username").tips({
+				side:3,
+	            msg:'输入登录名',
+	            bg:'#AE81FF',
+	            time:3
+	        });
+			$("#username").focus();
+			return false;
+		}else if(escape($("#username").val()).indexOf("%u") >= 0){
+			$("#username").tips({
+				side:3,
+	            msg:'登录名不能含有汉字',
+	            bg:'#AE81FF',
+	            time:3
+	        });
+			$("#username").focus();
+			return false;
+		}
+		else
+		{
+			hasU();
+			$("#username").val(jQuery.trim($('#username').val()));		
+		}
+		
+		if($("#name").val()==""){
+			$("#name").tips({
+				side:3,
+	            msg:'输入姓名',
+	            bg:'#AE81FF',
+	            time:3
+	        });
+			$("#name").focus();
+			return false;
+		}
+		
+		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
+		if($("#phone").val()==""){
+			$("#phone").tips({
+				side:3,
+	            msg:'输入手机号码',
+	            bg:'#AE81FF',
+	            time:3
+	        });
+			$("#phone").focus();
+			return false;
+		}else if($("#phone").val().length != 11 && !myreg.test($("#phone").val())){
+			$("#phone").tips({
+				side:3,
+	            msg:'手机号码格式不正确',
+	            bg:'#AE81FF',
+	            time:3
+	        });
+			$("#phone").focus();
+			return false;
+		}
+		
+		if($("#email").val()!=""){
+			if(!ismail($("#email").val())){
+			$("#email").tips({
+				side:3,
+	            msg:'邮箱格式不正确',
+	            bg:'#AE81FF',
+	            time:3
+	        });
+			$("#email").focus();
+			return false;
+		}
+		}
+		
 		if($("#language_id").val()==""){
 			$("#yuyan").tips({
 				side:3,
@@ -204,51 +312,11 @@
 			return false;
 		}
 		
-		if($("#company").val()==""){
-			$("#company").tips({
-				side:3,
-	            msg:'选择公司',
-	            bg:'#AE81FF',
-	            time:3
-	        });
-			$("#company").focus();
-			return false;
-		}
-		if($("#department").val()==""){
-			$("#department").tips({
-				side:3,
-	            msg:'选择部门',
-	            bg:'#AE81FF',
-	            time:3
-	        });
-			$("#department").focus();
-			return false;
-		}
-		if($("#username").val()=="" || $("#username").val()=="此登录名已存在!"){
-			$("#username").tips({
-				side:3,
-	            msg:'输入登录名',
-	            bg:'#AE81FF',
-	            time:2
-	        });
-			$("#username").focus();
-			$("#username").val('');
-			$("#username").css("background-color","white");
-			return false;
-		}else{
-			$("#username").val(jQuery.trim($('#username').val()));
-		}
 		
-		if($("#name").val()==""){
-			$("#name").tips({
-				side:3,
-	            msg:'输入姓名',
-	            bg:'#AE81FF',
-	            time:3
-	        });
-			$("#name").focus();
-			return false;
-		}
+		
+		
+		
+		
 		/*
 		if($("#address").val()==""){
 			$("#address").tips({
@@ -260,26 +328,7 @@
 			$("#address").focus();
 			return false;
 		}*/
-		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
-		if($("#phone").val()==""){
-			$("#phone").tips({
-				side:3,
-	            msg:'输入手机号码',
-	            bg:'#AE81FF',
-	            time:3
-	        });
-			$("#phone").focus();
-			return false;
-		}else if($("#phone").val().length != 11 && !myreg.test($("#phone").val())){
-			$("#phone").tips({
-				side:3,
-	            msg:'手机号码格式不正确',
-	            bg:'#AE81FF',
-	            time:3
-	        });
-			$("#phone").focus();
-			return false;
-		}
+		
 		/*
 		if($("#email").val()==""){
 			
@@ -292,25 +341,9 @@
 			$("#email").focus();
 			return false;
 		}else */
-		if($("#email").val()!=""){
-			if(!ismail($("#email").val())){
-			$("#email").tips({
-				side:3,
-	            msg:'邮箱格式不正确',
-	            bg:'#AE81FF',
-	            time:3
-	        });
-			$("#email").focus();
-			return false;
-		}
-		}
-		if($("#user_id").val()==""){
-			hasU();
-		}else{
 			$("#accountForm").submit();
 			$("#zhongxin").hide();
 			$("#zhongxin2").show();
-		}
 	}
 	function ismail(mail){
 		return(new RegExp(/^(?:[a-zA-Z0-9]+[_\-\+\.]?)*[a-zA-Z0-9]+@(?:([a-zA-Z0-9]+[_\-]?)*[a-zA-Z0-9]+\.)+([a-zA-Z]{2,})+$/).test(mail));
@@ -318,10 +351,10 @@
 	
 	//判断用户名是否存在
 	function hasU(){
-		var USERNAME = $.trim($("#loginname").val());
+		var USERNAME = $.trim($("#username").val());
 		$.ajax({
 			type: "POST",
-			url: '<%=basePath%>user/hasU.do',
+			url: '<%=basePath%>account/hasU.do',
 	    	data: {USERNAME:USERNAME,tm:new Date().getTime()},
 			dataType:'json',
 			cache: false,
@@ -331,8 +364,8 @@
 					$("#zhongxin").hide();
 					$("#zhongxin2").show();
 				 }else{
-					$("#loginname").css("background-color","#D16E6C");
-					setTimeout("$('#loginname').val('此用户名已存在!')",500);
+					$("#username").css("background-color","#D16E6C");
+					setTimeout("$('#username').val('此用户名已存在!')",500);
 				 }
 			}
 		});

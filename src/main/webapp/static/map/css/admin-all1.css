@@ -15,7 +15,7 @@ html, body {
 	width: 235px;
 	position: absolute;
 	top: 8px;
-	left: -300px;
+	left: 8px;/*  */
 	overflow: hidden;
 	bottom: 2px;
 }
@@ -168,10 +168,10 @@ html, body {
 	background: #f8f8f8;
 	position: absolute;
 	bottom: 2px;
-	left: 21px;
+	left: 260px; /* 21 */
 	top: 60px;
-	border-top: 1px solid/*  #687295 */;
-	border-left: 1px solid /* #687295 */;
+	border-top: 1px solid  #f8f8f8 ;
+	border-left: 1px solid  #f8f8f8 ;
 	right: 0;
 }
 
@@ -190,7 +190,7 @@ html, body {
 	border: 1px solid  #b3baca ;
 	background: #FFF; 
 	position: absolute;
-	left: 29px;
+	left: 268px; /* 29 */ 
 	top: 60px;
 	overflow: auto;
 	right: 0px;
@@ -215,13 +215,16 @@ html, body {
 	padding: 8px 0;
 }
 .searchdiv {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 	border: 1px ;
 	position: absolute;
-	left: 20px;
+	left: 268px;/* /* 29 */ */
 	top: 10px;
 	overflow: auto;
 	right: 8px;
 	padding: 0px;
+	top: 8px;
 }
 #reset{
 	
@@ -230,3 +233,5 @@ html, body {
 #check{
 	margin-right:10px;
 	margin-left:0px;
+}
+

@@ -28,8 +28,22 @@ public class c_client extends PageBean implements Serializable {
 	private String powerup;
 	private String powerdown;
 	private Date tdate;
-	private ArrayList<String> cclientgateway;
+	public c_client getSearchconditions() {
+		return searchconditions;
+	}
+	public void setSearchconditions(c_client searchconditions) {
+		this.searchconditions = searchconditions;
+	}
 
+	private ArrayList<String> cclientgateway;
+	private c_client searchconditions =null;
+	private ArrayList<Integer> drawid = new ArrayList<Integer>();
+	public ArrayList<Integer> getDrawid() {
+		return drawid;
+	}
+	public void setDrawid(ArrayList<Integer> drawid) {
+		this.drawid = drawid;
+	}
 	public Date getTdate() {
 		return tdate;
 	}
