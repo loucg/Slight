@@ -279,9 +279,8 @@ body {
 					for (var i = 0; i < clientdata.length; i++) {
 						arrpoints.push( new BMap.Point(clientdata[i].xcoordinate,clientdata[i].ycoordinate));
 					}
-					preMakerdata = clientdata;
-					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);
-					//return clientdata;
+					preMakerdata = clientdata;//记录当前展示的数据
+					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);//////坐标转换
 				} else {
 					preMakerdata = [];
 					map.centerAndZoom("杭州", 14);
@@ -325,8 +324,8 @@ body {
 	  
 	        //数组分装  
 	        for (; i < len; i++) {     
-	            if(i%50 == 0){  //分成小数组
-	                ajaxId = Math.floor(i/50);  
+	            if(i%10 == 0){  //分成小数组
+	                ajaxId = Math.floor(i/10);  
 	                points[ajaxId] = [];  
 	            }  
 	            points[ajaxId].push(arrpoints[i]);    
@@ -341,7 +340,7 @@ body {
 	                var callback = function(data){  
 	                    var ajaxId = jj;   
 	                    var len = arrpoints.length,i,maker;   
-	                    var base = ajaxId * 50; //本数组在原始大数组中的起始位。  
+	                    var base = ajaxId * 10; //本数组在原始大数组中的起始位。  
 	                    if(data.status === 0) {  
 	                        var dateLen = data.points.length;   
 	                        for(i=0;i <dateLen;i++){  
@@ -443,7 +442,7 @@ body {
 		//setTimeout(function() {map.closeInfoWindow();}, 300);
 		  
 	}
-	//叠加层点击事件       
+	//叠加层点击事件    ////已经没有用了   
 	function fo(e) {
 		infoWindow.enableCloseOnClick();
 		setTimeout(function() {map.removeEventListener("click", fo);}, 300); //这里取消绑定。         
@@ -467,7 +466,7 @@ body {
 		}
 
 	}
-	//0.5秒后根据Point改变地图的展示中心       
+	//0.3秒后根据Point改变地图的展示中心       
 	function changeCenter(data) {
 		//console.log(data.xcoordinate, data.ycoordinate);setTimeout(function() {}, 300);
 		setTimeout(function() {
@@ -532,6 +531,7 @@ body {
 			//parent.changedrawdata(drawtata);//用于再次点击时可以加载出来
 			parent.gpsTObbddrawing(drawtata);//添加左边框选列表
 		}
+		else{alert("没有框中任何数据");}
 	}
 	function TurnOnLight() {
 		if (choseMakerdata.brightness != 0) {
