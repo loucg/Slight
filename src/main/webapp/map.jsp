@@ -195,7 +195,8 @@ body {
 	var top_left_navigation = new BMap.NavigationControl(); //左上角，添加默认缩放平移控件
 	map.addControl(top_left_navigation);
 	map.enableScrollWheelZoom(true);//启用滚轮放大缩小
-	map.setDefaultCursor("url('bird.cur')"); //设置地图默认的鼠标指针样式
+	//map.setDefaultCursor("url('bird.cur')"); //设置地图默认的鼠标指针样式
+	map.setDefaultCursor("default"); //设置地图默认的鼠标指针样式
 	map.disableDoubleClickZoom(true);
 
 	var menu = new BMap.ContextMenu();
@@ -385,6 +386,12 @@ body {
 			map.addOverlay(mySquare);
 			//8、 为自定义覆盖物添加点击事件      
 			(function(k) {
+				mySquare.addEventListener('mouseover', function(e) {//这里是自定义覆盖物的事件   		
+					map.setDefaultCursor("pointer");
+				});
+				mySquare.addEventListener('mouseout', function(e) {//这里是自定义覆盖物的事件   		
+					map.setDefaultCursor("default"); //设置地图默认的鼠标指针样式
+				});
 				mySquare.addEventListener('click', function(e) {//这里是自定义覆盖物的事件   
 					//choseMaker = mySquare;
 					choseMakerdata = data[k];

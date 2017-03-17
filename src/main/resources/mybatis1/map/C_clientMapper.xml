@@ -7,8 +7,9 @@
   	</select>
   	<select id="queryCountterm_client" parameterType="cclient" resultType="Integer">
   		select count(*)
-		from c_client_attr1 cca ,c_client_term cct ,c_term ct 
-		where cct.c_term_id=#{termid} and ct.id=#{termid}  and cct.c_client_id=cca.c_client_id
+		from c_client_attr1 cca ,c_client_term cct,c_term ct
+		where cct.c_term_id=#{termid} and ct.id=#{termid} and cct.c_client_id=cca.c_client_id and cca.coordinate like  '%.%_,__.%'
+
   	</select>
   	<select id="queryAllterm_client" parameterType="cclient" resultType="cclient">
   		select cct.c_client_id as id , cca.name as name, ct.name as termname, cct.c_term_id as termid , cca.coordinate as coordinate
@@ -40,8 +41,8 @@
   	</select>
   	<select id="queryCountgateway" parameterType="cclient" resultType="Integer">
   		select count(*)
-		from c_gateway cg ,c_gateway_attr1 cga
-		where cg.id=cga.c_gateway_id
+		from c_gateway cg ,c_gateway_attr1 cga ,c_gateway_type cgt ,b_status bs
+		where cg.id=cga.c_gateway_id and cga.c_gateway_type_id=cgt.id and bs.b_status_main_id=3 and bs.`value`=cga.staus and cga.coordinate like  '%.%_,__.%'
   	</select>
 
   	<select id="queryAllclient_status" parameterType="cclient" resultType="cclient">
