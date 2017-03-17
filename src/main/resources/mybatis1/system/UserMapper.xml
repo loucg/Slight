@@ -332,7 +332,7 @@
 		<if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!=''">登录时间检索
 			and u.LAST_LOGIN &lt;= #{pd.lastLoginEnd} 
 		</if> -->
-		order by u.USER_ID asc
+		order by u.tdate desc
 	</select>
 	
 	<!-- 通过邮箱获取数据 -->
@@ -493,7 +493,8 @@
 		NUMBER,
 		PHONE,
 		ADDRESS,
-		LANGUAGE
+		LANGUAGE,
+		tdate
 		) values (
 		#{USER_ID},
 		#{USERNAME},
@@ -510,7 +511,8 @@
 		#{NUMBER},
 		#{PHONE},
 		#{ADDRESS},
-		#{LANGUAGE_ID}
+		#{LANGUAGE_ID},
+		#{TDATE}
 		)
 	</insert>
 	
