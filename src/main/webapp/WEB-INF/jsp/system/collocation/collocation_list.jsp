@@ -87,7 +87,9 @@
 													-->
 											<td class="center">
 												<div class='hidden-phone visible-desktop btn-group'>
-
+													<c:if test="${QX.edit != 1 && QX.del != 1 }">
+													<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+													</c:if>
 													<c:if test="${QX.edit == 1 }">
 													<a style="cursor:pointer;" class="green" onclick="edit('${var.ID}');" title="修改">
 														<i class="ace-icon fa fa-pencil bigger-130"></i>
