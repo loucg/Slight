@@ -58,14 +58,14 @@
   	<select id="getTypenameByGroup" parameterType="Integer" resultType="cclient">
   		select ccty.id as typeid ,ccty.name as typename 
 		from c_client_term cct,c_client_attr1 cca , c_client_type ccty
-		where  cct.c_term_id=#{groupname} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id
+		where  cct.c_term_id=#{groupname} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id and cca.coordinate like  '%.%_,__.%'
 		GROUP BY
 		ccty.id
   	</select>
   	<select id="getTypenameByGroupGateway" parameterType="Integer" resultType="cclient">
   		select cgt.id as typeid ,cgt.name as typename 
 		from  c_gateway_attr1 cga ,c_gateway_type cgt
-		where  cga.c_gateway_type_id =cgt.id
+		where  cga.c_gateway_type_id =cgt.id  and cga.coordinate like  '%.%_,__.%'
 		GROUP BY
 		cgt.id
   	</select>
@@ -74,14 +74,14 @@
   	<select id="getAddressByType" parameterType="cclient" resultType="cclient">
   		select cca.location, ccty.name as typename ,ccty.id as typeid 
 		from c_client_term cct,c_client_attr1 cca , c_client_type ccty
-		where  ccty.id=#{typeid} AND cct.c_term_id=#{termid} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id
+		where  ccty.id=#{typeid} AND cct.c_term_id=#{termid} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id and cca.coordinate like  '%.%_,__.%'
 		GROUP BY
 		cca.location
   	</select>	
   	<select id="getAddressByTypeGataway" parameterType="cclient" resultType="cclient">
   		select cgt.id as typeid ,cgt.name as typename ,cga.location
 		from  c_gateway_attr1 cga ,c_gateway_type cgt
-		where  cga.c_gateway_type_id =#{typeid}
+		where  cga.c_gateway_type_id =#{typeid}   and cga.coordinate like  '%.%_,__.%'
 		GROUP BY
 		cga.location
   	</select>
@@ -90,14 +90,14 @@
   	<select id="getClientnameByaddress" parameterType="cclient" resultType="cclient">
   		select cca.name, cca.location,ccty.name as typename ,ccty.id as typeid 
 		from c_client_term cct,c_client_attr1 cca , c_client_type ccty
-		where  cca.location= #{location} and ccty.id=#{typeid} AND cct.c_term_id=#{termid} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id
+		where  cca.location= #{location} and ccty.id=#{typeid} AND cct.c_term_id=#{termid} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id and cca.coordinate like  '%.%_,__.%'
 		GROUP BY
 		cca.name
 	</select>
 	<select id="getClientnameByaddressGateway" parameterType="cclient" resultType="cclient">
   		select cgt.id as typeid ,cgt.name as typename ,cga.location ,cga.name
 		from  c_gateway_attr1 cga ,c_gateway_type cgt
-		where  cga.c_gateway_type_id =#{typeid} and cga.location=#{location}
+		where  cga.c_gateway_type_id =#{typeid} and cga.location=#{location}  and cga.coordinate like  '%.%_,__.%'
 		GROUP BY
 		cga.name
 	</select>
@@ -105,14 +105,14 @@
   	<select id="getClientigByname" parameterType="cclient" resultType="cclient">
   		select cca.c_client_id as id,cca.name, cca.location,ccty.name as typename ,ccty.id as typeid 
 		from c_client_term cct,c_client_attr1 cca , c_client_type ccty
-		where  cca.name= #{name} and cca.location= #{location} and ccty.id=#{typeid} AND cct.c_term_id=#{termid} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id
+		where  cca.name= #{name} and cca.location= #{location} and ccty.id=#{typeid} AND cct.c_term_id=#{termid} and cca.c_client_id=cct.c_client_id and cca.c_client_type_id=ccty.id and cca.coordinate like  '%.%_,__.%'
 		GROUP BY
 		cca.c_client_id
 	</select>
 	<select id="getClientigBynameGateway" parameterType="cclient" resultType="cclient">
   		select cgt.id as typeid ,cgt.name as typename ,cga.location ,cga.name ,cga.c_gateway_id as id
 		from  c_gateway_attr1 cga ,c_gateway_type cgt
-		where  cga.c_gateway_type_id =#{typeid} and cga.location=#{location} and cga.name=#{name}
+		where  cga.c_gateway_type_id =#{typeid} and cga.location=#{location} and cga.name=#{name}   and cga.coordinate like  '%.%_,__.%'
 		GROUP BY
 		cga.c_gateway_id
 	</select>
