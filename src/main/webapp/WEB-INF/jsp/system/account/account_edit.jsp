@@ -364,7 +364,7 @@
 		$.ajax({
 			type: "POST",
 			url: '<%=basePath%>account/hasU.do',
-	    	data: {USERNAME:USERNAME,tm:new Date().getTime()},
+	    	data: {USERNAME:USERNAME},
 			dataType:'json',
 			cache: false,
 			success: function(data){

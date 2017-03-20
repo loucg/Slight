@@ -111,6 +111,7 @@
 </body>
 <script type="text/javascript">
 	$(top.hangge());
+	
 	$(document).ready(function(){
 		if($("#user_id").val()!=""){
 			//默认不能修改的数据
@@ -164,6 +165,21 @@
 			return false;
 		}
 		
+		/* if($("#newPassword").val()!="" && $("#oldPassword").val() != ""){ //当用户输入新密码而原始密码也输入时
+			rightOldP();
+			alert(result);
+			if("error" == result){
+				$("#oldPassword").tips({
+					side:3,
+		            msg:'原始密码错误',
+		            bg:'#AE81FF',
+		            time:3
+		        });
+				$("#oldPassword").focus();
+				return false;
+			}
+		} */
+		
 		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,
@@ -177,7 +193,6 @@
 		
 		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
 		if($("#phone").val()==""){
-			
 			$("#phone").tips({
 				side:3,
 	            msg:'输入手机号码',
@@ -220,11 +235,6 @@
 			$("#language_id").focus();
 			return false;
 		}
-		
-		
-		
-		
-		
 		/*
 		if($("#EMAIL").val()==""){
 			
@@ -238,11 +248,8 @@
 			return false;
 		}
 		*/
-		
-		
-		
-		if($("#user_id").val()==""){
-			hasU();
+		if($("#newPassword").val()!="" && $("#oldPassword").val() != ""){ //当用户输入新密码而原始密码也输入时
+			rightOldP();
 		}else{
 			$("#userInfoForm").submit();
 			$("#zhongxin").hide();
@@ -271,6 +278,37 @@
 					$("#USERNAME").css("background-color","#D16E6C");
 					setTimeout("$('#USERNAME').val('此用户名已存在!')",500);
 				 }
+			}
+		});
+	}
+	
+	
+	//判断原始密码是否正确
+	
+	function rightOldP(){
+		var user_id = $("#user_id").val();
+		var oldPassword = $.trim($("#oldPassword").val());
+		var username = $("#username").val();
+		$.ajax({
+			type: "POST",
+			url: '<%=basePath%>userInfo/rightOldP.do',
+	    	data: {USER_ID:user_id,OLDPASSWORD:oldPassword,USERNAME:username},
+			dataType:'json',
+			cache: false,
+			success: function(data){
+				 if("success" == data.result){
+					 $("#userInfoForm").submit();
+					 $("#zhongxin").hide();
+					 $("#zhongxin2").show();
+				}else{
+				     $("#oldPassword").tips({
+					 side:3,
+		             msg:'原始密码错误',
+		             bg:'#AE81FF',
+		             time:3
+		        });
+				$("#oldPassword").focus();
+			 }
 			}
 		});
 	}
