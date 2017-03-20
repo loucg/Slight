@@ -377,7 +377,7 @@
 					//setTimeout("$('#username').val('此用户名已存在!')",500);
 					 $("#username").tips({
 							side:3,
-				            msg:'此用户名已存在',
+				            msg:'此登录名已存在',
 				            bg:'#AE81FF',
 				            time:3
 				        });
