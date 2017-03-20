@@ -158,7 +158,7 @@
 						<tr>
 							<td style="vertical-align:top;">
 								<c:if test="${QX.add == 1 }">
-								<a class="btn btn-mini btn-success" onclick="add();">新增</a>
+								<a class="btn btn-mini btn-success" title="新增帐号" onclick="add();">新增</a>
 								</c:if>
 								<!--  
 								<c:if test="${QX.FHSMS == 1 }"><a title="批量发送站内信" class="btn btn-mini btn-info" onclick="makeAll('确定要给选中的用户发送站内信吗?');"><i class="ace-icon fa fa-envelope-o bigger-120"></i></a></c:if>

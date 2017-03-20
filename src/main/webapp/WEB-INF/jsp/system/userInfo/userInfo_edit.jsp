@@ -52,7 +52,7 @@
 										</tr>
 										<tr>
 										<td style="width:79px;text-align: right;padding-top: 4px;">邮箱:</td>
-										<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" onblur="hasE('${pd.USERNAME }')" style="width:98%;"/></td>
+										<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" style="width:98%;"/></td>
 										</tr>
 										<tr>
 										<td style="width:79px;text-align: right;padding-top: 4px;">联系地址:</td>

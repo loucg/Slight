@@ -70,7 +70,7 @@
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;">邮箱:</td>
-											<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" onblur="hasE('${pd.USERNAME }')" style="width:98%;"/></td>
+											<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" style="width:98%;"/></td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;">职务:</td>
@@ -148,6 +148,14 @@
 <script type="text/javascript">
 	$(top.hangge());
 	
+	$(document).ready(function(){
+		if($("#user_id").val()!=""){
+			//默认不能修改的数据
+			$("#username").attr("readonly","readonly");
+			$("#username").css("color","gray");
+		}
+	});
+	
 	//第一级值改变事件(初始第二级)
 	function change1(value){
 		$.ajax({
@@ -173,7 +181,7 @@
 	});
 	//保存
 	function save(){
-		
+		//公司判断
 		if($("#company").val()==""){
 			$("#company").tips({
 				side:3,
@@ -184,7 +192,7 @@
 			$("#company").focus();
 			return false;
 		}
-		
+		//部门判断
 		if($("#department").val()==""){
 			$("#department").tips({
 				side:3,
@@ -210,7 +218,7 @@
 		}else{
 			$("#username").val(jQuery.trim($('#username').val()));
 		} */
-		
+		//登录名判断
 		if($("#username").val()==""){
 			$("#username").tips({
 				side:3,
@@ -230,12 +238,12 @@
 			$("#username").focus();
 			return false;
 		}
-		else
-		{
-			hasU();
-			$("#username").val(jQuery.trim($('#username').val()));		
-		}
-		
+		//else
+		//{
+		//	hasU();
+		//	$("#username").val(jQuery.trim($('#username').val()));		
+		//}
+		//姓名判断
 		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,
@@ -246,7 +254,7 @@
 			$("#name").focus();
 			return false;
 		}
-		
+		//手机判断
 		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
 		if($("#phone").val()==""){
 			$("#phone").tips({
@@ -267,7 +275,7 @@
 			$("#phone").focus();
 			return false;
 		}
-		
+		//邮箱判断
 		if($("#email").val()!=""){
 			if(!ismail($("#email").val())){
 			$("#email").tips({
@@ -280,7 +288,7 @@
 			return false;
 		}
 		}
-		
+		//语言判断
 		if($("#language_id").val()==""){
 			$("#yuyan").tips({
 				side:3,
@@ -291,6 +299,7 @@
 			$("#language_id").focus();
 			return false;
 		}
+		//角色判断
 		if($("#role_id").val()==""){
 			$("#juese").tips({
 				side:3,
@@ -301,6 +310,7 @@
 			$("#role_id").focus();
 			return false;
 		}
+		//状态判断
 		if($("#status_id").val()==""){
 			$("#zhuangtai").tips({
 				side:3,
@@ -311,11 +321,6 @@
 			$("#status_id").focus();
 			return false;
 		}
-		
-		
-		
-		
-		
 		
 		/*
 		if($("#address").val()==""){
@@ -331,7 +336,6 @@
 		
 		/*
 		if($("#email").val()==""){
-			
 			$("#email").tips({
 				side:3,
 	            msg:'输入邮箱',
@@ -340,10 +344,15 @@
 	        });
 			$("#email").focus();
 			return false;
-		}else */
+		}
+		*/
+		if($("#user_id").val()==""){ //新增帐号无user_id
+			hasU();
+		}else{
 			$("#accountForm").submit();
 			$("#zhongxin").hide();
 			$("#zhongxin2").show();
+		}
 	}
 	function ismail(mail){
 		return(new RegExp(/^(?:[a-zA-Z0-9]+[_\-\+\.]?)*[a-zA-Z0-9]+@(?:([a-zA-Z0-9]+[_\-]?)*[a-zA-Z0-9]+\.)+([a-zA-Z]{2,})+$/).test(mail));
@@ -364,8 +373,15 @@
 					$("#zhongxin").hide();
 					$("#zhongxin2").show();
 				 }else{
-					$("#username").css("background-color","#D16E6C");
-					setTimeout("$('#username').val('此用户名已存在!')",500);
+					//$("#username").css("background-color","#D16E6C");
+					//setTimeout("$('#username').val('此用户名已存在!')",500);
+					 $("#username").tips({
+							side:3,
+				            msg:'此用户名已存在',
+				            bg:'#AE81FF',
+				            time:3
+				        });
+						$("#username").focus();
 				 }
 			}
 		});
