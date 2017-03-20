@@ -4,7 +4,7 @@
 	</script>
 
 
-	<ul class="nav nav-list">
+	<ul class="nav nav-list" id="main">
 		<li class="">
 			<a href="main/index">
 				<i class="menu-icon fa fa-tachometer"></i>
@@ -12,7 +12,6 @@
 			</a>
 		</li>
 
-	
 	<c:forEach items="${menuList}" var="menu1">
 	<c:if test="${menu1.hasMenu && '1' == menu1.MENU_STATE}">
 		<li class=""  id="lm${menu1.MENU_ID }">
@@ -24,6 +23,8 @@
 				<c:if test="${'[]' != menu1.subMenu}"><b class="arrow fa fa-angle-down"></b></c:if>
 			</a>
 			<b class="arrow"></b>
+			<ul id="inner" hidden="true">
+			</ul>
 			<c:if test="${'[]' != menu1.subMenu}">
 			<ul class="submenu">
 			<c:forEach items="${menu1.subMenu}" var="menu2">
@@ -80,7 +81,6 @@
 		</li>
 	</c:if>
 	</c:forEach>
-
 	</ul><!-- /.nav-list -->
 
 	<!-- #section:basics/sidebar.layout.minimize -->
@@ -92,7 +92,7 @@
 	<script type="text/javascript">
 		try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 		window.onload=function(){
-			if(document.getElementById("lm335")==null){
+			if(document.getElementById("inner")==null){
 				changeMenus();
 			}
 		}

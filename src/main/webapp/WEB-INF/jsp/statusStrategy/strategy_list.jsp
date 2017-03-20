@@ -170,6 +170,7 @@
                     title: {
                         text: names[i].innerHTML
                     },
+                    
                     tooltip: {},
                     xAxis: {
                         data: x_data

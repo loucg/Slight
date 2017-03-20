@@ -16,7 +16,7 @@
 <!-- 下拉框 -->
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
-<%@ include file="../../system/index/top.jsp"%>
+<%@ include file="../system/index/top.jsp"%>
 
 </head>
 <body class="no-skin">
@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 	
 						<!-- 检索  -->
-						<form action="newnet/newnet" method="post" name="Form" id="Form">
+						<form action="newnet/getNewnetList" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 							   <td>
@@ -84,13 +84,18 @@
 														<c:if test="${var.status == '2' }"><span class="label label-success arrowed">异常</span></c:if>
 														<c:if test="${var.status == '3' }"><span class="label label-success arrowed">断电</span></c:if>
 													</td> 
-											 <td class="center" style="width: 60px;">
-												<div class='hidden-phone visible-desktop btn-group'>
-													
+											 <td class="center">
+											 <div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="edit('${var.id}');">组网</a>
+													<a class="btn btn-xs btn-success" onclick="addCrew('${group.id}');">
+														新增终端
+													</a>
 													</c:if>
-													
+													<c:if test="${QX.del == 1 }">
+													<a class="btn btn-xs btn-danger" onclick="delCrew('${group.id}','${group.name}' );">
+														踢删终端
+													</a>
+													</c:if>
 												</div>
 											</td> 
 										</tr>
@@ -140,7 +145,7 @@
 	<!-- /.main-container -->
 	<!-- basic scripts -->
 	<!-- 页面底部js¨ -->
-	<%@ include file="../../system/index/foot.jsp"%>
+	<%@ include file="../system/index/foot.jsp"%>
 	<!-- ace scripts -->
 	<script src="static/ace/js/ace/ace.js"></script>
 	<!-- 删除时确认窗口 -->
@@ -160,18 +165,79 @@
 			$("#Form").submit();
 		}
 			
-		//修改
-		function edit(id){
+		//新增组员
+		function addCrew(id){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			/*  diag.Title ="编辑"; */
-			 diag.URL = '<%=basePath%>newnet/goClientList?id='+id;
-			 /* diag.Width = 650;
-			 diag.Height = 379; */
+			 diag.Title ="新增终端";
+			 diag.URL = '<%=basePath%>groupmem/listOthers.do?id='+id;
+			 diag.Width = 1200;
+			 diag.Height = 600;
+			 diag.Modal = true;				//有无遮罩窗口
+			 diag. ShowMaxButton = true;	//最大化按钮
+		     diag.ShowMinButton = true;		//最小化按钮
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 nextPage(${page.currentPage});
+					 if('${page.currentPage}' == '0'){
+						 top.jzts();
+						 setTimeout("self.location=self.location",100);
+					 }else{
+						 nextPage(${page.currentPage});
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}
+		
+		//踢删组员
+		function delCrew(id,name){
+			top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="踢删终端";
+			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id;
+			 diag.Width = 1200;
+			 diag.Height = 600;
+			 diag.Modal = true;				//有无遮罩窗口
+			 diag. ShowMaxButton = true;	//最大化按钮
+		     diag.ShowMinButton = true;		//最小化按钮
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 top.jzts();
+						 setTimeout("self.location=self.location",100);
+					 }else{
+						 nextPage(${page.currentPage});
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}
+		
+
+		//查看组员
+		function viewGroupMems(id){
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="组成员";
+			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id;
+			 diag.Width = 1200;
+			 diag.Height = 600;
+			 diag.Modal = true;				//有无遮罩窗口
+			 diag. ShowMaxButton = true;	//最大化按钮
+		     diag.ShowMinButton = true;		//最小化按钮
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 top.jzts();
+						 setTimeout("self.location=self.location",100);
+					 }else{
+						 nextPage(${page.currentPage});
+					 }
 				}
 				diag.close();
 			 };

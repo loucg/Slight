@@ -31,9 +31,9 @@ public class NewnetController extends BaseController {
 	@Resource(name="newnetService")
 	private NewnetService newnetService;
 	
-	private String newnetJsp = "repair/newnet/newnet_list";                 //网关列表jsp
-	private String newnetEditJsp = "repair/newnet/newnet_list_edit";  					//网关重组jsp
-	private String newnetCreateJsp = "repair/newnet/newnet_edit";  					//网关编辑jsp
+	private String newnetJsp = "newnet/newnet_list";                 //网关列表jsp
+	private String newnetEditJsp = "newnet/newnet_list_edit";  					//网关重组jsp
+	private String newnetCreateJsp = "newnet/newnet_edit";  					//网关编辑jsp
 	private String saveRsultJsp = "save_result";  				//保存修改jsp
 	
 	/**
@@ -60,25 +60,6 @@ public class NewnetController extends BaseController {
 
 	
 	
-	
-	/**
-	 * 跳转网关修改页面
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/goNewnetEdit")
-	public ModelAndView goNewnetEdit() throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		pd = newnetService.getNewnetById(pd);
-		mv.addObject("pd", pd);
-		mv.addObject("msg", "editNewnet");
-		mv.setViewName(newnetEditJsp);
-		return mv;
-	}
-	
 	/**
 	 * 跳转终端页面
 	 * @param page
@@ -97,6 +78,11 @@ public class NewnetController extends BaseController {
 		return mv;
 	}
 	
+	/**
+	 * 为网关添加终端
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/addClient")
 	public Object addClient() throws Exception{
 		PageData pd = new PageData();

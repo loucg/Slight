@@ -218,7 +218,7 @@
 			LEFT JOIN c_client_gateway AS c ON a.c_gateway_id = c.c_gateway_id
 		
 		 WHERE a.c_gateway_type_id = 3
-		<if test="pd.userid!=null and pd.userid=''">
+		<if test="pd.userid!=null and pd.userid!=''">
 			AND b.sys_user_id = #{pd.userid}
 		</if>
 		<if test="pd.name!=null and pd.name!=''">
@@ -228,7 +228,6 @@
 			AND b.gateway_code LIKE CONCAT(CONCAT('%', #{pd.code}), '%')
 		</if>
 		group by c.c_gateway_id	
-		order by 
 	</select>
 	
 	<select id="getClientlistPage" parameterType="page" resultType="pd">
