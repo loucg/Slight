@@ -57,7 +57,7 @@ body,ul,li{	margin:0;
 			position: relative;
 			z-index: 1; 
 			}
-.box li a:hover{
+/* .box li a:hover{
 			display:block;
 			border: 5px solid #ccc; 
 			background:#ddd;
@@ -70,7 +70,14 @@ body,ul,li{	margin:0;
 			background:#ddd;
 			color:#f00;
 			z-index: 2;
-			} 
+			}  */
+			img{
+			cursor:pointer;
+			transition:all 0.6s;
+			}
+			img:hover{
+			transform:scale(1.15);
+			}
 </style>
 </head>
 <body >
