@@ -228,7 +228,20 @@
 	        });
 			$("#username").focus();
 			return false;
-		}else if(escape($("#username").val()).indexOf("%u") >= 0){
+		}else{
+			var re = /^[a-zA-z]\w{3,15}$/;
+		    if(!re.test($("#username").val())){
+		    	$("#username").tips({
+					side:3,
+		            msg:'登录名由字母、数字、下划线组成，字母开头，4-16位',
+		            bg:'#AE81FF',
+		            time:3
+		        });
+				$("#username").focus();
+				return false;
+		    }
+		}
+		/* else if(escape($("#username").val()).indexOf("%u") >= 0){
 			$("#username").tips({
 				side:3,
 	            msg:'登录名不能含有汉字',
@@ -237,7 +250,7 @@
 	        });
 			$("#username").focus();
 			return false;
-		}
+		} */
 		//else
 		//{
 		//	hasU();

@@ -165,6 +165,20 @@
 			return false;
 		}
 		
+		if($("#newPassword").val()!=""){
+			var re = /^[A-Za-z0-9]{6,20}$/;
+			if(!re.test($("#newPassword").val())){
+				$("#newPassword").tips({
+					side:3,
+		            msg:'新密码由字母、数字组成，6-20位',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#newPassword").focus();
+				return false;
+			}
+		}
+		
 		/* if($("#newPassword").val()!="" && $("#oldPassword").val() != ""){ //当用户输入新密码而原始密码也输入时
 			rightOldP();
 			alert(result);
