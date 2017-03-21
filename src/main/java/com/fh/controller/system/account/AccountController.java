@@ -243,7 +243,7 @@ public class AccountController extends BaseController {
 			userService.saveA(pd); 					//执行帐号保存
 			userService.saveAccountDP(pd); 			//执行帐号职务保存
 			FHLOG.save(Jurisdiction.getUsername(), "新增帐号："+pd.getString("USERNAME"), LogType.editaccount);
-			mv.addObject("msg","success");
+			mv.addObject("msg","addSuccess");
 		//}else{
 		//	mv.addObject("msg","failed");
 		//}

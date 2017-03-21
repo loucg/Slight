@@ -74,6 +74,7 @@ public class HeadController extends BaseController {
 			Session session = Jurisdiction.getSession();
 			PageData pds = new PageData();
 			pds = (PageData)session.getAttribute(Const.SESSION_userpds);
+			pds = null; //清空缓存
 			if(null == pds){
 				pd.put("USERNAME", Jurisdiction.getUsername());//当前登录者用户名
 				pds = userService.findByUsername(pd);

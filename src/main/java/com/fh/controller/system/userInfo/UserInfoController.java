@@ -147,6 +147,20 @@ public class UserInfoController extends BaseController {
 		pd.put("userid",UserUtils.getUserid());
 		String language = InternationalUtils.getLanguage(internationalService, pd);
 		String name = pd.getString("NAME");
+		
+		/*User user = new User();
+		user.setUSER_ID(pd.getString("USER_ID"));
+		user.setUSERNAME(pd.getString("USERNAME"));
+		user.setPASSWORD(pd.getString("NEWPASSWORD"));
+		user.setNAME(pd.getString("NAME"));
+		//user.setRIGHTS(pd.getString("RIGHTS"));
+		//user.setROLE_ID(pd.getString("ROLE_ID"));
+		//user.setLAST_LOGIN(pd.getString("LAST_LOGIN"));
+		//user.setIP(pd.getString("IP"));
+		//user.setSTATUS(pd.getString("STATUS"));
+		Session session = Jurisdiction.getSession();
+		session.setAttribute(Const.SESSION_USER, user);			//把用户信息放session中
+*/		
 		Jurisdiction.getSession().setAttribute(Const.SESSION_LANGUAGE, language);
 		//Jurisdiction.getSession().setAttribute(Const.SESSION_USER, name);
 		FHLOG.save(Jurisdiction.getUsername(), "修改用户信息："+pd.getString("USERNAME"), LogType.edituserinfo);
