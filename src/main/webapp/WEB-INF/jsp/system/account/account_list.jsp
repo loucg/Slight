@@ -158,7 +158,7 @@
 						<tr>
 							<td style="vertical-align:top;">
 								<c:if test="${QX.add == 1 }">
-								<a class="btn btn-mini btn-success" title="新增帐号" onclick="add();">新增</a>
+								<a class="btn btn-mini btn-success" title="新增帐号" onclick="add();">新增帐号</a>
 								</c:if>
 								<!--  
 								<c:if test="${QX.FHSMS == 1 }"><a title="批量发送站内信" class="btn btn-mini btn-info" onclick="makeAll('确定要给选中的用户发送站内信吗?');"><i class="ace-icon fa fa-envelope-o bigger-120"></i></a></c:if>
@@ -225,7 +225,7 @@ function resetPassword(user_id){
 	 diag.Title ="密码重置";
 	 diag.URL = '<%=basePath%>account/goResetP.do?USER_ID='+user_id;
 	 diag.Width = 351;
-	 diag.Height = 103;
+	 diag.Height = 140;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			nextPage(${page.currentPage});

@@ -155,7 +155,7 @@ public class StrategyController extends BaseController {
 		pd.put("TDATE", TDATE);				//创建时间
 		//System.out.println(pd);
 		strategyService.addStrategy(pd);
-		mv.addObject("msg","success");
+		mv.addObject("msg","addSuccess");
 		mv.setViewName("save_result");
 		return mv;
 	}
@@ -199,7 +199,7 @@ public class StrategyController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		strategyService.edit(pd);	//执行修改
-		mv.addObject("msg","success");
+		mv.addObject("msg","editSuccess");
 		mv.setViewName("save_result");
 		return mv;
 	}
