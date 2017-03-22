@@ -52,7 +52,26 @@
 				$("#polenumber").focus();
 				return false;
 			}
-
+			if($("#longitude").val()<=0||$("longitude").val()>=180){
+				$("#longitude").tips({
+					side:3,
+		            msg:'请输入0~180之间的数字',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#longitude").focus();
+				return false;
+			}
+			if($("#longitude").val()<=0||$("#longitude").val()>=90){
+				$("#longitude").tips({
+					side:3,
+		            msg:'请输入0~90之间的数字',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#latitude").focus();
+				return false;
+			}
 		hasK();
 	}
 	//判断关键词是否存在
@@ -123,27 +142,16 @@
 
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">位置:</td>
-								<td><input style="width:95%;" type="text" name="location" id="locationE" value="${pd.location}" maxlength="500" placeholder="这里输入位置" title="位置"/></td>
+								<td><input style="width:95%;" type="text" name="location" id="locationE" value="${pd.location}" placeholder="这里输入位置" title="位置"/></td>
 							</tr>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">经度:</td>
-								<td><input style="width:95%;" type="text" name="longitude" id="longitude" value="${pd.longitude}" maxlength="500" placeholder="这里输入坐标" title="坐标"/></td>
+								<td><input style="width:95%;" type="number" name="longitude" id="longitude" value="${pd.longitude}" placeholder="这里输入坐标" title="坐标"/></td>
 							</tr>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">纬度:</td>
-								<td><input style="width:95%;" type="text" name="latitude" id="latitude" value="${pd.latitude}" maxlength="500" placeholder="这里输入坐标" title="坐标"/></td>
+								<td><input style="width:95%;" type="number" name="latitude" id="latitude" value="${pd.latitude}" placeholder="这里输入坐标" title="坐标"/></td>
 							</tr>
-							<%-- <tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">电话号码:</td>
-								<td id="dianhua">
-								<select class="chosen-select form-control" name="mobile" id="mobile" data-placeholder="请选择公司" style="vertical-align:top;" style="width:98%;" >
-								<option value=""></option>
-								<c:forEach items="${simList}" var="sim">
-									<option value="${sim.id}" <c:if test="${pd.id == sim.id }">selected</c:if>>${sim.mobile}</option>
-								</c:forEach>
-								</select>
-								</td>
-							</tr> --%>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">电话号码:</td>
 								<td>

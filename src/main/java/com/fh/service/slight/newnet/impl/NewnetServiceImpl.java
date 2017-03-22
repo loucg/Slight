@@ -35,11 +35,25 @@ public class NewnetServiceImpl implements NewnetService{
 		return (List<PageData>) dao.findForList("RepairMapper.getClientlistPage", page);
 	}
 
+	
 	@Override
 	public void addClients(PageData pd) throws Exception {
 		// TODO Auto-generated method stub
 		dao.save("RepairMapper.addClient", pd);
 	}
 
+	@Override
+	public List<PageData> getOwnClientList(Page page) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<PageData>)dao.findForList("RepairMapper.getOwnClientList", page);
+	}
+
+	@Override
+	public void deleteClients(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		dao.delete("", pd);
+	}
+
+	
 	
 }

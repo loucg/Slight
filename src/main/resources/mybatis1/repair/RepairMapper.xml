@@ -231,12 +231,29 @@
 	</select>
 	
 	<select id="getClientlistPage" parameterType="page" resultType="pd">
-		SELECT a.client_code AS number, b.`name`, b.`comment`,b.staus AS status, b.lamp_pole_num AS polenumber
-		FROM c_client AS a
+		SELECT a.id, b.`name`, c.client_code AS number, b.staus AS status, b.lamp_pole_num AS polenumber
+			,b.`comment`
+		FROM v_gateway_client AS a
 		LEFT JOIN c_client_attr1 AS b ON a.id = b.c_client_id
+		LEFT JOIN c_client AS c ON a.id = c.id
+		LEFT JOIN c_client_gateway AS d ON a.id = d.c_client_id
 		WHERE b.sys_user_id = #{pd.userid}	
 		<if test="pd.name!=null and pd.name!=''">
-			AND a.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
+			AND b.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
+		</if>
+		<if test="pd.code!=null and pd.code!=''">
+			AND c.gateway_code LIKE CONCAT(CONCAT('%', #{pd.code}), '%')
+		</if>
+	</select>
+	
+	<select id="getOwnClientList" parameterType="page" resultType="pd">
+		SELECT b.client_code AS number, c.`comment`, c.`name`, c.staus AS status, c.lamp_pole_num AS polenumber
+		FROM c_client_gateway AS a
+		LEFT JOIN c_client AS b ON a.c_client_id = b.id
+		LEFT JOIN c_client_attr1 AS c ON b.id = c.c_client_id
+		WHERE a.c_gateway_id = #{gateway}
+		<if test="pd.name!=null and pd.name!=''">
+			AND c.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
 		</if>
 		<if test="pd.code!=null and pd.code!=''">
 			AND b.gateway_code LIKE CONCAT(CONCAT('%', #{pd.code}), '%')
@@ -247,20 +264,11 @@
 		INSERT INTO c_client_gateway(c_client_id, c_gateway_id, type)
 		VALUES(#{client}, #{gateway}, #{type, jdbcType=INTEGER})
 	</insert>
-<!-- 根据id获取网关 -->
-	<select id="getNewnetById" resultType="pd">
-	SELECT  a.c_gateway_id AS id,
-					    a.name,
-						a.location,
-						a.comment,
-						a.staus AS status,
-						count(c.c_client_id) as number,
-						b.gateway_code AS code
-		FROM c_gateway_attr1 AS a
-			LEFT JOIN c_gateway AS b ON a.c_gateway_id = b.id
-			LEFT JOIN c_client_gateway AS c ON a.c_gateway_id = c.c_gateway_id
-		WHERE a.c_gateway_id = #{id ,jdbcType=INTEGER}
-	</select>
-	
+	<delete id="deleteClient" parameterType="pd">
+		DELETE 
+		FROM c_client_gateway
+		WHERE c_client_gateway.c_gateway_id = #{gateway}
+		AND c_client_gateway.c_client_id = #{client}
+	</delete>
 	<!-- end -->
 </mapper>

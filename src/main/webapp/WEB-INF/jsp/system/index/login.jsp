@@ -70,12 +70,6 @@
 	</script>
 </head>
 <body>
-
-<%-- 	<c:if test="${pd.isMusic == 'yes' }">
-	<div style="display: none">
-	    <audio src="static/login/music/fh1.mp3" autoplay=""></audio>
-	</div>	
-	</c:if> --%>
 	<canvas class="cavs"></canvas>
 	<div style="width:100%;text-align: center;margin: 0 auto;position: absolute;">
 		<!-- 登录 -->
@@ -215,7 +209,7 @@
 			</form>
 			<!-- <div class="controls">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright © FHqq313596790 2100</span></font>
+					<font color="white"><span id="nameerr">版权</span></font>
 				</div>
 			</div> -->
 		</div>

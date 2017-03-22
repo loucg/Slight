@@ -1,6 +1,6 @@
 ﻿<div id="sidebar" class="sidebar responsive">
 	<script type="text/javascript">
-		try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+		try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 	</script>
 
 
@@ -90,7 +90,7 @@
 
 	<!-- /section:basics/sidebar.layout.minimize -->
 	<script type="text/javascript">
-		try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+		try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
 		window.onload=function(){
 			if(document.getElementById("inner")==null){
 				changeMenus();

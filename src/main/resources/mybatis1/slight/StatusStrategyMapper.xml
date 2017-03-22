@@ -36,7 +36,7 @@
 		FROM <include refid="groupTableName"></include> AS a
 		LEFT JOIN <include refid="strategy"></include> AS b ON a.b_ctrl_strategy_id = b.id
 		LEFT JOIN <include refid="groupDayPowerTableName"></include> AS c ON a.id = c.c_term_id
-		WHERE a.sys_user_id = #{userid}
+		WHERE a.sys_user_id = ${userids}
 			AND c.day &gt;=#{starttime}
 			AND c.day &lt;=#{endtime}
 		GROUP BY a.`name`
@@ -49,7 +49,7 @@
 		FROM <include refid="groupTableName"></include> AS a
 		LEFT JOIN <include refid="strategy"></include> AS b ON a.b_ctrl_strategy_id = b.id
 		LEFT JOIN <include refid="groupMonthPowerTablename"></include> AS c ON a.id = c.c_term_id
-		WHERE a.sys_user_id = #{userid}
+		WHERE a.sys_user_id = ${userids}
 			AND c.month &gt;= #{starttime}
 			AND c.month &lt;=#{endtime}
 	</select>
@@ -66,13 +66,13 @@
 		FROM <include refid="strategy"></include> AS a
 		JOIN (SELECT COUNT(b.id) AS group_number
 		FROM <include refid="groupTableName"></include> AS b
-		WHERE b.sys_user_id = #{userid}) AS c
+		WHERE b.sys_user_id = ${userids}) AS c
 	</select>
 	<!-- 获得终端总数 -->
 	<select id="getClientTotal" parameterType="pd" resultType="pd">
 		SELECT COUNT(a.c_client_id) AS ctotal
 		FROM c_client_attr1 AS a
-		WHERE a.sys_user_id = #{userid}
+		WHERE a.sys_user_id = ${userids}
 	</select>
 	
 	<!-- 获得正常终端数 -->
@@ -80,14 +80,14 @@
 		SELECT COUNT(a.c_client_id) AS cnormal
 		FROM c_client_attr1 AS a
 		WHERE a.staus = 1
-			AND a.sys_user_id = #{userid}
+			AND a.sys_user_id = ${userids}
 	</select>
 	<!-- 获得网关总数 -->
 	<select id="getGatewayTotal" parameterType="pd" resultType="pd">
 		SELECT COUNT(a.c_gateway_id) AS gtotal 
 		FROM c_gateway_attr1 AS a
 		WHERE a.c_gateway_type_id = 3
-			AND a.sys_user_id = #{userid}
+			AND a.sys_user_id = ${userids}
 	</select>
 	<!-- 获得正常网关总数 -->
 	<select id="getGatewayNormal" parameterType="pd" resultType="pd">
@@ -95,14 +95,14 @@
 		FROM c_gateway_attr1 AS a
 		WHERE a.c_gateway_type_id = 3
 			AND a.staus = 1
-			AND a.sys_user_id = #{userid}
+			AND a.sys_user_id = ${userids}
 	</select>
 	<!-- 获得网关故障数量 -->
 	<select id="getGatewayFaultCnt" parameterType="pd" resultType="pd">
 		SELECT COUNT(DISTINCT a.c_gateway_id) AS fgateway
 		FROM b_gateway_fault AS a
 		LEFT JOIN c_gateway_attr1 AS b ON a.c_gateway_id = b.c_gateway_id
-		WHERE b.sys_user_id = #{userid}
+		WHERE b.sys_user_id = ${userids}
 		AND b.c_gateway_type_id = #{type}
 		<if test="status!=null and status!=''">
 			AND (a.`status` = 2 OR 8)
@@ -114,7 +114,7 @@
 		SELECT COUNT(DISTINCT a.c_client_id) AS fclient
 		FROM b_client_fault AS a
 		LEFT JOIN c_client_attr1 AS b ON a.c_client_id = b.c_client_id
-		WHERE b.sys_user_id = #{userid}
+		WHERE b.sys_user_id = ${userids}
 		<if test="status!=null and status!=''">
 			AND (a.`status` = 2 OR 8)
 		</if>
@@ -125,7 +125,7 @@
 		FROM b_term_power_daily_report AS a
 		LEFT JOIN c_term AS b ON a.c_term_id = b.id
 		WHERE a.`day` = CURDATE()
-			AND b.sys_user_id = #{userid}
+			AND b.sys_user_id = ${userids}
 	</select>
 	
 

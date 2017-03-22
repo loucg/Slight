@@ -40,6 +40,13 @@ public interface NewnetService {
 	 */
 	public List<PageData> getClientList(Page page) throws Exception;
 	
+	/**
+	 * 获得已添加的终端列表
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> getOwnClientList(Page page) throws Exception;
 	
 	/**
 	 * 添加终端进网关
@@ -47,6 +54,13 @@ public interface NewnetService {
 	 * @throws Exception
 	 */
 	public void addClients(PageData pd) throws Exception;
+	
+	/**
+	 * 从网关移除终端
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void deleteClients(PageData pd) throws Exception;
 	
 
 }

@@ -1,14 +1,10 @@
 package com.fh.controller.slight.configure;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,20 +13,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
-import com.fh.entity.system.Role;
 import com.fh.hzy.util.UserUtils;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.slight.configure.ConfigureService;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Const;
 import com.fh.util.FileDownload;
 import com.fh.util.FileUpload;
-import com.fh.util.GetPinyin;
 import com.fh.util.Jurisdiction;
 import com.fh.util.ObjectExcelRead;
 import com.fh.util.ObjectExcelView;
 import com.fh.util.PageData;
 import com.fh.util.PathUtil;
-import com.fh.util.Tools;
 
 @Controller
 @RequestMapping("/config")
@@ -49,7 +43,8 @@ public class ConfigureController extends BaseController{
 	private ConfigureService configureService;
 	@Resource(name="fhlogService")
 	private FHlogManager FHLOG;
-
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
 	
 
 	/**下载普通电源模版
@@ -87,7 +82,7 @@ public class ConfigureController extends BaseController{
 		pd = this.getPageData();
 		page.setPd(pd);
 		pd.put("itype", 1);
-		pd.put("userid", UserUtils.getUserid());
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		List<PageData> list = configureService.getDeviceList(page);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
@@ -109,7 +104,7 @@ public class ConfigureController extends BaseController{
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("itype", 2);
-		pd.put("userid", UserUtils.getUserid());
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		page.setPd(pd);
 		List<PageData> list = configureService.getDeviceList(page);
 		mv.addObject("pd", pd);
@@ -132,7 +127,7 @@ public class ConfigureController extends BaseController{
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("itype", 3);
-		pd.put("userid", UserUtils.getUserid());
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		page.setPd(pd);
 		List<PageData> list = configureService.getGatewayList(page);
 		mv.addObject("pd", pd);
@@ -155,7 +150,7 @@ public class ConfigureController extends BaseController{
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("itype", 4);
-		pd.put("userid", UserUtils.getUserid());
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		page.setPd(pd);
 		List<PageData> deviceList = configureService.getDeviceList(page);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
@@ -176,7 +171,7 @@ public class ConfigureController extends BaseController{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("userid", UserUtils.getUserid());
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		page.setPd(pd);
 		List<PageData> deviceList = null;
 		int type = Integer.valueOf((String)pd.get("type"));

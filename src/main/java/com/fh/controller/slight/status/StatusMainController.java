@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.system.Strategy;
 import com.fh.hzy.util.UserUtils;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.slight.status.StatusMainService;
 import com.fh.util.PageData;
 
@@ -24,6 +25,9 @@ public class StatusMainController extends BaseController{
 	
 	@Resource(name="statusMainService")
 	StatusMainService statusMainService;
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
+	
 	String statusMainJsp = "statusStrategy/status_main";
 	
 	@RequestMapping("/getMainData")
@@ -31,7 +35,7 @@ public class StatusMainController extends BaseController{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("userid", UserUtils.getUserid());
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		mv.addObject("groupAndStrategy", statusMainService.getStgAndGroupCnt(pd));
 		mv.addObject("totalGateway", statusMainService.getGatewayTotal(pd));
 		mv.addObject("normalGateway", statusMainService.getGatewayNormal(pd));

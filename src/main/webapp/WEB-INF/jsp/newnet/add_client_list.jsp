@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 	
 						<!-- 检索  -->
-						<form action="repair/goClientList" method="post" name="Form" id="Form">
+						<form action="newnet/goClientList" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 							   <td>
@@ -73,7 +73,7 @@
 										<tr>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 													<td class="center">${var.number}</td>
-													<td>${ fn:substring(var.name ,0,50)}</td>								 
+													<td class="center">${var.name}</td>								 
 													<td class="center">${var.polenumber}</td>
 													<td class="center">${var.comment}</td>		
 													<td class="center">
@@ -105,11 +105,7 @@
 									<a class="btn btn-mini btn-success" onclick="add();">组网</a>
 									</c:if>
 							</td>
-							<td style="vertical-align:top;">
-									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要踢删选中的数据吗?',${termforpage.id});" title="批量删除" >踢删</a>
-									</c:if>
-							</td>
+			
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 						</tr>
 					</table>
@@ -155,33 +151,7 @@
 			$("#Form").submit();
 		}
 		
-		//新增组员
-		function addCrew(id){
-			 top.jzts();
-			 var diag = new top.Dialog();
-			 diag.Drag=true;
-			 diag.Title ="组网";
-			 diag.URL = '<%=basePath%>groupmem/listOthers.do?id='+id;
-			 diag.Width = 1200;
-			 diag.Height = 600;
-			 diag.Modal = true;				//有无遮罩窗口
-			 diag. ShowMaxButton = true;	//最大化按钮
-		     diag.ShowMinButton = true;		//最小化按钮
-			 diag.CancelEvent = function(){ //关闭事件
-				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 if('${page.currentPage}' == '0'){
-						 top.jzts();
-						 setTimeout("self.location=self.location",100);
-					 }else{
-						 nextPage(${page.currentPage});
-					 }
-				}
-				diag.close();
-			 };
-			 diag.show();
-		}
-		
-	//确定踢删组员
+		//确定新增组员
 		function makeAll(msg,id){
 			bootbox.confirm(msg, function(result) {
 				if(result) {
@@ -206,11 +176,11 @@
 				        });
 						return;
 					}else{
-						if(msg == '确定要踢删选中的数据吗?'){
+						if(msg == '确定要添加选中的数据吗?'){
 							top.jzts();
 							$.ajax({
 								type: "POST",
-								url: '<%=basePath%>repair/addClient?id='+id,
+								url: '<%=basePath%>newnet/addClient?id='+id,
 						    	data: {DATA_IDS:str},
 								dataType:'json',
 								//beforeSend: validateData,
@@ -224,7 +194,6 @@
 									top.Dialog.close(); 
 								}
 							});
-							
 						}
 					}
 				}

@@ -155,5 +155,19 @@ public interface DepartmentManager{
 	 */
 	public String getDEPARTMENT_IDS(String DEPARTMENT_ID) throws Exception;
 	
+	
+	/**
+	 * 获取当前用户所在部门id
+	 */
+	public int getMyDepartmentid(PageData pd) throws Exception;
+	
+	
+	/**
+	 * 获取某个部门下所有的用户id(返回拼接字符串in的形式)
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public String getUseridsInDepartment(PageData pd) throws Exception;
 }
 

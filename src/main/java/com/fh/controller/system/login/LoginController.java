@@ -209,6 +209,10 @@ public class LoginController extends BaseController {
 				mv.setViewName("system/index/login");//session失效后跳转登录页面
 			}
 		} catch(Exception e){
+			System.out.println("空指针");
+			pd = this.getPageData();
+			pd = this.setLoginPd(pd);	//设置登录页面的配置参数
+			mv.addObject("pd",pd);
 			mv.setViewName("system/index/login");
 			logger.error(e.getMessage(), e);
 		}

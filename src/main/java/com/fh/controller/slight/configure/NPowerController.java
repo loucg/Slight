@@ -19,6 +19,8 @@ import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.hzy.util.InternationalUtils;
 import com.fh.hzy.util.UserUtils;
+import com.fh.service.fhoa.department.DepartmentManager;
+import com.fh.service.fhoa.department.impl.DepartmentService;
 import com.fh.service.slight.configure.ConfigureService;
 import com.fh.service.slight.language.InternationalService;
 import com.fh.service.system.fhlog.FHlogManager;
@@ -46,7 +48,6 @@ public class NPowerController extends BaseController{
 	private ConfigureService configureService;
 	@Resource(name="fhlogService")
 	private FHlogManager FHLOG;
-
 	
 	/**
 	 * 获取普通电源列表

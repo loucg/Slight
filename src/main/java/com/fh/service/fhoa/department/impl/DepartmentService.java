@@ -11,6 +11,7 @@ import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
 import com.fh.entity.system.Department;
 import com.fh.entity.system.Role;
+import com.fh.hzy.util.UserUtils;
 import com.fh.util.PageData;
 import com.fh.util.Tools;
 import com.fh.service.fhoa.department.DepartmentManager;
@@ -311,6 +312,39 @@ public class DepartmentService implements DepartmentManager{
 			sb.append(",");
 		}
 		sb.append("'fh')");
+		return sb.toString();
+	}
+	
+	
+
+	@Override
+	public int getMyDepartmentid(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		pd.put("userid", UserUtils.getUserid());
+		List<PageData> list = (List<PageData>)dao.findForList("DepartmentMapper.getMyDepartmentid", pd);
+		if(list==null||list.size()==0){
+			return 0;
+		}else{
+			System.out.println("departmentid ="+(Integer)list.get(0).get("departmentid"));
+			return (Integer)list.get(0).get("departmentid");
+		}
+		
+	}
+
+	@Override
+	public String getUseridsInDepartment(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		pd.put("departmentid",getMyDepartmentid(pd));
+		List<PageData> list = (List<PageData>)dao.findForList("DepartmentMapper.getUsersInDepartment", pd);
+		StringBuffer sb = new StringBuffer();
+		sb.append("(");
+		for(int i=0;i<list.size();i++){
+			sb.append("'");
+			sb.append(list.get(i).get("userid"));
+			sb.append("'");
+			if(i!=list.size()-1)sb.append(",");
+		}
+		sb.append(")");
 		return sb.toString();
 	}
 	

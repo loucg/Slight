@@ -16,6 +16,7 @@ import com.fh.controller.base.BaseController;
 import com.fh.hzy.util.DateUtils;
 import com.fh.hzy.util.Strategy;
 import com.fh.hzy.util.UserUtils;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.slight.status.StatusStrategyService;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
@@ -35,13 +36,15 @@ public class StatusStrategyController extends BaseController{
 	
 	@Resource(name="statusStrategyService")
 	public StatusStrategyService statusStrategyService;
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
 	
 	@RequestMapping("/getGroupList")
 	public ModelAndView getGroupList() throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("userid", UserUtils.getUserid());
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		int type = 1;
 		if(pd.getString("type")!=null){
 			type = Integer.valueOf(pd.getString("type"));

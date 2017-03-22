@@ -91,10 +91,10 @@ body,ul,li{	margin:0;
 	<div class="main-container" id="main-container" style="background:url('static/login/images/bg2.jpg') no-repeat;width:100%;height:566px;margin-top:5px;background-size:cover">	
 	     <div class="xttblog"> 		
 			<ul class="box">
-			<li><a onclick="edit(3,'日志管理','fhlog/list.do');" title="日志管理"><img src="static/login/images/czrz.jpg"/></a></li> 
-			<li><a onclick="edit(314,'管理','strategy/listStrategys.do');" title="管理"><img src="static/login/images/clkz.jpg"/></a></li>
-			<li><a onclick="edit(347,'地图控制','gomap/content.do');" title="地图控制"><img src="static/login/images/dtkz.jpg"/></a></li>
-			<li><a onclick="edit(371,'故障统计','analysis/faultlist');" title="故障统计"><img src="static/login/images/gzbj.jpg"/></a></li>
+			<li><a onclick="edit(3,'日志管理','fhlog/list.do');" ><img src="static/login/images/czrz.jpg"/></a></li> 
+			<li><a onclick="edit(314,'管理','strategy/listStrategys.do');" ><img src="static/login/images/clkz.jpg"/></a></li>
+			<li><a onclick="edit(347,'地图控制','gomap/content.do');" ><img src="static/login/images/dtkz.jpg"/></a></li>
+			<li><a onclick="edit(371,'故障统计','analysis/faultlist');" ><img src="static/login/images/gzbj.jpg"/></a></li>
 			
 			</ul>
 			 <ul class="box">
