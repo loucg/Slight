@@ -56,6 +56,7 @@ public class MapContentController extends BaseController{
 					more.setTermid(listct.get(i).getId());
 					more.setTermname(listct.get(i).getName());
 					List<c_client> listc = c_clientService.queryAllterm_client(p);
+					//if(listc.size()==0){more.setTermname(more.getTermname()+"(该分组没有成员)");}
 					int totalcount = c_clientService.queryCountterm_client(p);
 					if ((p.getBegin() + p.getRows()) >= totalcount) {
 						more.setHavenest(false);

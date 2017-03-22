@@ -276,6 +276,7 @@ body {
 			success : function(clientdata) {
 				if (clientdata.length!=0) {
 				//console.log(clientdata);
+					map.clearOverlays();
 					var arrpoints=[];
 					for (var i = 0; i < clientdata.length; i++) {
 						arrpoints.push( new BMap.Point(clientdata[i].xcoordinate,clientdata[i].ycoordinate));
@@ -283,8 +284,8 @@ body {
 					preMakerdata = clientdata;//记录当前展示的数据
 					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);//////坐标转换
 				} else {
-					preMakerdata = [];
-					map.centerAndZoom("杭州", 14);
+					//preMakerdata = [];
+					//map.centerAndZoom("杭州", 14);
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_INFO,
 		                title: '提示信息 ',
@@ -460,18 +461,33 @@ body {
 	}
 	//0.5秒后根据id改变地图的展示中心       
 	function changeCenterByid(id) {
+		var data;
 		for(var i=0;i<preMakerdata.length;i++){
 			if(id==preMakerdata[i].id)
 				{
+				data=preMakerdata[i];
 				var x=preMakerdata[i].xcoordinate;
 				var y=preMakerdata[i].ycoordinate;
 				setTimeout(function() {
 					map.panTo(new BMap.Point(x,y)); 
+					//map.setZoom(19);
 				}, 300);
+				setTimeout(function() {
+					map.setZoom(19);
+				}, 1000);
+				
 				}
 			
 		}
-
+		CenterMarker(data);
+	}
+	function CenterMarker(data) {
+		var point = new BMap.Point(data.xcoordinate, data.ycoordinate);
+		var marker = new BMap.Marker(point);  // 创建标注
+		map.addOverlay(marker);               // 将标注添加到地图中
+		marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+		setTimeout(function() {map.removeOverlay(marker);
+		}, 2000);
 	}
 	//0.3秒后根据Point改变地图的展示中心       
 	function changeCenter(data) {
@@ -479,6 +495,7 @@ body {
 		setTimeout(function() {
 			map.panTo(new BMap.Point(data.xcoordinate, data.ycoordinate)); //两秒后移动到第一个点
 		}, 300);
+		
 
 	}
 	//改变地图的zoom大小    
@@ -501,7 +518,7 @@ body {
 	}
 	//清除所有覆盖物   
 	function cleanAllMaker() {
-		map.clearOverlays();
+		///map.clearOverlays();
 	}
 	//得到选择的哪一个点
 	function getMakerIconAndInfo(div, data) {

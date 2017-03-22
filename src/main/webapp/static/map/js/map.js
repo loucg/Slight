@@ -67,13 +67,23 @@
 					"</div>"+
 					"<div class='btx4'>"+
 						"<h2 class='sh'>"+"亮度值"+":</h2>"+
-						"<select class='s1'  onchange='change_bright(this.options[this.options.selectedIndex].value)'>"+
-							"<option value=''>"+""+"</option>"+
-							"<option value='0'>"+"0"+"</option>"+
-							"<option value='20'>"+"20"+"</option>"+
-							"<option value='60'>"+"60"+"</option>"+
-							"<option value='80'>"+"80"+"</option>"+
-							"<option value='100'>"+"100"+"</option>"+
+						"<select class='s1'  onchange='change_bright(this.options[this.options.selectedIndex].value)'>"
+						
+				        var lightop="";
+        				for(var i = 0; i <=100; i=i+20){
+        					var lightop2="";
+        					if(i!=data.brightness)
+        						{
+        							lightop2="<option value="+i+">"+i+"</option>";
+        						}else{
+        							lightop2="<option value="+i+" selected = 'selected'>"+i+"</option>";
+        						}
+        					lightop=lightop+lightop2;
+        				}
+        	
+
+						
+						 sContent_light=sContent_light+lightop+
 				    	"</select>"+
 				    "</div>"+
     			"</div>"+

@@ -139,7 +139,13 @@ function setmapTermpage(index,data)
 }
 function gpsTObbdLfet_c(clientdata)
 {	
-	var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"> <a style=\" float:left;width:10px;height:10px;border:1px solid #000}\" ><span class=\"glyphicon glyphicon-hand-right\"></span></a><a style=\"\" class=\"one\" id="+clientdata[0].termid+"><span style=\"font-size:12px;font-weight:normal; color:black;font-family:宋体\">"+clientdata[0].termname+"</span></a></div><ul class=\"kid\">";
+	var star;
+	if(clientdata.length<=1){
+		star="<div class=\"panel-default\"><div class=\"panel-heading\"> <a style=\" float:left;width:10px;height:10px;border:1px solid #000}\" ><span class=\"glyphicon glyphicon-star-empty\"></span>";
+	}else{
+		star="<div class=\"panel-default\"><div class=\"panel-heading\"> <a style=\" float:left;width:10px;height:10px;border:1px solid #000}\" ><span class=\"glyphicon glyphicon-star\"></span>";
+	}
+	var accdivpre = star+"</a><a style=\"\" class=\"one\" id="+clientdata[0].termid+"><span style=\"font-size:12px;font-weight:normal; color:black;font-family:宋体\">"+clientdata[0].termname+"</span></a></div><ul class=\"kid\">";
 	for(var i=0;i<clientdata.length;i++){
 		if(clientdata[i].id!=null){
 			var accdivli ="<li><b class=\"tip\"></b><a style=\" outline: none; margin-left:25px;\" class=\"onekid\"  id="+clientdata[i].id+"><span style=\"font-size:11px;color:black; font-family:宋体\">"+clientdata[i].name+"</span></a></li>";

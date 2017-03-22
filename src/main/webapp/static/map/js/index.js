@@ -19,12 +19,12 @@
 					} else if ($(this).attr("id") == "search"){
 						Conframe.window.cleanAllMaker();// 清除所有覆盖物
 						//Conframe.window.changePreMakerdata(searchdata);
-						console.log(mapTermpage[-1]);
+						//console.log(mapTermpage[-1]);
 						Conframe.window.getClientsData(mapTermpage[-1]);
 						//Conframe.window.addClientMaker(searchdata);	
 					}else if ($(this).attr("id") == "draw"){
 						Conframe.window.cleanAllMaker();// 清除所有覆盖物
-						console.log(mapTermpage[-2]);
+						//console.log(mapTermpage[-2]);
 						Conframe.window.getClientsData(mapTermpage[-2]);
 						//Conframe.window.changePreMakerdata(drawdata);
 						//console.log(drawdata);
