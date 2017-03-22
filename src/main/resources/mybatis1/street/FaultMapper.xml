@@ -85,7 +85,7 @@
 		LEFT JOIN
 		c_gateway_attr1
 		ON
-		c_gateway_attr1.c_gateway_id = 
+		c_gateway_attr1.c_gateway_id IN
 		(
 		SELECT
 		c_client_gateway.c_gateway_id

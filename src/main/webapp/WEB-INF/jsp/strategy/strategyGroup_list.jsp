@@ -244,7 +244,20 @@
 								 	});
 									$("#zhongxin").hide();
 									$("#zhongxin2").show();
-									top.Dialog.close(); 
+					    		    top.Dialog.close(); 
+									/* bootbox.alert({  
+							            buttons: {  
+							               ok: {  
+							                    label: '确定',  
+							                }  
+							            },  
+							            message: '修改成功！',  
+							            callback: function() { 
+							            	
+							            	 
+							            },   
+							        }); */
+									
 								}
 							});
 							

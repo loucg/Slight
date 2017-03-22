@@ -63,7 +63,7 @@
 									<th class="center" style="width:100px">终端组数量</th>
 									<th class="center" style="width:100px">状态</th>
 									<th class="center">时间及亮度值</th>
-									<th class="center" style="width:150px">操作</th>
+									<th class="center" style="width:120px">操作</th>
 								</tr>
 							</thead>
 													
@@ -101,7 +101,7 @@
 												</c:if>
 												<div class="btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-mini btn-info" title="修改" onclick="editStrategy('${strategy.id}');">
+													<a class="btn btn-mini btn-info" title="修改策略" onclick="editStrategy('${strategy.id}');">
 														修改
 													</a>
 													</c:if>

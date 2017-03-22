@@ -123,7 +123,7 @@ public class UserInfoController extends BaseController {
 		}else{	//如果当前登录用户修改用户资料提交的用户名是本人，则不能修改本人的角色ID
 			pd.put("ROLE_ID", userService.findByUsername(pd).getString("ROLE_ID")); //对角色ID还原本人角色ID
 		}
-		if(pd.getString("OLDPASSWORD") != null && !"".equals(pd.getString("OLDPASSWORD")) && pd.getString("NEWPASSWORD") != null && !"".equals(pd.getString("NEWPASSWORD"))){
+		/*if(pd.getString("OLDPASSWORD") != null && !"".equals(pd.getString("OLDPASSWORD")) && pd.getString("NEWPASSWORD") != null && !"".equals(pd.getString("NEWPASSWORD"))){
 			String testPassword = new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("OLDPASSWORD")).toString();
 			//Session session = Jurisdiction.getSession();
 			//User user = (User)session.getAttribute(Const.SESSION_USER);
@@ -138,7 +138,7 @@ public class UserInfoController extends BaseController {
 				mv.setViewName("system/userInfo/userInfo_errorPassword");
 				return mv;
 			}
-		}
+		}*/
 		if(pd.getString("NEWPASSWORD") != null && !"".equals(pd.getString("NEWPASSWORD"))){
 			pd.put("NEWPASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("NEWPASSWORD")).toString());//密码加密
 		}
@@ -146,9 +146,25 @@ public class UserInfoController extends BaseController {
 		
 		pd.put("userid",UserUtils.getUserid());
 		String language = InternationalUtils.getLanguage(internationalService, pd);
+		String name = pd.getString("NAME");
+		
+		/*User user = new User();
+		user.setUSER_ID(pd.getString("USER_ID"));
+		user.setUSERNAME(pd.getString("USERNAME"));
+		user.setPASSWORD(pd.getString("NEWPASSWORD"));
+		user.setNAME(pd.getString("NAME"));
+		//user.setRIGHTS(pd.getString("RIGHTS"));
+		//user.setROLE_ID(pd.getString("ROLE_ID"));
+		//user.setLAST_LOGIN(pd.getString("LAST_LOGIN"));
+		//user.setIP(pd.getString("IP"));
+		//user.setSTATUS(pd.getString("STATUS"));
+		Session session = Jurisdiction.getSession();
+		session.setAttribute(Const.SESSION_USER, user);			//把用户信息放session中
+*/		
 		Jurisdiction.getSession().setAttribute(Const.SESSION_LANGUAGE, language);
+		//Jurisdiction.getSession().setAttribute(Const.SESSION_USER, name);
 		FHLOG.save(Jurisdiction.getUsername(), "修改用户信息："+pd.getString("USERNAME"), LogType.edituserinfo);
-		mv.addObject("msg","success");
+		mv.addObject("msg","editSuccess");
 		mv.setViewName("save_result");
 		return mv;
 	}
@@ -180,6 +196,31 @@ public class UserInfoController extends BaseController {
 		}
 		mv.setViewName("save_result");
 		return mv;
+	}
+	
+	/**判断原始密码是否正确
+	 * @return
+	 */
+	@RequestMapping(value="/rightOldP")
+	@ResponseBody
+	public Object rightOldP(){
+		Map<String,String> map = new HashMap<String,String>();
+		String errInfo = "success";
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		PageData temppd = new PageData();
+		try{
+			String testPassword = new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("OLDPASSWORD")).toString();
+			temppd = userService.findById(pd);
+			String oldPassword = temppd.getString("PASSWORD");
+			if(!testPassword.equals(oldPassword)){
+				errInfo = "error";
+			}
+		} catch(Exception e){
+			logger.error(e.toString(), e);
+		}
+		map.put("result", errInfo);				//返回结果
+		return AppUtil.returnObject(new PageData(), map);
 	}
 	
 	/**判断用户名是否存在

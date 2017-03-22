@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -51,13 +51,13 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">上电时间:</td>
-								<td><input class="span10 time-picker" type="text" name="powerup" id="powerup" value="${pd.powerup }" maxlength="100" title="上电时间" style="width:98%;" placeholder="18:00(24小时制)"/></td>
+								<td><input class="time-picker" type="text" name="powerup" id="powerup" value="${pd.powerup }" maxlength="100" title="上电时间" style="width:100%;" placeholder="18:00(24小时制)"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">断电时间:</td>
-								<td><input class="span10 time-picker" type="text" name="powerdown" id="powerdown" value="${pd.powerdown }" maxlength="100" title="断电时间" style="width:98%;" placeholder="6:00(24小时制)"/></td>
+								<td><input class="time-picker" type="text" name="powerdown" id="powerdown" value="${pd.powerdown }" maxlength="100" title="断电时间" style="width:100%;" placeholder="6:00(24小时制)"/></td>
 							</tr>
-							
+
 							<tr>
 								<td style="text-align: center;" colspan="10">
 									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
@@ -96,28 +96,20 @@
 		
 		//保存
 		function save(){
-			var time = /^(([1-9]{1})|([0-1][0-9])|([1-2][0-3])):([0-5][0-9])$/;
 			
-			/* if(!time.test($("#powerup").val())){
-				$("#powerup").tips({
-					side:3,
-		            msg:'时间格式不正确',
-		            bg:'#AE81FF',
-		            time:3
-		        });
-				$("#powerup").focus();
-				return false;
-			}
-			if(!time.test($("#powerdown").val())){
+			var uptime = $("#powerup").val();
+			var downtime = $("#powerdown").val();
+			
+			if(uptime == downtime){
 				$("#powerdown").tips({
 					side:3,
-		            msg:'时间格式不正确',
+		            msg:'上/断电时间不能相同',
 		            bg:'#AE81FF',
 		            time:3
 		        });
 				$("#powerdown").focus();
 				return false;
-			}else */{
+			}else{
 				$("#electricityForm").submit();
 				$("#zhongxin").hide();
 				$("#zhongxin2").show();
@@ -127,7 +119,10 @@
 		
 		$(function() {
 			//时间框
-			$('.time-picker').timepicker();
+			$('.time-picker').timepicker({
+				showMeridian : false
+				
+			});
 			
 		});
 

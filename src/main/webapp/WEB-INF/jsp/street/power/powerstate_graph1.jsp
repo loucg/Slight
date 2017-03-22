@@ -55,6 +55,7 @@
 						            },
 						            xAxis: {
 						                data: [${pd.xz}]
+						                
 						            },
 						            yAxis: {},
 						            series: [{

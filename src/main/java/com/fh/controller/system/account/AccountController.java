@@ -169,7 +169,7 @@ public class AccountController extends BaseController {
 		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), "cba#321").toString());	//密码加密，初始密码为cba#321
 		userService.resetP(pd);	//执行修改
 		FHLOG.save(Jurisdiction.getUsername(), "重置密码："+pd.getString("USERNAME"), LogType.resetpassword);
-		mv.addObject("msg","success");
+		mv.addObject("msg","resetSuccess");
 		mv.setViewName("save_result");
 		return mv;
 	}
@@ -186,7 +186,7 @@ public class AccountController extends BaseController {
 		userService.editA(pd);	//执行账户修改
 		userService.editAccountDP(pd);	//执行账户部门职务修改
 		FHLOG.save(Jurisdiction.getUsername(), "修改帐号："+pd.getString("USERNAME"), LogType.editaccount);
-		mv.addObject("msg","success");
+		mv.addObject("msg","editSuccess");
 		mv.setViewName("save_result");
 		return mv;
 	}
@@ -236,14 +236,17 @@ public class AccountController extends BaseController {
 		pd.put("RIGHTS", "");		
 		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), "cba#321").toString());	//密码加密
 		pd.put("DEPARTMENT_ID", "1");
-		if(null == userService.findByUsername(pd)){	//判断用户名是否存在
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String TDATE = df.format(new Date());
+		pd.put("TDATE", TDATE);				        //创建时间
+		//if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 			userService.saveA(pd); 					//执行帐号保存
 			userService.saveAccountDP(pd); 			//执行帐号职务保存
 			FHLOG.save(Jurisdiction.getUsername(), "新增帐号："+pd.getString("USERNAME"), LogType.editaccount);
-			mv.addObject("msg","success");
-		}else{
-			mv.addObject("msg","failed");
-		}
+			mv.addObject("msg","addSuccess");
+		//}else{
+		//	mv.addObject("msg","failed");
+		//}
 		mv.setViewName("save_result");
 		return mv;
 	}
@@ -258,7 +261,7 @@ public class AccountController extends BaseController {
 		String errInfo = "success";
 		PageData pd = new PageData();
 		try{
-			pd = this.getPageData();
+			pd = this.getPageData();System.out.println(userService.findByUsername(pd));
 			if(userService.findByUsername(pd) != null){
 				errInfo = "error";
 			}

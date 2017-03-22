@@ -93,7 +93,7 @@
 									<th class="center">语言</th>
 									<th class="center">角色</th>
 									<th class="center">状态</th>
-									<th class="center">操作</th>
+									<th class="center" style="width:90px">操作</th>
 								</tr>
 							</thead>
 													
@@ -122,24 +122,14 @@
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
-												<div class="hidden-sm hidden-xs btn-group">
+												<div class="btn-group">
 												    <!-- 修改 -->
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-mini btn-info" onclick="editAccount('${account.USER_ID}');">修改</a>
-													<!-- 图标
-													<a class="btn btn-xs btn-success" title="修改" onclick="editUser('${user.USER_ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="修改"></i>
-													</a>
-													-->
+													<a class="btn btn-mini btn-info" title="修改帐号" onclick="editAccount('${account.USER_ID}');">修改</a>
 													</c:if>
 													<!-- 密码重置  -->
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-mini btn-danger" onclick="resetPassword('${account.USER_ID}');">密码重置</a>
-													<!-- 图标
-													<a class="btn btn-xs btn-success" title="密码重置" onclick="editUser('${user.USER_ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="密码重置"></i>
-													</a>
-													-->
+													<a class="btn btn-mini btn-danger" title="密码重置" onclick="resetPassword('${account.USER_ID}');">重置</a>
 													</c:if>
 												</div>
 											</td>
@@ -168,7 +158,7 @@
 						<tr>
 							<td style="vertical-align:top;">
 								<c:if test="${QX.add == 1 }">
-								<a class="btn btn-mini btn-success" onclick="add();">新增</a>
+								<a class="btn btn-mini btn-success" title="新增帐号" onclick="add();">新增帐号</a>
 								</c:if>
 								<!--  
 								<c:if test="${QX.FHSMS == 1 }"><a title="批量发送站内信" class="btn btn-mini btn-info" onclick="makeAll('确定要给选中的用户发送站内信吗?');"><i class="ace-icon fa fa-envelope-o bigger-120"></i></a></c:if>
@@ -235,7 +225,7 @@ function resetPassword(user_id){
 	 diag.Title ="密码重置";
 	 diag.URL = '<%=basePath%>account/goResetP.do?USER_ID='+user_id;
 	 diag.Width = 351;
-	 diag.Height = 103;
+	 diag.Height = 140;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			nextPage(${page.currentPage});

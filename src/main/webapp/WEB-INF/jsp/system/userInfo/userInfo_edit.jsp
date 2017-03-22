@@ -52,7 +52,7 @@
 										</tr>
 										<tr>
 										<td style="width:79px;text-align: right;padding-top: 4px;">邮箱:</td>
-										<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" onblur="hasE('${pd.USERNAME }')" style="width:98%;"/></td>
+										<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" style="width:98%;"/></td>
 										</tr>
 										<tr>
 										<td style="width:79px;text-align: right;padding-top: 4px;">联系地址:</td>
@@ -111,6 +111,7 @@
 </body>
 <script type="text/javascript">
 	$(top.hangge());
+	
 	$(document).ready(function(){
 		if($("#user_id").val()!=""){
 			//默认不能修改的数据
@@ -164,6 +165,35 @@
 			return false;
 		}
 		
+		if($("#newPassword").val()!=""){
+			var re = /^[A-Za-z0-9]{6,20}$/;
+			if(!re.test($("#newPassword").val())){
+				$("#newPassword").tips({
+					side:3,
+		            msg:'新密码由字母、数字组成，6-20位',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#newPassword").focus();
+				return false;
+			}
+		}
+		
+		/* if($("#newPassword").val()!="" && $("#oldPassword").val() != ""){ //当用户输入新密码而原始密码也输入时
+			rightOldP();
+			alert(result);
+			if("error" == result){
+				$("#oldPassword").tips({
+					side:3,
+		            msg:'原始密码错误',
+		            bg:'#AE81FF',
+		            time:3
+		        });
+				$("#oldPassword").focus();
+				return false;
+			}
+		} */
+		
 		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,
@@ -177,7 +207,6 @@
 		
 		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
 		if($("#phone").val()==""){
-			
 			$("#phone").tips({
 				side:3,
 	            msg:'输入手机号码',
@@ -220,11 +249,6 @@
 			$("#language_id").focus();
 			return false;
 		}
-		
-		
-		
-		
-		
 		/*
 		if($("#EMAIL").val()==""){
 			
@@ -238,11 +262,8 @@
 			return false;
 		}
 		*/
-		
-		
-		
-		if($("#user_id").val()==""){
-			hasU();
+		if($("#newPassword").val()!="" && $("#oldPassword").val() != ""){ //当用户输入新密码而原始密码也输入时
+			rightOldP();
 		}else{
 			$("#userInfoForm").submit();
 			$("#zhongxin").hide();
@@ -275,6 +296,37 @@
 		});
 	}
 	
+	
+	//判断原始密码是否正确
+	
+	function rightOldP(){
+		var user_id = $("#user_id").val();
+		var oldPassword = $.trim($("#oldPassword").val());
+		var username = $("#username").val();
+		$.ajax({
+			type: "POST",
+			url: '<%=basePath%>userInfo/rightOldP.do',
+	    	data: {USER_ID:user_id,OLDPASSWORD:oldPassword,USERNAME:username},
+			dataType:'json',
+			cache: false,
+			success: function(data){
+				 if("success" == data.result){
+					 $("#userInfoForm").submit();
+					 $("#zhongxin").hide();
+					 $("#zhongxin2").show();
+				}else{
+				     $("#oldPassword").tips({
+					 side:3,
+		             msg:'原始密码错误',
+		             bg:'#AE81FF',
+		             time:3
+		        });
+				$("#oldPassword").focus();
+			 }
+			}
+		});
+	}
+	
 	//判断邮箱是否存在
 	function hasE(USERNAME){
 		var EMAIL = $.trim($("#EMAIL").val());
@@ -297,6 +349,37 @@
 			}
 		});
 	}
+	
+	
+	<%-- //初始页面信息
+	function getHeadMsg(){
+		$.ajax({
+			type: "POST",
+			url: '<%=basePath%>/head/getList.do?tm='+new Date().getTime(),
+	    	data: encodeURI(""),
+			dataType:'json',
+			//beforeSend: validateData,
+			cache: false,
+			success: function(data){
+				 $.each(data.list, function(i, list){
+					 //alert(list.NAME);
+					 $("#user_info").html('<small>欢迎，</small>'+list.NAME+''); //登陆者资料
+					 user = list.USERNAME;
+					 USER_ID = list.USER_ID;		//用户ID
+					 if(list.USERNAME != 'admin'){
+						 $("#systemset").hide();	//隐藏系统设置
+					 }
+				 });
+				 fhsmsCount = Number(data.fhsmsCount);
+				 $("#fhsmsCount").html(Number(fhsmsCount));	//站内信未读总数
+				 TFHsmsSound = data.FHsmsSound;				//站内信提示音效
+				 wimadress = data.wimadress;				//即时聊天服务器IP和端口
+				 oladress = data.oladress;					//在线管理和站内信服务器IP和端口
+				 //online();								//连接在线
+			}
+		});
+	} --%>
+	
 	/*
 	$(function() {
 		//下拉框
