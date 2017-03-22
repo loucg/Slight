@@ -13,7 +13,8 @@
 <base href="<%=basePath%>">
 <meta name="description" content="overview & stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<script src="static/ace/js/bootbox.js"></script>
+<script src="static/ace/js/bootstrap.js"></script>
 <script type="text/javascript" src="static/js/jquery-1.7.2.js"></script>
 
 </head>
@@ -27,6 +28,28 @@
 		}else if(msg=="errorPassword"){
 			document.getElementById('zhongxin').style.display = 'none';
 			alert("原始密码错误！");
+			top.Dialog.close();
+		}
+		else if("addSuccess"==msg){
+			/* bootbox.confirm("Hello world!", function (result) {  
+                if(result) {  
+                    alert('点击了确认按钮');  
+                } else {  
+                    alert('点击了取消按钮');  
+                }  
+            }); */
+            alert("新增成功！");
+			document.getElementById('zhongxin').style.display = 'none';
+			top.Dialog.close();
+		}
+		else if("editSuccess"==msg){
+			document.getElementById('zhongxin').style.display = 'none';
+			alert("修改成功！");
+			top.Dialog.close();
+		}
+		else if("resetSuccess"==msg){
+			document.getElementById('zhongxin').style.display = 'none';
+			alert("重置成功！");
 			top.Dialog.close();
 		}
 		else{

@@ -268,6 +268,7 @@
 			$("#userInfoForm").submit();
 			$("#zhongxin").hide();
 			$("#zhongxin2").show(); 
+			//getHeadMsg();
 		}
 	}
 	function ismail(mail){
@@ -349,6 +350,37 @@
 			}
 		});
 	}
+	
+	
+	<%-- //初始页面信息
+	function getHeadMsg(){
+		$.ajax({
+			type: "POST",
+			url: '<%=basePath%>/head/getList.do?tm='+new Date().getTime(),
+	    	data: encodeURI(""),
+			dataType:'json',
+			//beforeSend: validateData,
+			cache: false,
+			success: function(data){
+				 $.each(data.list, function(i, list){
+					 //alert(list.NAME);
+					 $("#user_info").html('<small>欢迎，</small>'+list.NAME+''); //登陆者资料
+					 user = list.USERNAME;
+					 USER_ID = list.USER_ID;		//用户ID
+					 if(list.USERNAME != 'admin'){
+						 $("#systemset").hide();	//隐藏系统设置
+					 }
+				 });
+				 fhsmsCount = Number(data.fhsmsCount);
+				 $("#fhsmsCount").html(Number(fhsmsCount));	//站内信未读总数
+				 TFHsmsSound = data.FHsmsSound;				//站内信提示音效
+				 wimadress = data.wimadress;				//即时聊天服务器IP和端口
+				 oladress = data.oladress;					//在线管理和站内信服务器IP和端口
+				 //online();								//连接在线
+			}
+		});
+	} --%>
+	
 	/*
 	$(function() {
 		//下拉框

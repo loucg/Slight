@@ -76,16 +76,20 @@
 						<!-- #section:basics/navbar.user_menu -->
 						<li class="light-blue">
 							<a data-toggle="dropdown"  class="dropdown-toggle" href="#">
+							    <!--
 								<img class="nav-user-photo" src="static/ace/avatars/user.jpg" alt="Jason's Photo" id="userPhoto" />
+								-->
 								<span class="user-info" id="user_info">
 								</span>
 								<i class="ace-icon fa fa-caret-down"></i>
 							</a>
 
 							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-								<li>
-									<a onclick="editPhoto();" style="cursor:pointer;"><i class="ace-icon glyphicon glyphicon-picture"></i>修改头像</a><!-- editUserH()在 WebRoot\static\js\myjs\head.js中 -->
-								</li>
+								 
+								<!--<li>
+									<a onclick="editPhoto();" style="cursor:pointer;"><i class="ace-icon glyphicon glyphicon-picture"></i>修改头像</a><!-- editUserH()在 WebRoot\static\js\myjs\head.js中 
+								</li>  -->
+								
 								<li>
 									<a onclick="editUserH();" style="cursor:pointer;"><i class="ace-icon fa fa-user"></i>修改信息</a><!-- editUserH()在 WebRoot\static\js\myjs\head.js中 -->
 								</li>

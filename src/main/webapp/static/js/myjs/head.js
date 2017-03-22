@@ -43,7 +43,7 @@ function getHeadMsg(){
 		cache: false,
 		success: function(data){
 			 $.each(data.list, function(i, list){
-				 $("#user_info").html('<small>Welcome</small> '+list.NAME+'');//登陆者资料
+				 $("#user_info").html('<small>欢迎，</small>'+list.NAME+'');//登陆者资料
 				 user = list.USERNAME;
 				 USER_ID = list.USER_ID;		//用户ID
 				 if(list.USERNAME != 'admin'){
