@@ -59,7 +59,7 @@
 	        });
 		}
 		else if("editSuccess"==msg){
-			bootbox.alert({  
+		 	 bootbox.alert({  
 	            buttons: {  
 	               ok: {  
 	                    label: '确定',  
@@ -70,7 +70,7 @@
 	            	document.getElementById('zhongxin').style.display = 'none';
 	    		    top.Dialog.close();  
 	            },   
-	        });
+	        });  
 		}
 		else if("resetSuccess"==msg){
 			bootbox.alert({  

@@ -24,6 +24,7 @@
 		and a.c_client_id=e.c_client_id
 		and a.c_client_id=h.c_client_id
 		and h.c_gateway_id=f.c_gateway_id
+		and e.sys_user_id in ${pd.userids}
 		<if test="pd.groupname!= null and pd.groupname != ''"><!-- 检索 -->
 			and c.name LIKE CONCAT(CONCAT('%', #{pd.groupname}),'%')
 		</if>

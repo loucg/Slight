@@ -221,7 +221,7 @@ function searchs(){
 function resetPassword(user_id){
 	top.jzts();
 	 var diag = new top.Dialog();
-	 diag.Drag=true;
+	 diag.Drag=false;
 	 diag.Title ="密码重置";
 	 diag.URL = '<%=basePath%>account/goResetP.do?USER_ID='+user_id;
 	 diag.Width = 351;
@@ -235,11 +235,11 @@ function resetPassword(user_id){
 	 diag.show();
 }
 
-//新增
+//新增帐号
 function add(){
 	 top.jzts();
 	 var diag = new top.Dialog();
-	 diag.Drag=true;
+	 diag.Drag=false;
 	 diag.Title ="新增帐号";
 	 diag.URL = '<%=basePath%>account/goAddA.do';
 	 diag.Width = 351;
@@ -258,11 +258,11 @@ function add(){
 	 diag.show();
 }
 
-//修改
+//修改帐号
 function editAccount(user_id){
 	 top.jzts();
 	 var diag = new top.Dialog();
-	 diag.Drag=true;
+	 diag.Drag=false;
 	 diag.Title ="修改帐号";
 	 diag.URL = '<%=basePath%>account/goEditA.do?USER_ID='+user_id;
 	 diag.Width = 351;

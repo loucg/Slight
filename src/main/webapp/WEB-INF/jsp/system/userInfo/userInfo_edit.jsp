@@ -268,6 +268,7 @@
 			$("#userInfoForm").submit();
 			$("#zhongxin").hide();
 			$("#zhongxin2").show(); 
+			//top.Dialog.close();
 		}
 	}
 	function ismail(mail){

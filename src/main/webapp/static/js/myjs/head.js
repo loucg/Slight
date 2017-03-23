@@ -154,7 +154,7 @@ function editPhoto(){
 function editUserH(){
 	 jzts();
 	 var diag = new top.Dialog();
-	 diag.Drag=true;
+	 diag.Drag=false;
 	 diag.Title ="用户信息";
 	 diag.URL = locat+'/userInfo/goEditUserInfo.do';
 	 //diag.URL = locat+'/user/goEditMyU.do';

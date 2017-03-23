@@ -21,6 +21,7 @@
 	and a.c_client_id=h.c_client_id 
 	and h.c_gateway_id=f.c_gateway_id 
 	and c.b_ctrl_strategy_id=b.id
+	and e.sys_user_id in ${pd.userids}
 	<if test="pd.groupname!= null and pd.groupname != ''"><!-- 检索 -->
 			and c.name LIKE CONCAT(CONCAT('%', #{pd.groupname}),'%')
 		</if>
@@ -57,6 +58,7 @@
 	and a.c_client_id=h.c_client_id 
 	and h.c_gateway_id=f.c_gateway_id 
 	and c.b_ctrl_strategy_id=b.id
+	and e.sys_user_id in ${pd.userids}
 	<if test="pd.groupname!= null and pd.groupname != ''"><!-- 检索 -->
 			and c.name LIKE CONCAT(CONCAT('%', #{pd.groupname}),'%')
 		</if>
@@ -94,6 +96,7 @@
 	and h.c_gateway_id=f.c_gateway_id 
 	and c.b_ctrl_strategy_id=b.id
 	and a.month LIKE CONCAT(CONCAT('%', #{pd.starttime}),'%')
+	and e.sys_user_id in ${pd.userids}
 	<if test="pd.groupname!= null and pd.groupname != ''"><!-- 检索 -->
 			and c.name LIKE CONCAT(CONCAT('%', #{pd.groupname}),'%')
 		</if>

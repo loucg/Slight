@@ -196,7 +196,7 @@ function searchs(){
 function addStrategy(){
 	 top.jzts();
 	 var diag = new top.Dialog();
-	 diag.Drag=true;
+	 diag.Drag=false;
 	 diag.Title ="新增策略";
 	 diag.URL = '<%=basePath%>strategy/goAddS.do';
 	 diag.Width = 469;
@@ -282,11 +282,11 @@ function viewStrategyGroups(id){
 	 diag.show();
 }
 
-//修改
+//修改策略
 function editStrategy(strategy_id){
 	 top.jzts();
 	 var diag = new top.Dialog();
-	 diag.Drag=true;
+	 diag.Drag=false;
 	 diag.Title ="修改策略";
 	 diag.URL = '<%=basePath%>strategy/goEditS.do?id='+strategy_id;
 	 diag.Width = 469;
