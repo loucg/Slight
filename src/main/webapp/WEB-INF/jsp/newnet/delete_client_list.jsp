@@ -32,6 +32,7 @@
 	
 						<!-- 检索  -->
 						<form action="newnet/goOwnClientList" method="post" name="Form" id="Form">
+						<input hidden="true" name="id" value="${id}"/>
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table style="margin-top:5px;">
 							<tr>

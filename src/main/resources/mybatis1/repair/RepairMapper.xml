@@ -262,7 +262,7 @@
 		FROM c_client_gateway AS a
 		LEFT JOIN c_client AS b ON a.c_client_id = b.id
 		LEFT JOIN c_client_attr1 AS c ON b.id = c.c_client_id
-		WHERE a.c_gateway_id = #{pd.id, jdbcType=INTEGER}
+		WHERE a.c_gateway_id = #{pd.id}
 		<if test="pd.name!=null and pd.name!=''">
 			AND c.name LIKE CONCAT(CONCAT('%', #{pd.name}), '%')
 		</if>
