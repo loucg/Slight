@@ -15,6 +15,7 @@ import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.hzy.util.LogType;
 import com.fh.service.analysis.power.PoweranalysisManager;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Jurisdiction;
 import com.fh.util.ObjectExcelView;
@@ -28,6 +29,8 @@ public class APowerController extends BaseController{
 	private FHlogManager FHLOG;
 	@Resource(name="analysispowerService")
 	private PoweranalysisManager analysispowerService;
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
 	
 	/**故障列表
 	 * @param page
@@ -59,6 +62,8 @@ public class APowerController extends BaseController{
 		if(null != endtime && !"".equals(endtime)){
 			pd.put("endtime", endtime.trim());
 		}
+		String userids = departmentService.getUseridsInDepartment(pd);
+        pd.put("userids", userids);
 		if(type!=null&&type.equals("2")){
 			Calendar cale = null;  
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

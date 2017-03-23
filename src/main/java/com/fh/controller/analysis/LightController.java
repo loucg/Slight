@@ -16,6 +16,7 @@ import com.fh.entity.Page;
 import com.fh.hzy.util.LogType;
 import com.fh.service.analysis.light.LightanalysisManager;
 import com.fh.service.analysis.repair.RepairanalysisManager;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Jurisdiction;
 import com.fh.util.ObjectExcelView;
@@ -29,6 +30,8 @@ public class LightController extends BaseController{
 	private FHlogManager FHLOG;
 	@Resource(name="lightanalysisService")
 	private LightanalysisManager lightanalysisService;
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
 	
 	/**故障列表
 	 * @param page
@@ -82,6 +85,8 @@ public class LightController extends BaseController{
 	        pd.put("starttime", firstday.trim());
 	        pd.put("endtime", lastday.trim());
 		}
+		String userids = departmentService.getUseridsInDepartment(pd);
+        pd.put("userids", userids);
 		page.setPd(pd);
 		List<PageData>	varList = lightanalysisService.list(page);	//列出Dictionaries列表
 		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){

@@ -15,6 +15,7 @@ import com.fh.controller.slight.configure.ConfigureUtils;
 import com.fh.entity.Page;
 import com.fh.hzy.util.LogType;
 import com.fh.service.analysis.fault.FaultanalysisManager;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Jurisdiction;
 import com.fh.util.ObjectExcelView;
@@ -28,6 +29,8 @@ public class FalutController extends BaseController{
 	private FHlogManager FHLOG;
 	@Resource(name="faultanalysisService")
 	private FaultanalysisManager faultanalysisService;
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
 	
 	/**故障列表
 	 * @param page
@@ -84,6 +87,8 @@ public class FalutController extends BaseController{
 	        lastday = format.format(cale.getTime());
 	        pd.put("starttime", firstday.trim());
 	        pd.put("endtime", lastday.trim());
+	        String userids = departmentService.getUseridsInDepartment(pd);
+	        pd.put("userids", userids);
 		}
 		page.setPd(pd);
 		List<PageData>	varList = faultanalysisService.list(page);	//列出Dictionaries列表
