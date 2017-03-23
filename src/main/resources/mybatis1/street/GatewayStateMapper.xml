@@ -30,7 +30,7 @@
 		b_status.b_status_main_id = 4 -->
 		WHERE 1=1
 		AND
-		c_gateway_attr1.sys_user_id = #{pd.sys_user_id}
+		c_gateway_attr1.sys_user_id IN ${pd.userids}
 		 <if test="pd.name!=null and pd.name!=''">
 			and 
 			(

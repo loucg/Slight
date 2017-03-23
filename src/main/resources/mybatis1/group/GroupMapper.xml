@@ -53,7 +53,7 @@
 		c_term.id = c_term_id
 		WHERE 1=1
 		AND
-		c_term.sys_user_id = #{pd.sys_user_id}
+		c_term.sys_user_id IN ${pd.userids}
 		 <if test="pd.name!=null and pd.name!=''">
 			and 
 			(

@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.system.User;
+import com.fh.service.fhoa.department.DepartmentManager;
+import com.fh.service.group.mem.GroupMemService;
 import com.fh.service.street.fault.FaultService;
 import com.fh.util.Const;
 import com.fh.util.Jurisdiction;
@@ -30,6 +32,8 @@ public class FaultController extends BaseController{
     
 	@Resource(name="faultService")
     private FaultService faultService;
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
 	/*@Resource(name="lampStateService")
     private LampStateService lampStateService;*/
 	
@@ -63,6 +67,10 @@ public class FaultController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		page.setPd(pd);
 		List<PageData> gatewayfaultList = faultService.listGatewayFault(page);	//获取列表
 		mv.setViewName("street/fault/gatewayfault_list");
@@ -108,6 +116,10 @@ public class FaultController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		page.setPd(pd);
 		List<PageData> lampfaultList = faultService.listLampFault(page);	//获取列表
 		mv.setViewName("street/fault/lampfault_list");
@@ -148,6 +160,10 @@ public class FaultController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		page.setPd(pd);
 		List<PageData> vofaultList = faultService.listVoFault(page);	//获取列表
 		mv.setViewName("street/fault/vofault_list");
