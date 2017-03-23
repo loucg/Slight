@@ -479,7 +479,7 @@
 		if(target) $sidebar = $(target);
 		if($sidebar == null || $sidebar.length == 0) $sidebar = $(this).closest('.sidebar');
 		if($sidebar.length == 0) return;
-
+		console.log(1);
 		e.preventDefault();
 		$sidebar.ace_sidebar('toggleMenu', this);
 	})
