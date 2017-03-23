@@ -331,6 +331,9 @@ public class DepartmentService implements DepartmentManager{
 		
 	}
 
+	/**
+	 * 获取某个部门下所有的用户id(返回拼接字符串in的形式)
+	 */
 	@Override
 	public String getUseridsInDepartment(PageData pd) throws Exception {
 		// TODO Auto-generated method stub

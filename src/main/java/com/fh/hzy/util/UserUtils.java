@@ -17,4 +17,9 @@ public class UserUtils {
 		return user.getUSER_ID();
 	}
 	
+	public static String getRoleid(){
+		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
+		return user.getROLE_ID();
+		
+	}
 }

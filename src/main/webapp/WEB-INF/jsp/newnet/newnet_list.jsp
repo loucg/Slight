@@ -77,8 +77,7 @@
 													<td class="center">${var.name}</td>								 
 													<td class="center">${var.location}</td>
 													<td class="center">${var.comment}</td>
-													<td class="center">${var.number}</td>
-														
+													<td class="center"><a style="cursor:pointer;" onclick="delCrew('${var.id}');">${var.number}</a></td>
 													<td class="center">
 														<c:if test="${var.status == '1' }"><span class="label label-important arrowed-in">正常</span></c:if>
 														<c:if test="${var.status == '2' }"><span class="label label-success arrowed">异常</span></c:if>
@@ -157,7 +156,13 @@
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
-		$(top.hangge());
+		$(function(){
+			top.hangge();
+			if(${pd.first}==1){
+				bootbox.confirm("若未扫描/添加终端，请扫描终端或“基础配置/终端列表/添加终端/选择断路器”添加终端", function(result) {
+				});
+			}
+		})
 		
 		//检索
 		function search(){
@@ -171,7 +176,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="添加终端";
-			 diag.URL = '<%=basePath%>newnet/goClientList.do?id='+id;
+			 diag.URL = '<%=basePath%>newnet/goClientList?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;
 			 diag.Modal = true;				//有无遮罩窗口

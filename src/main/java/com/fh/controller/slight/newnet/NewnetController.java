@@ -15,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.hzy.util.UserUtils;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.slight.newnet.NewnetService;
+import com.fh.service.system.role.RoleManager;
 import com.fh.util.AppUtil;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
@@ -32,6 +34,10 @@ public class NewnetController extends BaseController {
 	String menuUrl = "repair/newnet"; //菜单地址(权限用)
 	@Resource(name="newnetService")
 	private NewnetService newnetService;
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
+	@Resource(name="roleService")
+	private RoleManager roleService;
 	
 	private String newnetJsp = "newnet/newnet_list";                 //网关列表jsp
 	private String newnetAddJsp = "newnet/add_client_list";  					//添加终端jsp
@@ -49,6 +55,12 @@ public class NewnetController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		if(pd.getString("first")!=null&&pd.getString("first").equals("1")){}
+		else{pd.put("first", 0);}
+		pd.put("roleid", UserUtils.getRoleid());
+		pd.put("rolename", "维修调试");
+		pd.put("weixiuroleid", roleService.getRoleIdByName(pd));
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		page.setPd(pd);
 		List<PageData> nPList = newnetService.getNewnetList(page);
 		mv.addObject("pd", pd);
@@ -73,10 +85,13 @@ public class NewnetController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("userid", UserUtils.getUserid());
+		pd.put("roleid", UserUtils.getRoleid());
+		pd.put("rolename", "维修调试");
+		pd.put("weixiuroleid", roleService.getRoleIdByName(pd));
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		page.setPd(pd);
 		List<PageData> list  = newnetService.getClientList(page);
-		mv.addObject("id", pd.getString("id"));
+		mv.addObject("pd", pd);
 		mv.addObject("clientList", list);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		mv.setViewName(newnetAddJsp);
@@ -95,7 +110,8 @@ public class NewnetController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		page.setPd(pd);
-		List<PageData> list  = newnetService.getClientList(page);
+		List<PageData> list  = newnetService.getOwnClientList(page);
+		System.out.println("gatewayid="+pd.getString("id"));
 		mv.addObject("id", pd.getString("id"));
 		mv.addObject("clientList", list);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
@@ -108,6 +124,7 @@ public class NewnetController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/addClient")
+	@ResponseBody
 	public Object addClient() throws Exception{
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -115,6 +132,7 @@ public class NewnetController extends BaseController {
 		List<PageData> pdList = new ArrayList<PageData>();
 		pd.put("gateway", pd.getString("id"));
 		String DATA_IDS = pd.getString("DATA_IDS");
+		System.out.println("ids:  "+DATA_IDS);
 		if(null !=DATA_IDS && !"".equals(DATA_IDS)){
 			String ArrayDATA_IDS[] = DATA_IDS.split(",");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
