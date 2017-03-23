@@ -32,21 +32,24 @@
 	
 						<!-- 检索  -->
 						<form action="newnet/goOwnClientList" method="post" name="Form" id="Form">
+						<div id="zhongxin" style="padding-top: 13px;">
 						<table style="margin-top:5px;">
 							<tr>
-							   <td>
-									<div class="nav-search">
-									    <label>名称：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name}" placeholder="请输入名称" />
-									</div>
-								</td>
 								 <td>
-									<div class="nav-search" style="margin-left:8px;">
+									<div class="nav-search">
 									    <label>编号：</label>
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="code" value="${pd.code}" placeholder="请输入编号" />
 									</div>
 								</td>
-								<td style="vertical-align:center;padding-left:24px;"><button class="btn btn-mini btn-light" onclick="search();"  title="查询"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i>查询</button></td>
+								<td>
+									<div class="nav-search" style="margin-left:8px;">
+									    <label>名称：</label>
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name}" placeholder="请输入名称" />
+									</div>
+								</td>
+								<c:if test="${QX.cha == 1 }">
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索" style="padding: 3px 3px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								</c:if>
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -54,6 +57,9 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
+									<th class="center" style="width:35px;">
+									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
+									</th>
 									<th class="center">序号</th>
 									<th class="center">终端编号</th>
 									<th class="center">终端名称</th>
@@ -67,19 +73,22 @@
 								
 							<!-- 开始循环 -->	
 							<c:choose>
-								<c:when test="${not empty newnetList}">
+								<c:when test="${not empty clientList}">
 									<c:if test="${QX.cha == 1 }">
-									<c:forEach items="${newnetList}" var="var" varStatus="vs">
+									<c:forEach items="${clientList}" var="var" varStatus="vs">
 										<tr>
-											<td class='center' style="width: 30px;">${vs.index+1}</td>
-													<td class="center">${var.number}</td>
-													<td class="center">${var.name}</td>								 
-													<td class="center">${var.polenumber}</td>
-													<td class="center">${var.comment}</td>		
-													<td class="center">
-														<c:if test="${var.status == '1' }"><span class="label label-important arrowed-in">有效</span></c:if>
-														<c:if test="${var.status == '2' }"><span class="label label-success arrowed">无效</span></c:if>
-													</td>  
+											<td class='center'>
+												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.id}" class="ace" /><span class="lbl"></span></label>
+											</td>
+											<td class="center">${vs.index+1}</td>
+											<td class="center">${var.number}</td>
+											<td class="center">${var.name}</td>								 
+											<td class="center">${var.polenumber}</td>
+											<td class="center">${var.comment}</td>		
+											<td class="center">
+												<c:if test="${var.status == '1' }"><span class="label label-important arrowed-in">有效</span></c:if>
+												<c:if test="${var.status == '2' }"><span class="label label-success arrowed">无效</span></c:if>
+											</td>  
 										</tr>
 									</c:forEach>
 									</c:if>
@@ -109,6 +118,7 @@
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 						</tr>
 					</table>
+					</div>
 					</div>
 					</form>
 					
@@ -146,11 +156,24 @@
 		$(top.hangge());
 		
 		//检索
-		function search(){
+		function tosearch(){
 			top.jzts();
 			$("#Form").submit();
 		}
 		
+		
+		$(function() {
+		 	//复选框全选控制
+			 var active_class = 'active';
+			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
+				var th_checked = this.checked;//checkbox inside "TH" table header
+				$(this).closest('table').find('tbody > tr').each(function(){
+					var row = this;
+					if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+					else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+				});
+			}); 
+		});	
 		
 	//确定踢删组员
 		function makeAll(msg,id){
@@ -181,7 +204,7 @@
 							top.jzts();
 							$.ajax({
 								type: "POST",
-								url: '<%=basePath%>newnet/addClient?id='+id,
+								url: '<%=basePath%>newnet/removeClient?id='+id,
 						    	data: {DATA_IDS:str},
 								dataType:'json',
 								//beforeSend: validateData,

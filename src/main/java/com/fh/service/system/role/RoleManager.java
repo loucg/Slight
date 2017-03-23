@@ -69,4 +69,11 @@ public interface RoleManager {
 	 */
 	public void saveB4Button(String msg,PageData pd) throws Exception;
 
+	/**
+	 * 通过权限名称查询权限id
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public String getRoleIdByName(PageData pd) throws Exception;
 }

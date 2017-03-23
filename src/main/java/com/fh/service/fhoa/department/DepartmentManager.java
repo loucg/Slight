@@ -169,5 +169,6 @@ public interface DepartmentManager{
 	 * @throws Exception
 	 */
 	public String getUseridsInDepartment(PageData pd) throws Exception;
+	
 }
 

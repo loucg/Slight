@@ -139,5 +139,11 @@
 		where ROLE_ID=#{ROLE_ID}
 	</update>
 	
-	<!-- fh313596790qq(青苔) -->
+	<!-- 通过权限名称查找 -->
+	<select id="getRoleByName" parameterType="pd" resultType="pd">
+		SELECT a.ROLE_ID AS roleid
+		FROM sys_role AS a
+		WHERE a.ROLE_NAME = #{rolename}
+	</select>
+	<!-- end -->
 </mapper>

@@ -98,4 +98,11 @@ public class RoleService implements RoleManager{
 		dao.update("RoleMapper."+msg, pd);
 	}
 
+	@Override
+	public String getRoleIdByName(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return ((PageData)dao.findForObject("RoleMapper.getRoleByName", pd)).getString("roleid");
+		
+	}
+
 }
