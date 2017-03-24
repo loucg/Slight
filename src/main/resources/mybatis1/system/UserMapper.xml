@@ -146,6 +146,20 @@
 			USERNAME = #{USERNAME}
 	</select>
 	
+	<!-- 通过USERNAME获取数据 -->
+	<select id="findcompanyByUsername" parameterType="pd" resultType="pd" >
+		select 
+			d.name as companyname,
+			logo_path
+		from 
+			sys_user a,b_user_company b,b_department c,b_company d
+		where 
+			a.USERNAME = #{USERNAME}
+			and a.user_id=b.b_user_id
+			and b.b_department_id = c.id
+			and c.b_company_id = d.id
+	</select>
+	
 	<!-- 存入IP -->
 	<update id="saveIP" parameterType="pd" >
 		update 

@@ -79,7 +79,7 @@
 											<td class='center'>${var.TELEPHONE}</td>
 											<td class='center'>
 											<c:if test="${var.LOGO_PATH!=null&&var.LOGO_PATH!=''}">
-											<img src="<%=basePath%>uploadFiles/uploadImgs/${var.LOGO_PATH}"" width="100">
+											<img src="<%=basePath%>uploadFiles/uploadImgs/${var.LOGO_PATH}" width="100">
 											</c:if>
 											</td>
 											<c:if test="${var.ISDISPLAYLOGO == 'true'}">
