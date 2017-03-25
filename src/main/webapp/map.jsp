@@ -219,14 +219,15 @@ body {
 			map.removeOverlay(CircleAndRectangle);
 			CircleAndRectangle = null;
 		}
-	}/* , {
+	} , {
 		text : '亮度值控制',
 		callback : function() {
-			CircleAndRectangle.removeContextMenu(menu);
+			LightBrightnessDialog();
+			/* CircleAndRectangle.removeContextMenu(menu);
 			map.removeOverlay(CircleAndRectangle);
-			CircleAndRectangle = null;
+			CircleAndRectangle = null; */
 		}
-	} */,  {
+	} ,  {
 		text : '清除',
 		callback : function() {
 			CircleAndRectangle.removeContextMenu(menu);
@@ -753,7 +754,7 @@ body {
 
 	function change_bright(bright) {
 		choseMakerdata.brightness = bright;
-		console.log(bright);
+		//console.log(bright);
 		$.ajax({
 			url : "gomap/updateClientAttr_brightness",
 			type : "POST",
@@ -822,14 +823,15 @@ body {
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 		
-	function TurnOnOROffLight(takeid,choseMakerdata,chosetermid) {
+	function TurnOnOROffLight(takeid,choseMakerdata,chosetermid,bright) {
 		var drawdataid=[];
 	    for(var i=0;i<choseMakerdata.length;i++){
 	    	drawdataid.push(choseMakerdata[i].id);
 	    }
 		var updatedata={
 				"takeid":takeid,
-				"drawid":drawdataid
+				"drawid":drawdataid,
+				"bright":bright
 		};
 		if (choseMakerdata[0].termid==-999) {
 			BootstrapDialog.show({
@@ -987,7 +989,7 @@ function searchConerr() {
          /* cssClass :'dialog', */
        /*   draggable: true, */
         // message:$('<div></div>').load('remote.html'),
-        message:"跳转到策略控制页面吗",
+        message:"跳转到策略控制页面吗(还没写)",
          buttons: [{
              label: '确定',
              action: function(dialogItself) {
@@ -1002,5 +1004,54 @@ function searchConerr() {
          }]
      });
 } 
+ 
+ function LightBrightnessDialog() {
+	 var s="<div class='spandiv'><span>亮度值调节：</span></div><select class='LightBrightnessDialog' style='float: right;height: 30px;' onchange='onchangeDraw_bright(this.options[this.options.selectedIndex].value)'>"
+			+"<option value="+0+">"+0+"</option>"
+		 	+"<option value="+10+">"+10+"</option>"
+	 		+"<option value="+20+">"+20+"</option>"
+	 		+"<option value="+30+">"+30+"</option>"
+	 		+"<option value="+40+">"+40+"</option>"
+	 		+"<option value="+50+">"+50+"</option>"
+	 		+"<option value="+60+">"+60+"</option>"
+	 		+"<option value="+70+">"+70+"</option>"
+	 		+"<option value="+80+">"+80+"</option>"
+	 		+"<option value="+90+">"+90+"</option>"
+	 		+"<option value="+100+">"+100+"</option>"
+	 		+"</select>"
+			
+	 BootstrapDialog.show({
+         title: '亮度值调节',
+         message:$('<div>'+s+'</div>'),
+         buttons: [{
+             label: '确定',
+             action: function(dialogItself) {
+            	 setDraw_brightDialog();
+            	 dialogItself.close();
+             }
+         },{
+             label: '取消',
+             action: function(dialogItself) {
+            	 dialogItself.close();
+            	 CircleAndRectangle.removeContextMenu(menu);
+           	  map.removeOverlay(CircleAndRectangle);
+           	  CircleAndRectangle = null;
+             }
+         }]
+     });
+} 
+ 
+ function onchangeDraw_bright(bright) {
+		//console.log(bright);
+		}
+ function setDraw_brightDialog() {
+	 var bright=$(".LightBrightnessDialog").val();
+	  //setDraw_bright(bright);
+	  var tid=parent.getChosetermid();
+	  TurnOnOROffLight(3,drawdata,tid,bright);
+	  CircleAndRectangle.removeContextMenu(menu);
+	  map.removeOverlay(CircleAndRectangle);
+	  CircleAndRectangle = null;
+	}
 </script>
 </html>

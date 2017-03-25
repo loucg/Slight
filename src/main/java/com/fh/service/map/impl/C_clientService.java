@@ -298,9 +298,18 @@ public class C_clientService implements C_clientManager{
 			List  list=dc.getDrawid();
 			dao.update("C_clientMapper.updateClientDraw_statusON", list);
 		}
-		else{
+		else if(dc.getTakeid()==2){
 			List  list=dc.getDrawid();
 			dao.update("C_clientMapper.updateClientDraw_statusOFF", list);
+		}
+		else{
+			List  list=dc.getDrawid();
+			System.out.println("****************************************");
+			System.out.println(dc.getBright());
+			System.out.println("****************************************");
+			System.out.println("****************************************");
+			System.out.println("****************************************");
+			dao.update("C_clientMapper.updateClientDraw_Bright", dc);
 		}
 		
 	}

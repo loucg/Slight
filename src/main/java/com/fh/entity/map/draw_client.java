@@ -5,7 +5,14 @@ import java.util.ArrayList;
 public class draw_client {
 	public int takeid;
 	public ArrayList<Integer> drawid=new ArrayList<Integer>();
+	public int bright;
 	
+	public int getBright() {
+		return bright;
+	}
+	public void setBright(int bright) {
+		this.bright = bright;
+	}
 	public int getTakeid() {
 		return takeid;
 	}
