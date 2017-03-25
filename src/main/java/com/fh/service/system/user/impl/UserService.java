@@ -58,6 +58,15 @@ public class UserService implements UserManager{
 		return (PageData)dao.findForObject("UserMapper.findByUsername", pd);
 	}
 	
+	/**通过USERNAEME获取数据
+	 * @param USERNAEME
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findcompanyByUsername(String USERNAEME)throws Exception{
+		return (PageData)dao.findForObject("UserMapper.findcompanyByUsername", USERNAEME);
+	}
+	
 	/**列出某角色下的所有用户
 	 * @param pd
 	 * @return

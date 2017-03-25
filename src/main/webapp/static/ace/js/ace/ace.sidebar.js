@@ -9,6 +9,7 @@
 		var self = this;
 		this.$sidebar = $(sidebar);
 		this.$sidebar.attr('data-sidebar', 'true');
+		this.$sidebar.attr('class', 'sidebar responsive menu-min');
 		if( !this.$sidebar.attr('id') ) this.$sidebar.attr( 'id' , 'id-sidebar-'+(++sidebar_count) )
 
 		

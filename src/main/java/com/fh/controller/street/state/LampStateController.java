@@ -18,6 +18,7 @@ import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.system.Dictionaries;
 import com.fh.entity.system.User;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.street.state.LampStateService;
 import com.fh.util.AppUtil;
 import com.fh.util.Const;
@@ -40,6 +41,8 @@ public class LampStateController extends BaseController{
 	String menuUrl = "state/lamp/listLamps.do";		//页面配置的菜单地址
     @Resource(name="lampStateService")
     private LampStateService lampStateService;
+    @Resource(name="departmentService")
+    private DepartmentManager departmentService;
 	
 	/**
 	 * 显示路灯状态列表
@@ -78,6 +81,10 @@ public class LampStateController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		page.setPd(pd);
 		List<PageData> lampStateList = lampStateService.listLampState(page);	//获取列表
 		mv.setViewName("street/state/lampstate_list");
@@ -107,6 +114,10 @@ public class LampStateController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		//System.out.println(userids);
 		pd = lampStateService.viewLampDetail(pd);
 		mv.setViewName("street/state/lampstate_view");
 		//mv.addObject("msg", "update");
@@ -238,6 +249,10 @@ public class LampStateController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		String DATA_IDS = pd.getString("DATA_IDS");
 		if(null !=DATA_IDS && !"".equals(DATA_IDS)){
 			String ArrayDATA_IDS[] = DATA_IDS.split(";");
@@ -294,6 +309,10 @@ public class LampStateController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		String DATA_IDS = pd.getString("DATA_IDS");
 		if(null !=DATA_IDS && !"".equals(DATA_IDS)){
 			String ArrayDATA_IDS[] = DATA_IDS.split(";");

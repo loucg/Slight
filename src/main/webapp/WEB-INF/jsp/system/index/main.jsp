@@ -73,7 +73,12 @@
 		<%@ include file="foot.jsp"%>
 		
 		<!-- page specific plugin scripts -->
-
+		<script type="text/javascript">
+			window.onload=function(){
+				var icon=document.getElementById("icon");
+				icon.setAttribute("class","ace-icon fa fa-angle-double-right");
+			}
+		</script>
 		<!-- ace scripts -->
 		<script src="static/ace/js/ace/elements.scroller.js"></script>
 		<script src="static/ace/js/ace/elements.colorpicker.js"></script>

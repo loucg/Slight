@@ -39,7 +39,7 @@
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
-		var msg = "${msg}";
+	    var msg = "${msg}";
 		if(msg=="success" || msg==""){
 			document.getElementById('zhongxin').style.display = 'none';
 			top.Dialog.close();

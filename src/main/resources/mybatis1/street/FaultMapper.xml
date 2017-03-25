@@ -29,7 +29,7 @@
 		c_gateway_upload_status.c_gateway_id = b_gateway_fault.c_gateway_id
 		WHERE 1=1
 		AND
-		c_gateway_attr1.sys_user_id = #{pd.sys_user_id}
+		c_gateway_attr1.sys_user_id IN ${pd.userids}
 		 <if test="pd.name!=null and pd.name!=''">
 			and 
 			(
@@ -114,7 +114,7 @@
 		b_status.`value` = b_client_fault.`status`
 		WHERE 1=1
 		AND
-		c_gateway_attr1.sys_user_id = #{pd.sys_user_id}
+		c_gateway_attr1.sys_user_id IN ${pd.userids}
 		<if test="pd.tname!=null and pd.tname!=''">
 			and 
 			(
@@ -157,7 +157,7 @@
 		v_vofaults
 		WHERE 1=1
 		AND
-		v_vofaults.sys_user_id = #{pd.sys_user_id}
+		v_vofaults.sys_user_id IN ${pd.userids}
 		<if test="pd.name!=null and pd.name!=''">
 			and 
 			(

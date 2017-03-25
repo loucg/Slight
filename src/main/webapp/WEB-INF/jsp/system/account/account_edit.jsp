@@ -33,7 +33,7 @@
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>公司名称:</td>
 											<td id="gongsi">
-											<select class="chosen-select form-control" name="COMPANY" id="company" data-placeholder="请选择公司" style="vertical-align:top;width:98%;" onchange="change1(this.value)" >
+											<select class="chosen-select form-control" name="COMPANY" id="company" data-placeholder="请选择公司" title="公司" style="vertical-align:top;width:98%;" onchange="change1(this.value)" >
 											<option value="">请选择公司</option>
 											<c:forEach items="${companyList}" var="company">
 												<option value="${company.COMPANY}" <c:if test="${company.NAME == pd.COMPANY }">selected</c:if>>${company.NAME}</option>
@@ -44,7 +44,7 @@
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>部门名称:</td>
 											<td id="bumen">
-											<select class="chosen-select form-control" name="DEPARTMENT" id="department" data-placeholder="请选择部门" style="vertical-align:top;width:98%;" >
+											<select class="chosen-select form-control" name="DEPARTMENT" id="department" data-placeholder="请选择部门" title="部门" style="vertical-align:top;width:98%;" >
 											<option value="">请选择部门</option>
 											<c:forEach items="${departmentList}" var="department">
 												<option value="${department.ID}" <c:if test="${department.NAME == pd.DEPARTMENT }">selected</c:if>>${department.NAME}</option>
@@ -62,11 +62,11 @@
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;">联系地址:</td>
-											<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="这里输入联系地址" title="位置" style="width:98%;"/></td>
+											<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="这里输入联系地址" title="联系地址" style="width:98%;"/></td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>手机:</td>
-											<td><input type="number" name="PHONE" id="phone"  value="${pd.PHONE }"  maxlength="32" placeholder="这里输入手机号" title="手机号码" style="width:98%;"/></td>
+											<td><input type="number" name="PHONE" id="phone"  value="${pd.PHONE }"  maxlength="32" placeholder="这里输入手机号" title="手机" style="width:98%;"/></td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;">邮箱:</td>
@@ -79,7 +79,7 @@
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>语言:</td>
 											<td id="yuyan">
-											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" style="vertical-align:top;width:98%;" >
+											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" title="语言" style="vertical-align:top;width:98%;" >
 											<option value="">请选择语言</option>
 											<c:forEach items="${languageList}" var="language">
 												<option value="${language.id }" <c:if test="${language.id == pd.LANGUAGE_ID }">selected</c:if>>${language.name }</option>
@@ -90,7 +90,7 @@
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>角色:</td>
 											<td id="juese">
-											<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="vertical-align:top;width:98%;" >
+											<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" title="角色" style="vertical-align:top;width:98%;" >
 											<option value="">请选择角色</option>
 											<c:forEach items="${roleList}" var="role">
 												<option value="${role.ROLE_ID }" <c:if test="${role.ROLE_ID == pd.ROLE_ID }">selected</c:if>>${role.ROLE_NAME }</option>
@@ -101,7 +101,7 @@
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>状态:</td>
 											<td id="zhuangtai">
-											<select class="chosen-select form-control" name="STATUS_ID" id="status_id" data-placeholder="请选择状态" style="vertical-align:top;width:98%;" >
+											<select class="chosen-select form-control" name="STATUS_ID" id="status_id" data-placeholder="请选择状态" title="状态" style="vertical-align:top;width:98%;" >
 											<option value="">请选择状态</option>
 											<c:forEach items="${statusList}" var="status">
 												<option value="${status.value }" <c:if test="${status.value == pd.STATUS_ID }">selected</c:if>>${status.name }</option>
@@ -185,7 +185,7 @@
 		if($("#company").val()==""){
 			$("#company").tips({
 				side:3,
-	            msg:'选择公司',
+	            msg:'请选择公司！',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -196,7 +196,7 @@
 		if($("#department").val()==""){
 			$("#department").tips({
 				side:3,
-	            msg:'选择部门',
+	            msg:'请选择部门！',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -222,7 +222,7 @@
 		if($("#username").val()==""){
 			$("#username").tips({
 				side:3,
-	            msg:'输入登录名',
+	            msg:'请输入登录名！',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -233,7 +233,7 @@
 		    if(!re.test($("#username").val())){
 		    	$("#username").tips({
 					side:3,
-		            msg:'登录名由字母、数字、下划线组成，字母开头，4-16位',
+		            msg:'登录名由字母、数字、下划线组成，字母开头，4-16位。',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -260,19 +260,35 @@
 		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,
-	            msg:'输入姓名',
+	            msg:'请输入姓名！',
 	            bg:'#AE81FF',
 	            time:3
 	        });
 			$("#name").focus();
 			return false;
+		}else{
+			// [\u4e00-\u9fa5]汉字编码范围 
+			var checkC = new RegExp("^[\u4e00-\u9fa5]{1,10}$");
+			var checkE = new RegExp("^[a-zA-Z ]{1,20}$");
+			if (!checkC.test($("#name").val())&&!checkE.test($("#name").val())){
+				//alert(!checkC.test($("#name").val()));
+				//alert(!checkE.test($("#name").val()));
+				$("#name").tips({
+					side:3,
+		            msg:'姓名输入有误，请检查是否含有特殊字符！',
+		            bg:'#AE81FF',
+		            time:3
+		        });
+				$("#name").focus(); 
+				return false; 
+				} 
 		}
 		//手机判断
-		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
+		var myreg = /^1[3|4|5|8][0-9]\d{4,8}$/;
 		if($("#phone").val()==""){
 			$("#phone").tips({
 				side:3,
-	            msg:'输入手机号码',
+	            msg:'请输入手机号码！',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -281,7 +297,7 @@
 		}else if($("#phone").val().length != 11 && !myreg.test($("#phone").val())){
 			$("#phone").tips({
 				side:3,
-	            msg:'手机号码格式不正确',
+	            msg:'手机号码格式不正确！',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -293,7 +309,7 @@
 			if(!ismail($("#email").val())){
 			$("#email").tips({
 				side:3,
-	            msg:'邮箱格式不正确',
+	            msg:'邮箱格式不正确！',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -305,7 +321,7 @@
 		if($("#language_id").val()==""){
 			$("#yuyan").tips({
 				side:3,
-	            msg:'选择语言',
+	            msg:'请选择语言！',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -316,7 +332,7 @@
 		if($("#role_id").val()==""){
 			$("#juese").tips({
 				side:3,
-	            msg:'选择角色',
+	            msg:'请选择角色！',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -327,7 +343,7 @@
 		if($("#status_id").val()==""){
 			$("#zhuangtai").tips({
 				side:3,
-	            msg:'选择状态',
+	            msg:'请选择状态！',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -390,7 +406,7 @@
 					//setTimeout("$('#username').val('此用户名已存在!')",500);
 					 $("#username").tips({
 							side:3,
-				            msg:'此登录名已存在',
+				            msg:'此登录名已存在！',
 				            bg:'#AE81FF',
 				            time:3
 				        });

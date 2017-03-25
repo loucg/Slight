@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.system.User;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.group.GroupService;
 import com.fh.util.Const;
 import com.fh.util.Jurisdiction;
@@ -28,6 +29,8 @@ public class GroupController extends BaseController{
 	String menuUrl = "group/listGroups.do";		//页面配置的菜单地址
     @Resource(name="groupService")
     private GroupService groupService;
+    @Resource(name="departmentService")
+    private DepartmentManager departmentService;
 	
 	/**
 	 * 显示分组列表
@@ -51,6 +54,10 @@ public class GroupController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		page.setPd(pd);
 		List<PageData> groupList = groupService.listGroup(page);	//获取列表
 		mv.setViewName("groupmanage/groupmanage_list");
@@ -91,6 +98,10 @@ public class GroupController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		//logBefore(logger, pd.getString("name")+pd.getString("explain")+pd.getString("type"));
 		groupService.addGroup(pd);
 		
@@ -131,6 +142,10 @@ public class GroupController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		logBefore(logger, pd.getString("name")+pd.getString("explain")+pd.getString("status"));
 		groupService.updateGroup(pd);
 		
