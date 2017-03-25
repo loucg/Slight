@@ -43,11 +43,14 @@ function init() {
 											//Conframe.window.changePreMakerdata(data);
 											//console.log(data);
 											//data[0].searchconditions.drawid=null;
+											
+											
+											setChosetermid2("search");
 											mapTermpage[-1]=data[0].searchconditions;
 											//console.log(mapTermpage);
 											$("#search").parent().parent().remove();
 											gpsTObbdSearch(data);//左边加框
-											Conframe.window.cleanAllMaker();
+											Conframe.window.cleanAllMaker1();
 											var arrpoints=[];
 											for (var i = 0; i < data.length; i++) {
 												arrpoints.push( new BMap.Point(data[i].xcoordinate,data[i].ycoordinate));

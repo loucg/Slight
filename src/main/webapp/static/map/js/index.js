@@ -11,6 +11,7 @@
 					$(this).parent().parent().find('.kid').show();
 
 					choseterm = $(this);
+					setChosetermid();
 					//console.log($(this).attr("id"));
 					if ($(this).attr("id") != "search" && $(this).attr("id") != "draw") {
 						Conframe.window.cleanAllMaker();// 清除所有覆盖物
