@@ -2,8 +2,11 @@ package com.fh.controller.strategy;
 
 import java.io.PrintWriter;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +52,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import net.sf.json.JSONArray;
+
 /** 
  * 类名称：StrategyController
  * 创建人：zjc
@@ -74,6 +79,7 @@ public class StrategyController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/listStrategys")
 	public ModelAndView listStrategys(Page page)throws Exception{
 		ModelAndView mv = this.getModelAndView();
@@ -91,22 +97,29 @@ public class StrategyController extends BaseController {
 		List<PageData>	strategyList = strategyService.listStrategys(page);	//列出策略列表
 		JsonParser parse =new JsonParser();                                 //创建json解析器
 		for(int i = 0 ; i < strategyList.size(); i++){
-			List<Object> t_i = new ArrayList<Object>();
-			List<String> timestamp = new ArrayList<String>();
-			List<String> intensity = new ArrayList<String>();
+			List<PageData> t_i = new ArrayList<PageData>();
+			//String timestamp;
+			//String intensity;
+			//List<String> timestamp = new ArrayList<String>();
+			//List<String> intensity = new ArrayList<String>();
 			if(strategyList.get(i).getString("json") != null && !strategyList.get(i).getString("json").equals("")){
 				JsonObject json=(JsonObject) parse.parse(strategyList.get(i).getString("json"));
 				strategyList.get(i).put("odd_even", json.get("odd_even").getAsString());
 				JsonArray temp = json.get("t_i").getAsJsonArray();
 				for(int j = 0; j < temp.size(); j++){
-					t_i.add(temp.get(j).getAsJsonObject());
-					timestamp.add(temp.get(j).getAsJsonObject().get("timestamp").getAsString());
-					intensity.add(temp.get(j).getAsJsonObject().get("intensity").getAsString());
+					PageData t_i_Data = new PageData();
+					//t_i.add(temp.get(j).getAsJsonObject());
+					t_i_Data.put("timestamp", temp.get(j).getAsJsonObject().get("timestamp").getAsString());
+					t_i_Data.put("intensity", temp.get(j).getAsJsonObject().get("intensity").getAsString());
+					t_i.add(t_i_Data);
+					//timestamp.add(temp.get(j).getAsJsonObject().get("timestamp").getAsString());
+					//intensity.add(temp.get(j).getAsJsonObject().get("intensity").getAsString());
 				}	
 			}
+			Collections.sort(t_i, new MyComparator());
 			strategyList.get(i).put("t_i", t_i);
-			strategyList.get(i).put("timestamp", timestamp);
-			strategyList.get(i).put("intensity", intensity);
+			//strategyList.get(i).put("timestamp", timestamp);
+			//strategyList.get(i).put("intensity", intensity);
 		}
 		//System.out.println(strategyList);
 		mv.setViewName("strategy/strategy_list");
@@ -164,6 +177,7 @@ public class StrategyController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/goEditS")
 	public ModelAndView goEditS() throws Exception{
 		logBefore(logger, "准备修改策略");
@@ -171,18 +185,23 @@ public class StrategyController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd = strategyService.findById(pd);								//根据ID读取
-		List<Object> t_i = new ArrayList<Object>();
+		List<PageData> t_i = new ArrayList<PageData>();
 		if(pd.getString("json") != null && !pd.getString("json").equals("")){
 			JsonParser parse =new JsonParser();                             //创建json解析器
 			JsonObject json=(JsonObject) parse.parse(pd.getString("json"));
 			pd.put("odd_even", json.get("odd_even").getAsString());
 			JsonArray temp = json.get("t_i").getAsJsonArray();
 			for(int i = 0; i < temp.size(); i++){
-				t_i.add(temp.get(i).getAsJsonObject());
+				PageData t_i_Data = new PageData();
+				t_i_Data.put("timestamp", temp.get(i).getAsJsonObject().get("timestamp").getAsString());
+				t_i_Data.put("intensity", temp.get(i).getAsJsonObject().get("intensity").getAsString());
+				t_i.add(t_i_Data);
+				//t_i.add(temp.get(i).getAsJsonObject());
 			}	
 		}
-		pd.put("t_i", t_i);
-		System.out.println(pd);
+		Collections.sort(t_i, new MyComparator());
+		JSONArray jsonA = JSONArray.fromObject(t_i);
+		pd.put("t_i", jsonA);
 		mv.setViewName("strategy/strategy_edit");
 		mv.addObject("msg", "editS");
 		mv.addObject("pd", pd);
@@ -211,3 +230,34 @@ public class StrategyController extends BaseController {
 	}
 
 }
+
+@SuppressWarnings("rawtypes")
+class MyComparator implements Comparator{
+	@Override
+	  public  int compare(Object o1, Object o2){
+		PageData pd1 = (PageData) o1;  
+		PageData pd2 = (PageData) o2;
+	  SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+	  Date d1 = null;
+	  Date d2 = null;
+	try {
+		String s1 = pd1.getString("timestamp");
+		String s2 = pd2.getString("timestamp");
+		if(s1.length() == 4)
+			s1 = "0" + s1;
+		if(s2.length() == 4)
+			s2 = "0" + s2;
+		d1 = sdf.parse(s1);
+		d2 = sdf.parse(s2);
+	} catch (ParseException e) {
+		e.printStackTrace();
+	}
+	  if(d1.getTime() > d2.getTime()){
+	   return 1;
+	  }else if(d1.getTime() < d2.getTime()){
+	   return -1;
+	  }else{
+	   return 0;
+	  }
+	 }
+	}

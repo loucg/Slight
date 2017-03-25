@@ -84,11 +84,19 @@
 											<td class="center"  >
 											<table class="table-striped table-bordered table-hover" height=100% width=100% border=1>
 											<c:choose>
-											<c:when test="${not empty strategy.timestamp}">
+											<%-- <c:when test="${not empty strategy.timestamp}">
 											<c:forEach items="${strategy.timestamp}" var="timestamp" varStatus="vs1">
 											<tr>
 											<td class="center" width=50%>${timestamp}</td>
 											<td class="center" width=50%>${strategy.intensity[vs1.index]}%</td>
+											</tr>
+											</c:forEach>
+											</c:when> --%>
+											<c:when test="${not empty strategy.t_i}">
+											<c:forEach items="${strategy.t_i}" var="t_i" varStatus="vs1">
+											<tr>
+											<td class="center" width=50%>${t_i.timestamp}</td>
+											<td class="center" width=50%>${t_i.intensity}%</td>
 											</tr>
 											</c:forEach>
 											</c:when>
@@ -185,6 +193,8 @@
 
 <script type="text/javascript">
 $(top.hangge());
+
+
 
 //检索
 function searchs(){

@@ -223,9 +223,12 @@
 			{
 				obj.options.add(new Option(i,i));
 			}
-			var t_i = ${pd.t_i};
-			for(var j=0;j<t_i.length;j++){
-			    autoAdd(t_i[j].timestamp,t_i[j].intensity);
+			var t_i = '${pd.t_i}';
+			var obj = eval('(' + t_i + ')'); 
+			//var obj = JSON.parse(t_i);;
+			//var  saa = eval("(" + t_i + ")");  
+			for(var j=0;j<obj.length;j++){
+			    autoAdd(obj[j].timestamp,obj[j].intensity);
 		    }
 		});
             
@@ -376,7 +379,7 @@
             row.appendChild(cell1);
 			var cell2 = document.createElement("td");
 			cell2.setAttribute("style","text-align: center"); 
-			var intensityNode = intensitySelect(intensity.value);
+			var intensityNode = intensitySelect(intensity.value / 10 + 1);
 		    cell2.appendChild(intensityNode);
 			row.appendChild(cell2);
 			/* var editButton = document.createElement("a");
