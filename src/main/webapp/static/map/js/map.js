@@ -70,7 +70,7 @@
 						"<select class='s1'  onchange='change_bright(this.options[this.options.selectedIndex].value)'>"
 						
 				        var lightop="";
-        				for(var i = 0; i <=100; i=i+20){
+        				for(var i = 0; i <=100; i=i+10){
         					var lightop2="";
         					if(i!=data.brightness)
         						{
