@@ -201,15 +201,32 @@ body {
 
 	var menu = new BMap.ContextMenu();
 	var CircleAndRectangle = null;
-	var txtMenuItem = [ {
-		text : '需求没说，做个放大吧',
+	var txtMenuItem = [  {
+		text : '开灯',
 		callback : function() {
-			map.zoomIn();
+			var tid=parent.getChosetermid();
+			TurnOnOROffLight(1,drawdata,tid);
 			CircleAndRectangle.removeContextMenu(menu);
 			map.removeOverlay(CircleAndRectangle);
 			CircleAndRectangle = null;
 		}
 	}, {
+		text : '关灯',
+		callback : function() {
+			var tid=parent.getChosetermid();
+			TurnOnOROffLight(2,drawdata,tid);
+			CircleAndRectangle.removeContextMenu(menu);
+			map.removeOverlay(CircleAndRectangle);
+			CircleAndRectangle = null;
+		}
+	}/* , {
+		text : '亮度值控制',
+		callback : function() {
+			CircleAndRectangle.removeContextMenu(menu);
+			map.removeOverlay(CircleAndRectangle);
+			CircleAndRectangle = null;
+		}
+	} */,  {
 		text : '清除',
 		callback : function() {
 			CircleAndRectangle.removeContextMenu(menu);
@@ -380,6 +397,7 @@ body {
 	//添加覆盖物 
 	//var infoWindow;//全局变量，相当重要/////////////////////////////////////////////////////
 	function addClientMaker(data,mapcenter,mapzoom) {
+		preMakerdata =data;//记录当前展示的数据
 		for (var i = 0; i < data.length; i++) {
 			var markerpoint = new BMap.Point(data[i].xcoordinate,
 					data[i].ycoordinate);
@@ -520,6 +538,11 @@ body {
 	function cleanAllMaker() {
 		///map.clearOverlays();
 	}
+	//清除所有覆盖物   
+	function cleanAllMaker1() {
+		//console.log(12121);
+		map.clearOverlays();
+	}
 	//得到选择的哪一个点
 	function getMakerIconAndInfo(div, data) {
 		//console.log(div);
@@ -533,6 +556,7 @@ body {
 		preMakerdata=data;
 	}
 	//判断是否在选择框内
+	var drawdata;
 	function judgeSelection(bound) {
 		var drawtata=[];
 		var drawid=[];
@@ -554,8 +578,14 @@ body {
 			parent.setmapTermpage(-2,drawtata[0]);
 			//parent.changedrawdata(drawtata);//用于再次点击时可以加载出来
 			parent.gpsTObbddrawing(drawtata);//添加左边框选列表
+			drawdata=drawtata;
 		}
-		else{alert("没有框中任何数据");}
+		else{
+				alert("没有框中任何数据");
+				CircleAndRectangle.removeContextMenu(menu);
+				map.removeOverlay(CircleAndRectangle);
+				CircleAndRectangle = null;
+			}
 	}
 	function TurnOnLight() {
 		if (choseMakerdata.brightness != 0) {
@@ -586,9 +616,9 @@ body {
 								var mapcenter=map.getCenter();
 								var mapzoom=map.getZoom();
 								if(choseMakerdata.searchconditions!=null)
-									{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changesearchdata(preMakerdata);}, 1000);}
+									{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);}
 								else if(choseMakerdata.drawid.length!=0)
-									{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changedrawdata(preMakerdata);}, 1000);}
+									{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);}
 								else
 									{a = parent.getmapTermpagein()[choseMakerdata.termid];getClientsData(a,mapcenter,mapzoom);}
 								 BootstrapDialog.show({
@@ -668,9 +698,9 @@ body {
 								var mapcenter=map.getCenter();
 								var mapzoom=map.getZoom();
 								if(choseMakerdata.searchconditions!=null)
-								{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changesearchdata(preMakerdata);}, 1000);}
+								{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);}
 							else if(choseMakerdata.drawid.length!=0)
-								{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changedrawdata(preMakerdata);}, 1000);}
+								{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);}
 							else
 									{a = parent.getmapTermpagein()[choseMakerdata.termid];getClientsData(a,mapcenter,mapzoom);}
 								
@@ -737,9 +767,9 @@ body {
 					var mapcenter=map.getCenter();
 					var mapzoom=map.getZoom();
 					if(choseMakerdata.searchconditions!=null)
-					{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changesearchdata(preMakerdata);}, 1000);}
+					{a=choseMakerdata.searchconditions;getClientsData(a,mapcenter,mapzoom);}
 				else if(choseMakerdata.drawid.length!=0)
-					{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);setTimeout(function() {parent.changedrawdata(preMakerdata);}, 1000);}
+					{ a=choseMakerdata;getClientsData(a,mapcenter,mapzoom);}
 				else
 						{a = parent.getmapTermpagein()[choseMakerdata.termid];getClientsData(a,mapcenter,mapzoom);}
 					
@@ -786,6 +816,99 @@ body {
 
 		});
 	}
+	
+	
+	
+	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+		
+	function TurnOnOROffLight(takeid,choseMakerdata,chosetermid) {
+		var drawdataid=[];
+	    for(var i=0;i<choseMakerdata.length;i++){
+	    	drawdataid.push(choseMakerdata[i].id);
+	    }
+		var updatedata={
+				"takeid":takeid,
+				"drawid":drawdataid
+		};
+		if (choseMakerdata[0].termid==-999) {
+			BootstrapDialog.show({
+                type:  BootstrapDialog.TYPE_DANGER,
+                title: '提示信息 ',
+                message: '网关路由器组没有开灯，关灯，亮度值等操作',
+                buttons: [{
+                    label: '关闭',
+                    action: function(dialogItself){
+                        dialogItself.close();
+                    }
+                }]
+            }); 
+		} else {
+			$.ajax({
+						url : "gomap/updateClientDraw_status",
+						type : "POST",
+						contentType : "application/json; charset=UTF-8",
+						data : JSON.stringify(updatedata),
+						dataType : "json",
+						success : function(data) {
+							if (data.status == "SUCCESS") {
+								cleanAllMaker();//清除所有覆盖物
+								var a;
+								var mapcenter=map.getCenter();
+								var mapzoom=map.getZoom();
+								if(chosetermid=="search")
+								{a=parent.getmapTermpage()[-1];getClientsData(a,mapcenter,mapzoom);}
+							else if(chosetermid=="draw")
+								{a=parent.getmapTermpage()[-2];getClientsData(a,mapcenter,mapzoom);}
+							else
+								{a = parent.getmapTermpagein()[choseMakerdata[0].termid];getClientsData(a,mapcenter,mapzoom);}
+								
+								 BootstrapDialog.show({
+						                type:  BootstrapDialog.TYPE_PRIMARY,
+						                title: '提示信息 ',
+						                message: '路灯操作成功',
+						                buttons: [{
+						                    label: '关闭',
+						                    action: function(dialogItself){
+						                        dialogItself.close();
+						                    }
+						                }]
+						            }); 
+
+							} else {
+								BootstrapDialog.show({
+					                type:  BootstrapDialog.TYPE_DANGER,
+					                title: '提示信息 ',
+					                message: '路灯操作失败',
+					                buttons: [{
+					                    label: '关闭',
+					                    action: function(dialogItself){
+					                        dialogItself.close();
+					                    }
+					                }]
+					            }); 
+							}
+
+						},
+						error : function() {
+							BootstrapDialog.show({
+				                type:  BootstrapDialog.TYPE_DANGER,
+				                title: '提示信息 ',
+				                message: '路灯操作失败',
+				                buttons: [{
+				                    label: '关闭',
+				                    action: function(dialogItself){
+				                        dialogItself.close();
+				                    }
+				                }]
+				            });
+						}
+
+					});
+
+		}
+
+	}
 </script>
 <script type="text/javascript">
 	jQuery.getJSON("gomap/getFirstTermId/", function(data) {
@@ -799,8 +922,8 @@ body {
 				havenest : false,
 				termid : data
 			};
-			;
 			getClientsData(mapTermpage2);
+			parent.setChosetermid2(data);
 		} else {
 			BootstrapDialog.show({
                 type:  BootstrapDialog.TYPE_INFO,

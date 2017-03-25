@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.fh.dao.DaoSupport;
 import com.fh.entity.map.c_client;
 import com.fh.entity.map.c_term;
+import com.fh.entity.map.draw_client;
 import com.fh.entity.system.Status;
 import com.fh.service.map.C_clientManager;
 import com.fh.service.system.status.StatusManager;
@@ -290,6 +291,18 @@ public class C_clientService implements C_clientManager{
 			 }
 		return qtg;
 
+	}
+	@Override
+	public void updateClientDraw_status(draw_client dc) throws Exception {
+		if(dc.getTakeid()==1){
+			List  list=dc.getDrawid();
+			dao.update("C_clientMapper.updateClientDraw_statusON", list);
+		}
+		else{
+			List  list=dc.getDrawid();
+			dao.update("C_clientMapper.updateClientDraw_statusOFF", list);
+		}
+		
 	}
 
 	

@@ -128,6 +128,11 @@
 var pagedata={page:1,rows:2,begin:0,end:0,havenest:true,termid:null};//分页的全局变量，很重要 
 var mapTermpage= new Object();//分页的全局变量，很重要 
 var mapTermpagein= new Object();//分页的全局变量，很重要 
+function getmapTermpage()
+{
+	var data=mapTermpage;
+	return data;
+}
 function getmapTermpagein()
 {
 	var data=mapTermpagein;
@@ -216,6 +221,20 @@ function gpsTObbddrawing(clientdata)
 	$('.searchacc').append(accdivpre);      			
 }
 var choseterm;//表示选择的term；
+var chosetermid; //表示选择的term的id；
+function setChosetermid(){
+	//console.log(1234567890);
+	chosetermid=choseterm.attr("id");
+	//console.log(chosetermid);
+}
+function setChosetermid2(data){
+	//console.log(data);
+	chosetermid=data;
+}
+function getChosetermid(){
+	var chose=chosetermid;
+	return chose;
+}
 //加载左边的列表
 	$.ajax({
 		url : "gomap/lefe_c",

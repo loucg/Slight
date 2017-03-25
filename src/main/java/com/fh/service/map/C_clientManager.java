@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fh.entity.map.c_client;
 import com.fh.entity.map.c_term;
+import com.fh.entity.map.draw_client;
 import com.fh.util.PageData;
 
 /**	地图控制类
@@ -37,6 +38,7 @@ public interface C_clientManager {
 	public List<c_client> getSearchGateway(c_client cc) throws Exception ;
 	public List<c_client> getClientByDraw(List  list) throws Exception;
 	public List<c_client> getGatewayByDraw(List  list) throws Exception;
+	public void updateClientDraw_status(draw_client dc)throws Exception;
 	
 		
 }
