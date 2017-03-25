@@ -39,7 +39,7 @@
 
 								<td >
 								 	<div class="nav-search">
-									    <label style="margin-left:12px;"><%=standard%>：</label>
+									    <label><%=standard%>：</label>
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }"  />
 									</div>
 								</td>
@@ -50,7 +50,7 @@
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="search();"  title="<%=search1%>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search1%>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="<%=export_to_excel%>"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="<%=importt%>"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								</c:if>
@@ -166,7 +166,7 @@
 		$(top.hangge());
 
 		//检索
-		function search(){
+		function tosearch(){
 			top.jzts();
 			$("#Form").submit();
 		}
@@ -200,11 +200,12 @@
 
 		//修改
 		function edit(Id){
+			 alert("哈哈哈");			
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="<%=edit%>";
-			 diag.URL = '<%=basePath%>config/goLampEdit?id='+Id;
+			 diag.URL = '<%=basePath%>lamp/goLampEdit?id='+Id;
 			 diag.Width = 650;
 			 diag.Height = 224;
 			 diag.CancelEvent = function(){ //关闭事件

@@ -286,7 +286,7 @@
 			LEFT JOIN c_lamp_pole_type AS g ON c.c_lamp_pole_type_id = g.id
 			LEFT JOIN b_status AS h ON a.staus = h.`value`
 			LEFT JOIN b_status_main AS i ON h.b_status_main_id = i.id
-		WHERE a.sys_user_id = ${pd.userids}
+		WHERE a.sys_user_id in ${pd.userids}
 			AND h.b_status_main_id = 1
 		<if test="pd.number!=null and pd.number!=''">
 			AND b.gateway_code LIKE CONCAT(CONCAT('%', #{pd.number}),'%')
