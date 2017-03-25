@@ -12,7 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.hzy.util.UserUtils;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.slight.weixiu.WeixiuService;
+import com.fh.service.system.role.RoleManager;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
 
@@ -29,6 +32,10 @@ public class WeixiuController extends BaseController {
 	String menuUrl = "repair/weixiu"; //菜单地址(权限用)
 	@Resource(name="weixiuService")
 	private WeixiuService weixiuService;
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
+	@Resource(name="roleService")
+	private RoleManager roleService;
 	
 	private String weixiuJsp = "repair/weixiu/weixiu_list";  						//终端维修记录查询jsp
 	private String weixiuEditJsp = "repair/weixiu/weixiu_edit";  					//终端维修登记修改jsp
@@ -47,25 +54,16 @@ public class WeixiuController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-	/*	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		if(pd.getString("Start")!=null){
-			Date start = format.parse(pd.getString("Start"));
-			pd.put("start", start);
-			 
-		} else{pd.put("Start", "2010-01-01");}
-		if(pd.getString("End")!=null){
-			Date end = format.parse(pd.getString("End"));
-			pd.put("end", end);
-		}*/
-		/*else{
-			pd.put("End", "2030-01-01");}*/
+		pd.put("roleid", UserUtils.getRoleid());
+		pd.put("rolename", "维修调试");
+		pd.put("weixiuroleid", roleService.getRoleIdByName(pd));
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		page.setPd(pd);
 		
 		List<PageData> weixiuList = weixiuService.getWeixiuList(page);
 		mv.addObject("pd", pd);
 		
 		mv.addObject("weixiuList", weixiuList);
-		System.out.println(weixiuList);
 		mv.setViewName(weixiuJsp);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;

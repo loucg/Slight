@@ -2,6 +2,7 @@ package com.fh.controller.system.role;
 
 import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -292,13 +293,13 @@ public class RoleController extends BaseController {
 		try{
 			List<Menu> menuList = menuService.listAllMenuQx("0"); //获取所有菜单
 			Role role = roleService.getRoleById(ROLE_ID);		  //根据角色ID获取角色对象
-			String roleRights = "";
+			List<String> roleRights = new ArrayList<>();
 			if("read_qx".equals(msg)){
-				roleRights = role.getCHA_QX();
+				roleRights.add(role.getCHA_QX());
 			}else if("write_qx".equals(msg)){
-				roleRights = role.getDEL_QX();
-				roleRights = role.getADD_QX();
-				roleRights = role.getEDIT_QX();
+				roleRights.add(role.getDEL_QX());
+				roleRights.add(role.getADD_QX());
+				roleRights.add(role.getEDIT_QX());
 			}
 			/*if("add_qx".equals(msg)){
 				roleRights = role.getADD_QX();	//新增权限
@@ -309,9 +310,12 @@ public class RoleController extends BaseController {
 			}else if("cha_qx".equals(msg)){
 				roleRights = role.getCHA_QX();	//查看权限
 			}*/
-			menuList = this.readMenu(menuList, roleRights);		//根据角色权限处理菜单权限状态(递归处理)
+			for(int i=0;i<roleRights.size();i++){
+				menuList = this.readMenu(menuList, roleRights.get(i));		//根据角色权限处理菜单权限状态(递归处理)
+			}
 			JSONArray arr = JSONArray.fromObject(menuList);
 			String json = arr.toString();
+			System.out.println("json="+json);
 			json = json.replaceAll("MENU_ID", "id").replaceAll("PARENT_ID", "pId").replaceAll("MENU_NAME", "name").replaceAll("subMenu", "nodes").replaceAll("hasMenu", "checked");
 			model.addAttribute("zTreeNodes", json);
 			mv.addObject("ROLE_ID",ROLE_ID);
@@ -361,7 +365,13 @@ public class RoleController extends BaseController {
 				pd.put("value","");
 			}
 			pd.put("ROLE_ID", ROLE_ID);
-			roleService.saveB4Button(msg,pd);
+			if(msg.equals("read_qx")){
+				roleService.saveB4Button("cha_qx",pd);
+			}else if(msg.equals("write_qx")){
+				roleService.saveB4Button("del_qx", pd);
+				roleService.saveB4Button("add_qx", pd);
+				roleService.saveB4Button("edit_qx", pd);
+			}
 			out.write("success");
 			out.close();
 		} catch(Exception e){

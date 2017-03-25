@@ -77,8 +77,7 @@
 													<td class="center">${var.name}</td>								 
 													<td class="center">${var.location}</td>
 													<td class="center">${var.comment}</td>
-													<td class="center">${var.number}</td>
-														
+													<td class="center"><a style="cursor:pointer;" onclick="delCrew('${var.id}');">${var.number}</a></td>
 													<td class="center">
 														<c:if test="${var.status == '1' }"><span class="label label-important arrowed-in">正常</span></c:if>
 														<c:if test="${var.status == '2' }"><span class="label label-success arrowed">异常</span></c:if>
@@ -87,12 +86,12 @@
 											 <td class="center">
 											 <div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" onclick="addCrew('${group.id}');">
-														新增终端
+													<a class="btn btn-xs btn-success" onclick="addCrew('${var.id}');">
+														添加终端
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="delCrew('${group.id}','${group.name}' );">
+													<a class="btn btn-xs btn-danger" onclick="delCrew('${var.id}');">
 														踢删终端
 													</a>
 													</c:if>
@@ -157,7 +156,13 @@
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
-		$(top.hangge());
+		$(function(){
+			top.hangge();
+			if(${pd.first}==1){
+				bootbox.confirm("若未扫描/添加终端，请扫描终端或“基础配置/终端列表/添加终端/选择断路器”添加终端", function(result) {
+				});
+			}
+		})
 		
 		//检索
 		function search(){
@@ -165,13 +170,13 @@
 			$("#Form").submit();
 		}
 			
-		//新增组员
+		//添加终端
 		function addCrew(id){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="新增终端";
-			 diag.URL = '<%=basePath%>groupmem/listOthers.do?id='+id;
+			 diag.Title ="添加终端";
+			 diag.URL = '<%=basePath%>newnet/goClientList?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;
 			 diag.Modal = true;				//有无遮罩窗口
@@ -191,13 +196,13 @@
 			 diag.show();
 		}
 		
-		//踢删组员
-		function delCrew(id,name){
+		//踢删终端
+		function delCrew(id){
 			top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="踢删终端";
-			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id;
+			 diag.URL = '<%=basePath%>newnet/goOwnClientList?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;
 			 diag.Modal = true;				//有无遮罩窗口
@@ -216,33 +221,7 @@
 			 };
 			 diag.show();
 		}
-		
-
-		//查看组员
-		function viewGroupMems(id){
-			 top.jzts();
-			 var diag = new top.Dialog();
-			 diag.Drag=true;
-			 diag.Title ="组成员";
-			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id;
-			 diag.Width = 1200;
-			 diag.Height = 600;
-			 diag.Modal = true;				//有无遮罩窗口
-			 diag. ShowMaxButton = true;	//最大化按钮
-		     diag.ShowMinButton = true;		//最小化按钮
-			 diag.CancelEvent = function(){ //关闭事件
-				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 if('${page.currentPage}' == '0'){
-						 top.jzts();
-						 setTimeout("self.location=self.location",100);
-					 }else{
-						 nextPage(${page.currentPage});
-					 }
-				}
-				diag.close();
-			 };
-			 diag.show();
-		}
+	
 		
 		</script>
 		

@@ -40,6 +40,13 @@ public interface UserManager {
 	 */
 	public PageData findByUsername(PageData pd)throws Exception;
 	
+	/**通过USERNAEME获取数据
+	 * @param USERNAEME
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findcompanyByUsername(String USERNAEME)throws Exception;
+	
 	/**列出某角色下的所有用户
 	 * @param pd
 	 * @return

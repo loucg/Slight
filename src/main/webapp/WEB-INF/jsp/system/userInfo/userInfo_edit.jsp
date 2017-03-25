@@ -69,7 +69,7 @@
 										<tr>
 										<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>语言:</td>
 											<td id="yuyan">
-											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" style="vertical-align:top;width:98%;">
+											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" title="语言" style="vertical-align:top;width:98%;">
 											<option value="">请选择语言</option>
 											<c:forEach items="${languageList}" var="language">
 												<option value="${language.id }"<c:if test="${language.id == pd.LANGUAGE_ID }">selected</c:if>>${language.name }</option>
@@ -111,7 +111,6 @@
 </body>
 <script type="text/javascript">
 	$(top.hangge());
-	
 	$(document).ready(function(){
 		if($("#user_id").val()!=""){
 			//默认不能修改的数据
@@ -157,7 +156,7 @@
 		if($("#newPassword").val()!="" && $("#oldPassword").val() == ""){ //当用户输入新密码而原始密码为空时
 			$("#oldPassword").tips({
 				side:3,
-	            msg:'输入原始密码',
+	            msg:'请输入原始密码！',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -170,7 +169,7 @@
 			if(!re.test($("#newPassword").val())){
 				$("#newPassword").tips({
 					side:3,
-		            msg:'新密码由字母、数字组成，6-20位',
+		            msg:'新密码由字母、数字组成，6-20位。',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -197,19 +196,35 @@
 		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,
-	            msg:'输入姓名',
+	            msg:'请输入姓名！',
 	            bg:'#AE81FF',
 	            time:3
 	        });
 			$("#name").focus();
 			return false;
+		}else{
+			// [\u4e00-\u9fa5]汉字编码范围 
+			var checkC = new RegExp("^[\u4e00-\u9fa5]{1,10}$");
+			var checkE = new RegExp("^[a-zA-Z ]{1,20}$");
+			if (!checkC.test($("#name").val())&&!checkE.test($("#name").val())){
+				//alert(!checkC.test($("#name").val()));
+				//alert(!checkE.test($("#name").val()));
+				$("#name").tips({
+					side:3,
+		            msg:'姓名输入有误，请检查是否含有特殊字符！',
+		            bg:'#AE81FF',
+		            time:3
+		        });
+				$("#name").focus(); 
+				return false; 
+				} 
 		}
 		
-		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
+		var myreg = /^1[3|4|5|8][0-9]\d{4,8}$/;
 		if($("#phone").val()==""){
 			$("#phone").tips({
 				side:3,
-	            msg:'输入手机号码',
+	            msg:'请输入手机号码！',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -218,7 +233,7 @@
 		}else if($("#phone").val().length != 11 && !myreg.test($("#phone").val())){
 			$("#phone").tips({
 				side:3,
-	            msg:'手机号码格式不正确',
+	            msg:'手机号码格式不正确！',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -230,7 +245,7 @@
 			if(!ismail($("#email").val())){
 				$("#email").tips({
 					side:3,
-		            msg:'邮箱格式不正确',
+		            msg:'邮箱格式不正确！',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -242,7 +257,7 @@
 		if($("#language_id").val()==""){
 			$("#yuyan").tips({
 				side:3,
-	            msg:'选择语言',
+	            msg:'请选择语言！',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -267,8 +282,9 @@
 		}else{
 			$("#userInfoForm").submit();
 			$("#zhongxin").hide();
-			$("#zhongxin2").show(); 
-			//getHeadMsg();
+			$("#zhongxin2").show();
+			//alert(top.Dialog);
+			//top.Dialog.close();
 		}
 	}
 	function ismail(mail){
@@ -318,7 +334,7 @@
 				}else{
 				     $("#oldPassword").tips({
 					 side:3,
-		             msg:'原始密码错误',
+		             msg:'原始密码错误！',
 		             bg:'#AE81FF',
 		             time:3
 		        });

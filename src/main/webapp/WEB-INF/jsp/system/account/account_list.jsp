@@ -158,7 +158,7 @@
 						<tr>
 							<td style="vertical-align:top;">
 								<c:if test="${QX.add == 1 }">
-								<a class="btn btn-mini btn-success" title="新增帐号" onclick="add();">新增</a>
+								<a class="btn btn-mini btn-success" title="新增帐号" onclick="add();">新增帐号</a>
 								</c:if>
 								<!--  
 								<c:if test="${QX.FHSMS == 1 }"><a title="批量发送站内信" class="btn btn-mini btn-info" onclick="makeAll('确定要给选中的用户发送站内信吗?');"><i class="ace-icon fa fa-envelope-o bigger-120"></i></a></c:if>
@@ -221,11 +221,11 @@ function searchs(){
 function resetPassword(user_id){
 	top.jzts();
 	 var diag = new top.Dialog();
-	 diag.Drag=true;
+	 diag.Drag=false;
 	 diag.Title ="密码重置";
 	 diag.URL = '<%=basePath%>account/goResetP.do?USER_ID='+user_id;
 	 diag.Width = 351;
-	 diag.Height = 103;
+	 diag.Height = 140;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			nextPage(${page.currentPage});
@@ -235,11 +235,11 @@ function resetPassword(user_id){
 	 diag.show();
 }
 
-//新增
+//新增帐号
 function add(){
 	 top.jzts();
 	 var diag = new top.Dialog();
-	 diag.Drag=true;
+	 diag.Drag=false;
 	 diag.Title ="新增帐号";
 	 diag.URL = '<%=basePath%>account/goAddA.do';
 	 diag.Width = 351;
@@ -258,11 +258,11 @@ function add(){
 	 diag.show();
 }
 
-//修改
+//修改帐号
 function editAccount(user_id){
 	 top.jzts();
 	 var diag = new top.Dialog();
-	 diag.Drag=true;
+	 diag.Drag=false;
 	 diag.Title ="修改帐号";
 	 diag.URL = '<%=basePath%>account/goEditA.do?USER_ID='+user_id;
 	 diag.Width = 351;

@@ -9,6 +9,7 @@
 		var self = this;
 		this.$sidebar = $(sidebar);
 		this.$sidebar.attr('data-sidebar', 'true');
+		this.$sidebar.attr('class', 'sidebar responsive menu-min');
 		if( !this.$sidebar.attr('id') ) this.$sidebar.attr( 'id' , 'id-sidebar-'+(++sidebar_count) )
 
 		
@@ -479,7 +480,7 @@
 		if(target) $sidebar = $(target);
 		if($sidebar == null || $sidebar.length == 0) $sidebar = $(this).closest('.sidebar');
 		if($sidebar.length == 0) return;
-
+		console.log(1);
 		e.preventDefault();
 		$sidebar.ace_sidebar('toggleMenu', this);
 	})

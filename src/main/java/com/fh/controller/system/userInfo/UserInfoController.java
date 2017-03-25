@@ -164,7 +164,7 @@ public class UserInfoController extends BaseController {
 		Jurisdiction.getSession().setAttribute(Const.SESSION_LANGUAGE, language);
 		//Jurisdiction.getSession().setAttribute(Const.SESSION_USER, name);
 		FHLOG.save(Jurisdiction.getUsername(), "修改用户信息："+pd.getString("USERNAME"), LogType.edituserinfo);
-		mv.addObject("msg","success");
+		mv.addObject("msg","editSuccess");
 		mv.setViewName("save_result");
 		return mv;
 	}

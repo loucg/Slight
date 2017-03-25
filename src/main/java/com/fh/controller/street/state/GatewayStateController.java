@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.system.User;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.street.state.GatewayStateService;
 import com.fh.util.Const;
 import com.fh.util.Jurisdiction;
@@ -28,6 +29,8 @@ public class GatewayStateController extends BaseController{
 	String menuUrl = "state/street/listGateways.do";		//页面配置的菜单地址
     @Resource(name="gatewayStateService")
     private GatewayStateService gatewayStateService;
+    @Resource(name="departmentService")
+    private DepartmentManager departmentService;
 	
 	/**
 	 * 显示 网关状态列表
@@ -59,6 +62,10 @@ public class GatewayStateController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		page.setPd(pd);
 		List<PageData> gatewayStateList = gatewayStateService.listGatewayState(page);	//获取列表
 		mv.setViewName("street/state/gatewaystate_list");

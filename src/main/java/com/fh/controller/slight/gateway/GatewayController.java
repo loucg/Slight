@@ -12,7 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.hzy.util.UserUtils;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.slight.gateway.GatewayService;
+import com.fh.service.system.role.RoleManager;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
 
@@ -20,8 +23,13 @@ import com.fh.util.PageData;
 @RequestMapping("/repair")
 public class GatewayController extends BaseController{
 	String menuUrl = "repair/gateway"; //菜单地址(权限用)
+	
 	@Resource(name="gatewayService") 
 	private GatewayService gatewayService;
+	@Resource(name="roleService")
+	private RoleManager roleService;
+	@Resource(name="departmentService")
+	private DepartmentManager departmentService;
 	
 	private String gatewayJsp = "repair/gateway/gateway_list";  						//网关维修记录查询jsp
 	private String gatewayEditJsp = "repair/gateway/gateway_edit";  					//网关维修登记修改jsp
@@ -39,15 +47,10 @@ public class GatewayController extends BaseController{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-/*		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		if(pd.getString("Start")!=null){
-			Date start = format.parse(pd.getString("Start"));
-			pd.put("start", start);
-		}
-		if(pd.getString("End")!=null){
-			Date end = format.parse(pd.getString("End"));
-			pd.put("end", end);
-		}*/
+		pd.put("roleid", UserUtils.getRoleid());
+		pd.put("rolename", "维修调试");
+		pd.put("weixiuroleid", roleService.getRoleIdByName(pd));
+		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		page.setPd(pd);
 		List<PageData> nPList = gatewayService.getGatewayList(page);
 		mv.addObject("pd", pd);

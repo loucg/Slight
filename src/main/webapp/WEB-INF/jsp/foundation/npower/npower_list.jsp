@@ -44,17 +44,13 @@
 								<td><%=standard%>：</td>
 								<td>
 									<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${pd.name }"/>
-										</span>
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" value="${pd.name }"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;<%=vendor%>：</td>
 								<td>
 									<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="vendor" value="${pd.vendor }"/>
-										</span>
+										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="vendor" value="${pd.vendor }"/>
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search1%>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td></c:if>

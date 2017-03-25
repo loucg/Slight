@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.system.User;
+import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.group.GroupService;
 import com.fh.service.group.mem.GroupMemService;
 import com.fh.util.AppUtil;
@@ -36,6 +37,8 @@ public class GroupMemController extends BaseController{
     private GroupMemService groupMemService;
     @Resource(name="groupService")
     private GroupService groupService;
+    @Resource(name="departmentService")
+    private DepartmentManager departmentService;
 	
 	/**
 	 * 显示已分组列表
@@ -70,6 +73,9 @@ public class GroupMemController extends BaseController{
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
 		//String title = pd.getString("title");
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
 		
 		page.setPd(pd);
 		termforpage = groupService.findById(pd);
@@ -121,6 +127,10 @@ public class GroupMemController extends BaseController{
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
+		
+		String userids = departmentService.getUseridsInDepartment(pd);
+		pd.put("userids", userids);
+		
 		page.setPd(pd);
 		termforpage = groupService.findById(pd);
 		List<PageData> groupOther = groupMemService.listOthers(page);	//获取列表

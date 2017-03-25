@@ -1,5 +1,8 @@
+
 var locat = (window.location+'').split('/'); 
 $(function(){if('main'== locat[3]){locat =  locat[0]+'//'+locat[2];}else{locat =  locat[0]+'//'+locat[2]+'/'+locat[3];};});
+
+document.write("<script language='javascript' src='static/ace/js/bootbox.js'></script>");
 
 var fmid = "fhindex";	//菜单点中状态
 var mid = "fhindex";	//菜单点中状态
@@ -154,7 +157,7 @@ function editPhoto(){
 function editUserH(){
 	 jzts();
 	 var diag = new top.Dialog();
-	 diag.Drag=true;
+	 diag.Drag=false;
 	 diag.Title ="用户信息";
 	 diag.URL = locat+'/userInfo/goEditUserInfo.do';
 	 //diag.URL = locat+'/user/goEditMyU.do';
@@ -162,6 +165,18 @@ function editUserH(){
 	 diag.Height = 479;
 	 diag.CancelEvent = function(){ //关闭事件
 		diag.close();
+		/*bootbox.alert({  
+            buttons: {  
+               ok: {  
+                    label: '确定',  
+                }  
+            },  
+            message: '修改成功！',  
+            callback: function() {  
+            	//document.getElementById('zhongxin').style.display = 'none';
+    		    //top.Dialog.close();  
+            },   
+        }); */
 	 };
 	 diag.show();
 }

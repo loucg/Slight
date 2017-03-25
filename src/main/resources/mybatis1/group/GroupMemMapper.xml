@@ -75,7 +75,7 @@
 		c_client_term.c_term_id = #{pd.id}
 		)
 		AND
-		c_client_attr1.sys_user_id = #{pd.sys_user_id}
+		c_client_attr1.sys_user_id IN ${pd.userids}
 		 <if test="pd.location!=null and pd.location!=''">
 			and 
 			(
@@ -153,7 +153,7 @@
 		c_client_term
 		)
 		AND
-		c_client_attr1.sys_user_id = #{pd.sys_user_id}
+		c_client_attr1.sys_user_id IN ${pd.userids}
 		 <if test="pd.location!=null and pd.location!=''">
 			and 
 			(

@@ -24,7 +24,7 @@
 		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,
-	            msg:'<%=please_type_standard_name%>',
+	            msg:'<%=please_type_device_name%>',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -34,7 +34,7 @@
 		if($("#vendor").val()==""){
 			$("#vendor").tips({
 				side:3,
-	            msg:'<%=please_type_vendor%>',
+	            msg:'<%=please_enter_vendor%>',
 	            bg:'#AE81FF',
 	            time:2
 	        });

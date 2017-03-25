@@ -388,5 +388,16 @@
 			1 = 1
 		ORDER BY ID
 	</select>
-	<!-- fh313596790qq(青苔) -->
+	
+	<!-- 获取某个部门下所有userid -->
+	<select id="getUsersInDepartment" parameterType="pd" resultType="pd" statementType="CALLABLE">
+		CALL showChildList(#{departmentid})
+	</select>
+	
+	<!-- 获取所属部门 -->
+	<select id="getMyDepartmentid" parameterType="pd" resultType="pd">
+		SELECT a.b_department_id AS departmentid
+		FROM b_user_company AS a
+		WHERE a.b_user_id = #{userid}
+	</select>
 </mapper>

@@ -202,6 +202,9 @@ public class LoginController extends BaseController {
 					session.setAttribute(USERNAME + Const.SESSION_QX, this.getUQX(USERNAME));//按钮权限放到session中
 				}
 				this.getRemortIP(USERNAME);	//更新登录IP
+				PageData company=userService.findcompanyByUsername(USERNAME);
+				pd.put("companyname", company.getString("companyname"));
+				pd.put("logo_path", company.getString("logo_path"));
 				mv.setViewName("system/index/main");
 				mv.addObject("user", user);
 				mv.addObject("menuList", menuList);
@@ -209,6 +212,10 @@ public class LoginController extends BaseController {
 				mv.setViewName("system/index/login");//session失效后跳转登录页面
 			}
 		} catch(Exception e){
+			System.out.println("空指针");
+			pd = this.getPageData();
+			pd = this.setLoginPd(pd);	//设置登录页面的配置参数
+			mv.addObject("pd",pd);
 			mv.setViewName("system/index/login");
 			logger.error(e.getMessage(), e);
 		}
