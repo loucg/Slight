@@ -38,18 +38,18 @@
 								<td>姓名：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" placeholder="请输入姓名"/>
+										<input type="text" class="nav-search-input" id="name-input" autocomplete="off" name="name" value="${pd.name}" placeholder="请输入姓名"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;登录名：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="username" placeholder="请输入登录名"/>
+										<input type="text" class="nav-search-input" id="username-input" autocomplete="off" name="username" value="${pd.username}" placeholder="请输入登录名"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;公司：</td>
 								<td >
-							    <select class="chosen-select form-control" name="company" id="company" data-placeholder="请选择公司" style="margin-left:20px; width: 152px;">
+							    <select class="chosen-select form-control" name="company" id="company-input" data-placeholder="请选择公司" style="margin-left:20px; width: 152px;">
 									<option value=""></option>
 									<option value="">全部</option>
 									<c:forEach items="${companyList}" var="company">
@@ -59,14 +59,17 @@
 								</td>
 								<td>&nbsp;&nbsp;角色：</td>
 								<td style="vertical-align:top;padding-left:2px;margin-left:20px;">
-								 	<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="margin-left:20px;width: 152px;">
+								 	<select class="chosen-select form-control" name="role" id="role-input" data-placeholder="请选择角色" style="margin-left:20px;width: 152px;">
 									<option value=""></option>
 									<option value="">全部</option>
 									<c:forEach items="${roleList}" var="role">
-										<option value="${role.ROLE_ID }">${role.ROLE_NAME }</option>
+										<option value="${role.ROLE_ID }" <c:if test="${pd.role==role.ROLE_ID}">selected="selected"</c:if>>${role.ROLE_NAME }</option>
 									</c:forEach>
 								  	</select>
 								</td>
+								<c:if test="${QX.cha == 1 }">
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="清空检索条件" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
+								</c:if>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="searchs();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								<!-- 
@@ -210,6 +213,16 @@
 
 <script type="text/javascript">
 $(top.hangge());
+
+//清空检索条件
+function clearSearchs(){
+	$("#name-input").val("");
+	$("#username-input").val("");
+	$("#company-input").val("");
+    $("#company-input").trigger("chosen:updated")
+    $("#role-input").val("");
+    $("#role-input").trigger("chosen:updated")
+}
 
 //检索
 function searchs(){

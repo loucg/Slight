@@ -337,8 +337,8 @@
 					 u.PHONE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') -->
 				)
 		</if>
-		<if test="pd.ROLE_ID != null and pd.ROLE_ID != ''"><!-- 角色检索 -->
-			and u.ROLE_ID=#{pd.ROLE_ID} 
+		<if test="pd.role != null and pd.role != ''"><!-- 角色检索 -->
+			and u.ROLE_ID=#{pd.role} 
 		</if>
 		<!-- <if test="pd.lastLoginStart!=null and pd.lastLoginStart!=''">登录时间检索
 			and u.LAST_LOGIN &gt;= #{pd.lastLoginStart} 

@@ -39,15 +39,18 @@
 								<td>组名：</td>
 								<td>
 									<div class="nav-search">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="term_name"/>
+											<input type="text" class="nav-search-input" id="term_name-input" autocomplete="off" name="term_name" placeholder="请输入组名" value="${pd.term_name}"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;组说明：</td>
 								<td>
 									<div class="nav-search">
-											<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="term_explain"/>
+											<input type="text" class="nav-search-input" id="term_explain-input" autocomplete="off" name="term_explain" placeholder="请输入组说明" value="${pd.term_explain}"/>
 									</div>
 								</td>
+								<c:if test="${QX.cha == 1 }">
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="清空检索条件" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
+								</c:if>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
@@ -153,6 +156,13 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
+		
+		//清空检索条件
+		function clearSearchs(){
+			$("#term_name-input").val("");
+			$("#term_explain-input").val("");
+		}
+		
 		//检索
 		function tosearch(){
 			top.jzts();
