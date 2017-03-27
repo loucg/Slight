@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../system/index/top.jsp"%>
+<%@ include file="../international.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
@@ -40,25 +41,25 @@
 								
 								<td>
 									<div class="nav-search">
-									    <label>组名：</label>
+									    <label><%=group_name %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="groupname" type="text" name="groupname" value="${pd.groupname}" />
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search">
-									    <label style="margin-left:12px;">名称：</label>
+									    <label style="margin-left:12px;"><%=name %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }"  />
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search">
-									    <label style="margin-left:12px;">编号：</label>
+									    <label style="margin-left:12px;"><%=serial_number %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="number" type="text" name="number" value="${pd.number }"  />
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search">
-									    <label style="margin-left:12px;">位置：</label>
+									    <label style="margin-left:12px;"><%=location %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="location" type="text" name="location" value="${pd.location }"  />
 									</div>
 								</td>
@@ -69,34 +70,34 @@
 								<tr>
 								<td >
 									<div class="nav-search" style="display: -webkit-inline-box;">
-										<label style="font-size:14px">故障类型：</label>
+										<label style="font-size:14px"><%=fault_type %>：</label>
 									<div class="nav-search">
-									 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择故障类型" style="height:30px;width: 128px;border-width:1px;border-color:'#fff';border-radius:4px">
+									 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="<%=please_choose_fault_type %>" style="height:30px;width: 128px;border-width:1px;border-color:'#fff';border-radius:4px">
 									 		<option value=""></option>
-									 		<option value="1" <c:if test="${pd.type==1}">selected</c:if>>灯开路</option>
-											<option value="2" <c:if test="${pd.type==2}">selected</c:if>>灯短路</option>
-											<option value="3" <c:if test="${pd.type==3}">selected</c:if>>灯异常</option>
-											<option value="4" <c:if test="${pd.type==4}">selected</c:if>>网关异常</option>
-											<option value="5" <c:if test="${pd.type==5}">selected</c:if>>断路器异常</option>
+									 		<option value="1" <c:if test="${pd.type==1}">selected</c:if>><%=lamp_open_circuit %></option>
+											<option value="2" <c:if test="${pd.type==2}">selected</c:if>><%=lamp_short %></option>
+											<option value="3" <c:if test="${pd.type==3}">selected</c:if>><%=abnormal_lamp %></option>
+											<option value="4" <c:if test="${pd.type==4}">selected</c:if>><%=gateway_anomaly %></option>
+											<option value="5" <c:if test="${pd.type==5}">selected</c:if>><%=circuit_breaker_abnormality %></option>
 									  	</select>
 								  	</div>
 								  	</div>
 								</td>
 								<td>
 								<div class="nav-search" style="padding-left:12px">
-								<label>开始时间：</label>
-								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px; height:28px;" placeholder="开始时间" title="开始时间"/>
+								<label><%=start_time %>：</label>
+								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px; height:28px;" placeholder="<%=start_time %>" title="<%=start_time %>"/>
 								</div>
 								</td>
 								<td>
 								<div class="nav-search" style="padding-left:12px">
-								<label>结束时间：</label>
-								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px; height:28px;" placeholder="结束时间" title="结束时间"/>
+								<label><%=end_time %>：</label>
+								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:123px; height:28px;" placeholder="<%=end_time %>" title="<%=end_time %>"/>
 								</div>
 								</td>
 								<td style="vertical-align:inherit;padding-left:12px;">
-								<c:if test="${QX.cha == 1 }"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></c:if>
-								<c:if test="${QX.toExcel == 1 }"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></c:if>
+								<c:if test="${QX.cha == 1 }"><button class="btn btn-light btn-xs" onclick="search();"  title="<%=search2 %>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></c:if>
+								<c:if test="${QX.toExcel == 1 }"><a class="btn btn-light btn-xs" onclick="toExcel();" title="<%=export_to_excel %>"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></c:if>
 								</td>
 								
 								<%-- <td>&nbsp;&nbsp;状态：</td>
@@ -115,16 +116,16 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center" style="width:50px">组名</th>
-									<th class="center">终端编号</th>
-									<th class="center">终端名称</th>
-									<th class="center">位置</th>
-									<th class="center">灯杆号</th>
-									<th class="center">网关名称</th>
-									<th class="center">故障类型</th>
-									<th class="center">开始时间</th>
-									<th class="center">异常描述</th>
-									<th class="center">修复时间</th>
+									<th class="center" style="width:50px"><%=group_name %></th>
+									<th class="center"><%=device_number %></th>
+									<th class="center"><%=device_name %></th>
+									<th class="center"><%=location %></th>
+									<th class="center"><%=pole_number %></th>
+									<th class="center"><%=gateway_name %></th>
+									<th class="center"><%=fault_type %></th>
+									<th class="center"><%=start_time %></th>
+									<th class="center"><%=exception_description %></th>
+									<th class="center"><%=repair_time %></th>
 								</tr>
 							</thead>
 
@@ -143,11 +144,11 @@
 											<td class="center">${var.lamp_pole_num}</td>
 											<td class="center">${var.wgname}</td>
 											<td class="center">
-											<c:if test="${var.type=='1'}">灯开路</c:if>
-											<c:if test="${var.type=='2'}">灯短路</c:if>
-											<c:if test="${var.type=='3'}">灯异常</c:if>
-											<c:if test="${var.type=='4'}">网关异常</c:if>
-											<c:if test="${var.type=='5'}">断路器异常</c:if>
+											<c:if test="${var.type=='1'}"><%=lamp_open_circuit %></c:if>
+											<c:if test="${var.type=='2'}"><%=lamp_short %></c:if>
+											<c:if test="${var.type=='3'}"><%=abnormal_lamp %></c:if>
+											<c:if test="${var.type=='4'}"><%=gateway_anomaly %></c:if>
+											<c:if test="${var.type=='5'}"><%=circuit_breaker_abnormality %></c:if>
 											</td>
 											<td class="center">${var.tdate}</td>
 											<td class="center">${var.comment}</td>
@@ -174,13 +175,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
