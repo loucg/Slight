@@ -200,7 +200,6 @@
 
 		//修改
 		function edit(Id){
-			 alert("哈哈哈");			
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;

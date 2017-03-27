@@ -15,6 +15,8 @@
 
 <!-- jsp文件头和头部 -->
 <%@ include file="../../system/index/top.jsp"%>
+<!-- jsp国际化文件 -->
+<%@ include file="../../international.jsp"%>
 <!-- 百度echarts -->
 <script src="plugins/echarts/echarts.min.js"></script>
 </head>

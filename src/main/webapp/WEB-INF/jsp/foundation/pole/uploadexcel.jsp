@@ -8,6 +8,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp"%>  <!--国际化标签  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +28,7 @@
 				<div class="page-content">
 					<div class="row">
 						<div class="col-xs-12">
-							<form action="pole/readExcel" name="Form" id="Form" method="post" enctype="multipart/form-data">
+							<form action="config/readExcel" name="Form" id="Form" method="post" enctype="multipart/form-data">
 								<div id="zhongxin">
 								<table style="width:95%;" >
 									<tr>
@@ -36,8 +37,8 @@
 									<tr>
 										<td style="text-align: center;padding-top: 10px;">
 											<a class="btn btn-mini btn-primary" onclick="save();"><%=importt%></a>
-											<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
-											<a class="btn btn-mini btn-success" onclick="window.location.href='<%=basePath%>pole/downExcel'">下载模版</a>
+											<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel%></a>
+											<a class="btn btn-mini btn-success" onclick="window.location.href='<%=basePath%>/config/downExcel'"><%=download_model%></a>
 										</td>
 									</tr>
 								</table>
@@ -70,9 +71,9 @@
 		$(function() {
 			//上传
 			$('#excel').ace_file_input({
-				no_file:'请选择EXCEL ...',
-				btn_choose:'选择',
-				btn_change:'更改',
+				no_file:'<%=please_choose_excel %>...',
+				btn_choose:'<%=choose%>',
+				btn_change:'<%=change%>',
 				droppable:false,
 				onchange:null,
 				thumbnail:false, //| true | large
@@ -84,11 +85,11 @@
 		
 		//保存
 		function save(){
-			if($("#excel").val()=="" || document.getElementById("excel").files[0] =='请选择xls格式的文件'){
+			if($("#excel").val()=="" || document.getElementById("excel").files[0] =='<%=please_upload_xls_file%>'){
 				
 				$("#excel").tips({
 					side:3,
-		            msg:'请选择文件',
+		            msg:'<%=please_choose_file%>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -103,12 +104,12 @@
 		    if(fileType != '.xls'){
 		    	$("#excel").tips({
 					side:3,
-		            msg:'请上传xls格式的文件',
+		            msg:'<%=please_upload_xls_file%>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
 		    	$("#excel").val('');
-		    	document.getElementById("excel").files[0] = '请选择xls格式的文件';
+		    	document.getElementById("excel").files[0] = '<%=please_upload_xls_file%>';
 		    }
 		}
 	</script>

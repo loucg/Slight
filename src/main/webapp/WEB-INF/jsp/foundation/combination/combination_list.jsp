@@ -40,39 +40,31 @@
 								
 								<td>
 									<div class="nav-search">
-									    <label>终端编号：</label>
+									    <label><%=device_number%>：</label>
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="number" value="${pd.number}" />
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search">
-									    <label style="margin-left:12px;">终端名称：</label>
+									    <label style="margin-left:12px;"><%=device_name%>：</label>
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }"  />
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;终端类型：</td>
+								<td>&nbsp;&nbsp;<%=device_type%>：</td>
 								<td >
-								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择终端类型" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
-								 		<option value="6" <c:if test="${pd.itype==4}">selected</c:if>>终端组合</option>
-										<option value="1" <c:if test="${pd.itype==1}">selected</c:if>>一体化电源</option>
-										<option value="2" <c:if test="${pd.itype==2}">selected</c:if>>单灯控制器</option>
-										<option value="3" <c:if test="${pd.itype==3}">selected</c:if>>网关</option>
-										<option value="4" <c:if test="${pd.itype==3}">selected</c:if>>断路器</option>
-										<option value="5" <c:if test="${pd.itype==3}">selected</c:if>>普通断路器</option>
+								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="<%=please_choose_device_type%>" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
+								 		<option value="6" <c:if test="${pd.itype==4}">selected</c:if>><%=device_name%></option>
+										<option value="1" <c:if test="${pd.itype==1}">selected</c:if>><%=integration_power%></option>
+										<option value="2" <c:if test="${pd.itype==2}">selected</c:if>><%=single_light_controller%></option>
+										<option value="3" <c:if test="${pd.itype==3}">selected</c:if>><%=gateway%></option>
+										<option value="4" <c:if test="${pd.itype==3}">selected</c:if>><%=circuit_breaker%></option>
+										<option value="5" <c:if test="${pd.itype==3}">selected</c:if>><%=normal_cutoff_device%></option>
 										
 								  	</select>
 								</td>
-								<%-- <td>&nbsp;&nbsp;状态：</td>
-								<td>
-								 	<select class="chosen-select form-control" name="status" id="status" data-placeholder="请选择状态" style="height:30px;width: 160px;margin-left:20px;border-width:1px;border-color:'#fff';border-radius:4px">
-								 		<option value="">全部</option>
-										<option value="1" <c:if test="${pd.status==1}">selected</c:if>>有效</option>
-										<option value="2" <c:if test="${pd.status==2}">selected</c:if>>无效</option>
-								  	</select>
-								</td> --%>
-								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
-								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="<%=search2%>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
+								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="<%=export_to_excel%>"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="<%=import_from_excel%>"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -80,20 +72,20 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center">终端编号</th>
-									<th class="center">终端名称</th>
-									<th class="center">终端类型</th>
-									<th class="center">位置</th>
-									<th class="center">坐标</th>
-									<th class="center">电话号码</th>
-									<th class="center">电源规格</th>
-									<th class="center">灯规格</th>
-									<th class="center">传感器规格</th>
-									<th class="center">电线杆</th>
-									<th class="center">电杆号</th>
-									<th class="center">密码</th>
-									<th class="center">备注</th>
-									<th class="center">操作</th>
+									<th class="center"><%=device_number%></th>
+									<th class="center"><%=device_name%></th>
+									<th class="center"><%=device_type%></th>
+									<th class="center"><%=location%></th>
+									<th class="center"><%=coordinate%></th>
+									<th class="center"><%=phone_number%></th>
+									<th class="center"><%=power_standard%></th>
+									<th class="center"><%=light_standard%></th>
+									<th class="center"><%=sensor_standard%></th>
+									<th class="center"><%=pole%></th>
+									<th class="center"><%=pole_number%></th>
+									<th class="center"><%=password%></th>
+									<th class="center"><%=comment%></th>
+									<th class="center"><%=operate%></th>
 
 								</tr>
 							</thead>
@@ -127,11 +119,11 @@
 											-->
 											<td class="center" style="width:50px;">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
-												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="<%=no_permission%>"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" onclick="edit('${var.id}','${var.typeid}');">修改</a>
+													<a class="btn btn-xs btn-success" onclick="edit('${var.id}','${var.typeid}');"><%=modify%></a>
 													</c:if>
 												</div>
 											</td>
@@ -141,13 +133,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission%></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data%></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -158,7 +150,7 @@
 						<tr>
 							<td style="vertical-align:top;">
 								<c:if test="${QX.add == 1 }">
-								<a class="btn btn-sm btn-success" onclick="add();">新增</a>
+								<a class="btn btn-sm btn-success" onclick="add();"><%=add2%></a>
 								</c:if>
 							</td>
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -206,12 +198,12 @@
 			$("#Form").submit();
 		}
 
-		//新增
+		//<%=add2%>
 		function add(){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="新增";
+			 diag.Title ="<%=add2%>";
 			 diag.URL = '<%=basePath%>config/goDeviceCreate';
 			 diag.Width = 650;
 			 diag.Height = 640;
@@ -229,12 +221,12 @@
 			 diag.show();
 		}
 
-		//修改
+		//<%=modify%>
 		function edit(Id, type){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="修改";
+			 diag.Title ="<%=modify%>";
 			 diag.URL = '<%=basePath%>config/goDeviceEdit?id='+Id+'&typeid='+type;
 			 diag.Width = 650;
 			 diag.Height = 640;
@@ -252,7 +244,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="EXCEL 导入到数据库";
+			 diag.Title ="<%=import_from_excel%>";
 			 diag.URL = '<%=basePath%>config/goUploadExcel?type=1';
 			 diag.Width = 300;
 			 diag.Height = 150;

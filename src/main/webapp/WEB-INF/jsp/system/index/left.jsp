@@ -93,6 +93,7 @@
 		try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
 		window.onload=function(){
 			if(document.getElementById("inner")==null){
+				alert("哈哈");
 				changeMenus();
 			}
 		}

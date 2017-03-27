@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../international.jsp"%>  <!--国际化标签  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,17 +37,17 @@
 							<tr>
 							   <td>
 									<div class="nav-search">
-									    <label>名称：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name}" placeholder="请输入名称" />
+									    <label><%=name%>：</label>
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name}" placeholder="<%=please_enter_name%>" />
 									</div>
 								</td>
 								 <td>
 									<div class="nav-search" style="margin-left:8px;">
-									    <label>编号：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="code" value="${pd.code}" placeholder="请输入编号" />
+									    <label><%=serial_number%>：</label>
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="code" value="${pd.code}" placeholder="<%=please_enter_serial_number%>" />
 									</div>
 								</td>
-								<td style="vertical-align:center;padding-left:4px;padding-bottom:4px;"><button class="btn btn-mini btn-light" onclick="search();"  title="查询"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td>
+								<td style="vertical-align:center;padding-left:4px;padding-bottom:4px;"><button class="btn btn-mini btn-light" onclick="search();"  title="<%=search1%>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td>
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -54,13 +55,13 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center">网关编号</th>
-									<th class="center">网关名称</th>
-									<th class="center">网关位置</th>
-									<th class="center">备注</th>
-									<th class="center">终端数量</th>
-									<th class="center">工作状态</th>
-									<th class="center">操作</th>
+									<th class="center"><%=gateway_number%></th>
+									<th class="center"><%=gateway_name%></th>
+									<th class="center"><%=gateway_location%></th>
+									<th class="center"><%=comment%></th>
+									<th class="center"><%=device_counter%></th>
+									<th class="center"><%=work_status%></th>
+									<th class="center"><%=operate%></th>
 									 
 								</tr>
 							</thead>
@@ -79,20 +80,20 @@
 													<td class="center">${var.comment}</td>
 													<td class="center"><a style="cursor:pointer;" onclick="delCrew('${var.id}');">${var.number}</a></td>
 													<td class="center">
-														<c:if test="${var.status == '1' }"><span class="label label-important arrowed-in">正常</span></c:if>
-														<c:if test="${var.status == '2' }"><span class="label label-success arrowed">异常</span></c:if>
-														<c:if test="${var.status == '3' }"><span class="label label-success arrowed">断电</span></c:if>
+														<c:if test="${var.status == '1' }"><span class="label label-important arrowed-in"><%=normal%></span></c:if>
+														<c:if test="${var.status == '2' }"><span class="label label-success arrowed"><%=exception%></span></c:if>
+														<c:if test="${var.status == '3' }"><span class="label label-success arrowed"><%=blockout%></span></c:if>
 													</td> 
 											 <td class="center">
 											 <div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" onclick="addCrew('${var.id}');">
-														添加终端
+														<%=add_device%>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
 													<a class="btn btn-xs btn-danger" onclick="delCrew('${var.id}');">
-														踢删终端
+														<%=delete_device%>
 													</a>
 													</c:if>
 												</div>
@@ -103,13 +104,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission%></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data%></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -159,7 +160,7 @@
 		$(function(){
 			top.hangge();
 			if(${pd.first}==1){
-				bootbox.confirm("若未扫描/添加终端，请扫描终端或“基础配置/终端列表/添加终端/选择断路器”添加终端", function(result) {
+				bootbox.confirm("<%=add_device_tips%>", function(result) {
 				});
 			}
 		})
@@ -175,7 +176,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="添加终端";
+			 diag.Title ="<%=add_device%>";
 			 diag.URL = '<%=basePath%>newnet/goClientList?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;
@@ -201,7 +202,7 @@
 			top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="踢删终端";
+			 diag.Title ="<%delete_device%>";
 			 diag.URL = '<%=basePath%>newnet/goOwnClientList?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;
