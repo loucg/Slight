@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../international.jsp"%>  <!--国际化标签  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,18 +36,18 @@
         <table class="mytable">
 
                 <tr>
-                <th colspan="4" style="background-color:#438eb9">分组/策略</th>
-                <th colspan="4" style="background-color:#438eb9">状态列表</th>
+                <th colspan="4" style="background-color:#438eb9"><%=group_strategy%></th>
+                <th colspan="4" style="background-color:#438eb9"><%=status_list%></th>
                 </tr>
                 <tr>
-                    <td>组数</td>
-                    <td><a onclick="openFrame(336, '分组策略', 'status/strategy/getGroupList')">${groupAndStrategy.group_number }</a></td>
-                    <td>策略数</td>
-                    <td><a onclick="openFrame(336, '分组策略', 'status/strategy/getGroupList')">${groupAndStrategy.strategy_number}</a></td>
-                    <td>网关数</td>
-                    <td><a onclick="openFrame(337, '网关状态', 'state/street/listGateways.do')">${normalGateway.gnormal }/${totalGateway.gtotal }</a></td>
-                    <td>路灯数</td>
-                    <td><a onclick="openFrame(338, '路灯状态', 'state/lamp/listLamps.do')">${normalClient.cnormal }/${totalClient.ctotal }</a></td>
+                    <td><%=group_number%></td>
+                    <td><a onclick="openFrame(336, '<%=group_strategy%>', 'status/strategy/getGroupList')">${groupAndStrategy.group_number }</a></td>
+                    <td><%=strategy_number%></td>
+                    <td><a onclick="openFrame(336, '<%=group_strategy%>', 'status/strategy/getGroupList')">${groupAndStrategy.strategy_number}</a></td>
+                    <td><%=gatewany_number%></td>
+                    <td><a onclick="openFrame(337, '<%=gateway_status%>', 'state/street/listGateways.do')">${normalGateway.gnormal }/${totalGateway.gtotal }</a></td>
+                    <td><%=road_light_number%></td>
+                    <td><a onclick="openFrame(338, '<%=road_light_status%>', 'state/lamp/listLamps.do')">${normalClient.cnormal }/${totalClient.ctotal }</a></td>
                 </tr>
                 <tr style="height: 40px">
                     <td></td>
@@ -59,25 +60,25 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <th colspan="4" style="background-color:#438eb9">故障列表</th>
-                    <th colspan="4" style="background-color: #438eb9">能耗状态</th>
+                    <th colspan="4" style="background-color:#438eb9"><%=fault_list%>表</th>
+                    <th colspan="4" style="background-color: #438eb9"><%=energy_status%></th>
                 </tr>
                 <tr>
-                    <td>网关</td>
-                    <td><a onclick="openFrame(339, '网关或断路器异常', 'fault/street/listGateways.do')")>${gatewayFault.fgateway }</a></td>
-                    <td>路灯</td>
-                    <td><a onclick="openFrame(340, '路灯异常', 'fault/street/listLamps.do')">${clientFault.fclient }</a></td>
-                    <td>总功率</td>
-                    <td><a onclick="openFrame(342, '能耗状态', 'power/street/graphPowers.do')"><c:if test="${empty todayPower.power}">0</c:if><c:if test="${not empty todayPower.power }">${todayPower.power }</c:if>KW</a></td>
-                    <td>平均功率因数</td>
+                    <td><%=gateway%></td>
+                    <td><a onclick="openFrame(339, '<%=gateway_or_circuit_breaker_exception%>', 'fault/street/listGateways.do')")>${gatewayFault.fgateway }</a></td>
+                    <td><%=road_light%></td>
+                    <td><a onclick="openFrame(340, '<%=road_light_exception%>', 'fault/street/listLamps.do')">${clientFault.fclient }</a></td>
+                    <td><%=total_power%></td>
+                    <td><a onclick="openFrame(342, '<%=energy_status%>', 'power/street/graphPowers.do')"><c:if test="${empty todayPower.power}">0</c:if><c:if test="${not empty todayPower.power }">${todayPower.power }</c:if>KW</a></td>
+                    <td><%=avg_power_factor%></td>
                     <td>——</td>
                 </tr>
                 <tr>
-                    <td>电压异常</td>
-                    <td><a onclick="openFrame(341, '电压异常', 'fault/street/listVos.do')">${pressureFault}</a></td>
-                    <td>断路器</td>
-                    <td><a onclick="openFrame(339, '网关或断路器异常', 'fault/street/listGateways.do')">${cutoffFault.fgateway }</a></td>
-                    <td>亮灯率</td>
+                    <td><%=voltage_exception%></td>
+                    <td><a onclick="openFrame(341, '<%=voltage_exception%>', 'fault/street/listVos.do')">${pressureFault}</a></td>
+                    <td><%=circuit_breaker%></td>
+                    <td><a onclick="openFrame(339, '<%=gateway_or_circuit_breaker_exception%>', 'fault/street/listGateways.do')">${cutoffFault.fgateway }</a></td>
+                    <td><%=light_rate%></td>
                     <td>——</td>
                     <td>——</td>
                     <td></td>
