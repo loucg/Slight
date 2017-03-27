@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,33 +36,33 @@
 						<table style="margin-top:5px;">
 							<tr>
 								
-								<td>姓名：</td>
+								<td><%=person_name %>：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="name-input" autocomplete="off" name="name" value="${pd.name}" placeholder="请输入姓名"/>
+										<input type="text" class="nav-search-input" id="name-input" autocomplete="off" name="name" value="${pd.name}" placeholder="<%=enter_person_name_here %>"/>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;登录名：</td>
+								<td>&nbsp;&nbsp;<%=log_name %>：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="username-input" autocomplete="off" name="username" value="${pd.username}" placeholder="请输入登录名"/>
+										<input type="text" class="nav-search-input" id="username-input" autocomplete="off" name="username" value="${pd.username}" placeholder="<%=enter_this_log_name_here %>"/>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;公司：</td>
+								<td>&nbsp;&nbsp;<%=company %>：</td>
 								<td >
-							    <select class="chosen-select form-control" name="company" id="company-input" data-placeholder="请选择公司" style="margin-left:20px; width: 152px;">
+							    <select class="chosen-select form-control" name="company" id="company-input" data-placeholder="<%=please_choose_company %>" style="margin-left:20px; width: 152px;">
 									<option value=""></option>
-									<option value="">全部</option>
+									<option value=""><%=total %></option>
 									<c:forEach items="${companyList}" var="company">
 										<option value="${company.COMPANY }" <c:if test="${pd.company==company.COMPANY}">selected="selected"</c:if>>${company.NAME }</option>
 									</c:forEach>
 								  	</select>
 								</td>
-								<td>&nbsp;&nbsp;角色：</td>
+								<td>&nbsp;&nbsp;<%=charactor %>：</td>
 								<td style="vertical-align:top;padding-left:2px;margin-left:20px;">
-								 	<select class="chosen-select form-control" name="role" id="role-input" data-placeholder="请选择角色" style="margin-left:20px;width: 152px;">
+								 	<select class="chosen-select form-control" name="role" id="role-input" data-placeholder="<%=please_choose_charactor %>" style="margin-left:20px;width: 152px;">
 									<option value=""></option>
-									<option value="">全部</option>
+									<option value=""><%=total %></option>
 									<c:forEach items="${roleList}" var="role">
 										<option value="${role.ROLE_ID }" <c:if test="${pd.role==role.ROLE_ID}">selected="selected"</c:if>>${role.ROLE_NAME }</option>
 									</c:forEach>
@@ -71,7 +72,7 @@
 								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="清空检索条件" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
 								</c:if>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="searchs();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="searchs();"  title="<%=search2 %>" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								<!-- 
 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
 								<c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
@@ -84,19 +85,19 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center" style="width:50px;">序号</th>
-									<th class="center">公司名称</th>
-									<th class="center">部门名称</th>
-									<th class="center">登录名</th>
-									<th class="center">姓名</th>
-									<th class="center">联系地址</th>
-									<th class="center">手机</th>
-									<th class="center">邮箱</th>
-									<th class="center">职务</th>
-									<th class="center">语言</th>
-									<th class="center">角色</th>
-									<th class="center">状态</th>
-									<th class="center" style="width:90px">操作</th>
+									<th class="center" style="width:50px;"><%=number %></th>
+									<th class="center"><%=company_name %></th>
+									<th class="center"><%=department_name %></th>
+									<th class="center"><%=log_name %></th>
+									<th class="center"><%=person_name %></th>
+									<th class="center"><%=contact_address %></th>
+									<th class="center"><%=phone %></th>
+									<th class="center"><%=email %></th>
+									<th class="center"><%=position %></th>
+									<th class="center"><%=language1 %></th>
+									<th class="center"><%=charactor %></th>
+									<th class="center"><%=status %></th>
+									<th class="center" style="width:90px"><%=operate %></th>
 								</tr>
 							</thead>
 													
@@ -111,28 +112,27 @@
 											<td class='center' style="width: 30px;">${vs.index+1+(page.currentPage-1)*page.showCount}</td>
 											<td class="center">${account.COMPANY }</td>
 											<td class="center">${account.DEPARTMENT }</td>
-											<!-- <td class="center"><a onclick="viewUser('${user.USERNAME}')" style="cursor:pointer;">${user.USERNAME }</a></td> -->
 											<td class="center">${account.USERNAME }</td>
 											<td class="center">${account.NAME }</td>
 											<td class="center">${account.ADDRESS }</td>
 											<td class="center">${account.PHONE }</td>
-											<td class="center"><%-- <a title="发送电子邮件" style="text-decoration:none;cursor:pointer;" <c:if test="${QX.email == 1 }">onclick="sendEmail('${user.EMAIL }');"</c:if>> --%>${account.EMAIL }<!-- &nbsp;<i class="ace-icon fa fa-envelope-o"></i></a> --></td>
+											<td class="center">${account.EMAIL }</td>
 											<td class="center">${account.POSITION }</td>
 											<td class="center">${account.LANGUAGE}</td>
 											<td class="center">${account.ROLE_NAME }</td>
 											<td class="center">${account.STATUSNAME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
-												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="<%=no_permission %>"></i></span>
 												</c:if>
 												<div class="btn-group">
 												    <!-- 修改 -->
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-mini btn-info" title="修改帐号" onclick="editAccount('${account.USER_ID}');">修改</a>
+													<a class="btn btn-mini btn-info" title="修改帐号" onclick="editAccount('${account.USER_ID}');"><%=modify %></a>
 													</c:if>
 													<!-- 密码重置  -->
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-mini btn-danger" title="密码重置" onclick="resetPassword('${account.USER_ID}');">重置</a>
+													<a class="btn btn-mini btn-danger" title="<%=reset_password %>" onclick="resetPassword('${account.USER_ID}');"><%=reset %></a>
 													</c:if>
 												</div>
 											</td>
@@ -142,14 +142,14 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="13" class="center">您无权查看</td>
+											<td colspan="13" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
 									<!-- colspan表示列数 -->
-										<td colspan="13" class="center">没有相关数据</td>
+										<td colspan="13" class="center"><%=you_have_no_permission %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -163,14 +163,6 @@
 								<c:if test="${QX.add == 1 }">
 								<a class="btn btn-mini btn-success" title="新增帐号" onclick="add();">新增帐号</a>
 								</c:if>
-								<!--  
-								<c:if test="${QX.FHSMS == 1 }"><a title="批量发送站内信" class="btn btn-mini btn-info" onclick="makeAll('确定要给选中的用户发送站内信吗?');"><i class="ace-icon fa fa-envelope-o bigger-120"></i></a></c:if>
-								<c:if test="${QX.email == 1 }"><a title="批量发送电子邮件" class="btn btn-mini btn-primary" onclick="makeAll('确定要给选中的用户发送邮件吗?');"><i class="ace-icon fa fa-envelope bigger-120"></i></a></c:if>
-								<c:if test="${QX.sms == 1 }"><a title="批量发送短信" class="btn btn-mini btn-warning" onclick="makeAll('确定要给选中的用户发送短信吗?');"><i class="ace-icon fa fa-envelope-o bigger-120"></i></a></c:if>
-								<c:if test="${QX.del == 1 }">
-								<a title="批量删除" class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
-								</c:if>
-								-->
 							</td>
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 						</tr>
@@ -235,7 +227,7 @@ function resetPassword(user_id){
 	top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=false;
-	 diag.Title ="密码重置";
+	 diag.Title ="<%=reset_password %>";
 	 diag.URL = '<%=basePath%>account/goResetP.do?USER_ID='+user_id;
 	 diag.Width = 351;
 	 diag.Height = 140;
