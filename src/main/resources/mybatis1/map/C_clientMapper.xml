@@ -191,4 +191,31 @@
          ORDER BY cga.c_gateway_id ASC
 	</select>
   	 	
+  	 	
+  	 	
+  	 <!-- 上方搜索框结束 -->
+  	<update id="updateClientDraw_statusON"  parameterType = "java.util.List">
+  		update c_client_upload_status cca set cca.brightness=100  where cca.c_client_id 
+  		in
+		<foreach item="item" index="index" collection="list" open="("
+            separator="," close=")">
+            #{item}  
+         </foreach>
+  	</update>
+  	<update id="updateClientDraw_statusOFF"  parameterType = "java.util.List">
+  		update c_client_upload_status cca set cca.brightness=0  where cca.c_client_id   
+  		in
+		<foreach item="item" index="index" collection="list" open="("
+            separator="," close=")">
+            #{item}  
+         </foreach>
+    </update>
+    
+    <update id="updateClientDraw_Bright"  parameterType = "drawclient">
+  		update c_client_upload_status cca set cca.brightness=#{bright}  where cca.c_client_id   
+  		in
+		<foreach item="item" index="index" collection="drawid" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+    </update>
 </mapper>

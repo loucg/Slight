@@ -15,6 +15,7 @@
 
 <!-- jsp文件头和头部 -->
 <%@ include file="../../system/index/top.jsp"%>
+<%@ include file="../../international.jsp"%>
 </head>
 <body class="no-skin">
 
@@ -33,18 +34,18 @@
 							<tr>
 								<td >
 								 	<div class="nav-search">
-									    <label>公司名：</label>
+									    <label><%=company_name %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="companyname" type="text" name="companyname" value="${page.pd.companyname }" />
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search">
-									    <label style="margin-left:12px;">联系人：</label>
+									    <label style="margin-left:12px;"><%=company_contact %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="companycontact" type="text" name="companycontact" value="${page.pd.companycontact }" />
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="gsearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="gsearch();"  title="<%=search2 %>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -53,15 +54,15 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width:50px;">序号</th>
-									<th class="center">公司名称</th>
-									<th class="center">公司位置</th>
-									<th class="center">联系人</th>
-									<th class="center">手机</th>
-									<th class="center">LOGO</th>
-									<th class="center">是否显示LOGO</th>
-									<th class="center">状态</th>
-									<th class="center">操作</th>
+									<th class="center" style="width:50px;"><%=number %></th>
+									<th class="center"><%=company_name %></th>
+									<th class="center"><%=company_location %></th>
+									<th class="center"><%=company_contact %></th>
+									<th class="center"><%=phone %></th>
+									<th class="center"><%=LOGO %></th>
+									<th class="center"><%=if_display_LOGO %></th>
+									<th class="center"><%=status %></th>
+									<th class="center"><%=operate %></th>
 								</tr>
 							</thead>
 													
@@ -91,12 +92,12 @@
 											<td class='center'>${var.STATUSNAME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1}">
-												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="<%=no_permission %>"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="修改信息" onclick="edit('${var.ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="修改信息"></i>
+													<a class="btn btn-xs btn-success" title="<%=modify_information %>" onclick="edit('${var.ID}');">
+														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="<%=modify_information %>"></i>
 													</a>
 													</c:if>
 													<%-- <c:if test="${QX.del == 1 }">
@@ -114,7 +115,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.ID}');" class="tooltip-success" data-rel="tooltip" title="修改信息">
+																<a style="cursor:pointer;" onclick="edit('${var.ID}');" class="tooltip-success" data-rel="tooltip" title="<%=modify_information %>">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
@@ -140,13 +141,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -157,10 +158,10 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-sm btn-success" onclick="add();">新增</a>
+									<a class="btn btn-sm btn-success" onclick="add();"><%=add2 %></a>
 									</c:if>
 									<c:if test="${null != pd.DEPARTMENT_ID && pd.DEPARTMENT_ID != ''}">
-									<a class="btn btn-sm btn-success" onclick="goSondict('${pd.PARENT_ID}');">返回</a>
+									<a class="btn btn-sm btn-success" onclick="goSondict('${pd.PARENT_ID}');"><%=return1 %></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -216,7 +217,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="新增";
+			 diag.Title ="<%=add2 %>";
 			 diag.URL = '<%=basePath%>department/goAddcompany.do';
 			 diag.Width = 470;
 			 diag.Height = 364;
@@ -262,7 +263,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="编辑";
+			 diag.Title ="<%=edit %>";
 			 diag.URL = '<%=basePath%>department/goEditcompany.do?companyid='+Id;
 			 diag.Width = 470;
 			 diag.Height = 380;

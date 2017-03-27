@@ -382,6 +382,18 @@
 	String open_road = properties.getProperty("open_road");
 	String even = properties.getProperty("even");
 	String please_type_device_number = properties.getProperty("please_type_device_number");
+	String clear_draw = properties.getProperty("clear_draw");
+	String the_packet_has_no_terminal = properties.getProperty("the_packet_has_no_terminal");
+	String coordinate_conversion_failed = properties.getProperty("coordinate_conversion_failed");
+	String no_data_in_box = properties.getProperty("no_data_in_box");
+	String Gatewayrouter_not_this_operations = properties.getProperty("Gatewayrouter_not_this_operations");
+	String light_operating_successfully = properties.getProperty("light_operating_successfully");
+	String light_operating_err = properties.getProperty("light_operating_err");
+	String no_data_any_term = properties.getProperty("no_data_any_term");
+	String brightness_adjustment = properties.getProperty("brightness_adjustment");
+	String light_pole_number = properties.getProperty("light_pole_number");
+
+
 
 
 

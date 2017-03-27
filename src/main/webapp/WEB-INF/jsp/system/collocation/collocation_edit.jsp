@@ -15,14 +15,14 @@
 <base href="<%=basePath%>">
 <!-- jsp文件头和头部 -->
 <%@ include file="../../system/index/top.jsp"%>
-
+<%@ include file="../../international.jsp"%>
 <script type="text/javascript">
 	//保存
 	function save(){
 			if($("#name").val()==""){
 				$("#name").tips({
 					side:3,
-		            msg:'请输入功能键',
+		            msg:'<%=enter_function_key_here %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -32,7 +32,7 @@
 			if($("#value").val()==""){
 				$("#value").tips({
 					side:3,
-		            msg:'请输入功能值',
+		            msg:'<%=enter_function_values_here %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -42,7 +42,7 @@
 			if($("#type").val()==""){
 				$("#type").tips({
 					side:3,
-		            msg:'请输入功能分类',
+		            msg:'<%=enter_function_classification_here %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -52,7 +52,7 @@
 			if($("#explain").val()==""){
 				$("#explain").tips({
 					side:3,
-		            msg:'请输入功能简述',
+		            msg:'<%=enter_function_Brief_here %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -81,30 +81,30 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:96px;text-align: right;padding-top: 13px;">功能键:</td>
-								<td><input style="width:95%;" type="text" name="name" id="name" value="${pd.NAME}" maxlength="500" placeholder="这里输入功能键" title="功能键"/></td>
+								<td style="width:96px;text-align: right;padding-top: 13px;"><%=function_key %>:</td>
+								<td><input style="width:95%;" type="text" name="name" id="name" value="${pd.NAME}" maxlength="500" placeholder="<%=enter_function_key_here %>" title="<%=function_key %>"/></td>
 							</tr>
 							<tr>
-								<td style="width:96px;text-align: right;padding-top: 13px;">功能值:</td>
-								<td><input style="width:95%;" type="text" name="value" id="value" value="${pd.VALUE}" maxlength="500" placeholder="这里输入功能值" title="功能值"/></td>
+								<td style="width:96px;text-align: right;padding-top: 13px;"><%=function_value %>:</td>
+								<td><input style="width:95%;" type="text" name="value" id="value" value="${pd.VALUE}" maxlength="500" placeholder="<%=enter_function_values_here %>" title="<%=function_value %>"/></td>
 							</tr>
 							<tr>
-								<td style="width:96px;text-align: right;padding-top: 13px;">功能分类:</td>
-								<td><input style="width:95%;" type="text" name="type" id="type" value="${pd.TYPE}" maxlength="500" placeholder="这里输入功能分类" title="功能分类"/></td>
+								<td style="width:96px;text-align: right;padding-top: 13px;"><%=functional_classification %>:</td>
+								<td><input style="width:95%;" type="text" name="type" id="type" value="${pd.TYPE}" maxlength="500" placeholder="<%=enter_function_classification_here %>" title="<%=functional_classification %>"/></td>
 							</tr>
 							<tr>
-								<td style="width:96px;text-align: right;padding-top: 13px;">功能简述:</td>
-								<td><input style="width:95%;" type="text" name="explain" id="explain" value="${pd.EXPLAIN}" maxlength="500" placeholder="这里输入功能简述" title="功能简述"/></td>
+								<td style="width:96px;text-align: right;padding-top: 13px;"><%=function_Brief %>:</td>
+								<td><input style="width:95%;" type="text" name="explain" id="explain" value="${pd.EXPLAIN}" maxlength="500" placeholder="<%=enter_function_Brief_here %>" title="<%=function_Brief %>"/></td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+									<a class="btn btn-mini btn-primary" onclick="save();"><%=save %></a>
+									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel %></a>
 								</td>
 							</tr>
 						</table>
 						</div>
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %></h4></div>
 					</form>
 
 					</div>

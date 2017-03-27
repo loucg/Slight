@@ -22,6 +22,8 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../../system/index/top.jsp"%>
+<!-- jsp国际化文件 -->
+<%@ include file="../../international.jsp"%>
 <!-- 百度echarts -->
 <script src="plugins/echarts/echarts.min.js"></script>
 <!-- 日期框 -->
@@ -42,7 +44,7 @@
 						<form action="power/street/graphPowers.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
-								<td>组名：</td>
+								<td><%=group_name %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -50,7 +52,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;策略：</td>
+								<td>&nbsp;&nbsp;<%=strategy %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -58,18 +60,18 @@
 										</span>
 									</div>
 								</td>
-								<td style="padding-left:5px;"><input class="span10 date-picker" id="startTime" name="startTime"  value="${pd.startTime}" type="text" data-date-format="yyyy-mm-dd" style="width:88px;height:30px" placeholder="开始时间" readonly="readonly"/></td>
-								<td style="padding-left:5px;"><input class="span10 date-picker" id="endTime" name="endTime"  value="${pd.endTime}" type="text" data-date-format="yyyy-mm-dd" style="width:88px;height:30px" placeholder="结束时间" readonly="readonly"/></td>
-								<td>&nbsp;&nbsp;统计类型：</td>
+								<td style="padding-left:5px;"><input class="span10 date-picker" id="startTime" name="startTime"  value="${pd.startTime}" type="text" data-date-format="yyyy-mm-dd" style="width:88px;height:30px" placeholder="<%=start_time %>" readonly="readonly"/></td>
+								<td style="padding-left:5px;"><input class="span10 date-picker" id="endTime" name="endTime"  value="${pd.endTime}" type="text" data-date-format="yyyy-mm-dd" style="width:88px;height:30px" placeholder="<%=end_time %>" readonly="readonly"/></td>
+								<td>&nbsp;&nbsp;<%=statistical_type %>：</td>
 								<td style="vertical-align:top;padding-left:2px;" > 
 								 	<select class="chosen-select form-control" name="staType" id="staType" data-placeholder=" " style="vertical-align:top; width: 50px; height:31px">
 									<!-- <option value=""></option> -->
-									<option value="1" <c:if test="${pd.staType == '1' }">selected</c:if> >天</option>
-									<option value="2" <c:if test="${pd.staType == '2' }">selected</c:if> >月</option>
+									<option value="1" <c:if test="${pd.staType == '1' }">selected</c:if> ><%=date %></option>
+									<option value="2" <c:if test="${pd.staType == '2' }">selected</c:if> ><%=month %></option>
 									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search2 %>" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -98,7 +100,7 @@
 							            	 trigger: 'axis'
 							            },
 							            legend: {
-							                data:['能耗(W)']
+							                data:['<%=energy_consumption %>']
 							            },
 							            xAxis: {
 							                data: [${pd.xz}],
@@ -109,7 +111,7 @@
 							            },
 							            yAxis: {},
 							            series: [{
-							                name: '能耗(W)', 
+							                name: '<%=energy_consumption %>', 
 							                type: 'bar',
 							                itemStyle: {
 							                    normal: {

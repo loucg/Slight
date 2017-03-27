@@ -38,15 +38,18 @@
 							    <td>策略名称：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="name" placeholder="请输入策略名称"/>
+										<input type="text" class="nav-search-input" id="name-input" autocomplete="off" name="name" placeholder="请输入策略名称" value="${pd.name}"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;应用说明：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" name="explain" placeholder="请输入应用说明"/>
+										<input type="text" class="nav-search-input" id="explain-input" autocomplete="off" name="explain" placeholder="请输入应用说明" value="${pd.explain}"/>
 									</div>
 								</td>
+								<c:if test="${QX.cha == 1 }">
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="清空检索条件" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
+								</c:if>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="searchs();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
@@ -84,11 +87,19 @@
 											<td class="center"  >
 											<table class="table-striped table-bordered table-hover" height=100% width=100% border=1>
 											<c:choose>
-											<c:when test="${not empty strategy.timestamp}">
+											<%-- <c:when test="${not empty strategy.timestamp}">
 											<c:forEach items="${strategy.timestamp}" var="timestamp" varStatus="vs1">
 											<tr>
 											<td class="center" width=50%>${timestamp}</td>
 											<td class="center" width=50%>${strategy.intensity[vs1.index]}%</td>
+											</tr>
+											</c:forEach>
+											</c:when> --%>
+											<c:when test="${not empty strategy.t_i}">
+											<c:forEach items="${strategy.t_i}" var="t_i" varStatus="vs1">
+											<tr>
+											<td class="center" width=50%>${t_i.timestamp}</td>
+											<td class="center" width=50%>${t_i.intensity}%</td>
 											</tr>
 											</c:forEach>
 											</c:when>
@@ -185,6 +196,12 @@
 
 <script type="text/javascript">
 $(top.hangge());
+
+//清空检索条件
+function clearSearchs(){
+	$("#name-input").val("");
+	$("#explain-input").val("");
+}
 
 //检索
 function searchs(){

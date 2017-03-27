@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../../system/index/top.jsp"%>
+<!-- jsp国际化文件 -->
+<%@ include file="../../international.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
@@ -35,7 +37,7 @@
 						<form action="state/lamp/listLamps.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
-								<td>组名：</td>
+								<td><%=group_name %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -43,7 +45,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;名称：</td>
+								<td>&nbsp;&nbsp;<%=name %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -51,7 +53,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;编号：</td>
+								<td>&nbsp;&nbsp;<%=serial_number %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -59,7 +61,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;位置：</td>
+								<td>&nbsp;&nbsp;<%=location %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -67,23 +69,23 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;状态：</td>
+								<td>&nbsp;&nbsp;<%=status %>：</td>
 								<td style="vertical-align:top;padding-left:2px;"> 
 								 	<select class="chosen-select form-control" name="lstatus" id="lstatus" data-placeholder=" " style="vertical-align:top;width: 130px;height:30px">
 										<option value=""></option>
-										<option value="">全部</option>
-										<option value="正常" <c:if test="${pd.lstatus == '正常' }">selected</c:if> >正常</option>
-										<option value="过压" <c:if test="${pd.lstatus == '过压' }">selected</c:if> >过压</option>
-										<option value="过温" <c:if test="${pd.lstatus == '过温' }">selected</c:if> >过温</option>
-										<option value="开路" <c:if test="${pd.lstatus == '开路' }">selected</c:if> >开路</option>
-										<option value="短路" <c:if test="${pd.lstatus == '短路' }">selected</c:if> >短路</option>
-										<option value="异常" <c:if test="${pd.lstatus == '异常' }">selected</c:if> >异常</option>
-										<option value="断电" <c:if test="${pd.lstatus == '断电' }">selected</c:if> >断电</option>
-										<option value="欠压" <c:if test="${pd.lstatus == '欠压' }">selected</c:if> >欠压</option>
+										<option value=""><%=total %></option>
+										<option value="<%=normal %>" <c:if test="${pd.lstatus == '<%=normal %>' }">selected</c:if> ><%=normal %></option>
+										<option value="<%=over_voltage %>" <c:if test="${pd.lstatus == '<%=over_voltage %>' }">selected</c:if> ><%=over_voltage %></option>
+										<option value="<%=over_temperature %>" <c:if test="${pd.lstatus == '<%=over_temperature %>' }">selected</c:if> ><%=over_temperature %></option>
+										<option value="<%=open_road %>" <c:if test="${pd.lstatus == '<%=open_road %>' }">selected</c:if> ><%=open_road %></option>
+										<option value="<%=short_circuit %>" <c:if test="${pd.lstatus == '<%=short_circuit %>' }">selected</c:if> ><%=short_circuit %></option>
+										<option value="<%=exception %>" <c:if test="${pd.lstatus == '<%=exception %>' }">selected</c:if> ><%=exception %></option>
+										<option value="<%=blockout %>" <c:if test="${pd.lstatus == '<%=blockout %>' }">selected</c:if> ><%=blockout %></option>
+										<option value="<%=undervoltage %>" <c:if test="${pd.lstatus == '<%=undervoltage %>' }">selected</c:if> ><%=undervoltage %></option>
 									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search2 %>" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -95,18 +97,18 @@
 									<th class="center" style="width:35px;">
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
-									<th class="center" style="width:50px;">序号</th>
-									<th class="center">组名</th>
-									<th class="center">终端编号</th>
-									<th class="center">终端名称</th>
-									<th class="center">位置</th>
+									<th class="center" style="width:50px;"><%=number %></th>
+									<th class="center"><%=group_name %></th>
+									<th class="center"><%=device_number %></th>
+									<th class="center"><%=device_name %></th>
+									<th class="center"><%=location %></th>
 									<th class="center">灯杆号</th>
-									<th class="center">温度</th>
-									<th class="center">输出电压</th>
-									<th class="center">功率因数</th>
-									<th class="center">工作状态</th>
-									<th class="center">备注</th>
-									<th class="center">时间</th>
+									<th class="center"><%=temperature %></th>
+									<th class="center"><%=print_voltage %></th>
+									<th class="center"><%=power_rate_factor %></th>
+									<th class="center"><%=work_status %></th>
+									<th class="center"><%=comment %></th>
+									<th class="center"><%=time %></th>
 								</tr>
 							</thead>
 													
@@ -138,13 +140,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -155,16 +157,16 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要开灯吗?');" title="开灯" >开灯</a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要开灯吗?');" title="<%=open_light %>" ><%=open_light %></a>
 									</c:if>
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要关灯吗?');" title="关灯" >关灯</a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要关灯吗?');" title="<%=shut_down_light %>" ><%=shut_down_light %></a>
 									</c:if>
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要调节亮度吗?');" title="亮度调节" >亮度调节</a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要调节亮度吗?');" title="<%=brightness_adjust %>" ><%=brightness_adjust %></a>
 									</c:if>
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要调节策略吗?');" title="策略调节" >策略调节</a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要调节策略吗?');" title="<%=strategy_adjust %>" ><%=strategy_adjust %></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -286,7 +288,7 @@
 						bootbox.dialog({
 							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
 							buttons: 			
-							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
+							{ "button":{ "label":"<%=make_sure %>", "className":"btn-sm btn-success"}}
 						});
 						$("#zcheckbox").tips({
 							side:3,
@@ -342,7 +344,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="亮度调节";
+			 diag.Title ="<%=brightness_adjust %>";
 			 diag.URL = '<%=basePath%>state/lamp/goAdjustBrt.do?DATA_IDS='+ bright; 
 			 diag.Width = 469;
 			 diag.Height = 150;
@@ -360,7 +362,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="计划调节亮度";
+			 diag.Title ="<%=schedule_adjust_brightness %>";
 			 diag.URL = '<%=basePath%>state/lamp/goAdjustStr.do?DATA_IDS='+ str;
 			 diag.Width = 469;
 			 diag.Height = 300;

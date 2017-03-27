@@ -41,11 +41,11 @@
 						    </tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>策略名称:</td>
-								<td><input type="text" name="NAME" id="name" value="${pd.name }" maxlength="100" title="名称" style="width:98%;" placeholder="请输入策略名称"/></td>
+								<td><input type="text" name="NAME" id="name" value="${pd.name }" maxlength="100" title="策略名称" style="width:98%;" placeholder="请输入策略名称"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>应用说明:</td>
-								<td><input type="text" name="EXPLAIN" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" placeholder="请输入应用说明"/></td>
+								<td><input type="text" name="EXPLAIN" id="explain" value="${pd.explain }" maxlength="100" title="应用说明" style="width:98%;" placeholder="请输入应用说明"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>状态:</td>
@@ -79,7 +79,7 @@
 							</tr>
 							<tr>
       						<td style="text-align: center;"><input class="span10 time-picker" type="text" name="TIMESTAMP" id="timestamp" maxlength="100" title="时间" style="text-align: center;width:98%;" placeholder="例：20:00(24小时制)"/></td>
-	  						<td style="text-align: center;"><select id="intensity" ></select></td>
+	  						<td style="text-align: center;"><select id="intensity" title="亮度"></select></td>
       						<td style="text-align: center;"><a class="btn btn-mini btn-success" onclick="addSort();" id="addSort">添加</a></td>
 							</tr>
   							<tbody id="sortList" >
@@ -216,16 +216,19 @@
 			    defaultTime: false
 			});
 			$('.time-picker').val("");
-			//下拉框填充1-100
+			//下拉框填充0-100
 			var obj=document.getElementById('intensity'); 
 			obj.options.add(new Option("请选择亮度",""));
-			for (var i=1;i<101;i++)
+			for (var i=0;i<101;i+=10)
 			{
 				obj.options.add(new Option(i,i));
 			}
-			var t_i = ${pd.t_i};
-			for(var j=0;j<t_i.length;j++){
-			    autoAdd(t_i[j].timestamp,t_i[j].intensity);
+			var t_i = '${pd.t_i}';
+			var obj = eval('(' + t_i + ')'); 
+			//var obj = JSON.parse(t_i);;
+			//var  saa = eval("(" + t_i + ")");  
+			for(var j=0;j<obj.length;j++){
+			    autoAdd(obj[j].timestamp,obj[j].intensity);
 		    }
 		});
             
@@ -268,11 +271,12 @@
 		function intensitySelect(index){
 			var intensityNode = document.createElement("select");
 			intensityNode.setAttribute("id","intensity"); 
+			intensityNode.setAttribute("title", "亮度");
 			var option1 = document.createElement('option');
 			option1.text="请选择亮度";
 			option1.value="";
 			intensityNode.add(option1,null);
-			for (var i=1;i<101;i++)
+			for (var i=0;i<101;i+=10)
 			{
 				var optionNumber = document.createElement('option');
 				optionNumber.text=i;
@@ -293,7 +297,7 @@
             row.appendChild(cell1);
 			var cell2 = document.createElement("td");
 			cell2.setAttribute("style","text-align: center"); 
-			var intensityNode = intensitySelect(intensity);
+			var intensityNode = intensitySelect(intensity / 10 + 1);
 		    cell2.appendChild(intensityNode);
 			row.appendChild(cell2);
 			/* var editButton = document.createElement("a");
@@ -375,7 +379,7 @@
             row.appendChild(cell1);
 			var cell2 = document.createElement("td");
 			cell2.setAttribute("style","text-align: center"); 
-			var intensityNode = intensitySelect(intensity.value);
+			var intensityNode = intensitySelect(intensity.value / 10 + 1);
 		    cell2.appendChild(intensityNode);
 			row.appendChild(cell2);
 			/* var editButton = document.createElement("a");

@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../system/index/top.jsp"%>
+<%@ include file="../international.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
@@ -40,13 +41,13 @@
 								
 								<td>
 									<div class="nav-search" style="display:flex">
-									    <label style="width:42px">组名：</label>
+									    <label style="width:42px"><%=group_name %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="groupname" type="text" name="groupname" value="${pd.groupname}"/>
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search" style="display:flex">
-									    <label style="margin-left:12px;width:42px">策略：</label>
+									    <label style="margin-left:12px;width:42px"><%=strategy %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="strategy" type="text" name="strategy" value="${pd.strategy }"/>
 									</div>
 								</td>
@@ -61,25 +62,25 @@
 									</div>
 								</td> --%>
 								<td >
-									    <label style="margin-left:12px;width:70px">统计类型：</label>
+									    <label style="margin-left:12px;width:70px"><%=statistical_type %>：</label>
 									    </td>
 									    <td>
-									    <select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择统计类型" style="height:30px;width: 100px;border-width:1px;border-color:'#fff';border-radius:4px">
+									    <select class="chosen-select form-control" name="type" id="type" data-placeholder="<%=please_choose_a_statistical_type %>" style="height:30px;width: 100px;border-width:1px;border-color:'#fff';border-radius:4px">
 									 		<option value=""></option>
-									 		<option value="1" <c:if test="${pd.type==1}">selected</c:if>>日</option>
-											<option value="2" <c:if test="${pd.type==2}">selected</c:if>>月</option>
+									 		<option value="1" <c:if test="${pd.type==1}">selected</c:if>><%=day %></option>
+											<option value="2" <c:if test="${pd.type==2}">selected</c:if>><%=month %></option>
 									  	</select>
 								</td>
 								<td>
 								<div class="nav-search" style="padding-left:12px;display:flex">
-								<label style="width:70px">开始时间：</label>
-								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:85px; height:28px" placeholder="开始时间" title="开始时间"/>
+								<label style="width:70px"><%=start_time %>：</label>
+								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:85px; height:28px" placeholder="<%=start_time %>" title="<%=start_time %>"/>
 								</div>
 								</td>
 								<td>
 								<div class="nav-search" style="padding-left:12px;display:flex">
-								<label style="width:70px">截止时间：</label>
-								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:85px;height:28px" placeholder="截止时间" title="截止时间"/>
+								<label style="width:70px"><%=deadline %>：</label>
+								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:85px;height:28px" placeholder="<%=deadline %>" title="<%=deadline %>"/>
 								</div>
 								</td>
 								<c:if test="${QX.cha == 1 }"><td style="vertical-align:middle;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
@@ -100,13 +101,13 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center" style="width:50px">组名</th>
-									<th class="center">终端编号</th>
-									<th class="center">终端名称</th>
-									<th class="center">位置</th>
-									<th class="center">灯杆号</th>
-									<th class="center">能耗(KW)</th>
-									<th class="center">策略名称</th>
+									<th class="center" style="width:50px"><%=group_name %></th>
+									<th class="center"><%=device_number %></th>
+									<th class="center"><%=device_name %></th>
+									<th class="center"><%=location %></th>
+									<th class="center"><%=pole_number %></th>
+									<th class="center"><%=energy_consumption %></th>
+									<th class="center"><%=strategy_name %></th>
 								</tr>
 							</thead>
 
@@ -147,13 +148,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>

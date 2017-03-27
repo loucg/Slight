@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../system/index/top.jsp"%>
+<!-- jsp国际化文件 -->
+<%@ include file="../international.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
@@ -36,7 +38,7 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table style="margin-top:5px;">
 							<tr>
-								<td>位置：</td>
+								<td><%=location %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -44,7 +46,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;终端名称：</td>
+								<td>&nbsp;&nbsp;<%=device_name %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -69,7 +71,7 @@
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索" style="padding: 3px 3px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search2 %>" style="padding: 3px 3px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -78,7 +80,7 @@
 						
 						<table class="table table-striped table-bordered table-hover" style="margin-top:5px;">
 							<tr>
-								<th class='center'>${termforpage.name }组 组成员</th>
+								<th class='center'>${termforpage.name }<%=group_member %></th>
 							</tr>
 						</table>
 						
@@ -88,13 +90,13 @@
 									<th class="center" style="width:35px;">
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
-									<th class="center" style="width:50px;">序号</th>
+									<th class="center" style="width:50px;"><%=number %></th>
 									<th class="center">终端号</th>
-									<th class="center">终端名称</th>
+									<th class="center"><%=device_name %></th>
 									<th class="center">灯杆号</th>
-									<th class="center">位置</th>
-									<th class="center">电源规格</th>
-									<th class="center">灯规格</th>
+									<th class="center"><%=location %></th>
+									<th class="center"><%=power_standard %></th>
+									<th class="center"><%=light_standard %></th>
 								</tr>
 							</thead>
 													
@@ -121,13 +123,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -248,7 +250,7 @@
 						bootbox.dialog({
 							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
 							buttons: 			
-							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
+							{ "button":{ "label":"<%=make_sure %>", "className":"btn-sm btn-success"}}
 						});
 						$("#zcheckbox").tips({
 							side:1,

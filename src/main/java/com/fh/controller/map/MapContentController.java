@@ -20,6 +20,7 @@ import com.fh.entity.map.JsonResultBean;
 import com.fh.entity.map.JsonStatus;
 import com.fh.entity.map.c_client;
 import com.fh.entity.map.c_term;
+import com.fh.entity.map.draw_client;
 import com.fh.service.map.C_clientManager;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
@@ -266,6 +267,17 @@ public class MapContentController extends BaseController{
 			result.setStatus(JsonStatus.SUCCESS);
 			return result;
 		}
+		
+		// 改变框选终端通断电
+		@RequestMapping(value = "/updateClientDraw_status", method = RequestMethod.POST)
+		public @ResponseBody JsonResultBean updateClientDraw_status(HttpServletRequest request, @RequestBody draw_client dc) throws Exception {
+	        //System.out.println(dc.getTakeid());
+	        //System.out.println(dc.getDrawid().size());
+			c_clientService.updateClientDraw_status(dc);
+			JsonResultBean result = new JsonResultBean();
+			result.setStatus(JsonStatus.SUCCESS);
+			return result;
+			}
 
 		// 改变电灯亮度值
 		@RequestMapping(value = "/updateClientAttr_brightness", method = RequestMethod.POST)

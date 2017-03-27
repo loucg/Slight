@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../../system/index/top.jsp"%>
+<!-- jsp国际化文件 -->
+<%@ include file="../../international.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
@@ -35,7 +37,7 @@
 						<form action="state/street/listGateways.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
-								<td>名称：</td>
+								<td><%=name %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -43,7 +45,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;编号：</td>
+								<td>&nbsp;&nbsp;<%=serial_number %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -51,7 +53,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;位置：</td>
+								<td>&nbsp;&nbsp;<%=location %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -59,23 +61,32 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;状态：</td>
+								<td>&nbsp;&nbsp;<%=status %>：</td>
 								<td style="vertical-align:top;padding-left:2px;"> 
 								 	<select class="chosen-select form-control" name="status" id="status" data-placeholder=" " style="vertical-align:top;width: 130px;height:30px">
 										<option value=""></option>
-										<option value="">全部</option>
-										<option value="正常" <c:if test="${pd.status == '正常' }">selected</c:if> >正常</option>
-										<option value="过压" <c:if test="${pd.status == '过压' }">selected</c:if> >过压</option>
-										<option value="过温" <c:if test="${pd.status == '过温' }">selected</c:if> >过温</option>
-										<option value="开路" <c:if test="${pd.status == '开路' }">selected</c:if> >开路</option>
-										<option value="短路" <c:if test="${pd.status == '短路' }">selected</c:if> >短路</option>
-										<option value="异常" <c:if test="${pd.status == '异常' }">selected</c:if> >异常</option>
-										<option value="断电" <c:if test="${pd.status == '断电' }">selected</c:if> >断电</option>
-										<option value="欠压" <c:if test="${pd.status == '欠压' }">selected</c:if> >欠压</option>
+										<option value=""><%=total %></option>
+										<option value="<%=normal %>"           <c:if test="${pd.status == '<%=normal %>' }">selected</c:if> ><%=normal %></option>
+										<option value="<%=over_voltage %>"     <c:if test="${pd.status == '<%=over_voltage %>' }">selected</c:if> ><%=over_voltage %></option>
+										<option value="<%=over_temperature %>" <c:if test="${pd.status == '<%=over_temperature %>' }">selected</c:if> ><%=over_temperature %></option>
+										<option value="<%=open_road %>"        <c:if test="${pd.status == '<%=open_road %>' }">selected</c:if> ><%=open_road %></option>
+										<option value="<%=short_circuit %>"    <c:if test="${pd.status == '<%=short_circuit %>' }">selected</c:if> ><%=short_circuit %></option>
+										<option value="<%=exception %>"        <c:if test="${pd.status == '<%=exception %>' }">selected</c:if> ><%=exception %></option>
+										<option value="<%=blockout %>"         <c:if test="${pd.status == '<%=blockout %>' }">selected</c:if> ><%=blockout %></option>
+										<option value="<%=undervoltage %>"     <c:if test="${pd.status == '<%=undervoltage %>' }">selected</c:if> ><%=undervoltage %></option>
+<%-- 									<option value=""><%=total %>全部</option>
+										<option value="<%= %>正常" <c:if test="${pd.status == '<%= %>正常' }">selected</c:if> ><%= %>正常</option>
+										<option value="<%= %>过压" <c:if test="${pd.status == '<%= %>过压' }">selected</c:if> ><%= %>过压</option>
+										<option value="<%= %>过温" <c:if test="${pd.status == '<%= %>过温' }">selected</c:if> ><%= %>过温</option>
+										<option value="<%= %>开路" <c:if test="${pd.status == '<%= %>开路' }">selected</c:if> ><%= %>开路</option>
+										<option value="<%= %>短路" <c:if test="${pd.status == '<%= %>短路' }">selected</c:if> ><%= %>短路</option>
+										<option value="<%= %>异常" <c:if test="${pd.status == '<%= %>异常' }">selected</c:if> ><%= %>异常</option>
+										<option value="<%= %>断电" <c:if test="${pd.status == '<%= %>断电' }">selected</c:if> ><%= %>断电</option>
+										<option value="<%= %>欠压" <c:if test="${pd.status == '<%= %>欠压' }">selected</c:if> ><%= %>欠压</option> --%>
 									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search2 %>" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -84,14 +95,14 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width:50px;">序号</th>
-									<th class="center">网关编号</th>
-									<th class="center">网关名称</th>
-									<th class="center">网关位置</th>
-									<th class="center">备注</th>
-									<th class="center">电压</th>
-									<th class="center">工作状态</th>
-									<th class="center">时间</th>
+									<th class="center" style="width:50px;"><%=number %></th>
+									<th class="center"><%=gateway_number %></th>
+									<th class="center"><%=gateway_name %></th>
+									<th class="center"><%=gateway_location %></th>
+									<th class="center"><%=comment %></th>
+									<th class="center"><%=voltage %></th>
+									<th class="center"><%=work_status %></th>
+									<th class="center"><%=time %></th>
 								</tr>
 							</thead>
 													
@@ -115,13 +126,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>

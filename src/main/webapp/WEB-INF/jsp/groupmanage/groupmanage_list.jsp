@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../system/index/top.jsp"%>
+<!-- jsp国际化文件 -->
+<%@ include file="../international.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
@@ -35,7 +37,7 @@
 						<form action="group/listGroups.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
-								<td>名称：</td>
+								<td><%=name %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -43,7 +45,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;说明项：</td>
+								<td>&nbsp;&nbsp;<%=explain_item %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -52,7 +54,7 @@
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索" style="padding: 3px 3px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search2 %>" style="padding: 3px 3px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -61,12 +63,12 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width:50px;">序号</th>
-									<th class="center">名称</th>
-									<th class="center">简述</th>
-									<th class="center">状态</th>
-									<th class="center">成员数量</th>
-									<th class="center" style="width: 150px;">操作</th>
+									<th class="center" style="width:50px;"><%=number %></th>
+									<th class="center"><%=name %></th>
+									<th class="center"><%=summary %></th>
+									<th class="center"><%=status %></th>
+									<th class="center"><%=menber_number %></th>
+									<th class="center" style="width: 150px;"><%=operate %></th>
 								</tr>
 							</thead>
 													
@@ -85,23 +87,23 @@
 									   <%-- <td class='center'>${group.number}</td> --%>
 											<td class='center'>
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
-												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="<%=no_permission %>"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="editGroup('${group.id}');">
+													<a class="btn btn-xs btn-success" title="<%=edit %>" onclick="editGroup('${group.id}');">
 														<!-- <i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i> -->
-														编辑
+														<%=edit %>
 													</a>
 													</c:if>
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-danger" onclick="addCrew('${group.id}');">
-														新增
+														<%=add2 %>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
 													<a class="btn btn-xs btn-danger" onclick="delCrew('${group.id}','${group.name}' );">
-														踢删
+														<%=kick_delete %>
 													</a>
 													</c:if>
 													
@@ -116,13 +118,13 @@
 	
 														<ul class="dropdown-menu dropdown-only-icon dropdown-blue dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
-															<li><a class="tooltip-info" data-rel="tooltip" title="智能拆分组_奇偶" onclick="groupOddeven('${group.id}','${group.number}');">
-																<span class="black">智能拆分组_奇偶
+															<li><a class="tooltip-info" data-rel="tooltip" title="<%=smart_divide_group_by_odd_and_even %>" onclick="groupOddeven('${group.id}','${group.number}');">
+																<span class="black"><%=smart_divide_group_by_odd_and_even %>
 																	<!-- <i class="ace-icon glyphicon glyphicon-picture bigger-120" title="智能拆分组_奇偶"></i> -->
 																</span>
 															</a></li>
-															<li><a class="tooltip-success" data-rel="tooltip" title="智能拆分组_功率" onclick="groupPower('${group.id}','${group.number}');">
-																<span class="black">智能拆分组_功率
+															<li><a class="tooltip-success" data-rel="tooltip" title="<%=smart_divide_group_by_power %>" onclick="groupPower('${group.id}','${group.number}');">
+																<span class="black"><%=smart_divide_group_by_power %>
 																	<!-- <i class="ace-icon fa fa-pencil-square-o bigger-120" title="智能拆分组_功率"></i> -->
 																</span>
 															</a></li>
@@ -173,13 +175,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -190,7 +192,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-success" onclick="add();">新增分组</a>
+									<a class="btn btn-mini btn-success" onclick="add();"><%=add_divide_group %></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -277,10 +279,10 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="修改";
+			 diag.Title ="<%=modify %>";
 			 diag.URL = '<%=basePath%>group/goUpdate.do?id='+id;
 			 diag.Width = 469;
-			 diag.Height = 186;
+			 diag.Height = 188;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					nextPage(${page.currentPage});
@@ -296,10 +298,10 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="新增";
+			 diag.Title ="<%=add2 %>";
 			 diag.URL = '<%=basePath%>group/goAdd.do';
 			 diag.Width = 460;
-			 diag.Height = 186;
+			 diag.Height = 188;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮
@@ -322,7 +324,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="新增组员";
+			 diag.Title ="<%=add_group_member2 %>";
 			 diag.URL = '<%=basePath%>groupmem/listOthers.do?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;
@@ -375,7 +377,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="组成员";
+			 diag.Title ="<%=group_member %>";
 			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;
@@ -399,7 +401,7 @@
 		
 		//智能拆分组-奇偶分组
 		function groupOddeven(id,number){
-			bootbox.confirm("确定要进行智能拆分组-奇偶分组吗?", function(result) {
+			bootbox.confirm("<%=make_sure_divider_group_by_odd_and_even %>?", function(result) {
 				if(result) {
 					//top.jzts();
 					var url = '<%=basePath%>smartgroup/groupOddeven.do?id='+id+'&number='+number;
@@ -409,7 +411,7 @@
 							console.info("----------");
 						}else{
 							
-							bootbox.confirm("此分组无法实现智能拆分组-奇偶分组！！！", function(result2) {
+							bootbox.confirm("<%=this_group_can_not_divide_odd_and_even %>！！！", function(result2) {
 								nextPage(${page.currentPage});
 								
 							});
@@ -424,7 +426,7 @@
 		
 		//智能拆分组-功率分组
 		function groupPower(id, number){
-			bootbox.confirm("确定要进行智能拆分组-功率分组吗?", function(result) {
+			bootbox.confirm("<%=make_sure_divider_group_by_power %>?", function(result) {
 				if(result) {
 					//top.jzts();
 					var url = '<%=basePath%>smartgroup/groupPower.do?id='+id+'&number='+number;
@@ -434,7 +436,7 @@
 							console.info("----------");
 						}else{
 							
-							bootbox.confirm("此分组无法实现智能拆分组-功率分组！！！", function(result2) {
+							bootbox.confirm("<%=this_group_can_not_divide_by_power %>！！！", function(result2) {
 								nextPage(${page.currentPage});
 								
 							});
