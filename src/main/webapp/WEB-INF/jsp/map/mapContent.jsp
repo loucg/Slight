@@ -14,7 +14,7 @@
 <base href="<%=basePath%>">
 <!-- jsp文件头和头部 -->
 <%@ include file="../system/index/top.jsp"%>
-
+<%@ include file="../international.jsp"%>
 <link rel="stylesheet" type="text/css"
 	href="static/map/css/jquery-ui-1.10.4.custom.min.css" />
 <link rel="stylesheet" type="text/css" href="static/map/css/ui.jqgrid.css" />
@@ -62,8 +62,8 @@
 		 <div style="width: 235px;height:40px; border-bottom: 1px solid ;">
 			<nav class="navbar navbar-default" style="height:40px;border:0px;" role="navigation">
 				<ul class="nav navbar-nav" style="height:40px;width:235px;">
-					<li class="active"  style="border-width: 0px 0px 1px 0px;height:40px;width:117px;text-align:center;"><a id="g"   style="height:40px;font-size:13px;font-weight:normal; font-family:宋体 ;text-align:center;">路灯列表</a></li>
-					<li style="border-width: 0px 0px 1px 0px; height:40px;width:117px;text-align:center;"><a id="s" style="height:40px;font-size:13px;font-weight:normal;font-family:宋体 ;text-align:center;" >搜索结果</a></li>
+					<li class="active"  style="border-width: 0px 0px 1px 0px;height:40px;width:117px;text-align:center;"><a id="g"   style="height:40px;font-size:13px;font-weight:normal; font-family:宋体 ;text-align:center;"><%=road_light_list_1%></a></li>
+					<li style="border-width: 0px 0px 1px 0px; height:40px;width:117px;text-align:center;"><a id="s" style="height:40px;font-size:13px;font-weight:normal;font-family:宋体 ;text-align:center;" ><%=road_light_list_2%></a></li>
 				</ul>
 			</nav>
 		</div>
@@ -76,28 +76,28 @@
 			<table class="tbform">
 				<tbody>
 					<tr>
-						<td class="tdl"><span>组名:</span> <select class="ipt"
+						<td class="tdl"><span><%=group_name %>:</span> <select class="ipt"
 							id="groupname" onchange="changegroupname()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>类型:</span> <select class="ipt"
+						<td class="tdl"><span><%=type%>:</span> <select class="ipt"
 							id="terminaltype" onchange="changeterminaltype()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>地址:</span> <select class="ipt"
+						<td class="tdl"><span><%=address%>:</span> <select class="ipt"
 							id="address" onchange="changeAddress()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>名称:</span> <select class="ipt"
+						<td class="tdl"><span><%=name %>:</span> <select class="ipt"
 							id="terminalname"  onchange="changeterminalname()">
 								<option value=""></option>
 						</select></td>
-						<td class="tdl"><span>编号:</span> <select class="ipt"
+						<td class="tdl"><span><%=serial_number %>:</span> <select class="ipt"
 							id="terminalid">
 								<option value=""></option>
 						</select></td>
 						<td class="tdl" style="width: 15%;"><input class="btn btn-primary"
-							id="check" type="button"  value="查    询" style="padding-left:10px;"/> <!-- <input class="btn btn-warning "
+							id="check" type="button"  value=<%=search1%> style="padding-left:10px;"/> <!-- <input class="btn btn-warning "
 							id="reset" type="button" value="重   置" /> --></td>
 					</tr>
 
@@ -187,7 +187,7 @@ function gpsTObbdMore(clientdata,termid,choseterm)
 function gpsTObbdSearch(clientdata)
 {
     var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"><a style=\" float:left;width:10px;height:10px;border:1px solid #000}\" ><span class=\"glyphicon glyphicon-hand-right\"></span></a><a class=\"one\" id=\"search\"><span style=\"font-size:12px;color:black;  font-weight:normal;font-family:宋体\">"
-		+ "搜索结果"
+		+"<%=search_get_device%>"
 		+ "</span></a></div><ul class=\"kid\">";
         for(var i=0;i<clientdata.length;i++){
         	var accdivli = "<li><b class=\"tip\"></b><a  style=\" outline: none; margin-left:25px;\" class=\"onekid\"  id="
@@ -206,7 +206,7 @@ function gpsTObbdSearch(clientdata)
 function gpsTObbddrawing(clientdata)
 {
     var accdivpre = "<div class=\"panel-default\"><div class=\"panel-heading\"><a style=\" float:left;width:10px;height:10px;border:1px solid #000}\" ><span class=\"glyphicon glyphicon-hand-right\"></span></a><a class=\"one\" id=\"draw\"><span style=\"font-size:12px;color:black;  font-weight:normal;font-family:宋体\">"
-		+ "框选结果"
+		+ "<%=circle_select%>"
 		+ "</span></a></div><ul class=\"kid\">";
         for(var i=0;i<clientdata.length;i++){
         	var accdivli = "<li><b class=\"tip\"></b><a  style=\" outline: none; margin-left:20px;\" class=\"onekid\"  id="

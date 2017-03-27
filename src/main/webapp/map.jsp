@@ -14,7 +14,7 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>地图</title>
-
+<%@ include file="WEB-INF/jsp/international.jsp"%>
 <link rel="stylesheet" type="text/css"
 	href="static/map/css/jquery-ui-1.10.4.custom.min.css" />
 <link rel="stylesheet" type="text/css"
@@ -177,10 +177,9 @@ body {
 	SquareOverlay.prototype.hello = function() {
 		if (this._div) {
 			console.log("hello");
-		}
-	}
-
-	//自定义覆盖物添加事件方法   
+			}
+}
+//自定义覆盖物添加事件方法     
 	SquareOverlay.prototype.addEventListener = function(event, fun) {
 		this._div['on' + event] = fun;
 	}
@@ -202,7 +201,7 @@ body {
 	var menu = new BMap.ContextMenu();
 	var CircleAndRectangle = null;
 	var txtMenuItem = [  {
-		text : '开灯',
+		text : "<%=open_light%>",
 		callback : function() {
 			var tid=parent.getChosetermid();
 			TurnOnOROffLight(1,drawdata,tid);
@@ -211,7 +210,7 @@ body {
 			CircleAndRectangle = null;
 		}
 	}, {
-		text : '关灯',
+		text : "<%=shut_down_light%>",
 		callback : function() {
 			var tid=parent.getChosetermid();
 			TurnOnOROffLight(2,drawdata,tid);
@@ -220,7 +219,7 @@ body {
 			CircleAndRectangle = null;
 		}
 	} , {
-		text : '亮度值控制',
+		text : "<%=brightness_adjustment%>",
 		callback : function() {
 			LightBrightnessDialog();
 			/* CircleAndRectangle.removeContextMenu(menu);
@@ -228,7 +227,7 @@ body {
 			CircleAndRectangle = null; */
 		}
 	} ,  {
-		text : '清除',
+		text :"<%=clear_draw%>",
 		callback : function() {
 			CircleAndRectangle.removeContextMenu(menu);
 			parent.cleardrawdata();//删除原有的左边框选列表
@@ -306,10 +305,10 @@ body {
 					//map.centerAndZoom("杭州", 14);
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_INFO,
-		                title: '提示信息 ',
-		                message: '该分组没有终端',
+		                title: "<%=remind_infomation%>",
+		                message:  "<%=the_packet_has_no_terminal%>",
 		                buttons: [{
-		                    label: '关闭',
+		                    label: "<%=shut_down%>",
 		                    action: function(dialogItself){
 		                        dialogItself.close();
 		                    }
@@ -320,10 +319,10 @@ body {
 			error : function() {
 				BootstrapDialog.show({
 	                type:  BootstrapDialog.TYPE_DANGER,
-	                title: '提示信息 ',
-	                message: '查询出错',
+	                title: "<%=remind_infomation%>",
+	                message: "<%=wrong_search%>",
 	                buttons: [{
-	                    label: '关闭',
+	                    label: "<%=shut_down%>",
 	                    action: function(dialogItself){
 	                        dialogItself.close();
 	                    }
@@ -375,7 +374,7 @@ body {
 	                            }  
 	                        }  
 	                    } else{
-	                    	alert("有脏数据，坐标转换失败！");
+	                    	alert("<%=coordinate_conversion_failed%>");
 	                    } 
 	                    callback = null;//清理内存。  
 	                    jj = null;  
@@ -582,7 +581,7 @@ body {
 			drawdata=drawtata;
 		}
 		else{
-				alert("没有框中任何数据");
+				alert("<%=no_data_in_box%>");
 				CircleAndRectangle.removeContextMenu(menu);
 				map.removeOverlay(CircleAndRectangle);
 				CircleAndRectangle = null;
@@ -592,10 +591,10 @@ body {
 		if (choseMakerdata.brightness != 0) {
 			 BootstrapDialog.show({
 	                type:  BootstrapDialog.TYPE_DANGER,
-	                title: '提示信息 ',
-	                message: '路灯已是开启状态',
+	                title: "<%=remind_infomation%>",
+	                message: "<%=road_light_has_open_status%>",
 	                buttons: [{
-	                    label: '关闭',
+	                    label: "<%=shut_down%>",
 	                    action: function(dialogItself){
 	                        dialogItself.close();
 	                    }
@@ -624,10 +623,10 @@ body {
 									{a = parent.getmapTermpagein()[choseMakerdata.termid];getClientsData(a,mapcenter,mapzoom);}
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
-						                title: '提示信息 ',
-						                message: '路灯开启成功',
+						                title: "<%=remind_infomation%>",
+						                message: "<%=road_light_open_success%>",
 						                buttons: [{
-						                    label: '关闭',
+						                    label:"<%=shut_down%>",
 						                    action: function(dialogItself){
 						                        dialogItself.close();
 						                    }
@@ -639,10 +638,10 @@ body {
 							} else {
 								BootstrapDialog.show({
 					                type:  BootstrapDialog.TYPE_DANGER,
-					                title: '提示信息 ',
-					                message: '路灯开启失败',
+					                title: "<%=remind_infomation%>",
+					                message: "<%=road_light_open_faliue%>",
 					                buttons: [{
-					                    label: '关闭',
+					                    label: "<%=shut_down%>",
 					                    action: function(dialogItself){
 					                        dialogItself.close();
 					                    }
@@ -654,10 +653,10 @@ body {
 						error : function() {
 							BootstrapDialog.show({
 				                type:  BootstrapDialog.TYPE_DANGER,
-				                title: '提示信息 ',
-				                message: '路灯开启失败',
+				                title: "<%=remind_infomation%>",
+				                message:  "<%=road_light_open_faliue%>",
 				                buttons: [{
-				                    label: '关闭',
+				                    label: "<%=shut_down%>",
 				                    action: function(dialogItself){
 				                        dialogItself.close();
 				                    }
@@ -674,10 +673,10 @@ body {
 		if (choseMakerdata.brightness == 0) {
 			BootstrapDialog.show({
                 type:  BootstrapDialog.TYPE_DANGER,
-                title: '提示信息 ',
-                message: '路灯已是关闭状态',
+                title: "<%=remind_infomation%>",
+                message: "<%=road_light_has_shut_status%>",
                 buttons: [{
-                    label: '关闭',
+                    label: "<%=shut_down%>",
                     action: function(dialogItself){
                         dialogItself.close();
                     }
@@ -707,10 +706,10 @@ body {
 								
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
-						                title: '提示信息 ',
-						                message: '路灯关闭成功',
+						                title: "<%=remind_infomation%>",
+						                message: "<%=road_light_shut_down_success%>",
 						                buttons: [{
-						                    label: '关闭',
+						                    label: "<%=shut_down%>",
 						                    action: function(dialogItself){
 						                        dialogItself.close();
 						                    }
@@ -720,10 +719,10 @@ body {
 							} else {
 								BootstrapDialog.show({
 					                type:  BootstrapDialog.TYPE_DANGER,
-					                title: '提示信息 ',
-					                message: '路灯关闭失败',
+					                title: "<%=remind_infomation%>",
+					                message: "<%=road_light_shut_down_faliue%>",
 					                buttons: [{
-					                    label: '关闭',
+					                    label:"<%=shut_down%>",
 					                    action: function(dialogItself){
 					                        dialogItself.close();
 					                    }
@@ -735,10 +734,10 @@ body {
 						error : function() {
 							BootstrapDialog.show({
 				                type:  BootstrapDialog.TYPE_DANGER,
-				                title: '提示信息 ',
-				                message: '路灯关闭失败',
+				                title: "<%=remind_infomation%>",
+				                message: "<%=road_light_shut_down_faliue%>",
 				                buttons: [{
-				                    label: '关闭',
+				                    label: "<%=shut_down%>",
 				                    action: function(dialogItself){
 				                        dialogItself.close();
 				                    }
@@ -776,10 +775,10 @@ body {
 					
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_PRIMARY,
-		                title: '提示信息 ',
-		                message: '路灯亮度值更新成功',
+		                title: "<%=remind_infomation%>",
+		                message:"<%=road_light_brightness_update_success%>",
 		                buttons: [{
-		                    label: '关闭',
+		                    label: "<%=shut_down%>",
 		                    action: function(dialogItself){
 		                        dialogItself.close();
 		                    }
@@ -789,10 +788,10 @@ body {
 				} else {
 					BootstrapDialog.show({
 		                type:  BootstrapDialog.TYPE_DANGER,
-		                title: '提示信息 ',
-		                message: '路灯亮度值更新失败',
+		                title: "<%=remind_infomation%>",
+		                message: "<%=road_light_brightness_update_faliue%>",
 		                buttons: [{
-		                    label: '关闭',
+		                    label: "<%=shut_down%>",
 		                    action: function(dialogItself){
 		                        dialogItself.close();
 		                    }
@@ -804,10 +803,10 @@ body {
 			error : function() {
 				BootstrapDialog.show({
 	                type:  BootstrapDialog.TYPE_DANGER,
-	                title: '提示信息 ',
-	                message: '路灯亮度值更新失败',
+	                title: "<%=remind_infomation%>",
+	                message: "<%=road_light_brightness_update_faliue%>",
 	                buttons: [{
-	                    label: '关闭',
+	                    label:"<%=shut_down%>",
 	                    action: function(dialogItself){
 	                        dialogItself.close();
 	                    }
@@ -836,10 +835,10 @@ body {
 		if (choseMakerdata[0].termid==-999) {
 			BootstrapDialog.show({
                 type:  BootstrapDialog.TYPE_DANGER,
-                title: '提示信息 ',
-                message: '网关路由器组没有开灯，关灯，亮度值等操作',
+                title: "<%=remind_infomation%>",
+                message: "<%=Gatewayrouter_not_this_operations%>",
                 buttons: [{
-                    label: '关闭',
+                    label:"<%=shut_down%>",
                     action: function(dialogItself){
                         dialogItself.close();
                     }
@@ -867,10 +866,10 @@ body {
 								
 								 BootstrapDialog.show({
 						                type:  BootstrapDialog.TYPE_PRIMARY,
-						                title: '提示信息 ',
-						                message: '路灯操作成功',
+						                title: "<%=remind_infomation%>",
+						                message:"<%=light_operating_successfully%>",
 						                buttons: [{
-						                    label: '关闭',
+						                    label: "<%=shut_down%>",
 						                    action: function(dialogItself){
 						                        dialogItself.close();
 						                    }
@@ -880,10 +879,10 @@ body {
 							} else {
 								BootstrapDialog.show({
 					                type:  BootstrapDialog.TYPE_DANGER,
-					                title: '提示信息 ',
-					                message: '路灯操作失败',
+					                title: "<%=remind_infomation%>",
+					                message: "<%=light_operating_err%>",
 					                buttons: [{
-					                    label: '关闭',
+					                    label: "<%=shut_down%>",
 					                    action: function(dialogItself){
 					                        dialogItself.close();
 					                    }
@@ -895,10 +894,10 @@ body {
 						error : function() {
 							BootstrapDialog.show({
 				                type:  BootstrapDialog.TYPE_DANGER,
-				                title: '提示信息 ',
-				                message: '路灯操作失败',
+				                title: "<%=remind_infomation%>",
+				                message: "<%=light_operating_err%>",
 				                buttons: [{
-				                    label: '关闭',
+				                    label: "<%=shut_down%>",
 				                    action: function(dialogItself){
 				                        dialogItself.close();
 				                    }
@@ -929,10 +928,10 @@ body {
 		} else {
 			BootstrapDialog.show({
                 type:  BootstrapDialog.TYPE_INFO,
-                title: '提示信息 ',
-                message: '暂时没有任何分组数据',
+                title: "<%=remind_infomation%>",
+                message: "<%=no_data_any_term%>",
                 buttons: [{
-                    label: '关闭',
+                    label: "<%=shut_down%>",
                     action: function(dialogItself){
                         dialogItself.close();
                     }
@@ -946,10 +945,10 @@ function searchsuccess() {
 	BootstrapDialog
 	.show({
 		type : BootstrapDialog.TYPE_PRIMARY,
-		title : '提示信息 ',
-		message : '搜索成功，请查看左侧搜索结果！',
+		title : "<%=remind_infomation%>",
+		message :"<%=search_seccess_please_look_light_list2_on_left%>",
 		buttons : [ {
-			label : '关闭',
+			label : "<%=shut_down%>",
 			action : function(dialogItself) {
 				dialogItself.close();
 			}
@@ -960,10 +959,10 @@ function searcherr() {
 	BootstrapDialog
 	.show({
 		type : BootstrapDialog.TYPE_DANGER,
-		title : '提示信息 ',
-		message : '查询的终端不存在！',
+		title : "<%=remind_infomation%>",
+		message : "<%=search_device_not_exist_or_wrong%>",
 		buttons : [ {
-			label : '关闭',
+			label : "<%=shut_down%>",
 			action : function(dialogItself) {
 				dialogItself.close();
 			}
@@ -973,10 +972,10 @@ function searcherr() {
 function searchConerr() {
 	BootstrapDialog.show({
         type:  BootstrapDialog.TYPE_DANGER,
-        title: '提示信息 ',
-        message: '数据加载出错请刷新页面！',
+        title: "<%=remind_infomation%>",
+        message:"<%=download_wrong_please_refresh%>",
         buttons: [{
-            label: '关闭',
+            label: "<%=shut_down%>",
             action: function(dialogItself){
                 dialogItself.close();
             }
@@ -985,19 +984,19 @@ function searchConerr() {
 }
  function PolicyControl() {
 	 BootstrapDialog.show({
-         title: '策略控制',
+         title: "<%=strate_control%>",
          /* cssClass :'dialog', */
        /*   draggable: true, */
         // message:$('<div></div>').load('remote.html'),
-        message:"跳转到策略控制页面吗(还没写)",
+        message:"<%=jump_to_strategy_control_page%>",
          buttons: [{
-             label: '确定',
+             label: "<%=make_sure%>",
              action: function(dialogItself) {
             	 dialogItself.close();
             	// window.parent.location.href="strategy/listStrategys.do";
              }
          },{
-             label: '取消',
+             label: "<%=cancel%>",
              action: function(dialogItself) {
             	 dialogItself.close();
              }
@@ -1006,7 +1005,7 @@ function searchConerr() {
 } 
  
  function LightBrightnessDialog() {
-	 var s="<div class='spandiv'><span>亮度值调节：</span></div><select class='LightBrightnessDialog' style='float: right;height: 30px;' onchange='onchangeDraw_bright(this.options[this.options.selectedIndex].value)'>"
+	 var s="<div class='spandiv'><span>"+"<%=brightness_adjustment%>"+"：</span></div><select class='LightBrightnessDialog' style='float: right;height: 30px;' onchange='onchangeDraw_bright(this.options[this.options.selectedIndex].value)'>"
 			+"<option value="+0+">"+0+"</option>"
 		 	+"<option value="+10+">"+10+"</option>"
 	 		+"<option value="+20+">"+20+"</option>"
@@ -1021,16 +1020,16 @@ function searchConerr() {
 	 		+"</select>"
 			
 	 BootstrapDialog.show({
-         title: '亮度值调节',
+         title: "<%=brightness_adjustment%>",
          message:$('<div>'+s+'</div>'),
          buttons: [{
-             label: '确定',
+             label: "<%=make_sure%>",
              action: function(dialogItself) {
             	 setDraw_brightDialog();
             	 dialogItself.close();
              }
          },{
-             label: '取消',
+             label: "<%=cancel%>",
              action: function(dialogItself) {
             	 dialogItself.close();
             	 CircleAndRectangle.removeContextMenu(menu);
@@ -1054,4 +1053,207 @@ function searchConerr() {
 	  CircleAndRectangle = null;
 	}
 </script>
+<script type="text/javascript">
+function getInfoContent(data) {
+	 //路灯
+   var sContent_light =   
+   "<html>"+
+   "<head>"+
+   "<meta charset='UTF-8'>"+
+   "<title>"+"Insert title here"+"</title>"+
+   "<link rel='styleSheet' type='text/css' href='static/map/css/base.css' />"+
+   "<link rel='styleSheet' type='text/css' href='static/map/css/content_light.css' />"+
+   "</head>"+
+   "<body>"+
+   	"<div id= 'main'>"+
+   		"<div class = 'head'>"+
+   			"<p>"+data .name+"</p>"+
+   		"</div>"+
+   		"<div class = 'mid'>"+
+   			"<div class='introduction'>"+
+   				"<ul >"+
+   					"<li>"+
+   						"<a>"+"<%=serial_number%>"+"："+data.id+"</a>"+
+   					"</li>"+
+   					"<li>"+
+   						"<a>"+"<%=name%>"+"："+ data.name+"</a>"+
+   					"</li>"+
+   					"<li>"+
+   						"<a>"+"<%=light_pole_number%>"+"："+ data.lamppolenum+"</a>"+
+   					"</li>"+
+   					"<li >"+
+   						"<a>"+"<%=location%>"+"："+ data.location+"</a>"+
+   					"</li>"+
+   					"<li >"+
+							"<a>"+"<%=group_name%>"+"："+ data.termname+"</a>"+
+						"</li>"+
+						"<li >"+
+							"<a>"+"<%=brightness_value%>"+"："+ data .brightness+"</a>"+
+					"</li>"+
+   				"</ul>"+
+   			"</div>"+
+   			"<div class='image'>"+
+   				"<img src='static/map/img/light1.png' />"+
+   			"</div>"+
+   		"</div>"+
+   		"<div class='bottom'>"+
+       		"<div class='b1' onclick ='TurnOnLight()'>"+
+					"<div class='bimg1'>"+
+						"<img src='static/map/img/bulb_on.png'>"+
+					"</div>"+
+					"<div class='btx1'>"+
+						"<a href='javascript:void(0)' >"+"<%=open_light%>"+"</a>"+
+					"</div>"+
+				"</div>"+
+				"<div class='b2' onclick ='TurnOffLight()'>"+
+					"<div class='bimg2'>"+
+							"<img src='static/map/img/bulb_off.png'>"+
+					"</div>"+
+					"<div class='btx2'>"+
+						"<a href='javascript:void(0)' >"+"<%=shut_down_light%>"+"</a>"+
+					"</div>"+
+				"</div>"+
+				"<div class='b3' onclick ='PolicyControl()'>"+
+					"<div class='bimg3'>"+
+							"<img src='static/map/img/policy_control.png'>"+
+					"</div>"+
+					"<div class='btx3'>"+
+						"<a href='javascript:void(0)' >"+"<%=control_strategy%>"+"</a>"+
+					"</div>"+
+				"</div>"+
+				"<div class='btx4'>"+
+					"<h2 class='sh'>"+"<%=brightness_value%>"+":</h2>"+
+					"<select class='s1'  onchange='change_bright(this.options[this.options.selectedIndex].value)'>"
+					
+			        var lightop="";
+   				for(var i = 0; i <=100; i=i+10){
+   					var lightop2="";
+   					if(i!=data.brightness)
+   						{
+   							lightop2="<option value="+i+">"+i+"</option>";
+   						}else{
+   							lightop2="<option value="+i+" selected = 'selected'>"+i+"</option>";
+   						}
+   					lightop=lightop+lightop2;
+   				}
+   	
+
+					
+					 sContent_light=sContent_light+lightop+
+			    	"</select>"+
+			    "</div>"+
+			"</div>"+
+   	"</div>"+
+   "</body>"+
+   "</html>";
+   
+   
+  //断路器
+   var sContent_Breaker =   
+       "<html>"+
+       "<head>"+
+       "<meta charset='UTF-8'>"+
+       "<title>"+"Insert title here"+"</title>"+
+       "<link rel='styleSheet' type='text/css' href='static/map/css/base.css' />"+
+       "<link rel='styleSheet' type='text/css' href='static/map/css/content_breaker.css' />"+
+       "</head>"+
+       "<body>"+
+       	"<div id= 'main'>"+
+       		"<div class = 'head'>"+
+       			"<p>"+data.name+"</p>"+
+       		"</div>"+
+       		"<div class = 'mid'>"+
+       			"<div class='introduction'>"+
+       				"<ul >"+
+       					"<li>"+
+       						"<a>"+"<%=serial_number%>"+"："+data .id+"</a>"+
+       					"</li>"+
+       					"<li>"+
+       						"<a>"+"<%=name%>"+"："+  data .name+"</a>"+
+       					"</li>"+
+       					"<li>"+
+       						"<a>"+"<%=light_pole_number%>"+"："+ data .lamppolenum+"</a>"+
+       					"</li>"+
+       					"<li >"+
+       						"<a>"+"<%=location%>"+"："+data .location+"</a>"+
+       					"</li>"+
+       					"<li >"+
+   							"<a>"+"<%=blockout_time%>"+"："+data .powerdown+"</a>"+
+   						"</li>"+
+   						"<li >"+
+								"<a>"+"<%=electricity_time%>"+"："+data .powerup+"</a>"+
+						"</li>"+
+       				"</ul>"+
+       			"</div>"+
+       			"<div class='image'>"+
+       				"<img src='static/map/img/breaker.png' />"+
+       			"</div>"+
+       		"</div>"+
+       	"</div>"+
+       "</body>"+
+       "</html>";
+       var op="";
+   if(data.cclientgateway!=null){
+ 
+   	for(var i = 0; i < data.cclientgateway.length; i++){
+   		op=op+"<option value='1'>"+data.cclientgateway[i]+"</option>";
+   	}
+   	  //console.log(op);
+   }
+       //网关
+       var sContent_Gateway =   
+	        "<html>"+
+	        "<head>"+
+	        "<meta charset='UTF-8'>"+
+	        "<title>"+"Insert title here"+"</title>"+
+	        "<link rel='styleSheet' type='text/css' href='static/map/css/base.css' />"+
+	        "<link rel='styleSheet' type='text/css' href='static/map/css/content_gateway.css' />"+
+	        "</head>"+
+	        "<body>"+
+	        	"<div id= 'main'>"+
+	        		"<div class = 'head'>"+
+	        			"<p>"+ data .name+"</p>"+
+	        		"</div>"+
+	        		"<div class = 'mid'>"+
+	        			"<div class='introduction'>"+
+	        				"<ul >"+
+	        					"<li>"+
+	        						"<a>"+"<%=serial_number%>"+"："+data .id+"</a>"+
+	        					"</li>"+
+	        					"<li>"+
+	        						"<a>"+"<%=name%>"+"："+  data .name+"</a>"+
+	        					"</li>"+
+	        					"<li>"+
+	        						"<a>"+"<%=light_pole_number%>"+"："+ data .lamppolenum+"</a>"+
+	        					"</li>"+
+	        					"<li >"+
+	        						"<a>"+"<%=location%>"+"："+data .location+"</a>"+
+	        					"</li>"+
+	        					"<li >"+//+JSON.stringify(data.cclientgateway)+
+	        						"<a>"+"<%=menber_list%>"+"："+"</a>"+
+	        					"</li>"+
+		        					"<select class='s2'>"+
+										op+
+						    	    "</select>"+		
+       						"</li>"+
+	        				"</ul>"+
+	        			"</div>"+
+	        			"<div class='image'>"+
+	        				"<img src='static/map/img/gateway.png' />"+
+	        			"</div>"+
+	        		"</div>"+
+	        	"</div>"+
+	        "</body>"+
+	        "</html>";
+       if(data.aliastypename.indexOf("灯" ) >=0){
+       	return sContent_light;
+       }else if(data.aliastypename.indexOf("断路器" ) >=0){
+       	return sContent_Breaker;
+       }else if(data.aliastypename.indexOf("网关") >= 0){
+       	return sContent_Gateway;
+       }else {
+       	return "无";
+       }
+       	
+}</script>
 </html>
