@@ -44,10 +44,12 @@
 	String temperature = properties.getProperty("temperature");
 	String make_sure_choose_data = properties.getProperty("make_sure_choose_data");
 	String road_light_status = properties.getProperty("road_light_status");
+	String please_enter_gateway_number = properties.getProperty("please_enter_gateway_number");
 	String time_is_null = properties.getProperty("time_is_null");
 	String standard = properties.getProperty("standard");
 	String import_from_excel = properties.getProperty("import_from_excel");
 	String summary = properties.getProperty("summary");
+	String please_enter_group_name_2 = properties.getProperty("please_enter_group_name_2");
 	String light_standard = properties.getProperty("light_standard");
 	String strategy_adjust = properties.getProperty("strategy_adjust");
 	String device_type = properties.getProperty("device_type");
@@ -274,6 +276,7 @@
 	String endtime_biger_than_starttime = properties.getProperty("endtime_biger_than_starttime");
 	String chinese = properties.getProperty("chinese");
 	String if_display_LOGO = properties.getProperty("if_display_LOGO");
+	String please_enter_location = properties.getProperty("please_enter_location");
 	String please_enter_serial_number = properties.getProperty("please_enter_serial_number");
 	String jiebu = properties.getProperty("jiebu");
 	String road_light = properties.getProperty("road_light");
@@ -282,6 +285,7 @@
 	String belong_gateway = properties.getProperty("belong_gateway");
 	String maintenance_man = properties.getProperty("maintenance_man");
 	String please_enter_phone = properties.getProperty("please_enter_phone");
+	String please_enter_gateway_name = properties.getProperty("please_enter_gateway_name");
 	String light_ratio = properties.getProperty("light_ratio");
 	String enter_contact_address_here = properties.getProperty("enter_contact_address_here");
 	String light_rate = properties.getProperty("light_rate");
@@ -338,6 +342,7 @@
 	String please_choose_device_type = properties.getProperty("please_choose_device_type");
 	String none = properties.getProperty("none");
 	String circuit_breaker_abnormality = properties.getProperty("circuit_breaker_abnormality");
+	String please_choose_repair_result = properties.getProperty("please_choose_repair_result");
 	String choose = properties.getProperty("choose");
 	String gatewany_number = properties.getProperty("gatewany_number");
 	String up_and_down_electricity = properties.getProperty("up_and_down_electricity");
@@ -382,20 +387,5 @@
 	String open_road = properties.getProperty("open_road");
 	String even = properties.getProperty("even");
 	String please_type_device_number = properties.getProperty("please_type_device_number");
-	String clear_draw = properties.getProperty("clear_draw");
-	String the_packet_has_no_terminal = properties.getProperty("the_packet_has_no_terminal");
-	String coordinate_conversion_failed = properties.getProperty("coordinate_conversion_failed");
-	String no_data_in_box = properties.getProperty("no_data_in_box");
-	String Gatewayrouter_not_this_operations = properties.getProperty("Gatewayrouter_not_this_operations");
-	String light_operating_successfully = properties.getProperty("light_operating_successfully");
-	String light_operating_err = properties.getProperty("light_operating_err");
-	String no_data_any_term = properties.getProperty("no_data_any_term");
-	String brightness_adjustment = properties.getProperty("brightness_adjustment");
-	String light_pole_number = properties.getProperty("light_pole_number");
-
-
-
-
-
 
 %>
