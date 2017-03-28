@@ -97,7 +97,7 @@
 									<th class="center"><%=device_number %></th>
 									<th class="center"><%=device_name %></th>
 									<th class="center"><%=location %></th>
-									<th class="center">灯杆号</th>
+									<th class="center"><%=pole_number2 %></th>
 									<th class="center"><%=belong_gateway %></th>
 									<th class="center"><%=exception_status %></th>
 									<th class="center"><%=start_time %></th>

@@ -101,7 +101,7 @@
 			if($("#name").val()==""){
 				$("#name").tips({
 					side:3,
-		            msg:'请输入组名称',
+		            msg:'<%=please_enter_group_name %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -111,7 +111,7 @@
 			if($("#explain").val()==""){
 				$("#explain").tips({
 					side:3,
-		            msg:'请输入简述',
+		            msg:'<%=please_enter_summry %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });

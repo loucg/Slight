@@ -350,7 +350,7 @@
 			top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="踢删组员";
+			 diag.Title ="<%=keck_delete_group_member %>";
 			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;

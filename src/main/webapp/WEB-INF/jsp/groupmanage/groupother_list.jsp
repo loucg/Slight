@@ -54,7 +54,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;灯杆号：</td>
+								<td>&nbsp;&nbsp;<%=pole_number2 %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -62,7 +62,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;终端号：</td>
+								<td>&nbsp;&nbsp;<%=device_number2 %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -91,9 +91,9 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;"><%=number %></th>
-									<th class="center">终端号</th>
+									<th class="center"><%=device_number2 %></th>
 									<th class="center"><%=device_name %></th>
-									<th class="center">灯杆号</th>
+									<th class="center"><%=pole_number2 %></th>
 									<th class="center"><%=location %></th>
 									<th class="center"><%=power_standard %></th>
 									<th class="center"><%=light_standard %></th>
@@ -140,7 +140,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要添加选中的数据吗?',${termforpage.id});" title="批量添加" ><%=add_group_member1 %></a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('<%=make_sure_choose_data %>?',${termforpage.id});" title="<%=multiple_add %>" ><%=add_group_member1 %></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -249,19 +249,19 @@
 					}
 					if(str==''){
 						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
+							message: "<span class='bigger-110'><%=you_have_not_choose_anything %>!</span>",
 							buttons: 			
 							{ "button":{ "label":"<%=make_sure %>", "className":"btn-sm btn-success"}}
 						});
 						$("#zcheckbox").tips({
 							side:1,
-				            msg:'点这里全选',
+				            msg:'<%=click_this_choose_all %>',
 				            bg:'#AE81FF',
 				            time:8
 				        });
 						return;
 					}else{
-						if(msg == '确定要添加选中的数据吗?'){
+						if(msg == '<%=make_sure_choose_data %>?'){
 							top.jzts();
 							$.ajax({
 								type: "POST",
