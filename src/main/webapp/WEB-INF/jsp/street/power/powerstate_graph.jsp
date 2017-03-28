@@ -77,7 +77,7 @@
 						</table>
 						</form>
 						</div>
-						<div id="main" style="width:1100px; height:450px;" align="center"></div>
+						<div id="main" style="width:1200px; height:550px;" align="center"></div>
 							
 							<script type="text/javascript">
 							      // 基于准备好的dom，初始化echarts实例
@@ -179,7 +179,7 @@
 			if(stime > etime){
 				$("#endTime").tips({
 					side:3,
-		            msg:'结束时间应不小于开始时间',
+		            msg:'<%=endtime_biger_than_starttime %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });

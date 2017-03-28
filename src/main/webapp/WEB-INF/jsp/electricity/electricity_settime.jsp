@@ -92,7 +92,7 @@
 			if(uptime == downtime){
 				$("#powerdown").tips({
 					side:3,
-		            msg:'上/断电时间不能相同',
+		            msg:'<%=up_and_down_time_not_equal %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });

@@ -88,7 +88,7 @@
 									<th class="center"><%=serial_number %></th>
 									<th class="center"><%=name %></th>
 									<th class="center"><%=location %></th>
-									<th class="center">灯杆号</th>
+									<th class="center"><%=pole_number2 %></th>
 									<th class="center"><%=comment %></th>
 									<th class="center"><%=voltage %></th>
 									<th class="center"><%=start_time %></th>
