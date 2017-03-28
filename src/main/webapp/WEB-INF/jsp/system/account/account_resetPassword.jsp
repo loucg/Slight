@@ -34,7 +34,7 @@
 									<table id="table_report" class="table table-striped table-bordered table-hover">
 									    <tr>
 											<td style="text-align: center;" colspan="10">
-												确定要重置密码？
+												<%=make_sure_reset_password %>
 											</td>
 										</tr>
 										<tr>
