@@ -102,7 +102,7 @@
 									<th class="center"><%=device_number %></th>
 									<th class="center"><%=device_name %></th>
 									<th class="center"><%=location %></th>
-									<th class="center">灯杆号</th>
+									<th class="center"><%=pole_number2 %></th>
 									<th class="center"><%=temperature %></th>
 									<th class="center"><%=print_voltage %></th>
 									<th class="center"><%=power_rate_factor %></th>
@@ -157,16 +157,16 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要开灯吗?');" title="<%=open_light %>" ><%=open_light %></a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('<%=make_sure_divider_open_light %>?');" title="<%=open_light %>" ><%=open_light %></a>
 									</c:if>
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要关灯吗?');" title="<%=shut_down_light %>" ><%=shut_down_light %></a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('<%=make_sure_shut_down_light %>?');" title="<%=shut_down_light %>" ><%=shut_down_light %></a>
 									</c:if>
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要调节亮度吗?');" title="<%=brightness_adjust %>" ><%=brightness_adjust %></a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('<%=make_sure_adjust_brightness %>?');" title="<%=brightness_adjust %>" ><%=brightness_adjust %></a>
 									</c:if>
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要调节策略吗?');" title="<%=strategy_adjust %>" ><%=strategy_adjust %></a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('<%=make_sure_adjust_strategy %>?');" title="<%=strategy_adjust %>" ><%=strategy_adjust %></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -286,20 +286,20 @@
 					}
 					if(str==''){
 						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
+							message: "<span class='bigger-110'><%=you_have_not_choose_anything %>!</span>",
 							buttons: 			
 							{ "button":{ "label":"<%=make_sure %>", "className":"btn-sm btn-success"}}
 						});
 						$("#zcheckbox").tips({
 							side:3,
-				            msg:'点这里全选',
+				            msg:'<%=click_this_choose_all %>"',
 				            bg:'#AE81FF',
 				            time:8
 				        });
 						
 						return;
 					}else{
-						if(msg == '确定要开灯吗?'){
+						if(msg == '<%=make_sure_divider_open_light %>?'){
 							top.jzts();
 							$.ajax({
 								type: "POST",
@@ -314,7 +314,7 @@
 									 });
 								}
 							});
-						}else if(msg == '确定要关灯吗?'){
+						}else if(msg == '<%=make_sure_shut_down_light %>?'){
 							top.jzts();
 							$.ajax({
 								type: "POST",
@@ -329,9 +329,9 @@
 									 });
 								}
 							});
-						}else if(msg == '确定要调节亮度吗?'){
+						}else if(msg == '<%=make_sure_adjust_brightness %>?'){
 							adjustBrt(bright);
-						}else if(msg == '确定要调节策略吗?'){
+						}else if(msg == '<%=make_sure_adjust_strategy %>?'){
 							adjustStr(str);
 						}
 					}
@@ -380,7 +380,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="详细信息";
+			 diag.Title ="<%=detail %>";
 			 diag.URL = '<%=basePath%>state/lamp/goViewDetail.do?lamp_code='+lamp_code; 
 			 diag.Width = 800;
 			 diag.Height = 320;

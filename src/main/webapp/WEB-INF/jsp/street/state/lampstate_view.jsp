@@ -43,7 +43,7 @@
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><%=location %>:</td>
 								<td><input type="text" name="" id="" value="${pd.location}" maxlength="50" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">灯杆号:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=pole_number2 %>:</td>
 								<td><input type="text" name="" id="" value="${pd.lamp_pole_num}" maxlength="50" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><%=comment %>:</td>
 								<td><input type="text" name="" id="" value="${pd.comment}" maxlength="50" style="width:98%;"/></td>
@@ -51,9 +51,9 @@
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><%=belong_gateway %>:</td>
 								<td><input type="text" name="" id="" value="${pd.gateway_name}" maxlength="50" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">灯杆:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=pole2 %>:</td>
 								<td><input type="text" name="" id="" value="${pd.lamp_name}" maxlength="50" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">电源:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=power %>:</td>
 								<td><input type="text" name="" id="" value="${pd.power_name}" maxlength="50" style="width:98%;"/></td>
 							</tr>
 						</table>
@@ -68,9 +68,9 @@
 								<td><input type="text" name="" id="" value="${pd.power_factor}" maxlength="50" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">最大电压:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=bigest_voltage %>:</td>
 								<td><input type="text" name="" id="" value="${pd.Vmax}" maxlength="50" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">最大电流:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=bigest_electricity %>:</td>
 								<td><input type="text" name="" id="" value="${pd.Imax}" maxlength="50" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><%=temperature %>:</td>
 								<td><input type="text" name="" id="" value="${pd.temperature}" maxlength="50" style="width:98%;"/></td>
@@ -78,7 +78,7 @@
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><%=print_voltage %>:</td>
 								<td><input type="text" name="" id="" value="${pd.Vo}" maxlength="50" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">输出电流:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=export_electricity %>:</td>
 								<td><input type="text" name="" id="" value="${pd.Io}" maxlength="50" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;"><%=brightness_value %>:</td>
 								<td><input type="text" name="" id="" value="${pd.brightness}" maxlength="50" style="width:98%;"/></td>

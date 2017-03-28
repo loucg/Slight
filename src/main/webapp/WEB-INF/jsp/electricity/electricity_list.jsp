@@ -175,7 +175,7 @@
 									<a class="btn btn-mini btn-success" onclick="add();">新增</a>
 									</c:if> --%>
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要将选中的终端上电/断电?');" ><%=up_and_down_electricity %></a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('<%=make_sure_up_and_down_electricity_for_select_device %>?');" ><%=up_and_down_electricity %></a>
 <%-- 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要将选中的终端上电/断电?');" title="批量上电/断电" ><%=up_and_down_electricity %></a> --%>
 									</c:if>
 									<%-- <c:if test="${QX.edit == 1 }">
@@ -305,19 +305,19 @@
 					}
 					if(str==''){
 						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
+							message: "<span class='bigger-110'><%=you_have_not_choose_anything %>!</span>",
 							buttons: 			
 							{ "button":{ "label":"<%= make_sure%>", "className":"btn-sm btn-success"}}
 						});
 						$("#zcheckbox").tips({
 							side:1,
-				            msg:'点这里全选',
+				            msg:'<%=click_this_choose_all %>',
 				            bg:'#AE81FF',
 				            time:8
 				        });
 						return;
 					}else{
-						if(msg == '确定要将选中的终端上电/断电?'){
+						if(msg == '<%=make_sure_up_and_down_electricity_for_select_device %>?'){
 							top.jzts();
 							 var diag = new top.Dialog();
 							 diag.Drag=true;

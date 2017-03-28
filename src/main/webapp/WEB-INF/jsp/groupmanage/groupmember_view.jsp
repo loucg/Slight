@@ -54,7 +54,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;灯杆号：</td>
+								<td>&nbsp;&nbsp;<%=pole_number2 %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -62,7 +62,7 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;终端号：</td>
+								<td>&nbsp;&nbsp;<%=device_number2 %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -88,9 +88,9 @@
 							<thead>
 								<tr>
 									<th class="center" style="width:50px;"><%=number %></th>
-									<th class="center">终端号</th>
+									<th class="center"><%=device_number2 %></th>
 									<th class="center"><%=device_name %></th>
-									<th class="center">灯杆号</th>
+									<th class="center"><%=pole_number2 %></th>
 									<th class="center"><%=location %></th>
 									<th class="center"><%=power_standard %></th>
 									<th class="center"><%=light_standard %></th>
