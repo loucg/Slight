@@ -9,6 +9,8 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<!-- jsp 国际化-->
+<%@ include file="../../international.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +19,6 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../../system/index/top.jsp"%>
-<!-- jsp 国际化-->
-<%@ include file="../../international.jsp"%>
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
 <body class="no-skin">
