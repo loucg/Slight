@@ -15,27 +15,29 @@
 <base href="<%=basePath%>">
 <!-- jsp文件头和头部 -->
 <%@ include file="../../system/index/top.jsp"%>
+<!-- jsp 国际化-->
+<%@ include file="../../international.jsp"%>
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
-		
+
 <script type="text/javascript">
-	
+
 	//保存
 	function save(){
 			if($("#register").val()==""){
 				$("#register").tips({
 					side:3,
-		            msg:'请输入登记人',
+		            msg:'<%=please_enter_register%>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
 				$("#register").focus();
 				return false;
 			}
-			
+
 			if($("#explain").val()==""){
 			$("#explain").tips({
 				side:3,
-	            msg:'请输入修复说明',
+	            msg:'<%=please_enter_repire_explain%>',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -47,7 +49,7 @@
 			$("#zhongxin").hide();
 			$("#zhongxin2").show();
 	}
-	
+
 </script>
 </head>
 <body class="no-skin">
@@ -66,48 +68,48 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">登记人:</td>
-								<td><input style="width:95%;" type="text" name="register" id="register" value="${pd.register}" maxlength="500" placeholder="请输入登记人" title="登记人"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=registrant%>:</td>
+								<td><input style="width:95%;" type="text" name="register" id="register" value="${pd.register}" maxlength="500" placeholder="<%=please_enter_register%>" title="<%=registrant%>"/></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">维修人:</td>
-								<td><input style="width:95%;" type="text" name="repairman" id="repairman" value="${pd.repairman}" maxlength="500" placeholder="请输入维修人" title="维修人"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=maintenance_man%>:</td>
+								<td><input style="width:95%;" type="text" name="repairman" id="repairman" value="${pd.repairman}" maxlength="500" placeholder="<%=please_enter_repair_person%>" title="<%=maintenance_man%>"/></td>
 							</tr>
-							
+
 				<%-- 			<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">修复时间:</td>
 								<td style="padding-left:8px;"><input class="span10 date-picker" name="tdate" id="tdate"  value="${pd.tdate}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="修复时间" title="修复时间"/></td>
-		
-		
+
+
 							</tr> --%>
-							
+
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">修复结果:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=repair_result%>:</td>
 								<td>
-									<select class="chosen-select form-control" name="result" id="result" data-placeholder="请选择修复结果" style="float:left;padding-left: 12px;width:95%;">
-										<option value="1" <c:if test="${pd.result==1}">selected</c:if>>待修</option>
-										<option value="2" <c:if test="${pd.result==2}">selected</c:if>>已修</option>
-										<option value="3" <c:if test="${pd.result==3}">selected</c:if>>报废</option>
-										<option value="3" <c:if test="${pd.result==4}">selected</c:if>>自修复</option>
-										
+									<select class="chosen-select form-control" name="result" id="result" data-placeholder="<%=please_choose_repair_result%>" style="float:left;padding-left: 12px;width:95%;">
+										<option value="1" <c:if test="${pd.result==1}">selected</c:if>><%=wait_repair%></option>
+										<option value="2" <c:if test="${pd.result==2}">selected</c:if>><%=has_repair%></option>
+										<option value="3" <c:if test="${pd.result==3}">selected</c:if>><%=destroy%></option>
+										<option value="3" <c:if test="${pd.result==4}">selected</c:if>><%=repair_self%></option>
+
 								  	</select>
 								 </td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">修复说明:</td>
-								<td><input style="width:95%;" type="text" name="explain" id="explain" value="${pd.explain}" maxlength="500" placeholder="这里输入修复说明" title="修复说明"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=repair_instructions%>:</td>
+								<td><input style="width:95%;" type="text" name="explain" id="explain" value="${pd.explain}" maxlength="500" placeholder="<%=please_enter_repire_explain%>" title="<%=repair_instructions%>"/></td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+									<a class="btn btn-mini btn-primary" onclick="save();"><%=save%></a>
+									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel%></a>
 								</td>
 							</tr>
 						</table>
 						</div>
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing%>...</h4></div>
 					</form>
-	
+
 					</div>
 					<!-- /.col -->
 				</div>
@@ -115,7 +117,7 @@
 			</div>
 			<!-- /.page-content -->
 		</div>
-	</div>	
+	</div>
 </div>
 <!-- 页面底部js¨ -->
 <%@ include file="../../system/index/foot.jsp"%>
@@ -126,17 +128,17 @@
 		<!-- 日期框 -->
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 <!--提示框-->
-<script type="text/javascript" src="static/js/jquery.tips.js"></script>	
+<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
 	$(top.hangge());
-	
+
 	$(function() {
 		//日期框
 		$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
-		
+
 		//下拉框
 		if(!ace.vars['touch']) {
-			$('.chosen-select').chosen({allow_single_deselect:true}); 
+			$('.chosen-select').chosen({allow_single_deselect:true});
 			$(window)
 			.off('resize.chosen')
 			.on('resize.chosen', function() {
@@ -160,7 +162,7 @@
 			});
 		}
 
-		
+
 		//复选框全选控制
 		var active_class = 'active';
 		$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
@@ -172,7 +174,7 @@
 			});
 		});
 	});
-	
+
 	</script>
 </body>
 </html>
