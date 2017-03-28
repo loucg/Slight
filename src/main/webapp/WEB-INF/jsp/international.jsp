@@ -23,6 +23,7 @@
 	
 	String integration_power = properties.getProperty("integration_power");
 	String bigest_electricity = properties.getProperty("bigest_electricity");
+	String light_operating_err = properties.getProperty("light_operating_err");
 	String wait_start_use = properties.getProperty("wait_start_use");
 	String please_enter_name = properties.getProperty("please_enter_name");
 	String userinfo = properties.getProperty("userinfo");
@@ -71,6 +72,7 @@
 	String up_electricity_time = properties.getProperty("up_electricity_time");
 	String enter_email_here = properties.getProperty("enter_email_here");
 	String device_group_number = properties.getProperty("device_group_number");
+	String no_data_in_box = properties.getProperty("no_data_in_box");
 	String LOGO = properties.getProperty("LOGO");
 	String lamp_short = properties.getProperty("lamp_short");
 	String group_explain = properties.getProperty("group_explain");
@@ -80,6 +82,7 @@
 	String brightness_adjust = properties.getProperty("brightness_adjust");
 	String english = properties.getProperty("english");
 	String company_location = properties.getProperty("company_location");
+	String no_data_any_term = properties.getProperty("no_data_any_term");
 	String undervoltage = properties.getProperty("undervoltage");
 	String enter_the_department_name_here = properties.getProperty("enter_the_department_name_here");
 	String make_sure_delete_picture = properties.getProperty("make_sure_delete_picture");
@@ -110,6 +113,9 @@
 	String add_device = properties.getProperty("add_device");
 	String modify = properties.getProperty("modify");
 	String you_have_not_choose_anything = properties.getProperty("you_have_not_choose_anything");
+	String clear_draw = properties.getProperty("clear_draw");
+	String brightness_adjustment = properties.getProperty("brightness_adjustment");
+	String coordinate_conversion_failed = properties.getProperty("coordinate_conversion_failed");
 	String road_light_total_power = properties.getProperty("road_light_total_power");
 	String enter_function_values_here = properties.getProperty("enter_function_values_here");
 	String multiple_delete_app_group = properties.getProperty("multiple_delete_app_group");
@@ -133,6 +139,7 @@
 	String modify_strategy = properties.getProperty("modify_strategy");
 	String road_light_brightness_update_success = properties.getProperty("road_light_brightness_update_success");
 	String please_enter_group_name = properties.getProperty("please_enter_group_name");
+	String the_packet_has_no_terminal = properties.getProperty("the_packet_has_no_terminal");
 	String function_Brief = properties.getProperty("function_Brief");
 	String device_number2 = properties.getProperty("device_number2");
 	String please_enter_strategy_name = properties.getProperty("please_enter_strategy_name");
@@ -213,6 +220,7 @@
 	String normal = properties.getProperty("normal");
 	String work_status = properties.getProperty("work_status");
 	String group_number = properties.getProperty("group_number");
+	String Gatewayrouter_not_this_operations = properties.getProperty("Gatewayrouter_not_this_operations");
 	String add_app_device = properties.getProperty("add_app_device");
 	String time_for_24hour = properties.getProperty("time_for_24hour");
 	String enter_position_here = properties.getProperty("enter_position_here");
@@ -254,6 +262,7 @@
 	String day = properties.getProperty("day");
 	String enter_this_log_name_here = properties.getProperty("enter_this_log_name_here");
 	String please_choose_odd_even_day = properties.getProperty("please_choose_odd_even_day");
+	String light_operating_successfully = properties.getProperty("light_operating_successfully");
 	String please_enter_repire_explain = properties.getProperty("please_enter_repire_explain");
 	String exception = properties.getProperty("exception");
 	String detail = properties.getProperty("detail");
@@ -300,9 +309,9 @@
 	String normal_cutoff_device = properties.getProperty("normal_cutoff_device");
 	String blockout_time = properties.getProperty("blockout_time");
 	String cancel = properties.getProperty("cancel");
-	String please_enter_one_time_and_brightness_relation = properties.getProperty("please_enter_one_time_and_brightness_relation");
-	String functional_classification = properties.getProperty("functional_classification");
 	String arrears = properties.getProperty("arrears");
+	String functional_classification = properties.getProperty("functional_classification");
+	String please_enter_one_time_and_brightness_relation = properties.getProperty("please_enter_one_time_and_brightness_relation");
 	String temporary_no_data = properties.getProperty("temporary_no_data");
 	String new_password = properties.getProperty("new_password");
 	String electricity_set = properties.getProperty("electricity_set");
@@ -387,5 +396,8 @@
 	String open_road = properties.getProperty("open_road");
 	String even = properties.getProperty("even");
 	String please_type_device_number = properties.getProperty("please_type_device_number");
+
+
+	
 
 %>

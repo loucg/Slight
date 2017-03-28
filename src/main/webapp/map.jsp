@@ -993,6 +993,12 @@ function searchConerr() {
              label: "<%=make_sure%>",
              action: function(dialogItself) {
             	 dialogItself.close();
+            	///////////////////////////////////////////////////////////////////////////////////////////////////
+            	///////////////////////////////////////////////////////////////////////////////////////////////////
+            		 
+            	///////////////////////////////////////////////////////////////////////////////////////////////////
+            	///////////////////////////////////////////////////////////////////////////////////////////////////
+            	///////////////////////////////////////////////////////////////////////////////////////////////////
             	// window.parent.location.href="strategy/listStrategys.do";
              }
          },{
@@ -1079,7 +1085,7 @@ function getInfoContent(data) {
    						"<a>"+"<%=name%>"+"："+ data.name+"</a>"+
    					"</li>"+
    					"<li>"+
-   						"<a>"+"<%=light_pole_number%>"+"："+ data.lamppolenum+"</a>"+
+   						"<a>"+"<%=pole_number2%>"+"："+ data.lamppolenum+"</a>"+
    					"</li>"+
    					"<li >"+
    						"<a>"+"<%=location%>"+"："+ data.location+"</a>"+
@@ -1172,7 +1178,7 @@ function getInfoContent(data) {
        						"<a>"+"<%=name%>"+"："+  data .name+"</a>"+
        					"</li>"+
        					"<li>"+
-       						"<a>"+"<%=light_pole_number%>"+"："+ data .lamppolenum+"</a>"+
+       						"<a>"+"<%=pole_number2%>"+"："+ data .lamppolenum+"</a>"+
        					"</li>"+
        					"<li >"+
        						"<a>"+"<%=location%>"+"："+data .location+"</a>"+
@@ -1224,7 +1230,7 @@ function getInfoContent(data) {
 	        						"<a>"+"<%=name%>"+"："+  data .name+"</a>"+
 	        					"</li>"+
 	        					"<li>"+
-	        						"<a>"+"<%=light_pole_number%>"+"："+ data .lamppolenum+"</a>"+
+	        						"<a>"+"<%=pole_number2%>"+"："+ data .lamppolenum+"</a>"+
 	        					"</li>"+
 	        					"<li >"+
 	        						"<a>"+"<%=location%>"+"："+data .location+"</a>"+
