@@ -230,7 +230,7 @@
 		    if(!re.test($("#username").val())){
 		    	$("#username").tips({
 					side:3,
-		            msg:'登录名由字母、数字、下划线组成，字母开头，4-16位。',
+		            msg:'<%=login_name_contain_letter_number_4_16 %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -272,7 +272,7 @@
 				//alert(!checkE.test($("#name").val()));
 				$("#name").tips({
 					side:3,
-		            msg:'姓名输入有误，请检查是否含有特殊字符！',
+		            msg:'<%=type_wrong_name_check_special %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -294,7 +294,7 @@
 		}else if($("#phone").val().length != 11 && !myreg.test($("#phone").val())){
 			$("#phone").tips({
 				side:3,
-	            msg:'手机号码格式不正确！',
+	            msg:'<%=phone_number_type_not_correct %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -306,7 +306,7 @@
 			if(!ismail($("#email").val())){
 			$("#email").tips({
 				side:3,
-	            msg:'邮箱格式不正确！',
+	            msg:'<%=email_type_not_correct %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -403,7 +403,7 @@
 					//setTimeout("$('#username').val('此用户名已存在!')",500);
 					 $("#username").tips({
 							side:3,
-				            msg:'此登录名已存在！',
+				            msg:'<%=this_login_name_has_exist %>',
 				            bg:'#AE81FF',
 				            time:3
 				        });

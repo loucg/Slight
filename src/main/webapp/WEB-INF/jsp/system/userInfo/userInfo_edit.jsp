@@ -86,7 +86,7 @@
 										</tr>
 									</table>
 									</div>
-									<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"></h4></div>
+									<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %>...</h4></div>
 								</form>
 						</div>
 						<!-- /.col -->
@@ -212,7 +212,7 @@
 				//alert(!checkE.test($("#name").val()));
 				$("#name").tips({
 					side:3,
-		            msg:'姓名输入有误，请检查是否含有特殊字符！',
+		            msg:'<%=type_wrong_name_check_special %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -234,7 +234,7 @@
 		}else if($("#phone").val().length != 11 && !myreg.test($("#phone").val())){
 			$("#phone").tips({
 				side:3,
-	            msg:'手机号码格式不正确！',
+	            msg:'<%=phone_number_type_not_correct %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -246,14 +246,14 @@
 			if(!ismail($("#email").val())){
 				$("#email").tips({
 					side:3,
-		            msg:'邮箱格式不正确！',
+		            msg:'<%=email_type_not_correct %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
 				$("#email").focus();
 				return false;
 			}
-			}
+		}
 		
 		if($("#language_id").val()==""){
 			$("#yuyan").tips({
@@ -335,7 +335,7 @@
 				}else{
 				     $("#oldPassword").tips({
 					 side:3,
-		             msg:'原始密码错误！',
+		             msg:'<%=old_password_wrong %>',
 		             bg:'#AE81FF',
 		             time:3
 		        });

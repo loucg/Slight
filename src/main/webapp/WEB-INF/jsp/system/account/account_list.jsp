@@ -69,7 +69,7 @@
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="清空检索条件" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="<%=clear_search_ %>" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
 								</c:if>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="searchs();"  title="<%=search2 %>" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
@@ -128,7 +128,7 @@
 												<div class="btn-group">
 												    <!-- 修改 -->
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-mini btn-info" title="修改帐号" onclick="editAccount('${account.USER_ID}');"><%=modify %></a>
+													<a class="btn btn-mini btn-info" title="<%=modify_account %>" onclick="editAccount('${account.USER_ID}');"><%=modify %></a>
 													</c:if>
 													<!-- 密码重置  -->
 													<c:if test="${QX.edit == 1 }">
@@ -161,7 +161,7 @@
 						<tr>
 							<td style="vertical-align:top;">
 								<c:if test="${QX.add == 1 }">
-								<a class="btn btn-mini btn-success" title="新增帐号" onclick="add();">新增帐号</a>
+								<a class="btn btn-mini btn-success" title="<%=add_account %>" onclick="add();"><%=add_account %></a>
 								</c:if>
 							</td>
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -233,7 +233,7 @@ function resetPassword(user_id){
 	 diag.Height = 140;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-			nextPage(${page.currentPage});
+			nextPage('${page.currentPage}');
 		}
 		diag.close();
 	 };
@@ -245,7 +245,7 @@ function add(){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=false;
-	 diag.Title ="新增帐号";
+	 diag.Title ="<%=add_account %>";
 	 diag.URL = '<%=basePath%>account/goAddA.do';
 	 diag.Width = 351;
 	 diag.Height = 520;
@@ -255,7 +255,7 @@ function add(){
 				 top.jzts();
 				 setTimeout("self.location=self.location",100);
 			 }else{
-				 nextPage(${page.currentPage});
+				 nextPage('${page.currentPage}');
 			 }
 		}
 		diag.close();
@@ -268,13 +268,13 @@ function editAccount(user_id){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=false;
-	 diag.Title ="修改帐号";
+	 diag.Title ="<%=modify_account %>";
 	 diag.URL = '<%=basePath%>account/goEditA.do?USER_ID='+user_id;
 	 diag.Width = 351;
 	 diag.Height = 520;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-			nextPage(${page.currentPage});
+			nextPage('${page.currentPage}');
 		}
 		diag.close();
 	 };
@@ -312,7 +312,7 @@ $(function() {
 	}
 });
 
-//查看用户
+<%-- //查看用户
 function viewUser(USERNAME){
 	if('admin' == USERNAME){
 		bootbox.dialog({
@@ -333,7 +333,7 @@ function viewUser(USERNAME){
 		diag.close();
 	 };
 	 diag.show();
-}
+} --%>
 		
 </script>
 </html>

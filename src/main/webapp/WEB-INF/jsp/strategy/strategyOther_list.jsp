@@ -40,17 +40,17 @@
 								<td><%=group_name %>：</td>
 								<td>
 									<div class="nav-search">
-											<input type="text" class="nav-search-input" id="term_name-input" autocomplete="off" name="term_name" placeholder="请输入组名" value="${pd.term_name}"/>
+											<input type="text" class="nav-search-input" id="term_name-input" autocomplete="off" name="term_name" placeholder="<%=please_enter_group_name %>" value="${pd.term_name}"/>
 									</div>
 								</td>
 								<td>&nbsp;&nbsp;<%=group_explain %>：</td>
 								<td>
 									<div class="nav-search">
-											<input type="text" class="nav-search-input" id="term_explain-input" autocomplete="off" name="term_explain" placeholder="请输入组说明" value="${pd.term_explain}"/>
+											<input type="text" class="nav-search-input" id="term_explain-input" autocomplete="off" name="term_explain" placeholder="<%=please_enter_group_explain %>" value="${pd.term_explain}"/>
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="清空检索条件" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="<%=clear_search_ %>" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
 								</c:if>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search2 %>" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
@@ -114,7 +114,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-warning btn-mini" onclick="makeAll('确定要新增选中的应用组吗?',${strategyforpage.id});" title="批量新增应用组" ><%=add_app_group %></a>
+									<a class="btn btn-warning btn-mini" onclick="makeAll('<%=make_sure_add_app_group %>',${strategyforpage.id});" title="<%=multiple_add_app_group %>" ><%=add_app_group %></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -230,19 +230,19 @@
 					}
 					if(str==''){
 						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何应用组!</span>",
+							message: "<span class='bigger-110'><%=you_have_not_choose_any_app_group %></span>",
 							buttons: 			
 							{ "button":{ "label":"<%=make_sure %>", "className":"btn-sm btn-success"}}
 						});
 						$("#zcheckbox").tips({
 							side:1,
-				            msg:'点这里全选',
+				            msg:'<%=click_this_choose_all %>',
 				            bg:'#AE81FF',
 				            time:8
 				        });
 						return;
 					}else{
-						if(msg == '确定要新增选中的应用组吗?'){
+						if(msg == '<%=make_sure_add_app_group %>'){
 							top.jzts();
 							$.ajax({
 								type: "POST",
@@ -285,7 +285,7 @@
 						 top.jzts();
 						 setTimeout("self.location=self.location",100);
 					 }else{
-						 nextPage(${page.currentPage});
+						 nextPage('${page.currentPage}');
 					 }
 				}
 				diag.close();

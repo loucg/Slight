@@ -49,7 +49,7 @@
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="清空检索条件" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="<%=clear_search_ %>" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
 								</c:if>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="searchs();"  title="<%=search2 %>" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
@@ -113,7 +113,7 @@
 												</c:if>
 												<div class="btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-mini btn-info" title="修改策略" onclick="editStrategy('${strategy.id}');">
+													<a class="btn btn-mini btn-info" title="<%=modify_strategy %>" onclick="editStrategy('${strategy.id}');">
 														<%=modify %>
 													</a>
 													</c:if>
@@ -290,7 +290,7 @@ function viewStrategyGroups(id){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
-	 diag.Title ="终端组列表";
+	 diag.Title ="<%=device_group_list %>";
 	 diag.URL = '<%=basePath%>strategyGroup/listGroups.do?id='+id;
 	 diag.Width = 1200;
 	 diag.Height = 600;
@@ -305,7 +305,7 @@ function editStrategy(strategy_id){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=false;
-	 diag.Title ="修改策略";
+	 diag.Title ="<%=modify_strategy %>";
 	 diag.URL = '<%=basePath%>strategy/goEditS.do?id='+strategy_id;
 	 diag.Width = 469;
 	 diag.Height = 510;
@@ -344,20 +344,20 @@ function makeAll(msg){
 			}
 			if(str==''){
 				bootbox.dialog({
-					message: "<span class='bigger-110'>您没有选择任何内容!</span>",
+					message: "<span class='bigger-110'><%=you_have_not_choose_anything %></span>",
 					buttons: 			
 					{ "button":{ "label":"<%=make_sure %>", "className":"btn-sm btn-success"}}
 				});
 				$("#zcheckbox").tips({
 					side:3,
-		            msg:'点这里全选',
+		            msg:'<%=click_this_choose_all %>',
 		            bg:'#AE81FF',
 		            time:8
 		        });
 				
 				return;
 			}else{
-				if(msg == '确定要删除选中的数据吗?'){
+				if(msg == '<%=make_sure_delete2_data %>'){
 					top.jzts();
 					$.ajax({
 						type: "POST",

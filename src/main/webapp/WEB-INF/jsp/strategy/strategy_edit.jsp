@@ -62,7 +62,7 @@
 								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span><%=odd_and_even_day %>:</td>
 								<td>
 									<select class="chosen-select form-control" name="ODD_EVEN" id="odd_even" maxlength="100" title="<%=odd_and_even_day %>" style="vertical-align:top;width:98%;">
-										<option value="">请选择奇偶天</option>
+										<option value=""><%=please_choose_odd_even_day %></option>
 										<option value="0" <c:if test="${pd.odd_even == '0' }">selected</c:if> ><%=odd %></option>
 										<option value="1" <c:if test="${pd.odd_even == '1' }">selected</c:if> ><%=even %></option>
 									</select>
@@ -166,7 +166,7 @@
 			if($("#odd_even").val()==""){
 				$("#odd_even").tips({
 					side:3,
-		            msg:'选择奇偶天',
+		            msg:'<%=please_choose_odd_even_day %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -178,7 +178,7 @@
 	        if(s3.rows.length <= 1){
 	        	$("#timestamp").tips({
 					side:3,
-		            msg:'请输入至少一条时间及亮度值关系！',
+		            msg:'<%=please_enter_one_time_and_brightness_relation %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -353,7 +353,7 @@
 	        if(s3.rows.length >= 13){
 	        	$("#timestamp").tips({
 					side:3,
-		            msg:'每个策略最多有12条时间及亮度值关系！',
+		            msg:'<%=time_and_brightness_at_most_12 %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -364,7 +364,7 @@
 	        	if(s3.rows[i].cells[0].childNodes[0].value == timestamp.value){
 	    				 $("#timestamp").tips({
 	    					side:2,
-	    		            msg:'时间重复！',
+	    		            msg:'<%=time_repeat %>',
 	    		            bg:'#AE81FF',
 	    		            time:2
 	    		        }); 
@@ -421,7 +421,7 @@
 			if(s3.rows[i].cells[0].childNodes[0].value == ""){
 				$(s3.rows[i].cells[0].childNodes[0]).tips({
  					side:2,
- 		            msg:'时间为空！',
+ 		            msg:'<%=time_is_null %>',
  		            bg:'#AE81FF',
  		            time:2
  		        });
@@ -430,7 +430,7 @@
 			if(s3.rows[i].cells[1].childNodes[0].value == ""){
 				$(s3.rows[i].cells[1].childNodes[0]).tips({
  					side:3,
- 		            msg:'亮度为空！',
+ 		            msg:'<%=brightness_is_null %>',
  		            bg:'#AE81FF',
  		            time:2
  		        });
@@ -440,13 +440,13 @@
 				if(s3.rows[j].cells[0].childNodes[0].value == s3.rows[i].cells[0].childNodes[0].value && i != j){
 	     			$(s3.rows[i].cells[0].childNodes[0]).tips({
 	 					side:2,
-	 		            msg:'时间重复！',
+	 		            msg:'<%=time_repeat %>',
 	 		            bg:'#AE81FF',
 	 		            time:2
 	 		        });
 	     			$(s3.rows[j].cells[0].childNodes[0]).tips({
 	 					side:2,
-	 		            msg:'时间重复！',
+	 		            msg:'<%=time_repeat %>',
 	 		            bg:'#AE81FF',
 	 		            time:2
 	 		        });
