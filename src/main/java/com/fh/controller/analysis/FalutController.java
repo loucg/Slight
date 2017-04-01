@@ -87,9 +87,9 @@ public class FalutController extends BaseController{
 	        lastday = format.format(cale.getTime());
 	        pd.put("starttime", firstday.trim());
 	        pd.put("endtime", lastday.trim());
-	        String userids = departmentService.getUseridsInDepartment(pd);
-	        pd.put("userids", userids);
 		}
+		String userids = departmentService.getUseridsInDepartment(pd);
+        pd.put("userids", userids);
 		page.setPd(pd);
 		List<PageData>	varList = faultanalysisService.list(page);	//列出Dictionaries列表
 		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){
