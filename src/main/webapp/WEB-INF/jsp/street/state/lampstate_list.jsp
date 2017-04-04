@@ -106,6 +106,8 @@
 									<th class="center"><%=temperature %></th>
 									<th class="center"><%=print_voltage %></th>
 									<th class="center"><%=power_rate_factor %></th>
+									<th class="center"><%=brightness_value %></th>
+									<th class="center"><%=strategy %></th>
 									<th class="center"><%=work_status %></th>
 									<th class="center"><%=comment %></th>
 									<th class="center"><%=time %></th>
@@ -132,6 +134,8 @@
 									        <td class='center'>${lampState.temperature}</td>
 									        <td class='center'>${lampState.Vo}</td>
 									        <td class='center'>${lampState.power_factor}</td>
+									        <td class='center'>${lampState.brightness}</td>
+									        <td class='center'>${lampState.sname}</td>
 									        <td class='center'>${lampState.status}</td>
 									        <td class='center'>${lampState.comment}</td>
 									        <td class='center'>${lampState.tdate}</td>
