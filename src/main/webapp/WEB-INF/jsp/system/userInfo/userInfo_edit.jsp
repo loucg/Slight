@@ -8,6 +8,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,46 +32,46 @@
 									<div id="zhongxin" style="padding-top: 20px;">
 									<table id="table_report" class="table table-striped table-bordered table-hover">
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">登录名:</td>
-											<td><input type="text" name="USERNAME" id="username" value="${pd.USERNAME }" maxlength="32" placeholder="" title="登录名" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><%=log_name %>:</td>
+											<td><input type="text" name="USERNAME" id="username" value="${pd.USERNAME }" maxlength="32" placeholder="" title="<%=log_name %>" style="width:98%;"/></td>
 										</tr>
 										<tr>	
-											<td style="width:79px;text-align: right;padding-top: 4px;">原始密码:</td>
-											<td><input type="text" name="OLDPASSWORD" id="oldPassword"  maxlength="32" placeholder="输入原始密码，不修改密码无需输入" title="原始密码" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><%=old_password %>:</td>
+											<td><input type="text" name="OLDPASSWORD" id="oldPassword"  maxlength="32" placeholder="<%=enter_old_password %>" title="<%=old_password %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">新密码:</td>
-											<td><input type="text" name="NEWPASSWORD" id="newPassword"  maxlength="32" placeholder="输入新密码，为空时表示不修改" title="新密码" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><%=new_password %>:</td>
+											<td><input type="text" name="NEWPASSWORD" id="newPassword"  maxlength="32" placeholder="<%=enter_new_password %>" title="<%=new_password %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>姓名:</td>
-											<td><input type="text" name="NAME" id="name"  value="${pd.NAME }"  maxlength="32" placeholder="这里输入姓名" title="姓名" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=person_name %>:</td>
+											<td><input type="text" name="NAME" id="name"  value="${pd.NAME }"  maxlength="32" placeholder="<%=enter_person_name_here %>" title="<%=person_name %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>手机:</td>
-											<td><input type="number" name="PHONE" id="phone"  value="${pd.PHONE }"  maxlength="32" placeholder="这里输入手机号" title="手机号" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=phone %>:</td>
+											<td><input type="number" name="PHONE" id="phone"  value="${pd.PHONE }"  maxlength="32" placeholder="<%=enter_phone_number_here %>" title="<%=phone %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-										<td style="width:79px;text-align: right;padding-top: 4px;">邮箱:</td>
-										<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" style="width:98%;"/></td>
+										<td style="width:79px;text-align: right;padding-top: 4px;"><%=email %>:</td>
+										<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="<%=enter_email_here %>" title="<%=email %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-										<td style="width:79px;text-align: right;padding-top: 4px;">联系地址:</td>
-										<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="这里输入联系地址" title="联系地址" style="width:98%;"/></td>
+										<td style="width:79px;text-align: right;padding-top: 4px;"><%=contact_address %>:</td>
+										<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="<%=enter_contact_address_here %>" title="<%=contact_address %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-										<td style="width:79px;text-align: right;padding-top: 4px;">职务:</td>
-										<td><input type="text" name="POSITION" id="position"  value="${pd.POSITION }"  maxlength="32" placeholder="" title="职务" style="width:98%;"/></td>
+										<td style="width:79px;text-align: right;padding-top: 4px;"><%=position %>:</td>
+										<td><input type="text" name="POSITION" id="position"  value="${pd.POSITION }"  maxlength="32" placeholder="" title="<%=position %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-										<td style="width:79px;text-align: right;padding-top: 4px;">公司:</td>
-										<td><input type="text" name="COMPANY" id="company"  value="${pd.COMPANY }"  maxlength="32" placeholder="" title="公司" style="width:98%;"/></td>
+										<td style="width:79px;text-align: right;padding-top: 4px;"><%=company %>:</td>
+										<td><input type="text" name="COMPANY" id="company"  value="${pd.COMPANY }"  maxlength="32" placeholder="" title="<%=company %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-										<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>语言:</td>
+										<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=language1 %>:</td>
 											<td id="yuyan">
-											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" title="语言" style="vertical-align:top;width:98%;">
-											<option value="">请选择语言</option>
+											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="<%=please_choose_language %>" title="<%=language1 %>" style="vertical-align:top;width:98%;">
+											<option value=""><%=please_choose_language %></option>
 											<c:forEach items="${languageList}" var="language">
 												<option value="${language.id }"<c:if test="${language.id == pd.LANGUAGE_ID }">selected</c:if>>${language.name }</option>
 											</c:forEach>
@@ -79,13 +80,13 @@
 										</tr>
 										<tr>
 											<td style="text-align: center;" colspan="10">
-												<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-												<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+												<a class="btn btn-mini btn-primary" onclick="save();"><%=save %></a>
+												<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel %></a>
 											</td>
 										</tr>
 									</table>
 									</div>
-									<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"></h4></div>
+									<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %>...</h4></div>
 								</form>
 						</div>
 						<!-- /.col -->
@@ -156,7 +157,7 @@
 		if($("#newPassword").val()!="" && $("#oldPassword").val() == ""){ //当用户输入新密码而原始密码为空时
 			$("#oldPassword").tips({
 				side:3,
-	            msg:'请输入原始密码！',
+	            msg:'<%=enter_old_password %>',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -169,7 +170,7 @@
 			if(!re.test($("#newPassword").val())){
 				$("#newPassword").tips({
 					side:3,
-		            msg:'新密码由字母、数字组成，6-20位。',
+		            msg:'<%=new_password_contain_letter_number %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -196,7 +197,7 @@
 		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,
-	            msg:'请输入姓名！',
+	            msg:'<%=enter_person_name_here %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -211,7 +212,7 @@
 				//alert(!checkE.test($("#name").val()));
 				$("#name").tips({
 					side:3,
-		            msg:'姓名输入有误，请检查是否含有特殊字符！',
+		            msg:'<%=type_wrong_name_check_special %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -224,7 +225,7 @@
 		if($("#phone").val()==""){
 			$("#phone").tips({
 				side:3,
-	            msg:'请输入手机号码！',
+	            msg:'<%=enter_phone_number_here %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -233,7 +234,7 @@
 		}else if($("#phone").val().length != 11 && !myreg.test($("#phone").val())){
 			$("#phone").tips({
 				side:3,
-	            msg:'手机号码格式不正确！',
+	            msg:'<%=phone_number_type_not_correct %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -245,19 +246,19 @@
 			if(!ismail($("#email").val())){
 				$("#email").tips({
 					side:3,
-		            msg:'邮箱格式不正确！',
+		            msg:'<%=email_type_not_correct %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
 				$("#email").focus();
 				return false;
 			}
-			}
+		}
 		
 		if($("#language_id").val()==""){
 			$("#yuyan").tips({
 				side:3,
-	            msg:'请选择语言！',
+	            msg:'<%=please_choose_language %>',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -291,7 +292,7 @@
 		return(new RegExp(/^(?:[a-zA-Z0-9]+[_\-\+\.]?)*[a-zA-Z0-9]+@(?:([a-zA-Z0-9]+[_\-]?)*[a-zA-Z0-9]+\.)+([a-zA-Z]{2,})+$/).test(mail));
 		}
 	
-	//判断用户名是否存在
+	<%-- //判断用户名是否存在
 	function hasU(){
 		var USERNAME = $.trim($("#USERNAME").val());
 		$.ajax({
@@ -311,7 +312,7 @@
 				 }
 			}
 		});
-	}
+	} --%>
 	
 	
 	//判断原始密码是否正确
@@ -334,7 +335,7 @@
 				}else{
 				     $("#oldPassword").tips({
 					 side:3,
-		             msg:'原始密码错误！',
+		             msg:'<%=old_password_wrong %>',
 		             bg:'#AE81FF',
 		             time:3
 		        });
@@ -344,7 +345,7 @@
 		});
 	}
 	
-	//判断邮箱是否存在
+	<%-- //判断邮箱是否存在
 	function hasE(USERNAME){
 		var EMAIL = $.trim($("#EMAIL").val());
 		$.ajax({
@@ -365,11 +366,11 @@
 				 }
 			}
 		});
-	}
+	} --%>
 	
 	
-	<%-- //初始页面信息
-	function getHeadMsg(){
+	 //初始页面信息
+	<%-- function getHeadMsg(){
 		$.ajax({
 			type: "POST",
 			url: '<%=basePath%>/head/getList.do?tm='+new Date().getTime(),
@@ -395,10 +396,10 @@
 				 //online();								//连接在线
 			}
 		});
-	} --%>
+	} --%> 
 	
-	/*
-	$(function() {
+	
+	/* $(function() {
 		//下拉框
 		if(!ace.vars['touch']) {
 			$('.chosen-select').chosen({allow_single_deselect:true}); 
@@ -424,7 +425,7 @@
 				 else $('#form-field-select-4').removeClass('tag-input-style');
 			});
 		}
-	});
-	*/
+	}); */
+	
 </script>
 </html>

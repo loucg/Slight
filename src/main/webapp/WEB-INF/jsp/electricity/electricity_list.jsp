@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../system/index/top.jsp"%>
+<!-- jsp国际化文件 -->
+<%@ include file="../international.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
@@ -35,7 +37,7 @@
 						<form action="electricity/retrieve.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
-								<td>编号：</td>
+								<td><%=serial_number %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -43,7 +45,8 @@
 										</span>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;名称：</td>
+								<!-- <td>&nbsp;&nbsp;名称：</td> -->
+								<td>&nbsp;&nbsp;<%=name %>：</td>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
@@ -52,7 +55,7 @@
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索" style="padding: 3px 3px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search2 %>" style="padding: 3px 3px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -64,13 +67,13 @@
 									<th class="center" style="width:35px;">
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
-									<th class="center" style="width:50px;">序号</th>
-									<th class="center">终端编号</th>
-									<th class="center">终端名称</th>
-									<th class="center">位置</th>
-									<th class="center">上电时间</th>
-									<th class="center">断电时间</th>
-									<th class="center">操作</th>
+									<th class="center" style="width:50px;"><%=number %></th>
+									<th class="center"><%=device_number %></th>
+									<th class="center"><%=device_name %></th>
+									<th class="center"><%=location %></th>
+									<th class="center"><%=up_electricity_time %></th>
+									<th class="center"><%=blockout_time %></th>
+									<th class="center"><%=operate %></th>
 								</tr>
 							</thead>
 													
@@ -92,7 +95,7 @@
 											<td class='center'>${electricity.powerdown}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
-												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="<%=no_permission %>"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<%-- <c:if test="${QX.edit == 1 }">
@@ -106,9 +109,9 @@
 													</a>
 													</c:if> --%>
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="editElectricity('${electricity.id}');">
+													<a class="btn btn-xs btn-success" title="<%=edit %>" onclick="editElectricity('${electricity.id}');">
 														<!-- <i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i> -->
-														编辑
+														<%=edit %>
 													</a>
 													</c:if>
 													<%-- <c:if test="${QX.del == 1 }">
@@ -152,13 +155,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -172,7 +175,8 @@
 									<a class="btn btn-mini btn-success" onclick="add();">新增</a>
 									</c:if> --%>
 									<c:if test="${QX.edit == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要将选中的终端上电/断电?');" title="批量上电/断电" >上电/断电</a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('<%=make_sure_up_and_down_electricity_for_select_device %>?');" ><%=up_and_down_electricity %></a>
+<%-- 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要将选中的终端上电/断电?');" title="批量上电/断电" ><%=up_and_down_electricity %></a> --%>
 									</c:if>
 									<%-- <c:if test="${QX.edit == 1 }">
 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要将选中的终端断电?');" title="批量断电" >断电</a>
@@ -275,7 +279,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="上电断电时间设置";
+			 diag.Title ='<%=set_up_and_down_electricity_time %>';
 			 diag.URL = '<%=basePath%>electricity/goUpdate.do?id='+id;
 			 diag.Width = 469;
 			 diag.Height = 269;
@@ -301,26 +305,26 @@
 					}
 					if(str==''){
 						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
+							message: "<span class='bigger-110'><%=you_have_not_choose_anything %>!</span>",
 							buttons: 			
-							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
+							{ "button":{ "label":"<%= make_sure%>", "className":"btn-sm btn-success"}}
 						});
 						$("#zcheckbox").tips({
 							side:1,
-				            msg:'点这里全选',
+				            msg:'<%=click_this_choose_all %>',
 				            bg:'#AE81FF',
 				            time:8
 				        });
 						return;
 					}else{
-						if(msg == '确定要将选中的终端上电/断电?'){
+						if(msg == '<%=make_sure_up_and_down_electricity_for_select_device %>?'){
 							top.jzts();
 							 var diag = new top.Dialog();
 							 diag.Drag=true;
-							 diag.Title ="上电断电时间设置";
+							 diag.Title ='<%=set_up_and_down_electricity_time %>';
 							 diag.URL = '<%=basePath%>electricity/goSettime.do?DATA_IDS='+str;
 							 diag.Width = 469;
-							 diag.Height = 150;
+							 diag.Height = 220;
 							 diag.CancelEvent = function(){ //关闭事件
 								 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 									nextPage(${page.currentPage});

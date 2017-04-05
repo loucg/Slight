@@ -12,6 +12,7 @@
 		<base href="<%=basePath%>">
 		<!-- jsp文件头和头部 -->
 		<%@ include file="../../system/index/top.jsp"%>
+		<%@ include file="../../international.jsp"%>
 		
 	
 </head>
@@ -33,23 +34,27 @@
 						<table id="table_report" class="table table-striped table-bordered table-hover" style="margin-top:15px;">
 						<c:if test="${msg == 'edit'}">
 						<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">上级部门:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=superior_department %>:</td>
 								<td>
 									<div class="col-xs-4 label label-lg label-light arrowed-in arrowed-right">
-										<b>${null == pd.SUPERIOR_DEPARTMENT_ID ?'(无) 此部门为顶级':pds.NAME}</b>
+										<%-- <b>${null == pd.SUPERIOR_DEPARTMENT_ID ?'<%=none_this_department_is_top %>':pds.NAME}</b> --%>
+										<b>
+										<c:if test="${null == pd.SUPERIOR_DEPARTMENT_ID}"><%=none_this_department_is_top %></c:if>
+										<c:if test="${null != pd.SUPERIOR_DEPARTMENT_ID}">${pds.NAME}</c:if>
+										</b>
 									</div>
 								</td>
 							</tr>
 						</c:if>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">部门名称:</td>
-								<td><input type="text" name="NAME" id="NAME" value="${pd.NAME}" maxlength="50" placeholder="这里输入部门名称" title="部门名称" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=department_name %>:</td>
+								<td><input type="text" name="NAME" id="NAME" value="${pd.NAME}" maxlength="50" placeholder="<%=enter_the_department_name_here %>" title="<%=department_name %>" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">上级部门:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=superior_department %>:</td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="SUPERIOR_DEPARTMENT_ID" id="SUPERIOR_DEPARTMENT_ID" data-placeholder="请选择上级部门" style="vertical-align:top;width: 120px;">
-									<option value="">无</option>
+								 	<select class="chosen-select form-control" name="SUPERIOR_DEPARTMENT_ID" id="SUPERIOR_DEPARTMENT_ID" data-placeholder="<%=please_choose_the_superior_department %>" style="vertical-align:top;width: 120px;">
+									<option value=""><%=none %></option>
 									<c:forEach items="${varList}" var="superdepart">
 									<c:if test="${superdepart.ID!=pd.ID}">
 										<option value="${superdepart.ID }" <c:if test="${pd.SUPERIOR_DEPARTMENT_ID==superdepart.ID}">selected="selected"</c:if>>${superdepart.NAME }</option>
@@ -59,30 +64,30 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">状态:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=status %>:</td>
 								<td style="vertical-align:top;padding-left:2px;">
-								<select class="chosen-select form-control" name="STATUS" id="STATUS" data-placeholder="请选择状态" style="vertical-align:top;width: 120px;">
-									<option value="0" <c:if test="${pd.STATUSNAME=='有效'}">selected="selected"</c:if>>有效</option>
-									<option value="1" <c:if test="${pd.STATUSNAME=='无效'}">selected="selected"</c:if>>无效</option>
+								<select class="chosen-select form-control" name="STATUS" id="STATUS" data-placeholder="<%=please_choose_status %>" style="vertical-align:top;width: 120px;">
+									<option value="0" <c:if test="${pd.STATUSNAME=='有效'}">selected="selected"</c:if>><%=effective %></option>
+									<option value="1" <c:if test="${pd.STATUSNAME=='无效'}">selected="selected"</c:if>><%=invalid %></option>
 								  	</select>
 								  </td>
 							</tr>
 							<tr>
-								<td style="width:70px;text-align: right;padding-top: 13px;">部门简述:</td>
+								<td style="width:70px;text-align: right;padding-top: 13px;"><%=department_description %>:</td>
 								<td>
-									<textarea rows="3" cols="46" name="EXPLAIN" id="EXPLAIN" placeholder="这里输入部门简述" title="部门简述"  style="width:98%;">${pd.EXPLAIN}</textarea>
+									<textarea rows="3" cols="46" name="EXPLAIN" id="EXPLAIN" placeholder="<%=enter_the_department_here %>" title="<%=department_description %>"  style="width:98%;">${pd.EXPLAIN}</textarea>
 								</td>
 							</tr>
 							<tr>
 								<td class="center" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+									<a class="btn btn-mini btn-primary" onclick="save();"><%=save %></a>
+									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel %></a>
 								</td>
 							</tr>
 						</table>
 						</div>
 						
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %></h4></div>
 						
 					</form>
 	
@@ -111,7 +116,7 @@
 			if($("#NAME").val()==""){
 				$("#NAME").tips({
 					side:3,
-		            msg:'请输入部门名称',
+		            msg:'<%=please_enter_department_name %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });

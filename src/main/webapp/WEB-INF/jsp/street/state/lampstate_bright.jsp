@@ -18,6 +18,8 @@
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
 	<%@ include file="../../system/index/top.jsp"%>
+	<!-- jsp国际化文件 -->
+<%@ include file="../../international.jsp"%>
 	<!-- 日期框 -->
 	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
 	<!-- 时间 -->
@@ -42,7 +44,7 @@
 						   		 <td><input type="text" name="DATA_IDS" id="DATA_IDS" value="${pd.DATA_IDS }" /></td>
 						    </tr>
 							<p>
-							  <label for="brightness">亮度等级：</label>
+							  <label for="brightness"><%=brightness_level %>：</label>
 							  <input type="text" id="brightness" name="brightness" style="border:0; color:#f6931f; font-weight:bold;width:40px">
 							  <label for="brightness">(0-100)</label>
 							</p>
@@ -50,12 +52,12 @@
 							<div id="slider-vertical" style="margin-bottom:30px"></div>
 								
 							<div style="text-align: center; margin-bottom:5px" colspan="10">
-								<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-								<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+								<a class="btn btn-mini btn-primary" onclick="save();"><%=save %></a>
+								<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel %></a>
 							</div>
 						</table>
 						</div>
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %>...</h4></div>
 					</form>
 					</div>
 					<!-- /.col -->

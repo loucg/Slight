@@ -38,14 +38,14 @@
 							<tr>
 								 <td>
 									<div class="nav-search">
-									    <label>编号：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="code" value="${pd.code}" placeholder="请输入编号" />
+									    <label><%=serial_number%>：</label>
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="code" value="${pd.code}" placeholder="<%=please_enter_serial_number%>" />
 									</div>
 								</td>
 								<td>
 									<div class="nav-search" style="margin-left:8px;">
-									    <label>名称：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name}" placeholder="请输入名称" />
+									    <label><%=name%>：</label>
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name}" placeholder="<%=please_enter_name%>" />
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -61,12 +61,12 @@
 									<th class="center" style="width:35px;">
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
-									<th class="center">序号</th>
-									<th class="center">终端编号</th>
-									<th class="center">终端名称</th>
-									<th class="center">灯杆号</th>
-									<th class="center">备注</th>
-									<th class="center">工作状态</th>								 
+									<th class="center"><%=number%></th>
+									<th class="center"><%=device_number%></th>
+									<th class="center"><%=device_name %></th>
+									<th class="center"><%=pole_number %></th>
+									<th class="center"><%=comment%></th>
+									<th class="center"><%=work_status%></th>							 
 								</tr>
 							</thead>
 													
@@ -87,21 +87,21 @@
 											<td class="center">${var.polenumber}</td>
 											<td class="center">${var.comment}</td>		
 											<td class="center">
-												<c:if test="${var.status == '1' }"><span class="label label-important arrowed-in">有效</span></c:if>
-												<c:if test="${var.status == '2' }"><span class="label label-success arrowed">无效</span></c:if>
-											</td>  
+												<c:if test="${var.status == '1' }"><span class="label label-important arrowed-in"><%=effective%></span></c:if>
+												<c:if test="${var.status == '2' }"><span class="label label-success arrowed"><%=invalid%></span></c:if>
+											</td> 
 										</tr>
 									</c:forEach>
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission%></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data%></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -113,7 +113,7 @@
 							
 							<td style="vertical-align:top;">
 									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要踢删选中的数据吗?',${id});" title="批量删除" >踢删</a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('<%=make_sure_delete_data%>?',${id});" title="<%=delete_all %>" ><%=kick_delete%></a>
 									</c:if>
 							</td>
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -189,19 +189,19 @@
 					}
 					if(str==''){
 						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
+							message: "<span class='bigger-110'><%=you_have_not_choose_anything%>!</span>",
 							buttons: 			
-							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
+							{ "button":{ "label":"<%=sure%>", "className":"btn-sm btn-success"}}
 						});
 						$("#zcheckbox").tips({
 							side:1,
-				            msg:'点这里全选',
+				            msg:'<%=click_this_choose_all%>',
 				            bg:'#AE81FF',
 				            time:8
 				        });
 						return;
 					}else{
-						if(msg == '确定要踢删选中的数据吗?'){
+						if(msg == '<%=make_sure_delete_data%>?'){
 							top.jzts();
 							$.ajax({
 								type: "POST",

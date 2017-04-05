@@ -9,6 +9,8 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<!-- jsp 国际化-->
+<%@ include file="../../international.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,70 +31,70 @@
 				<div class="page-content">
 					<div class="row">
 						<div class="col-xs-12">
-	
+
 						<!-- 检索  -->
 						<form action="repair/weixiu" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 							   <td>
 									<div class="nav-search" style="margin-left:8px;">
-									    <label>组名：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="cname" value="${pd.cname}" placeholder="请输入组名" />
+									    <label><%=group_name%>：</label>
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="cname" value="${pd.cname}" placeholder="<%=please_enter_group_name%>" />
 									</div>
 								</td>
 								 <td>
 									<div class="nav-search" style="margin-left:8px;">
-									    <label>终端名称：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name}" placeholder="请输入名称" />
+									    <label><%=device_name%>：</label>
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name}" placeholder="<%=please_type_device_name%>" />
 									</div>
 								</td>
 								<td>
 									<div class="nav-search" style="margin-left:8px;">
-									    <label>终端编号：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="code" value="${pd.code}" placeholder="请输入编号" />
+									    <label><%=device_number%>：</label>
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="code" value="${pd.code}" placeholder="<%=please_type_device_number%>" />
 									</div>
 								</td>
 								 <td>
 									<div class="nav-search" style="margin-left:8px;">
-									    <label>位置：</label>
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="location" value="${pd.location}" placeholder="请输入位置" />
+									    <label><%=location%>：</label>
+										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="location" value="${pd.location}" placeholder="<%=please_enter_location%>" />
 									</div>
 								</td>
-								<td style="padding-left:2px;padding-bottom:4px;"><label></label><input class="span10 date-picker" name="Start" id="Start"  value="${pd.Start}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:80px;height:28px;" placeholder="请选择开始时间" title="开始"/></td>
-								<td style="padding-left:4px;padding-bottom:4px;"><label></label><input class="span10 date-picker" name="End" name="End"  value="${pd.End}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:80px;height:28px;" placeholder="请选择结束时间" title="结束"/></td>
-								<td style="vertical-align:right;padding-left:4px;padding-bottom:4px"><button class="btn btn-mini btn-light" onclick="search();"  title="查询"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td>
+								<td style="padding-left:2px;padding-bottom:4px;"><label></label><input class="span10 date-picker" name="Start" id="Start"  value="${pd.Start}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:80px;height:28px;" placeholder="<%=please_choose_start_time%>" title="<%=start_time%>"/></td>
+								<td style="padding-left:4px;padding-bottom:4px;"><label></label><input class="span10 date-picker" name="End" name="End"  value="${pd.End}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:80px;height:28px;" placeholder="<%=please_choose_end_time%>" title="<%=end_time%>"/></td>
+								<td style="vertical-align:right;padding-left:4px;padding-bottom:4px"><button class="btn btn-mini btn-light" onclick="search();"  title="<%=search1%>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td>
 							</tr>
 						</table>
 						<!-- 检索  -->
-					
+
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center" >序号</th>
-									<th class="center" >组名</th>
-									<th class="center" >终端编号</th>
-									<th class="center" >终端名称</th>
-									<th class="center" >位置</th>
-									<th class="center" >灯杆号</th>
+									<th class="center" ><%=number%></th>
+									<th class="center" ><%=group_name%></th>
+									<th class="center" ><%=device_number%></th>
+									<th class="center" ><%=device_name%></th>
+									<th class="center" ><%=location%></th>
+									<th class="center" ><%=pole_number%></th>
 									<!-- <th class="center" >网关</th> -->
-									<th class="center" >故障类型</th>
-									<th class="center">开始时间</th>
-									<th class="center">异常描述</th>
-									<th class="center">登记人</th>
-									<th class="center">维修人</th>
-									<th class="center">修复时间</th>
-									<th class="center">修复结果</th>
-									<th class="center">修复说明</th>
-									<th class="center">维修登记</th>
-									
-									 
-									
+									<th class="center"><%=fault_type%></th>
+									<th class="center"><%=start_time%></th>
+									<th class="center"><%=exception_description%></th>
+									<th class="center"><%=registrant%></th>
+									<th class="center"><%=maintenance_man%></th>
+									<th class="center"><%=repair_time%></th>
+									<th class="center"><%=repair_result%></th>
+									<th class="center"><%=repair_instructions%></th>
+									<th class="center"><%=repair_register%></th>
+
+
+
 								</tr>
 							</thead>
-													
+
 							<tbody>
-								
-							<!-- 开始循环 -->	
+
+							<!-- 开始循环 -->
 							<c:choose>
 								<c:when test="${not empty weixiuList}">
 								 	<c:if test="${QX.cha == 1 }">
@@ -102,37 +104,37 @@
 													<td class="center">${var.cname}</td>
 													<td class="center">${var.code}</td>
 													<td>${ fn:substring(var.name ,0,50)}</td>
-													
+
 													<td class="center">${var.location}</td>
 													<td class="center">${var.polenumber}</td>
 													<%-- <td class="center">${var.gateway}</td> --%>
-													
+
 													<td class="center">
-														<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in">灯开路</span></c:if>
-														<c:if test="${var.type == '2' }"><span class="label label-success arrowed">灯短路</span></c:if>
-														<c:if test="${var.type == '3' }"><span class="label label-success arrowed">灯异常</span></c:if>
-														<c:if test="${var.type == '4' }"><span class="label label-success arrowed">网关异常</span></c:if>
-														<c:if test="${var.type == '5' }"><span class="label label-success arrowed">断路器异常</span></c:if>
+														<c:if test="${var.type == '1' }"><span class="label label-important arrowed-in"><%=lamp_open_circuit%></span></c:if>
+														<c:if test="${var.type == '2' }"><span class="label label-success arrowed"><%=lamp_short%></span></c:if>
+														<c:if test="${var.type == '3' }"><span class="label label-success arrowed"><%=abnormal_lamp%></span></c:if>
+														<c:if test="${var.type == '4' }"><span class="label label-success arrowed"><%=gateway_anomaly%></span></c:if>
+														<c:if test="${var.type == '5' }"><span class="label label-success arrowed"><%=circuit_breaker_abnormality%></span></c:if>
 													</td>
 													<td class="center">${var.startime}</td>
 													<td class="center">${var.comment}</td>
 													<td class="center">${var.register}</td>
 													<td class="center">${var.repairman}</td>
 													<td class="center">${var.tdate}</td>
-													<td class="center"> 
-													    <c:if test="${var.result == '1' }"><span class="label label-important arrowed-in">待修</span></c:if>
-														<c:if test="${var.result == '2' }"><span class="label label-success arrowed">已修</span></c:if>	 
-														<c:if test="${var.result == '3' }"><span class="label label-success arrowed">报废</span></c:if>	 
-														<c:if test="${var.result == '4' }"><span class="label label-success arrowed">自修复</span></c:if>	 
+													<td class="center">
+													    <c:if test="${var.result == '1' }"><span class="label label-important arrowed-in"><%=wait_repair%></span></c:if>
+														<c:if test="${var.result == '2' }"><span class="label label-success arrowed"><%=has_repair%></span></c:if>
+														<c:if test="${var.result == '3' }"><span class="label label-success arrowed"><%=destroy%></span></c:if>
+														<c:if test="${var.result == '4' }"><span class="label label-success arrowed"><%=repair_self%></span></c:if>
 													</td>
 													<td class="center">${var.explain}</td>
-													 
+
 											<td class="center" style="width: 60px;">
-												 <div class='hidden-phone visible-desktop btn-group'> 
-												 
+												 <div class='hidden-phone visible-desktop btn-group'>
+
 													<c:if test="${var.register !=null}">
-													<a class="btn btn-xs btn-danger" onclick="edit('${var.id}');">编辑</a> 
-														<%-- <c:if test="${var.tdate != '' }"> 
+													<a class="btn btn-xs btn-danger" onclick="edit('${var.id}');"><%=edit%></a>
+														<%-- <c:if test="${var.tdate != '' }">
 														<a style="cursor:pointer;" class="green" onclick="edit('${var.id}');" title="编辑">
 															<i class="ace-icon fa fa-pencil bigger-130"></i>编辑
 														</a> --%>
@@ -140,27 +142,27 @@
 														<%-- <c:if test="${var.tdate == '' }">
 														 <a class="btn btn-sm btn-success" onclick="add('${var.id}');" title="新增"></a>
 														</c:if > --%>
-								 				  </c:if>    
-													 
+								 				  </c:if>
+
 														<c:if test="${var.register ==null}">
-														<a class="btn btn-xs btn-danger" onclick="add('${var.id}');">登记</a>
-														</c:if>		  
-												 
-												 </div> 
-											</td> 
+														<a class="btn btn-xs btn-danger" onclick="add('${var.id}');"><%=registe%></a>
+														</c:if>
+
+												 </div>
+											</td>
 										</tr>
-									
+
 									</c:forEach>
-									</c:if> 
+									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission%></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data%></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -172,14 +174,14 @@
 							<%-- <td style="vertical-align:top;">
 								<c:if test="${QX.add == 1 }">
 								<a class="btn btn-sm btn-success" onclick="add();">维修登记</a>
-								</c:if>		
+								</c:if>
 							</td> --%>
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 						</tr>
 					</table>
 					</div>
 					</form>
-					
+
 					</div>
 					<!-- /.col -->
 				</div>
@@ -214,21 +216,19 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
 		$(top.hangge());
-		
+
 		//检索
 		function search(){
 			top.jzts();
 			$("#Form").submit();
-			
 		}
-		
-		
 		//修改
 		function edit(id){
 			 top.jzts();
+
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="修改";
+			 diag.Title ="<%=modify%>";
 			 diag.URL = '<%=basePath%>repair/goWeixiuEdit?id='+id;
 			 diag.Width = 650;
 			 diag.Height = 280;
@@ -240,12 +240,12 @@
 			 };
 			 diag.show();
 		}
-		
+
 		function add(id){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="新增";
+			 diag.Title ="<%=add2%>";
 			 diag.URL = '<%=basePath%>repair/goWeixiuCreate?id='+id;
 			 diag.Width = 650;
 			 diag.Height = 280;
@@ -263,14 +263,14 @@
 			 diag.show();
 		}
 
-	 
+
 		$(function() {
 			//日期框
 			$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
-			
+
 			//下拉框
 			if(!ace.vars['touch']) {
-				$('.chosen-select').chosen({allow_single_deselect:true}); 
+				$('.chosen-select').chosen({allow_single_deselect:true});
 				$(window)
 				.off('resize.chosen')
 				.on('resize.chosen', function() {
@@ -294,7 +294,7 @@
 				});
 			}
 
-			
+
 			//复选框全选控制
 			var active_class = 'active';
 			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
@@ -308,7 +308,6 @@
 		});
 
 		</script>
-		
+
 </body>
 </html>
-

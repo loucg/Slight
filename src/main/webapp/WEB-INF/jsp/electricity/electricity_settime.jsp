@@ -14,6 +14,8 @@
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
 	<%@ include file="../system/index/top.jsp"%>
+	<!-- jsp国际化文件 -->
+	<%@ include file="../international.jsp"%>
 	<!-- 日期框 -->
 	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
 	<!-- 时间 -->
@@ -32,30 +34,30 @@
 					
 					<form action="electricity/${msg }.do" name="electricityForm" id="electricityForm" method="post">
 						<input type="hidden" value="no" id="hasTp1" />
-						<div id="zhongxin" style="padding-top: 13px;">
+						<div id="zhongxin" style="padding-top: 13px;"></br>
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr style="display:none">
 						   		 <td><input type="text" name="DATA_IDS" id="DATA_IDS" value="${pd.DATA_IDS }" /></td>
 						    </tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">上电时间:</td>
-								<td><input class="time-picker" type="text" name="powerup" id="powerup" value="6:00 PM" maxlength="100" title="上电时间" style="width:98%;" placeholder="18:00(24小时制)"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=up_electricity_time %>:</td>
+								<td><input class="time-picker" type="text" name="powerup" id="powerup" value="18:00" maxlength="100" title="<%=up_electricity_time %>" style="width:98%;" placeholder="18:00"/></td>
 <%-- 								<td><input class="span10 time-picker" type="text" name="powerup" id="powerup" value="${pd.powerup }" maxlength="100" title="上电时间" style="width:98%;" placeholder="18:00(24小时制)"/></td> --%>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">断电时间:</td>
-								<td><input class="time-picker" type="text" name="powerdown" id="powerdown" value="6:00 AM" maxlength="100" title="断电时间" style="width:98%;" placeholder="6:00(24小时制)"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=blockout_time %>:</td>
+								<td><input class="time-picker" type="text" name="powerdown" id="powerdown" value="6:00" maxlength="100" title="<%=blockout_time %>" style="width:98%;" placeholder="6:00"/></td>
 							</tr>
 							
 							<tr>
 								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+									<a class="btn btn-mini btn-primary" onclick="save();"><%=save %></a>
+									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel %></a>
 								</td>
 							</tr>
 						</table>
 						</div>
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %>...</h4></div>
 					</form>
 					</div>
 					<!-- /.col -->
@@ -90,7 +92,7 @@
 			if(uptime == downtime){
 				$("#powerdown").tips({
 					side:3,
-		            msg:'上/断电时间不能相同',
+		            msg:'<%=up_and_down_time_not_equal %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });

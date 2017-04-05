@@ -6,6 +6,7 @@
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@include file="../international.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -40,30 +41,30 @@
 						   		 <td><input type="text" name="ID" id="id" value="${pd.id }" /></td>
 						    </tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>策略名称:</td>
-								<td><input type="text" name="NAME" id="name" value="${pd.name }" maxlength="100" title="策略名称" style="width:98%;" placeholder="请输入策略名称"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span><%=strategy_name %>:</td>
+								<td><input type="text" name="NAME" id="name" value="${pd.name }" maxlength="100" title="<%=strategy_name %>" style="width:98%;" placeholder="<%=please_enter_strategy_name %>"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>应用说明:</td>
-								<td><input type="text" name="EXPLAIN" id="explain" value="${pd.explain }" maxlength="100" title="应用说明" style="width:98%;" placeholder="请输入应用说明"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span><%=app_explain %>:</td>
+								<td><input type="text" name="EXPLAIN" id="explain" value="${pd.explain }" maxlength="100" title="<%=app_explain %>" style="width:98%;" placeholder="<%=please_enter_app_explain %>"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>状态:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span><%=status %>:</td>
 								<td>
-									<select class="chosen-select form-control" name="STATUS" id="status" maxlength="100" title="状态" style="vertical-align:top;width:98%;">
-										<option value="">请选择状态</option>
-										<option value="1" <c:if test="${pd.status == '1' }">selected</c:if> >有效</option>
-										<option value="2" <c:if test="${pd.status == '2' }">selected</c:if> >无效</option>
+									<select class="chosen-select form-control" name="STATUS" id="status" maxlength="100" title="<%=status %>" style="vertical-align:top;width:98%;">
+										<option value=""><%=please_choose_status %></option>
+										<option value="1" <c:if test="${pd.status == '1' }">selected</c:if> ><%=effective %></option>
+										<option value="2" <c:if test="${pd.status == '2' }">selected</c:if> ><%=invalid %></option>
 									</select>
 								</td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span>奇偶天:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><span style="color:red;">*</span><%=odd_and_even_day %>:</td>
 								<td>
-									<select class="chosen-select form-control" name="ODD_EVEN" id="odd_even" maxlength="100" title="奇偶天" style="vertical-align:top;width:98%;">
-										<option value="">请选择奇偶天</option>
-										<option value="0" <c:if test="${pd.odd_even == '0' }">selected</c:if> >奇</option>
-										<option value="1" <c:if test="${pd.odd_even == '1' }">selected</c:if> >偶</option>
+									<select class="chosen-select form-control" name="ODD_EVEN" id="odd_even" maxlength="100" title="<%=odd_and_even_day %>" style="vertical-align:top;width:98%;">
+										<option value=""><%=please_choose_odd_even_day %></option>
+										<option value="0" <c:if test="${pd.odd_even == '0' }">selected</c:if> ><%=odd %></option>
+										<option value="1" <c:if test="${pd.odd_even == '1' }">selected</c:if> ><%=even %></option>
 									</select>
 								</td>
 							</tr>
@@ -73,20 +74,20 @@
 							</table>
 							<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-							<td style="text-align: center;">请输入时间(24小时制)</td>
-							<td style="text-align: center;">请选择亮度(%)</td>
-							<td style="text-align: center; width:50px">操作</td>
+							<td style="text-align: center;"><%=please_enter_time_for_24hour %></td>
+							<td style="text-align: center;"><%=please_choose_brightness %>(%)</td>
+							<td style="text-align: center; width:50px"><%=operate %></td>
 							</tr>
 							<tr>
-      						<td style="text-align: center;"><input class="span10 time-picker" type="text" name="TIMESTAMP" id="timestamp" maxlength="100" title="时间" style="text-align: center;width:98%;" placeholder="例：20:00(24小时制)"/></td>
-	  						<td style="text-align: center;"><select id="intensity" title="亮度"></select></td>
-      						<td style="text-align: center;"><a class="btn btn-mini btn-success" onclick="addSort();" id="addSort">添加</a></td>
+      						<td style="text-align: center;"><input class="span10 time-picker" type="text" name="TIMESTAMP" id="timestamp" maxlength="100" title="<%=time %>" style="text-align: center;width:98%;" placeholder="<%=ex_24_hours %>"/></td>
+	  						<td style="text-align: center;"><select id="intensity" title="<%=brightness_percent %>"></select></td>
+      						<td style="text-align: center;"><a class="btn btn-mini btn-success" onclick="addSort();" id="addSort"><%=add1 %></a></td>
 							</tr>
   							<tbody id="sortList" >
         					<tr>
-          					<td style="text-align: center;"><span style="color:red;">*</span>时间(24小时制)</td>
-		  					<td style="text-align: center;"><span style="color:red;">*</span>亮度(%)</td>
-          					<td style="text-align: center;">操作</td>
+          					<td style="text-align: center;"><span style="color:red;">*</span><%=time_for_24hour %></td>
+		  					<td style="text-align: center;"><span style="color:red;">*</span><%=brightness_percent %></td>
+          					<td style="text-align: center;"><%=operate %></td>
         					</tr>
   							</tbody>
 							</table>
@@ -95,13 +96,13 @@
 						<table id="table_report" class="table table-striped table-bordered table-hover">	
 							<tr>
 								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+									<a class="btn btn-mini btn-primary" onclick="save();"><%=save %></a>
+									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel %></a>
 								</td>
 							</tr>
 						</table>
 						</div>
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %>...</h4></div>
 					</form>
 					</div>
 					<!-- /.col -->
@@ -134,7 +135,7 @@
 			if($("#name").val()==""){
 				$("#name").tips({
 					side:3,
-		            msg:'输入策略名称',
+		            msg:'<%=please_enter_strategy_name %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -144,7 +145,7 @@
 			if($("#explain").val()==""){
 				$("#explain").tips({
 					side:3,
-		            msg:'输入应用说明',
+		            msg:'<%=please_enter_app_explain %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -155,7 +156,7 @@
 			if($("#status").val()==""){
 				$("#status").tips({
 					side:3,
-		            msg:'选择状态',
+		            msg:'<%=please_choose_status %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -165,7 +166,7 @@
 			if($("#odd_even").val()==""){
 				$("#odd_even").tips({
 					side:3,
-		            msg:'选择奇偶天',
+		            msg:'<%=please_choose_odd_even_day %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -177,7 +178,7 @@
 	        if(s3.rows.length <= 1){
 	        	$("#timestamp").tips({
 					side:3,
-		            msg:'请输入至少一条时间及亮度值关系！',
+		            msg:'<%=please_enter_one_time_and_brightness_relation %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -218,7 +219,7 @@
 			$('.time-picker').val("");
 			//下拉框填充0-100
 			var obj=document.getElementById('intensity'); 
-			obj.options.add(new Option("请选择亮度",""));
+			obj.options.add(new Option("<%=please_choose_brightness %>",""));
 			for (var i=0;i<101;i+=10)
 			{
 				obj.options.add(new Option(i,i));
@@ -244,9 +245,9 @@
 			timestampNode.setAttribute("name", "TIMESTAMP");
 			timestampNode.setAttribute("id", "timestamp");
 			timestampNode.setAttribute("maxlength", "100");
-			timestampNode.setAttribute("title", "时间");
+			timestampNode.setAttribute("title", "<%=time %>");
 			timestampNode.setAttribute("style", "text-align: center;width:98%;");
-			timestampNode.setAttribute("placeholder", "例：20:00(24小时制)");
+			timestampNode.setAttribute("placeholder", "<%=ex_24_hours %>");
 			//timestampNode.setAttribute("onchange", "checkTimestamp(this)");
 			timestampNode.value = timestamp;
 			return timestampNode;
@@ -271,9 +272,9 @@
 		function intensitySelect(index){
 			var intensityNode = document.createElement("select");
 			intensityNode.setAttribute("id","intensity"); 
-			intensityNode.setAttribute("title", "亮度");
+			intensityNode.setAttribute("title", "<%=brightness_percent %>");
 			var option1 = document.createElement('option');
-			option1.text="请选择亮度";
+			option1.text="<%=please_choose_brightness %>";
 			option1.value="";
 			intensityNode.add(option1,null);
 			for (var i=0;i<101;i+=10)
@@ -306,7 +307,7 @@
             editButton.onclick = function(){editSort(this);}; */
             var deleteButton = document.createElement("a");
             deleteButton.setAttribute("class","btn btn-warning btn-mini"); 
-            deleteButton.innerHTML = '删除';
+            deleteButton.innerHTML = '<%=delete %>';
             deleteButton.onclick = function(){deleteSort(this);};
             var div1 = document.createElement("div");
             div1.setAttribute("class","btn-group");
@@ -328,7 +329,7 @@
 			if($("#timestamp").val()==""){
 				$("#timestamp").tips({
 					side:3,
-		            msg:'输入时间',
+		            msg:'<%=please_enter_time_for_24hour %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -338,7 +339,7 @@
 			if($("#intensity").val()==""){
 				$("#intensity").tips({
 					side:3,
-		            msg:'选择亮度',
+		            msg:'<%=please_choose_brightness %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -352,7 +353,7 @@
 	        if(s3.rows.length >= 13){
 	        	$("#timestamp").tips({
 					side:3,
-		            msg:'每个策略最多有12条时间及亮度值关系！',
+		            msg:'<%=time_and_brightness_at_most_12 %>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -363,7 +364,7 @@
 	        	if(s3.rows[i].cells[0].childNodes[0].value == timestamp.value){
 	    				 $("#timestamp").tips({
 	    					side:2,
-	    		            msg:'时间重复！',
+	    		            msg:'<%=time_repeat %>',
 	    		            bg:'#AE81FF',
 	    		            time:2
 	    		        }); 
@@ -388,7 +389,7 @@
             editButton.onclick = function(){editSort(this);}; */
             var deleteButton = document.createElement("a");
             deleteButton.setAttribute("class","btn btn-warning btn-mini"); 
-            deleteButton.innerHTML = '删除';
+            deleteButton.innerHTML = '<%=delete %>';
             deleteButton.onclick = function (){deleteSort(this);};
             var div1 = document.createElement("div");
             div1.setAttribute("class","btn-group");
@@ -420,7 +421,7 @@
 			if(s3.rows[i].cells[0].childNodes[0].value == ""){
 				$(s3.rows[i].cells[0].childNodes[0]).tips({
  					side:2,
- 		            msg:'时间为空！',
+ 		            msg:'<%=time_is_null %>',
  		            bg:'#AE81FF',
  		            time:2
  		        });
@@ -429,7 +430,7 @@
 			if(s3.rows[i].cells[1].childNodes[0].value == ""){
 				$(s3.rows[i].cells[1].childNodes[0]).tips({
  					side:3,
- 		            msg:'亮度为空！',
+ 		            msg:'<%=brightness_is_null %>',
  		            bg:'#AE81FF',
  		            time:2
  		        });
@@ -439,13 +440,13 @@
 				if(s3.rows[j].cells[0].childNodes[0].value == s3.rows[i].cells[0].childNodes[0].value && i != j){
 	     			$(s3.rows[i].cells[0].childNodes[0]).tips({
 	 					side:2,
-	 		            msg:'时间重复！',
+	 		            msg:'<%=time_repeat %>',
 	 		            bg:'#AE81FF',
 	 		            time:2
 	 		        });
 	     			$(s3.rows[j].cells[0].childNodes[0]).tips({
 	 					side:2,
-	 		            msg:'时间重复！',
+	 		            msg:'<%=time_repeat %>',
 	 		            bg:'#AE81FF',
 	 		            time:2
 	 		        });

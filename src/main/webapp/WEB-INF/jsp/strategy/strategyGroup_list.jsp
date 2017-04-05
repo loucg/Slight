@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../international.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,23 +37,23 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table style="margin-top:5px;">
 							<tr>
-								<td>组名：</td>
+								<td><%=group_name %>：</td>
 								<td>
 									<div class="nav-search">
-											<input type="text" class="nav-search-input" id="term_name-input" autocomplete="off" name="term_name" placeholder="请输入组名" value="${pd.term_name}"/>
+											<input type="text" class="nav-search-input" id="term_name-input" autocomplete="off" name="term_name" placeholder="<%=please_enter_group_name %>" value="${pd.term_name}"/>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;组说明：</td>
+								<td>&nbsp;&nbsp;<%=group_explain %>：</td>
 								<td>
 									<div class="nav-search">
-											<input type="text" class="nav-search-input" id="term_explain-input" autocomplete="off" name="term_explain" placeholder="请输入组说明" value="${pd.term_explain}"/>
+											<input type="text" class="nav-search-input" id="term_explain-input" autocomplete="off" name="term_explain" placeholder="<%=please_enter_group_explain %>" value="${pd.term_explain}"/>
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="清空检索条件" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="<%=clear_search_ %>" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
 								</c:if>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="tosearch();"  title="<%=search2 %>" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -61,7 +62,7 @@
 						
 						<table class="table table-striped table-bordered table-hover" style="margin-top:5px;">
 							<tr>
-								<th class='center'>“${strategyforpage.name }策略” 应用列表</th>
+								<th class='center'>“${strategyforpage.name }<%=strategy %>” <%=app_list %></th>
 							</tr>
 						</table>
 						
@@ -71,9 +72,9 @@
 									<th class="center" style="width:35px;">
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
-									<th class="center" style="width:50px;">序号</th>
-									<th class="center">组名</th>
-									<th class="center">组说明</th>
+									<th class="center" style="width:50px;"><%=number %></th>
+									<th class="center"><%=group_name %></th>
+									<th class="center"><%=group_explain %></th>
 								</tr>
 							</thead>
 													
@@ -96,13 +97,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >此控制策略未分配应用组</td>
+										<td colspan="100" class="center" ><%=this_strategy_not_assign_app_group %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -113,7 +114,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要踢删选中的应用组吗?',${strategyforpage.id});" title="批量踢删应用组" >踢删应用组</a>
+									<a class="btn btn-mini btn-danger" onclick="makeAll('<%=make_sure_delete_app_group %>',${strategyforpage.id});" title="<%=multiple_delete_app_group %>" ><%=keck_delete_app_group %></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -121,6 +122,7 @@
 						</table>
 						</div>
 						</div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %>...</h4></div>
 						</form>
 					
 						</div>
@@ -228,19 +230,19 @@
 					}
 					if(str==''){
 						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何应用组!</span>",
+							message: "<span class='bigger-110'><%=you_have_not_choose_any_app_group %></span>",
 							buttons: 			
-							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
+							{ "button":{ "label":"<%=make_sure %>", "className":"btn-sm btn-success"}}
 						});
 						$("#zcheckbox").tips({
 							side:1,
-				            msg:'点这里全选',
+				            msg:'<%=click_this_choose_all %>',
 				            bg:'#AE81FF',
 				            time:8
 				        });
 						return;
 					}else{
-						if(msg == '确定要踢删选中的应用组吗?'){
+						if(msg == '<%=make_sure_delete_app_group %>'){
 							top.jzts();
 							$.ajax({
 								type: "POST",
@@ -250,7 +252,7 @@
 								cache: false,
 								success: function(data){
 									$.each(data.list, function(i, list){
-										nextPage(${page.currentPage});
+										nextPage('${page.currentPage}');
 								 	});
 									$("#zhongxin").hide();
 									$("#zhongxin2").show();
@@ -283,7 +285,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="组成员";
+			 diag.Title ="<%=group_member %>";
 			 diag.URL = '<%=basePath%>groupmem/listMems.do?id='+id+'&title='+'chakan';
 			 diag.Width = 1200;
 			 diag.Height = 600;

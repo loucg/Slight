@@ -8,6 +8,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,10 +32,10 @@
 									<div id="zhongxin" style="padding-top: 9px;">
 									<table id="table_report" class="table table-striped table-bordered table-hover">
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>公司名称:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=company_name %>:</td>
 											<td id="gongsi">
-											<select class="chosen-select form-control" name="COMPANY" id="company" data-placeholder="请选择公司" title="公司" style="vertical-align:top;width:98%;" onchange="change1(this.value)" >
-											<option value="">请选择公司</option>
+											<select class="chosen-select form-control" name="COMPANY" id="company" data-placeholder="<%=please_choose_company %>" title="<%=company_name %>" style="vertical-align:top;width:98%;" onchange="change1(this.value)" >
+											<option value=""><%=please_choose_company %></option>
 											<c:forEach items="${companyList}" var="company">
 												<option value="${company.COMPANY}" <c:if test="${company.NAME == pd.COMPANY }">selected</c:if>>${company.NAME}</option>
 											</c:forEach>
@@ -42,10 +43,10 @@
 											</td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>部门名称:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=department_name %>:</td>
 											<td id="bumen">
-											<select class="chosen-select form-control" name="DEPARTMENT" id="department" data-placeholder="请选择部门" title="部门" style="vertical-align:top;width:98%;" >
-											<option value="">请选择部门</option>
+											<select class="chosen-select form-control" name="DEPARTMENT" id="department" data-placeholder="<%=please_choose_department %>" title="<%=department_name %>" style="vertical-align:top;width:98%;" >
+											<option value=""><%=please_choose_department %></option>
 											<c:forEach items="${departmentList}" var="department">
 												<option value="${department.ID}" <c:if test="${department.NAME == pd.DEPARTMENT }">selected</c:if>>${department.NAME}</option>
 											</c:forEach>
@@ -53,34 +54,34 @@
 											</td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>登录名:</td>
-											<td><input type="text" name="USERNAME" id="username" value="${pd.USERNAME }" maxlength="32" placeholder="这里输入登录名" title="登录名" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=log_name %>:</td>
+											<td><input type="text" name="USERNAME" id="username" value="${pd.USERNAME }" maxlength="32" placeholder="<%=enter_this_log_name_here %>" title="<%=log_name %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>姓名:</td>
-											<td><input type="text" name="NAME" id="name"  value="${pd.NAME }"  maxlength="32" placeholder="这里输入姓名" title="姓名" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=person_name %>:</td>
+											<td><input type="text" name="NAME" id="name"  value="${pd.NAME }"  maxlength="32" placeholder="<%=enter_person_name_here %>" title="<%=person_name %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">联系地址:</td>
-											<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="这里输入联系地址" title="联系地址" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><%=contact_address %>:</td>
+											<td><input type="text" name="ADDRESS" id="address"  value="${pd.ADDRESS }"  maxlength="32" placeholder="<%=enter_contact_address_here %>" title="<%=contact_address %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>手机:</td>
-											<td><input type="number" name="PHONE" id="phone"  value="${pd.PHONE }"  maxlength="32" placeholder="这里输入手机号" title="手机" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=phone %>:</td>
+											<td><input type="number" name="PHONE" id="phone"  value="${pd.PHONE }"  maxlength="32" placeholder="<%=enter_phone_number_here %>" title="<%=phone %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">邮箱:</td>
-											<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="这里输入邮箱" title="邮箱" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><%=email %>:</td>
+											<td><input type="email" name="EMAIL" id="email"  value="${pd.EMAIL }" maxlength="32" placeholder="<%=enter_email_here %>" title="<%=email %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;">职务:</td>
-											<td><input type="text" name="POSITION" id="position"  value="${pd.POSITION }"  maxlength="32" placeholder="这里输入职务" title="职务" style="width:98%;"/></td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><%=position %>:</td>
+											<td><input type="text" name="POSITION" id="position"  value="${pd.POSITION }"  maxlength="32" placeholder="<%=enter_position_here %>" title="<%=position %>" style="width:98%;"/></td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>语言:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=language1 %>:</td>
 											<td id="yuyan">
-											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="请选择语言" title="语言" style="vertical-align:top;width:98%;" >
-											<option value="">请选择语言</option>
+											<select class="chosen-select form-control" name="LANGUAGE_ID" id="language_id" data-placeholder="<%=please_choose_language %>" title="<%=language1 %>" style="vertical-align:top;width:98%;" >
+											<option value=""><%=please_choose_language %></option>
 											<c:forEach items="${languageList}" var="language">
 												<option value="${language.id }" <c:if test="${language.id == pd.LANGUAGE_ID }">selected</c:if>>${language.name }</option>
 											</c:forEach>
@@ -88,10 +89,10 @@
 											</td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>角色:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=charactor %>:</td>
 											<td id="juese">
-											<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" title="角色" style="vertical-align:top;width:98%;" >
-											<option value="">请选择角色</option>
+											<select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="<%=please_choose_charactor %>" title="<%=charactor %>" style="vertical-align:top;width:98%;" >
+											<option value=""><%=please_choose_charactor %></option>
 											<c:forEach items="${roleList}" var="role">
 												<option value="${role.ROLE_ID }" <c:if test="${role.ROLE_ID == pd.ROLE_ID }">selected</c:if>>${role.ROLE_NAME }</option>
 											</c:forEach>
@@ -99,29 +100,25 @@
 											</td>
 										</tr>
 										<tr>
-											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span>状态:</td>
+											<td style="width:79px;text-align: right;padding-top: 4px;"><span style="color:red;">*</span><%=status %>:</td>
 											<td id="zhuangtai">
-											<select class="chosen-select form-control" name="STATUS_ID" id="status_id" data-placeholder="请选择状态" title="状态" style="vertical-align:top;width:98%;" >
-											<option value="">请选择状态</option>
+											<select class="chosen-select form-control" name="STATUS_ID" id="status_id" data-placeholder="<%=please_choose_status %>" title="<%=status %>" style="vertical-align:top;width:98%;" >
+											<option value=""><%=please_choose_status %></option>
 											<c:forEach items="${statusList}" var="status">
 												<option value="${status.value }" <c:if test="${status.value == pd.STATUS_ID }">selected</c:if>>${status.name }</option>
 											</c:forEach>
-											<!--
-											<option value="0" <c:if test="${pd.STATUS_ID == '0' }">selected</c:if> >有效</option>
-											<option value="1" <c:if test="${pd.STATUS_ID == '1' }">selected</c:if> >无效</option>
-											-->
 											</select>
 											</td>
 										</tr>
 										<tr>
 											<td style="text-align: center;" colspan="10">
-												<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-												<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+												<a class="btn btn-mini btn-primary" onclick="save();"><%=save %></a>
+												<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel %></a>
 											</td>
 										</tr>
 									</table>
 									</div>
-									<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"></h4></div>
+									<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %>...</h4></div>
 								</form>
 						</div>
 						<!-- /.col -->
@@ -165,7 +162,7 @@
 			dataType:'json',
 			cache: false,
 			success: function(data){
-				$("#department").html('<option value="">请选择部门</option>');
+				$("#department").html('<option value=""><%=please_choose_department %></option>');
 				 $.each(data.list, function(i, dvar){
 						$("#department").append("<option value="+dvar.ID+">"+dvar.NAME+"</option>");
 				 });
@@ -185,7 +182,7 @@
 		if($("#company").val()==""){
 			$("#company").tips({
 				side:3,
-	            msg:'请选择公司！',
+	            msg:'<%=please_choose_company %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -196,7 +193,7 @@
 		if($("#department").val()==""){
 			$("#department").tips({
 				side:3,
-	            msg:'请选择部门！',
+	            msg:'<%=please_choose_department %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -222,7 +219,7 @@
 		if($("#username").val()==""){
 			$("#username").tips({
 				side:3,
-	            msg:'请输入登录名！',
+	            msg:'<%=enter_this_log_name_here %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -233,7 +230,7 @@
 		    if(!re.test($("#username").val())){
 		    	$("#username").tips({
 					side:3,
-		            msg:'登录名由字母、数字、下划线组成，字母开头，4-16位。',
+		            msg:'<%=login_name_contain_letter_number_4_16 %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -260,7 +257,7 @@
 		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,
-	            msg:'请输入姓名！',
+	            msg:'<%=enter_person_name_here %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -275,7 +272,7 @@
 				//alert(!checkE.test($("#name").val()));
 				$("#name").tips({
 					side:3,
-		            msg:'姓名输入有误，请检查是否含有特殊字符！',
+		            msg:'<%=type_wrong_name_check_special %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -288,7 +285,7 @@
 		if($("#phone").val()==""){
 			$("#phone").tips({
 				side:3,
-	            msg:'请输入手机号码！',
+	            msg:'<%=enter_phone_number_here %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -297,7 +294,7 @@
 		}else if($("#phone").val().length != 11 && !myreg.test($("#phone").val())){
 			$("#phone").tips({
 				side:3,
-	            msg:'手机号码格式不正确！',
+	            msg:'<%=phone_number_type_not_correct %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -309,7 +306,7 @@
 			if(!ismail($("#email").val())){
 			$("#email").tips({
 				side:3,
-	            msg:'邮箱格式不正确！',
+	            msg:'<%=email_type_not_correct %>',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -321,7 +318,7 @@
 		if($("#language_id").val()==""){
 			$("#yuyan").tips({
 				side:3,
-	            msg:'请选择语言！',
+	            msg:'<%=please_choose_language %>',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -332,7 +329,7 @@
 		if($("#role_id").val()==""){
 			$("#juese").tips({
 				side:3,
-	            msg:'请选择角色！',
+	            msg:'<%=please_choose_charactor %>',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -343,7 +340,7 @@
 		if($("#status_id").val()==""){
 			$("#zhuangtai").tips({
 				side:3,
-	            msg:'请选择状态！',
+	            msg:'<%=please_choose_status %>',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -355,7 +352,7 @@
 		if($("#address").val()==""){
 			$("#address").tips({
 				side:3,
-	            msg:'输入位置',
+	            msg:'输入联系地址',
 	            bg:'#AE81FF',
 	            time:3
 	        });
@@ -406,7 +403,7 @@
 					//setTimeout("$('#username').val('此用户名已存在!')",500);
 					 $("#username").tips({
 							side:3,
-				            msg:'此登录名已存在！',
+				            msg:'<%=this_login_name_has_exist %>',
 				            bg:'#AE81FF',
 				            time:3
 				        });
@@ -416,7 +413,7 @@
 		});
 	}
 	
-	//判断邮箱是否存在
+	<%-- //判断邮箱是否存在
 	function hasE(USERNAME){
 		var EMAIL = $.trim($("#EMAIL").val());
 		$.ajax({
@@ -437,9 +434,9 @@
 				 }
 			}
 		});
-	}
+	} --%>
 	
-	//判断编码是否存在
+	<%-- //判断编码是否存在
 	function hasN(USERNAME){
 		var NUMBER = $.trim($("#NUMBER").val());
 		$.ajax({
@@ -460,7 +457,7 @@
 				 }
 			}
 		});
-	}
+	} --%>
 	/*
 	$(function() {
 		//下拉框

@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
 <%@ include file="../system/index/top.jsp"%>
+<%@ include file="../international.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
@@ -40,38 +41,38 @@
 								
 								<td>
 									<div class="nav-search" style="display:flex ">
-									    <label style="width:42px">组名：</label>
+									    <label style="width:42px"><%=group_name %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="groupname" type="text" name="groupname" value="${pd.groupname}" style="width:105px"/>
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search" style="display:flex">
-									    <label style="margin-left:12px;width:42px">名称：</label>
+									    <label style="margin-left:12px;width:42px"><%=name %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="name" value="${pd.name }"  style="width:105px"/>
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search" style="display:flex">
-									    <label style="margin-left:12px;width:42px">编号：</label>
+									    <label style="margin-left:12px;width:42px"><%=serial_number %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="number" type="text" name="number" value="${pd.number }"  style="width:105px"/>
 									</div>
 								</td>
 								<td >
 								 	<div class="nav-search" style="display:flex">
-									    <label style="margin-left:12px;width:42px">位置：</label>
+									    <label style="margin-left:12px;width:42px"><%=location %>：</label>
 										<input class="nav-search-input" autocomplete="off" id="location" type="text" name="location" value="${pd.location }"  style="width:105px"/>
 									</div>
 								</td>
 								<td>
 								<div class="nav-search" style="padding-left:12px;display:flex">
-								<label style="width:70px">开始时间：</label>
-								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:85px; height:28px" placeholder="开始时间" title="开始时间"/>
+								<label style="width:70px"><%=start_time %>：</label>
+								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:85px; height:28px" placeholder="<%=start_time %>" title="<%=start_time %>"/>
 								</div>
 								</td>
 								<td>
 								<div class="nav-search" style="padding-left:12px;display:flex">
-								<label style="width:70px">结束时间：</label>
-								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:85px; height:28px" placeholder="结束时间" title="结束时间"/>
+								<label style="width:70px"><%=end_time %>：</label>
+								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:85px; height:28px" placeholder="<%=end_time %>" title="<%=end_time %>"/>
 								</div>
 								</td>
 								<c:if test="${QX.cha == 1 }"><td style="vertical-align:middle;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
@@ -92,14 +93,14 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center" style="width:50px">组名</th>
-									<th class="center">终端编号</th>
-									<th class="center">终端名称</th>
-									<th class="center">位置</th>
-									<th class="center">灯杆号</th>
-									<th class="center">亮灯比</th>
-									<th class="center">总时间</th>
-									<th class="center">总天数</th>
+									<th class="center" style="width:50px"><%=group_name %></th>
+									<th class="center"><%=device_number %></th>
+									<th class="center"><%=device_name %></th>
+									<th class="center"><%=location %></th>
+									<th class="center"><%=pole_number %></th>
+									<th class="center"><%=light_ratio %></th>
+									<th class="center"><%=total_time %></th>
+									<th class="center"><%=total_days %></th>
 								</tr>
 							</thead>
 
@@ -141,13 +142,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>

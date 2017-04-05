@@ -25,7 +25,7 @@
 			if($("#number").val()==""){
 				$("#number").tips({
 					side:3,
-		            msg:'请输入终端编号',
+		            msg:'<%=please_type_device_number%>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -35,7 +35,7 @@
 			if($("#name").val()==""){
 				$("#name").tips({
 					side:3,
-		            msg:'请输入终端名称',
+		            msg:'<%=please_type_device_name%>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -45,7 +45,7 @@
 			if($("#polenumber").val()==""){
 				$("#polenumber").tips({
 					side:3,
-		            msg:'请输入灯杆号',
+		            msg:'<%=please_enter_pole_number%>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -55,7 +55,7 @@
 			if($("#longitude").val()<=0||$("longitude").val()>=180){
 				$("#longitude").tips({
 					side:3,
-		            msg:'请输入0~180之间的数字',
+		            msg:'<%=please_enter_0_180_number%>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -65,42 +65,15 @@
 			if($("#longitude").val()<=0||$("#longitude").val()>=90){
 				$("#longitude").tips({
 					side:3,
-		            msg:'请输入0~90之间的数字',
+		            msg:'<%=please_enter_0_90_number%>',
 		            bg:'#AE81FF',
 		            time:2
 		        });
 				$("#latitude").focus();
 				return false;
 			}
-		hasK();
 	}
-	//判断关键词是否存在
-	function hasK(){
-		var name = $("#name").val();
-		var COMMAND_ID = "${pd.COMMAND_ID}";
-		$.ajax({
-			type: "POST",
-			url: '<%=basePath%>textmsg/hasK.do',
-	    	data: {name:name,COMMAND_ID:COMMAND_ID,tm:new Date().getTime()},
-			dataType:'json',
-			cache: false,
-			success: function(data){
-				 if("success" == data.result){
-					$("#Form").submit();
-					$("#zhongxin").hide();
-					$("#zhongxin2").show();
-				 }else{
-					$("#name").tips({
-						side:3,
-			            msg:'此关键词已存在(全局)!',
-			            bg:'#AE81FF',
-			            time:3
-			        });
-					return false;
-				 }
-			}
-		});
-	}
+
 	
 </script>
 </head>
@@ -120,42 +93,42 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:96px;text-align: right;padding-top: 13px;">*终端编号:</td>
-								<td><input style="width:95%;" type="text" name="number" id="number" value="${pd.number}" maxlength="500" placeholder="这里输入终端编号" title="终端编号"/></td>
+								<td style="width:96px;text-align: right;padding-top: 13px;">*<%=device_number%>:</td>
+								<td><input style="width:95%;" type="text" name="number" id="number" value="${pd.number}" maxlength="500" /></td>
 							</tr>
 							<tr>
-								<td style="width:96px;text-align: right;padding-top: 13px;">*终端名称:</td>
-								<td><input style="width:95%;" type="text" name="name" id="name" value="${pd.name}" maxlength="500" placeholder="这里输入终端名称" title="终端名称"/></td>
+								<td style="width:96px;text-align: right;padding-top: 13px;">*<%=device_name%>:</td>
+								<td><input style="width:95%;" type="text" name="name" id="name" value="${pd.name}" maxlength="500" /></td>
 							</tr>
 							<tr>
-								<td style="width:96px;text-align: right;padding-top: 13px;">*终端类型:</td>
+								<td style="width:96px;text-align: right;padding-top: 13px;">*<%=device_type%>:</td>
 								<td>
-									<select class="chosen-select form-control" name="typeid" id="typeid" data-placeholder="请选择终端类型" style="float:left;padding-left: 12px;width:95%;">
-										<option value="1" <c:if test="${pd.typeid==1}">selected</c:if>>一体化电源</option>
-										<option value="2" <c:if test="${pd.typeid==2}">selected</c:if>>单灯控制器</option>
-										<option value="3" <c:if test="${pd.typeid==3}">selected</c:if>>网关</option>
-										<option value="4" <c:if test="${pd.typeid==4}">selected</c:if>>断路器</option>
-										<option value="6" <c:if test="${pd.typeid==6}">selected</c:if>>终端组合</option>
+									<select class="chosen-select form-control" name="typeid" id="typeid" data-placeholder="<%=please_choose_device_type%>" style="float:left;padding-left: 12px;width:95%;">
+										<option value="1" <c:if test="${pd.typeid==1}">selected</c:if>><%=integration_power%></option>
+										<option value="2" <c:if test="${pd.typeid==2}">selected</c:if>><%=single_light_controller%></option>
+										<option value="3" <c:if test="${pd.typeid==3}">selected</c:if>><%=gateway%></option>
+										<option value="4" <c:if test="${pd.typeid==4}">selected</c:if>><%=circuit_breaker%></option>
+										<option value="6" <c:if test="${pd.typeid==6}">selected</c:if>><%=device_combination%></option>
 								  	</select>
 								 </td>
 							</tr>
 
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">位置:</td>
-								<td><input style="width:95%;" type="text" name="location" id="locationE" value="${pd.location}" placeholder="这里输入位置" title="位置"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=location%>:</td>
+								<td><input style="width:95%;" type="text" name="location" id="locationE" value="${pd.location}" /></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">经度:</td>
-								<td><input style="width:95%;" type="number" name="longitude" id="longitude" value="${pd.longitude}" placeholder="这里输入坐标" title="坐标"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=longitude%>:</td>
+								<td><input style="width:95%;" type="number" name="longitude" id="longitude" value="${pd.longitude}" /></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">纬度:</td>
-								<td><input style="width:95%;" type="number" name="latitude" id="latitude" value="${pd.latitude}" placeholder="这里输入坐标" title="坐标"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=latitude%>:</td>
+								<td><input style="width:95%;" type="number" name="latitude" id="latitude" value="${pd.latitude}" /></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">电话号码:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=phone_number%>:</td>
 								<td>
-								 	<select class="chosen-select form-control" name="mobile" id="mobile" data-placeholder="请选择电话号码" style="float:left;padding-left: 12px;width:95%;">
+								 	<select class="chosen-select form-control" name="mobile" id="mobile" style="float:left;padding-left: 12px;width:95%;">
 									<c:forEach items="${simList}" var="role">
 										<option value="${role.id}"><c:if test="${pd.id==role.id}">selected</c:if>${role.mobile }</option>
 									</c:forEach>
@@ -163,9 +136,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">电源规格:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=power_standard%>:</td>
 								<td>
-								 	<select class="chosen-select form-control" name="power" id="power" data-placeholder="请选择电源规格" style="float:left;padding-left: 12px;width:95%;">
+								 	<select class="chosen-select form-control" name="power" id="power" style="float:left;padding-left: 12px;width:95%;">
 									<c:forEach items="${powerList}" var="role">
 										<option value="${role.id}" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>
@@ -173,9 +146,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">灯规格:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=light_standard%>:</td>
 								<td>
-								 	<select class="chosen-select form-control" name="lamp" id="lamp" data-placeholder="请选择灯规格" style="float:left;padding-left: 12px;width:95%;">
+								 	<select class="chosen-select form-control" name="lamp" id="lamp" style="float:left;padding-left: 12px;width:95%;">
 									<c:forEach items="${lampList}" var="role">
 										<option value="${role.id}" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>
@@ -183,9 +156,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">传感器规格:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=sensor_standard%>:</td>
 								<td>
-								 	<select class="chosen-select form-control" name="sensor" id="sensor" data-placeholder="请选择传感器规格" style="float:left;padding-left: 12px;width:95%;">
+								 	<select class="chosen-select form-control" name="sensor" id="sensor" style="float:left;padding-left: 12px;width:95%;">
 									<c:forEach items="${sensorList}" var="role">
 										<option value="${role.id}" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>
@@ -193,9 +166,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">电线杆:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=pole%>:</td>
 								<td>
-								 	<select class="chosen-select form-control" name="pole" id="pole" data-placeholder="请选择电线杆" style="float:left;padding-left: 12px;width:95%;">
+								 	<select class="chosen-select form-control" name="pole" id="pole" style="float:left;padding-left: 12px;width:95%;">
 									<c:forEach items="${poleList}" var="role">
 										<option value="${role.id }" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>
@@ -203,26 +176,26 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">*电杆号:</td>
-								<td><input style="width:95%;" type="text" name="polenumber" id="polenumber" value="${pd.polenumber}" maxlength="500" placeholder="这里输入电杆号" title="电杆号"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">*<%=pole_number%>:</td>
+								<td><input style="width:95%;" type="text" name="polenumber" id="polenumber" value="${pd.polenumber}" maxlength="500" /></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">密码:</td>
-								<td><input style="width:95%;" type="text" name="password" id="password" value="${pd.password}" maxlength="500" placeholder="这里输入密码" title="密码"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=password%>:</td>
+								<td><input style="width:95%;" type="text" name="password" id="password" value="${pd.password}" maxlength="500"/></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">备注:</td>
-								<td><input style="width:95%;" type="text" name="comment" id="comment" value="${pd.comment}" maxlength="500" placeholder="这里输入备注" title="备注"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=comment%>:</td>
+								<td><input style="width:95%;" type="text" name="comment" id="comment" value="${pd.comment}" maxlength="500" /></td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+									<a class="btn btn-mini btn-primary" onclick="save();"><%=save%></a>
+									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel%></a>
 								</td>
 							</tr>
 						</table>
 						</div>
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing%></h4></div>
 					</form>
 
 					</div>

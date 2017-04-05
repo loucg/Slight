@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../international.jsp"%>  <!--国际化标签  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,24 +44,24 @@
 							
 								<td>
 								<div class="nav-search">
-								<label>开始时间：</label>
-								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px; height:28px" placeholder="开始时间" title="开始时间"/>
+								<label><%=start_time%>：</label>
+								<input class="span10 date-picker" name="starttime" id="starttime"  value="${pd.starttime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px; height:28px" placeholder="<%=start_time%>" />
 								</div>
 								</td>
 								<td>
 								<div class="nav-search" style="padding-left:12px;">
-								<label>截止时间：</label>
-								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px;height:28px" placeholder="截止时间" title="截止时间"/>
+								<label><%=deadline%>：</label>
+								<input class="span10 date-picker" name="endtime" name="endtime"  value="${pd.endtime}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:100px;height:28px" placeholder="<%=deadline%>" />
 								</div>
 								</td>
-								<td style="background-color:#ffffff;">&nbsp;&nbsp;查询方式：</td>
+								<td style="background-color:#ffffff;">&nbsp;&nbsp;<%=search_type%>：</td>
 								<td >
-								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="请选择终端类型" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
-										<option value="1" <c:if test="${pd.type==1}">selected</c:if>>日</option>
-										<option value="2" <c:if test="${pd.type==2}">selected</c:if>>月</option>
+								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="<%=please_choose_device_type%>" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
+										<option value="1" <c:if test="${pd.type==1}">selected</c:if>><%=day%></option>
+										<option value="2" <c:if test="${pd.type==2}">selected</c:if>><%=month%></option>
 								  	</select>
 								</td>
-								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
+								<c:if test="${QX.cha == 1 }"><td style="vertical-align:top;padding-left:2px;"><button class="btn btn-light btn-xs" onclick="search();"  title="<%=search2%>"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></button></td></c:if>
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -70,25 +71,25 @@
 								<c:forEach items="${groupList}" var="table" varStatus="vvs">
 									<table id="simple-table"  class="table table-striped table-bordered table-hove"  style="margin-top:5px;">
 										<tbody>
-											<th class="center" style="width:9%;">功能/组名</th>
+											<th class="center" style="width:9%;"><%=function%>/<%=group_name%></th>
 											<c:forEach items="${table}" var="item" varStatus="vs">
 												<td class="center" style="width:9%;">${item.name}</td>											
 											</c:forEach>
 										</thead>
 										<tbody>
-											<th class="center">亮灯率</th>
+											<th class="center"><%=light_rate%></th>
 											<c:forEach items="${table}" var="item" varStatus="vs">
 												<td class="center">${item.per }</td>
 											</c:forEach>
 										</tbody>
 										<tbody>
-											<th class="center">总功率</th>
+											<th class="center"><%=total_power%>></th>
 											<c:forEach items="${table}" var="item" varStatus="vs">
 												<td class="center">${item.power }</td>
 											</c:forEach>
 										</tbody>
 										<tbody>
-											<th class="center">控制策略</th>
+											<th class="center"><%=control_strategy%></th>
 											<c:forEach items="${table}" var="item" varStatus="vs">
 												<td class="center">${item.strategy }</td>
 											</c:forEach>
@@ -99,13 +100,13 @@
 								
 								<c:if test="${QX.cha == 0 }">
 									<tr>
-										<td colspan="100" class="center">您无权查看</td>
+										<td colspan="100" class="center"><%=you_have_no_permission%></td>
 									</tr>
 								</c:if>
 							</c:when>
 							<c:otherwise>
 								<tr class="main_info">
-									<td colspan="100" class="center" >没有相关数据</td>
+									<td colspan="100" class="center" ><%=no_relevant_data%></td>
 								</tr>
 							</c:otherwise>
 						</c:choose>

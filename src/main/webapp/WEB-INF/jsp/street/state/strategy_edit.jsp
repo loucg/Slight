@@ -14,6 +14,8 @@
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
 	<%@ include file="../../system/index/top.jsp"%>
+	<!-- jsp国际化文件 -->
+<%@ include file="../../international.jsp"%>
 	<!-- 日期框 -->
 	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
 	<!-- 时间 -->
@@ -38,11 +40,11 @@
 						
 						<table style="margin-top:5px;">
 							<tr>
-								<td>&nbsp;&nbsp;选择策略：</td>
+								<td>&nbsp;&nbsp;<%=choose_strategy %>：</td>
 								<td style="vertical-align:top;padding-left:20px;"> 
 								<td>
 									<select name="str_id" id="str_id" value="${str.tname }" onchange="change1(this.value)">
-		                                <option>请选择</option>     					 
+		                                <option><%=please_choose %></option>     					 
 		                          	</select>
 								</td>
 								</td>
@@ -53,8 +55,8 @@
 						 <table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width: 80px;">策略 </th>
-									<th class="center">时间/亮度</th> 
+									<th class="center" style="width: 80px;"><%=strategy %> </th>
+									<th class="center"><%=time_and_brightness %></th> 
 								</tr>
 							</thead>
 													
@@ -98,13 +100,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="100" class="center">您无权查看</td>
+											<td colspan="100" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="100" class="center" >没有相关数据</td>
+										<td colspan="100" class="center" ><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -115,13 +117,13 @@
 						<table id="table_report" class="table table-striped table-bordered table-hover">	
 							<tr>
 								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
+									<a class="btn btn-mini btn-primary" onclick="save();"><%=save %></a>
 									<!-- <a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a> -->
 								</td>
 							</tr>
 						</table>
 						</div>
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %>...</h4></div>
 					</form>
 					</div>
 					<!-- /.col -->
@@ -160,7 +162,7 @@
 				dataType:'json',
 				cache: false,
 				success: function(data){
-					$("#str_id").html('<option>请选择</option>');
+					$("#str_id").html('<option><%=please_choose %></option>');
 					 $.each(data.list, function(i, dvar){
 							$("#str_id").append("<option value="+dvar.str_id+">"+dvar.str_name+"</option>");
 					 });

@@ -8,6 +8,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,13 +34,13 @@
 									<table id="table_report" class="table table-striped table-bordered table-hover">
 									    <tr>
 											<td style="text-align: center;" colspan="10">
-												确定要重置密码？
+												<%=make_sure_reset_password %>
 											</td>
 										</tr>
 										<tr>
 											<td style="text-align: center;" colspan="10">
-												<a class="btn btn-mini btn-primary" onclick="reset();">重置</a>
-												<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+												<a class="btn btn-mini btn-primary" onclick="reset();"><%=reset %></a>
+												<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel %></a>
 											</td>
 										</tr>
 									</table>
@@ -74,16 +75,12 @@
 	$(top.hangge());
 	//保存
 	function reset(){
-		if($("#user_id").val()==""){
-			hasU();
-		}else{
 			$("#userForm").submit();
 			$("#zhongxin").hide();
 			$("#zhongxin2").show();
-		}
 	}
 	
-	//判断编码是否存在
+	<%-- //判断编码是否存在
 	function hasN(USERNAME){
 		var NUMBER = $.trim($("#NUMBER").val());
 		$.ajax({
@@ -104,6 +101,6 @@
 				 }
 			}
 		});
-	}
+	} --%>
 </script>
 </html>

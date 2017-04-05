@@ -14,6 +14,8 @@
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
 	<%@ include file="../system/index/top.jsp"%>
+	<!-- jsp国际化文件 -->
+	<%@ include file="../international.jsp"%>
 	<script type="text/javascript" src="static/ace/js/jquery.js"></script>
 	<!-- 上传插件 -->
 	<link href="plugins/uploadify/uploadify.css" rel="stylesheet" type="text/css">
@@ -42,32 +44,32 @@
 						   		 <td><input type="text" name="id" id="id" value="${pd.id }" /></td>
 						    </tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">名称:</td>
-								<td><input type="text" name="name" id="name" value="${pd.name }" maxlength="100" title="名称" style="width:98%;" /></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=name %>:</td>
+								<td><input type="text" name="name" id="name" value="${pd.name }" maxlength="100" title="<%=name %>" style="width:98%;" /></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">简述:</td>
-								<td><input type="text" name="explain" id="explain" value="${pd.explain }" maxlength="100" title="简述" style="width:98%;" /></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=summary %>:</td>
+								<td><input type="text" name="explain" id="explain" value="${pd.explain }" maxlength="100" title="<%=summary %>" style="width:98%;" /></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">状态:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;"><%=status %>:</td>
 								<td>
-									<select name="status" maxlength="100" title="状态" style="width:98%;">
-										<option value="1" <c:if test="${pd.status == '1' }">selected</c:if> >有效</option>
-										<option value="2" <c:if test="${pd.status == '2' }">selected</c:if> >无效</option>
+									<select name="status" maxlength="100" title="<%=status %>" style="width:98%;">
+										<option value="1" <c:if test="${pd.status == '1' }">selected</c:if> ><%=effective %></option>
+										<option value="2" <c:if test="${pd.status == '2' }">selected</c:if> ><%=invalid %></option>
 									</select>
 								</td>
 							</tr>
 							
 							<tr>
 								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+									<a class="btn btn-mini btn-primary" onclick="save();"><%=save %></a>
+									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel %></a>
 								</td>
 							</tr>
 						</table>
 						</div>
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing %>...</h4></div>
 					</form>
 					</div>
 					<!-- /.col -->
@@ -99,7 +101,7 @@
 			if($("#name").val()==""){
 				$("#name").tips({
 					side:3,
-		            msg:'输入组名称',
+		            msg:'<%=please_enter_group_name %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });
@@ -109,7 +111,7 @@
 			if($("#explain").val()==""){
 				$("#explain").tips({
 					side:3,
-		            msg:'输入简述',
+		            msg:'<%=please_enter_summry %>',
 		            bg:'#AE81FF',
 		            time:3
 		        });

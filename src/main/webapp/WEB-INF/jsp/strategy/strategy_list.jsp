@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../international.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,23 +36,23 @@
 						<form action="strategy/listStrategys.do" method="post" name="strategyForm" id="strategyForm">
 						<table style="margin-top:5px;">
 							<tr>
-							    <td>策略名称：</td>
+							    <td><%=strategy_name %>：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="name-input" autocomplete="off" name="name" placeholder="请输入策略名称" value="${pd.name}"/>
+										<input type="text" class="nav-search-input" id="name-input" autocomplete="off" name="name" placeholder="<%=please_enter_strategy_name %>" value="${pd.name}"/>
 									</div>
 								</td>
-								<td>&nbsp;&nbsp;应用说明：</td>
+								<td>&nbsp;&nbsp;<%=app_explain %>：</td>
 								<td>
 									<div class="nav-search">
-										<input type="text" class="nav-search-input" id="explain-input" autocomplete="off" name="explain" placeholder="请输入应用说明" value="${pd.explain}"/>
+										<input type="text" class="nav-search-input" id="explain-input" autocomplete="off" name="explain" placeholder="<%=please_enter_app_explain %>" value="${pd.explain}"/>
 									</div>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="清空检索条件" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="clearSearchs();"  title="<%=clear_search_ %>" style="padding: 4px 4px;"><i id="nav-clear-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon red"></i></a></td>
 								</c:if>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="searchs();"  title="检索" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px;">&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="searchs();"  title="<%=search2 %>" style="padding: 4px 4px;"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 							</tr>
 						</table>
@@ -60,13 +61,13 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover"  style="margin-top:5px;">
 							<thead>
 								<tr>
-									<th class="center" style="width:50px">序号</th>
-									<th class="center">策略名称</th>
-									<th class="center">应用说明</th>
-									<th class="center" style="width:100px">终端组数量</th>
-									<th class="center" style="width:100px">状态</th>
-									<th class="center">时间及亮度值</th>
-									<th class="center" style="width:120px">操作</th>
+									<th class="center" style="width:50px"><%=number %></th>
+									<th class="center"><%=strategy_name %></th>
+									<th class="center"><%=app_explain %></th>
+									<th class="center" style="width:100px"><%=device_group_number %></th>
+									<th class="center" style="width:100px"><%=status %></th>
+									<th class="center"><%=time_and_brightness_2 %></th>
+									<th class="center" style="width:120px"><%=operate %></th>
 								</tr>
 							</thead>
 													
@@ -108,22 +109,22 @@
 											</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
-												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="<%=no_permission %>"></i></span>
 												</c:if>
 												<div class="btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-mini btn-info" title="修改策略" onclick="editStrategy('${strategy.id}');">
-														修改
+													<a class="btn btn-mini btn-info" title="<%=modify_strategy %>" onclick="editStrategy('${strategy.id}');">
+														<%=modify %>
 													</a>
 													</c:if>
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-warning btn-mini" title="新增应用终端" onclick="addGroup('${strategy.id}');">
-														新增
+													<a class="btn btn-warning btn-mini" title="<%=add_app_group %>" onclick="addGroup('${strategy.id}');">
+														<%=add2 %>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" title="踢删应用终端" onclick="delGroup('${strategy.id}');">
-														踢删
+													<a class="btn btn-xs btn-danger" title="<%=keck_delete_app_group %>" onclick="delGroup('${strategy.id}');">
+														<%=kick_delete %>
 													</a>
 													</c:if>
 												</div>
@@ -134,13 +135,13 @@
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
 										<tr>
-											<td colspan="10" class="center">您无权查看</td>
+											<td colspan="10" class="center"><%=you_have_no_permission %></td>
 										</tr>
 									</c:if>
 								</c:when>
 								<c:otherwise>
 									<tr class="main_info">
-										<td colspan="10" class="center">没有相关数据</td>
+										<td colspan="10" class="center"><%=no_relevant_data %></td>
 									</tr>
 								</c:otherwise>
 							</c:choose>
@@ -152,7 +153,7 @@
 						<tr>
 							<td style="vertical-align:top;">
 								<c:if test="${QX.add == 1 }">
-								<a class="btn btn-mini btn-success" onclick="addStrategy();">新增策略</a>
+								<a class="btn btn-mini btn-success" onclick="addStrategy();"><%=add_strategy %></a>
 								</c:if>
 							</td>
 							<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -214,7 +215,7 @@ function addStrategy(){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=false;
-	 diag.Title ="新增策略";
+	 diag.Title ="<%=add_strategy %>";
 	 diag.URL = '<%=basePath%>strategy/goAddS.do';
 	 diag.Width = 469;
 	 diag.Height = 510;
@@ -224,7 +225,7 @@ function addStrategy(){
 				 top.jzts();
 				 setTimeout("self.location=self.location",100);
 			 }else{
-				 nextPage(${page.currentPage});
+				 nextPage('${page.currentPage}');
 			 }
 		}
 		diag.close();
@@ -237,7 +238,7 @@ function addGroup(id){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
-	 diag.Title ="新增应用组";
+	 diag.Title ="<%=add_app_group %>";
 	 diag.URL = '<%=basePath%>strategyGroup/listOthers.do?id='+id;
 	 diag.Width = 1200;
 	 diag.Height = 600;
@@ -250,7 +251,7 @@ function addGroup(id){
 				 top.jzts();
 				 setTimeout("self.location=self.location",100);
 			 }else{
-				 nextPage(${page.currentPage});
+				 nextPage('${page.currentPage}');
 			 }
 		}
 		diag.close();
@@ -263,7 +264,7 @@ function delGroup(id){
 	top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
-	 diag.Title ="踢删应用组";
+	 diag.Title ="<%=keck_delete_app_group %>";
 	 diag.URL = '<%=basePath%>strategyGroup/listGroups.do?id='+id;
 	 diag.Width = 1200;
 	 diag.Height = 600;
@@ -276,7 +277,7 @@ function delGroup(id){
 				 top.jzts();
 				 setTimeout("self.location=self.location",100);
 			 }else{
-				 nextPage(${page.currentPage});
+				 nextPage('${page.currentPage}');
 			 }
 		}
 		diag.close();
@@ -289,7 +290,7 @@ function viewStrategyGroups(id){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
-	 diag.Title ="终端组列表";
+	 diag.Title ="<%=device_group_list %>";
 	 diag.URL = '<%=basePath%>strategyGroup/listGroups.do?id='+id;
 	 diag.Width = 1200;
 	 diag.Height = 600;
@@ -304,13 +305,13 @@ function editStrategy(strategy_id){
 	 top.jzts();
 	 var diag = new top.Dialog();
 	 diag.Drag=false;
-	 diag.Title ="修改策略";
+	 diag.Title ="<%=modify_strategy %>";
 	 diag.URL = '<%=basePath%>strategy/goEditS.do?id='+strategy_id;
 	 diag.Width = 469;
 	 diag.Height = 510;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-			nextPage(${page.currentPage});
+			nextPage('${page.currentPage}');
 		}
 		diag.close();
 	 };
@@ -343,20 +344,20 @@ function makeAll(msg){
 			}
 			if(str==''){
 				bootbox.dialog({
-					message: "<span class='bigger-110'>您没有选择任何内容!</span>",
+					message: "<span class='bigger-110'><%=you_have_not_choose_anything %></span>",
 					buttons: 			
-					{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
+					{ "button":{ "label":"<%=make_sure %>", "className":"btn-sm btn-success"}}
 				});
 				$("#zcheckbox").tips({
 					side:3,
-		            msg:'点这里全选',
+		            msg:'<%=click_this_choose_all %>',
 		            bg:'#AE81FF',
 		            time:8
 		        });
 				
 				return;
 			}else{
-				if(msg == '确定要删除选中的数据吗?'){
+				if(msg == '<%=make_sure_delete2_data %>'){
 					top.jzts();
 					$.ajax({
 						type: "POST",
@@ -367,16 +368,10 @@ function makeAll(msg){
 						cache: false,
 						success: function(data){
 							 $.each(data.list, function(i, list){
-									nextPage(${page.currentPage});
+									nextPage('${page.currentPage}');
 							 });
 						}
 					});
-				}else if(msg == '确定要给选中的用户发送邮件吗?'){
-					sendEmail(emstr);
-				}else if(msg == '确定要给选中的用户发送短信吗?'){
-					sendSms(phones);
-				}else if(msg == '确定要给选中的用户发送站内信吗?'){
-					sendFhsms(username);
 				}
 			}
 		}
