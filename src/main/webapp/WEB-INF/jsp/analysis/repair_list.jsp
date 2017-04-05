@@ -149,7 +149,13 @@
 											<td class="center">${var.register}</td>
 											<td class="center">${var.repairman}</td>
 											<td class="center">${var.repairtime}</td>
-											<td class="center">${var.result}</td>
+											<%-- <td class="center">${var.result}</td> --%>
+											<td class="center">
+													    <c:if test="${var.result == '1' }"><span class="label label-important arrowed-in"><%=wait_repair%></span></c:if>
+														<c:if test="${var.result == '2' }"><span class="label label-success arrowed"><%=has_repair%></span></c:if>
+														<c:if test="${var.result == '3' }"><span class="label label-success arrowed"><%=destroy%></span></c:if>
+														<c:if test="${var.result == '4' }"><span class="label label-success arrowed"><%=repair_self%></span></c:if>
+													</td>
 											<td class="center">${var.explain}</td>
 											<!--  <td class="center">${var.CREATETIME}</td>
 											<td style="width: 60px;" class="center">
