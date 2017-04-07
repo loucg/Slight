@@ -401,7 +401,7 @@ body {
 		for (var i = 0; i < data.length; i++) {
 			var markerpoint = new BMap.Point(data[i].xcoordinate,
 					data[i].ycoordinate);
-			var mySquare = new SquareOverlay(markerpoint, 25, data[i]);
+			var mySquare = new SquareOverlay(markerpoint, 16, data[i]);
 			map.addOverlay(mySquare);
 			//8、 为自定义覆盖物添加点击事件      
 			(function(k) {
