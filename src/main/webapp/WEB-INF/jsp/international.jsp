@@ -396,8 +396,8 @@
 	String open_road = properties.getProperty("open_road");
 	String even = properties.getProperty("even");
 	String please_type_device_number = properties.getProperty("please_type_device_number");
-
-
-	
-
+	String this_number_has_exist = properties.getProperty("this_number_has_exist");
+	String rest_money = properties.getProperty("rest_money");
+	String please_enter_iccid = properties.getProperty("please_enter_iccid");
+	String please_choose_phone_number = properties.getProperty("please_choose_phone_number");
 %>

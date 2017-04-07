@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../../international.jsp"%>  <!--国际化标签  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +24,7 @@
 		if($("#iccid").val()==""){
 		$("#iccid").tips({
 			side:3,
-						msg:'请输入iccid',
+						msg:'<%=please_enter_iccid%>',
 						bg:'#AE81FF',
 						time:2
 				});
@@ -33,7 +34,7 @@
 			if($("#mobile").val()==""){
 			$("#mobile").tips({
 				side:3,
-	            msg:'请输入电话号码',
+	            msg:'<%=please_enter_phone%>',
 	            bg:'#AE81FF',
 	            time:2
 	        });
@@ -85,7 +86,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 
-					<form action="config/${msg}" name="Form" id="Form" method="post">
+					<form action="sim/${msg}" name="Form" id="Form" method="post">
 						<input type="hidden" name="id" id="id" value="${pd.id}"/>
 						<input type="hidden" name="type" id="type" value="${pd.type}"/>
 						<div id="zhongxin" style="padding-top: 13px;">
@@ -95,44 +96,44 @@
 								<td><input style="width:95%;" type="text" name="iccid" id="iccid" value="${pd.iccid}" maxlength="500" placeholder="ICCID" title="ICCID"/></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">电话号码:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=phone_number%>:</td>
 								<td><input style="width:95%;" type="text" name="mobile" id="mobile" value="${pd.mobile}" maxlength="500" placeholder="mobile" title="mobile"/></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">类型:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=type%>:</td>
 								<td>
-									<label style="float:left;padding-left: 12px;"><input class="ace" name="form-field-radio" id="form-field-radio1" onclick="setType('1');" <c:if test="${pd.type == '1' }">checked="checked"</c:if> type="radio" value="icon-edit"><span class="lbl">捷布</span></label>
-									<label style="float:left;padding-left: 5px;"><input class="ace"  name="form-field-radio" id="form-field-radio2" onclick="setType('2');" <c:if test="${pd.type == '2' }">checked="checked"</c:if> type="radio" value="icon-edit"><span class="lbl">自备</span></label>
+									<label style="float:left;padding-left: 12px;"><input class="ace" name="form-field-radio" id="form-field-radio1" onclick="setType('1');" <c:if test="${pd.type == '1' }">checked="checked"</c:if> type="radio" value="icon-edit"><span class="lbl"><%=jiebu%></span></label>
+									<label style="float:left;padding-left: 5px;"><input class="ace"  name="form-field-radio" id="form-field-radio2" onclick="setType('2');" <c:if test="${pd.type == '2' }">checked="checked"</c:if> type="radio" value="icon-edit"><span class="lbl"><%=self_prepare%></span></label>
 								</td>
 								</tr>
 								<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">状态:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=status%>:</td>
 								<td>
-									<select class="chosen-select form-control" name="status" id="status" data-placeholder="请选择状态" style="float:left;width:95%;">
-										<option value="1" <c:if test="${pd.status==1}">selected</c:if>>测试</option>
-										<option value="2" <c:if test="${pd.status==2}">selected</c:if>>等启用</option>
-										<option value="3" <c:if test="${pd.status==3}">selected</c:if>>正常</option>
-										<option value="4" <c:if test="${pd.status==4}">selected</c:if>>欠费</option>
-										<option value="5" <c:if test="${pd.status==5}">selected</c:if>>停机</option>
-										<option value="6" <c:if test="${pd.status==6}">selected</c:if>>消号</option>
+									<select class="chosen-select form-control" name="status" id="status" data-placeholder="<%=please_choose_status%>" style="float:left;width:95%;">
+										<option value="1" <c:if test="${pd.status==1}">selected</c:if>><%=test%></option>
+										<option value="2" <c:if test="${pd.status==2}">selected</c:if>><%=wait_start_use%></option>
+										<option value="3" <c:if test="${pd.status==3}">selected</c:if>><%=normal%></option>
+										<option value="4" <c:if test="${pd.status==4}">selected</c:if>><%=arrears%></option>
+										<option value="5" <c:if test="${pd.status==5}">selected</c:if>><%=stop_mobile%></option>
+										<option value="6" <c:if test="${pd.status==6}">selected</c:if>><%=unregister_mobile%></option>
 								  	</select>
 								 </td>
 								</tr>
 
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">备注:</td>
-								<td><input style="width:95%;" type="text" name="comment" id="comment" value="${pd.comment}" maxlength="500" placeholder="这里输入备注" title="备注"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><%=comment%>:</td>
+								<td><input style="width:95%;" type="text" name="comment" id="comment" value="${pd.comment}" maxlength="500" title="<%=comment%>"/></td>
 							</tr>
 
 							<tr>
 								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+									<a class="btn btn-mini btn-primary" onclick="save();"><%=save%></a>
+									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();"><%=cancel%></a>
 								</td>
 							</tr>
 						</table>
 						</div>
-						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green"><%=committing%></h4></div>
 					</form>
 
 					</div>

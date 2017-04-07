@@ -16,7 +16,8 @@
 <base href="<%=basePath%>">
 <!-- jsp文件头和头部 -->
 <%@ include file="../../system/index/top.jsp"%>
-
+<!-- 下拉框 -->
+<script src="static/ace/js/chosen.jquery.js"></script>
 <script type="text/javascript">
 
 
@@ -62,8 +63,8 @@
 				$("#longitude").focus();
 				return false;
 			}
-			if($("#longitude").val()<=0||$("#longitude").val()>=90){
-				$("#longitude").tips({
+			if($("#latitude").val()<=0||$("#latitude").val()>=90){
+				$("#latitude").tips({
 					side:3,
 		            msg:'<%=please_enter_0_90_number%>',
 		            bg:'#AE81FF',
@@ -72,8 +73,89 @@
 				$("#latitude").focus();
 				return false;
 			}
+			hasK();
 	}
 
+	//判断关键词是否存在
+	function hasK(){
+		var name = $("#name").val();
+		var COMMAND_ID = "${pd.COMMAND_ID}";
+		$.ajax({
+			type: "POST",
+			url: '<%=basePath%>textmsg/hasK.do',
+	    	data: {name:name,COMMAND_ID:COMMAND_ID,tm:new Date().getTime()},
+			dataType:'json',
+			cache: false,
+			success: function(data){
+				 if("success" == data.result){
+					$("#Form").submit();
+					$("#zhongxin").hide();
+					$("#zhongxin2").show();
+				 }else{
+					$("#name").tips({
+						side:3,
+			            msg:'此关键词已存在(全局)!',
+			            bg:'#AE81FF',
+			            time:3
+			        });
+					return false;
+				 }
+			}
+		});
+	}
+	
+	function testNumber(){
+		
+		var number=$("#number").val();
+		var result = $.ajax(
+			{
+				type:"post",				
+				url:"<%=basePath%>config/testNumber",
+				dataType:"json",
+				data:{
+						number:number
+					},
+				success:function(data){
+					if(data.count!="0"){
+						$("#number_tips").removeAttr("hidden");
+					}else{
+						$("#number_tips").attr("hidden", "true");
+					}
+				}
+			}		
+		);
+	}
+
+	$(function() {
+		//日期框
+		$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
+		
+		//下拉框
+		if(!ace.vars['touch']) {
+			$('.chosen-select').chosen({allow_single_deselect:true}); 
+			$(window)
+			.off('resize.chosen')
+			.on('resize.chosen', function() {
+				$('.chosen-select').each(function() {
+					 var $this = $(this);
+					 $this.next().css({'width': $this.parent().width()});
+				});
+			}).trigger('resize.chosen');
+			$(document).on('settings.ace.chosen', function(e, event_name, event_val) {
+				if(event_name != 'sidebar_collapsed') return;
+				$('.chosen-select').each(function() {
+					 var $this = $(this);
+					 $this.next().css({'width': $this.parent().width()});
+				});
+			});
+			$('#chosen-multiple-style .btn').on('click', function(e){
+				var target = $(this).find('input[type=radio]');
+				var which = parseInt(target.val());
+				if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+				 else $('#form-field-select-4').removeClass('tag-input-style');
+			});
+		}
+	});
 	
 </script>
 </head>
@@ -94,7 +176,10 @@
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
 								<td style="width:96px;text-align: right;padding-top: 13px;">*<%=device_number%>:</td>
-								<td><input style="width:95%;" type="text" name="number" id="number" value="${pd.number}" maxlength="500" /></td>
+								<td><input style="width:60%;" type="text" name="number" id="number" value="${pd.number}" maxlength="500" onblur="testNumber()"/>
+									<label id="number_tips" style="width:35%; color:red;" hidden><%=this_number_has_exist%></label>
+								</td>
+								
 							</tr>
 							<tr>
 								<td style="width:96px;text-align: right;padding-top: 13px;">*<%=device_name%>:</td>
@@ -103,7 +188,7 @@
 							<tr>
 								<td style="width:96px;text-align: right;padding-top: 13px;">*<%=device_type%>:</td>
 								<td>
-									<select class="chosen-select form-control" name="typeid" id="typeid" data-placeholder="<%=please_choose_device_type%>" style="float:left;padding-left: 12px;width:95%;">
+									<select class="chosen-select form-control" name="typeid" id="typeid" data-placeholder="<%=please_choose_device_type%>" style="float:left;width:95%;">
 										<option value="1" <c:if test="${pd.typeid==1}">selected</c:if>><%=integration_power%></option>
 										<option value="2" <c:if test="${pd.typeid==2}">selected</c:if>><%=single_light_controller%></option>
 										<option value="3" <c:if test="${pd.typeid==3}">selected</c:if>><%=gateway%></option>
@@ -128,17 +213,23 @@
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=phone_number%>:</td>
 								<td>
-								 	<select class="chosen-select form-control" name="mobile" id="mobile" style="float:left;padding-left: 12px;width:95%;">
+								 	<%-- <select class="chosen-select form-control" name="mobile" id="mobile" style="float:left;width:95%;">
 									<c:forEach items="${simList}" var="role">
 										<option value="${role.id}"><c:if test="${pd.id==role.id}">selected</c:if>${role.mobile }</option>
 									</c:forEach>
-								  	</select>
+								  	</select> --%>
+								  	<select class="chosen-select form-control" name="mobile" id="company-input" data-placeholder="<%=please_choose_phone_number%>" style="width: 95%;">
+									<option value=""></option>
+									<c:forEach items="${simList}" var="role">
+										<option value="${role.id}"><c:if test="${pd.id==role.id}">selected</c:if>${role.mobile }</option>
+									</c:forEach>
+							  	</select>
 								</td>
 							</tr>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=power_standard%>:</td>
 								<td>
-								 	<select class="chosen-select form-control" name="power" id="power" style="float:left;padding-left: 12px;width:95%;">
+								 	<select class="chosen-select form-control" name="power" id="power" style="float:left;width:95%;">
 									<c:forEach items="${powerList}" var="role">
 										<option value="${role.id}" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>
@@ -148,7 +239,7 @@
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=light_standard%>:</td>
 								<td>
-								 	<select class="chosen-select form-control" name="lamp" id="lamp" style="float:left;padding-left: 12px;width:95%;">
+								 	<select class="chosen-select form-control" name="lamp" id="lamp" style="float:left;width:95%;">
 									<c:forEach items="${lampList}" var="role">
 										<option value="${role.id}" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>
@@ -158,7 +249,7 @@
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=sensor_standard%>:</td>
 								<td>
-								 	<select class="chosen-select form-control" name="sensor" id="sensor" style="float:left;padding-left: 12px;width:95%;">
+								 	<select class="chosen-select form-control" name="sensor" id="sensor" style="float:left;width:95%;">
 									<c:forEach items="${sensorList}" var="role">
 										<option value="${role.id}" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>
@@ -168,7 +259,7 @@
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=pole%>:</td>
 								<td>
-								 	<select class="chosen-select form-control" name="pole" id="pole" style="float:left;padding-left: 12px;width:95%;">
+								 	<select class="chosen-select form-control" name="pole" id="pole" style="float:left;width:95%;">
 									<c:forEach items="${poleList}" var="role">
 										<option value="${role.id }" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>

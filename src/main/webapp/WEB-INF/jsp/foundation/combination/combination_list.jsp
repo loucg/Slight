@@ -198,7 +198,6 @@
 			$("#Form").submit();
 		}
 
-		//<%=add2%>
 		function add(){
 			 top.jzts();
 			 var diag = new top.Dialog();
@@ -221,7 +220,6 @@
 			 diag.show();
 		}
 
-		//<%=modify%>
 		function edit(Id, type){
 			 top.jzts();
 			 var diag = new top.Dialog();
