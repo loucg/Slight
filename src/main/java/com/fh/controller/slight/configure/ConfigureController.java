@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -378,4 +379,15 @@ public class ConfigureController extends BaseController{
 		return mv;
 	}
 	
+	
+	@RequestMapping("/testNumber")
+	@ResponseBody
+	public PageData testNumber() throws Exception{
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd = configureService.getDeviceByNumber(pd);
+		System.out.println(pd.get("count"));
+		return pd;
+		
+	}
 }

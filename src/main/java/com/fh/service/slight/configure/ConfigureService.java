@@ -273,4 +273,12 @@ public interface ConfigureService {
 	 * @throws Exception
 	 */
 	public PageData getDeviceById(PageData pd) throws Exception;
+	
+	/**
+	 * 根据编号获取终端
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData getDeviceByNumber(PageData pd) throws Exception;
 }

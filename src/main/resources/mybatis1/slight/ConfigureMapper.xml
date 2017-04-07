@@ -519,6 +519,7 @@
 	<select id="getAllSim" resultType="pd">
 		SELECT id,iccid,phone_number as mobile, status, type,money,comment
 		FROM <include refid="simTableName"/>
+		WHERE id NOT IN (SELECT c_sim_id FROM c_gateway_attr2 WHERE c_sim_id IS NOT NULL)
 	</select>
 	<!-- 根据id获取Sim卡 -->
 	<select id="getSimById" resultType="pd">
@@ -564,7 +565,11 @@
 		WHERE a.c_client_id = #{id ,jdbcType=INTEGER}
 			AND i.id = 1
 	</select>
-	
+	<select id="getDeviceByNumber" resultType="pd">
+		SELECT COUNT(*) AS count
+		FROM c_client
+		WHERE client_code = #{number}
+	</select>
 	
 	<!-- end -->
 	

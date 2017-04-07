@@ -257,6 +257,13 @@ public class ConfigureSerivceImpl implements ConfigureService{
 		// TODO Auto-generated method stub
 		return (PageData)dao.findForObject("ConfigureMapper.getDeviceById", pd);
 	}
+
+
+	@Override
+	public PageData getDeviceByNumber(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (PageData)dao.findForObject("ConfigureMapper.getDeviceByNumber", pd);
+	}
 	
 	
 	

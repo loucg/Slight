@@ -396,19 +396,10 @@
 	String open_road = properties.getProperty("open_road");
 	String even = properties.getProperty("even");
 	String please_type_device_number = properties.getProperty("please_type_device_number");
-/* 	
-	String clear_draw = properties.getProperty("clear_draw");//清除
-	String the_packet_has_no_terminal = properties.getProperty("the_packet_has_no_terminal");//所选终端没有数据
-	String coordinate_conversion_failed = properties.getProperty("coordinate_conversion_failed");//有脏数据，坐标转换失败
-	String no_data_in_box = properties.getProperty("no_data_in_box");//没有框选任何终端
-	String Gatewayrouter_not_this_operations = properties.getProperty("Gatewayrouter_not_this_operations");//网关，断路器没有开灯，关灯，亮度值控制等操作
-	String light_operating_successfully = properties.getProperty("light_operating_successfully");//路灯开启成功
-	String light_operating_err = properties.getProperty("light_operating_err");//路灯开启失败
-	String no_data_any_term = properties.getProperty("no_data_any_term");//没有任何分组的终端数据
-	String brightness_adjustment = properties.getProperty("brightness_adjustment");//亮度值控制 
-	String light_pole_number = properties.getProperty("light_pole_number");//灯杆号
+	String this_number_has_exist = properties.getProperty("this_number_has_exist");
+	String rest_money = properties.getProperty("rest_money");
+	String please_enter_iccid = properties.getProperty("please_enter_iccid");
+	String please_choose_phone_number = properties.getProperty("please_choose_phone_number");
 
- */
-	
 
 %>

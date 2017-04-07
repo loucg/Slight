@@ -56,7 +56,7 @@
 									<c:forEach items="${companyList}" var="company">
 										<option value="${company.COMPANY }" <c:if test="${pd.company==company.COMPANY}">selected="selected"</c:if>>${company.NAME }</option>
 									</c:forEach>
-								  	</select>
+							  	</select>
 								</td>
 								<td>&nbsp;&nbsp;<%=charactor %>：</td>
 								<td style="vertical-align:top;padding-left:2px;margin-left:20px;">
