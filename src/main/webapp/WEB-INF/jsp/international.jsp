@@ -400,4 +400,6 @@
 	String rest_money = properties.getProperty("rest_money");
 	String please_enter_iccid = properties.getProperty("please_enter_iccid");
 	String please_choose_phone_number = properties.getProperty("please_choose_phone_number");
+
+
 %>

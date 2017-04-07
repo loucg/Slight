@@ -8,13 +8,15 @@
 		SELECT
 		c_term.`name` tname, c_client.id, c_client.client_code, c_client_attr1.`name` cname,
 		c_client_attr1.location, c_client_attr1.lamp_pole_num, c_client_upload_status.temperature,
-		c_client_upload_status.Vo, c_client_upload_status.power_factor, c_client_upload_status.`status`,
+		c_client_upload_status.Vo, c_client_upload_status.power_factor, c_client_upload_status.`status`,c_client_upload_status.brightness,
+		b_ctrl_strategy.`name` sname,
 		c_client_attr1.`comment`,  c_client_upload_status.tdate
 		FROM
 		c_client
 		LEFT JOIN c_client_attr1 ON c_client.id = c_client_attr1.c_client_id
 		LEFT JOIN c_client_upload_status ON c_client.id = c_client_upload_status.c_client_id
 		LEFT JOIN c_term ON c_term.id IN(SELECT c_term_id FROM c_client_term WHERE c_client_term.c_client_id = c_client.id)
+		LEFT JOIN b_ctrl_strategy ON b_ctrl_strategy.id = c_term.b_ctrl_strategy_id
 		WHERE 1=1
 		AND
 		c_client_attr1.sys_user_id IN ${pd.userids}
