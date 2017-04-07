@@ -917,7 +917,7 @@ body {
 			//alert(data);
 			var mapTermpage2 = {
 				page : 1,
-				rows : 2,
+				rows : 20,
 				begin : 0,
 				end : 0,
 				havenest : false,
