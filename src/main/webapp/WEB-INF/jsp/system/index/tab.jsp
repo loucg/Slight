@@ -36,7 +36,13 @@ function tabAddHandler(mid,mtitle,murl){
 		url :murl,
 		isClosed :true
 	});
-
+	
+	var tab_menu = document.getElementById("tab_menu");
+	var tables = tab_menu.getElementsByClassName("tab_item");
+	if(tables.length>6){
+		
+		tab.close(tables[1].getAttribute("id"));
+	}
 	tab.activate(mid);
 }
  var tab;	
