@@ -216,7 +216,7 @@ public class LoginController extends BaseController {
 			pd = this.getPageData();
 			pd = this.setLoginPd(pd);	//设置登录页面的配置参数
 			mv.addObject("pd",pd);
-			mv.setViewName("system/index/login");
+			mv.setViewName("system/index/invalid_log");
 			logger.error(e.getMessage(), e);
 		}
 		pd.put("SYSNAME", Tools.readTxtFile(Const.SYSNAME)); //读取系统名称

@@ -53,7 +53,7 @@
 								<td>&nbsp;&nbsp;<%=device_type%>：</td>
 								<td >
 								 	<select class="chosen-select form-control" name="type" id="type" data-placeholder="<%=please_choose_device_type%>" style="height:30px;width: 160px;border-width:1px;border-color:'#fff';border-radius:4px">
-								 		<option value="6" <c:if test="${pd.itype==4}">selected</c:if>><%=device_name%></option>
+								 		<option value="6" <c:if test="${pd.itype==4}">selected</c:if>><%=device_combination%></option>
 										<option value="1" <c:if test="${pd.itype==1}">selected</c:if>><%=integration_power%></option>
 										<option value="2" <c:if test="${pd.itype==2}">selected</c:if>><%=single_light_controller%></option>
 										<option value="3" <c:if test="${pd.itype==3}">selected</c:if>><%=gateway%></option>

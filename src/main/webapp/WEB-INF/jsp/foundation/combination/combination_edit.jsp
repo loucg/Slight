@@ -53,7 +53,7 @@
 				$("#polenumber").focus();
 				return false;
 			}
-			if($("#longitude").val()<=0||$("longitude").val()>=180){
+			if(($("#longitude").val()<=0||$("longitude").val()>=180)&&$("#longitude").val()!=""){
 				$("#longitude").tips({
 					side:3,
 		            msg:'<%=please_enter_0_180_number%>',
@@ -63,7 +63,7 @@
 				$("#longitude").focus();
 				return false;
 			}
-			if($("#latitude").val()<=0||$("#latitude").val()>=90){
+			if(($("#latitude").val()<=0||$("#latitude").val()>=90)&&$("#latitude").val()!=""){
 				$("#latitude").tips({
 					side:3,
 		            msg:'<%=please_enter_0_90_number%>',
@@ -219,17 +219,18 @@
 									</c:forEach>
 								  	</select> --%>
 								  	<select class="chosen-select form-control" name="mobile" id="company-input" data-placeholder="<%=please_choose_phone_number%>" style="width: 95%;">
-									<option value=""></option>
-									<c:forEach items="${simList}" var="role">
-										<option value="${role.id}"><c:if test="${pd.id==role.id}">selected</c:if>${role.mobile }</option>
-									</c:forEach>
-							  	</select>
+										<option value="">无</option>
+										<c:forEach items="${simList}" var="role">
+											<option value="${role.id}"><c:if test="${pd.id==role.id}">selected</c:if>${role.mobile }</option>
+										</c:forEach>
+								  	</select>
 								</td>
 							</tr>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=power_standard%>:</td>
 								<td>
 								 	<select class="chosen-select form-control" name="power" id="power" style="float:left;width:95%;">
+								 	<option value="">无</option>
 									<c:forEach items="${powerList}" var="role">
 										<option value="${role.id}" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>
@@ -240,6 +241,7 @@
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=light_standard%>:</td>
 								<td>
 								 	<select class="chosen-select form-control" name="lamp" id="lamp" style="float:left;width:95%;">
+								 	<option value="">无</option>
 									<c:forEach items="${lampList}" var="role">
 										<option value="${role.id}" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>
@@ -250,6 +252,7 @@
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=sensor_standard%>:</td>
 								<td>
 								 	<select class="chosen-select form-control" name="sensor" id="sensor" style="float:left;width:95%;">
+								 	<option value="">无</option>
 									<c:forEach items="${sensorList}" var="role">
 										<option value="${role.id}" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>
@@ -260,6 +263,7 @@
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=pole%>:</td>
 								<td>
 								 	<select class="chosen-select form-control" name="pole" id="pole" style="float:left;width:95%;">
+								 	<option value="">无</option>
 									<c:forEach items="${poleList}" var="role">
 										<option value="${role.id }" <c:if test="${pd.id==role.id}">selected</c:if>>${role.name}</option>
 									</c:forEach>

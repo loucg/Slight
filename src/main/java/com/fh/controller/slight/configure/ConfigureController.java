@@ -291,6 +291,22 @@ public class ConfigureController extends BaseController{
 		int typeid = Integer.valueOf((String)pd.get("typeid"));
 		pd.put("coordinate", pd.getString("longitude")+","+pd.getString("latitude"));
 		pd.put("status", 1);
+		
+		if(pd.getString("power").equals("")){
+			pd.put("power", null);
+		}
+		if(pd.getString("pole").equals("")){
+			pd.put("pole", null);
+		}
+		if(pd.getString("lamp").equals("")){
+			pd.put("lamp", null);
+		}
+		if(pd.getString("sim").equals("")){
+			pd.put("sim", null);
+		}
+		if(pd.getString("sensor").equals("")){
+			pd.put("sensor", null);
+		}
 		if(typeid==1||typeid==2||typeid==6){
 			configureService.editDevice(pd);
 		}else if(typeid==3||typeid==4||typeid==5){
@@ -318,6 +334,9 @@ public class ConfigureController extends BaseController{
 		pd.put("userid", UserUtils.getUserid());
 		pd.put("coordinate", pd.getString("longitude")+","+pd.getString("latitude"));
 		pd.put("status", 1);
+		System.out.println("power="+pd.getString("power"));
+		System.out.println("pole="+pd.getString("pole"));
+		System.out.println("lamp="+pd.getString("lamp"));
 		if(typeid==1||typeid==2||typeid==6){
 			configureService.createDevice(pd);
 		}else if(typeid==3||typeid==4||typeid==5){
@@ -385,7 +404,13 @@ public class ConfigureController extends BaseController{
 	public PageData testNumber() throws Exception{
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		String number = pd.getString("number");
 		pd = configureService.getDeviceByNumber(pd);
+		long d = (long)pd.get("count");
+		pd.put("number", number);
+		pd = configureService.getGatewayByNumber(pd);
+		long g = (long)pd.get("count");
+		pd.put("count", d+g);
 		System.out.println(pd.get("count"));
 		return pd;
 		

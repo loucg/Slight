@@ -281,4 +281,7 @@ public interface ConfigureService {
 	 * @throws Exception
 	 */
 	public PageData getDeviceByNumber(PageData pd) throws Exception;
+	
+
+	public PageData getGatewayByNumber(PageData pd) throws Exception;
 }

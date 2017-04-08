@@ -38,11 +38,9 @@
 			<script type="text/javascript">
 				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
 			</script>
-
 			<!-- #section:basics/sidebar -->
 			<!-- 左侧菜单 -->
 			<%@ include file="left.jsp"%>
-
 			<!-- /section:basics/sidebar -->
 			<div class="main-content">
 				<div class="main-content-inner">

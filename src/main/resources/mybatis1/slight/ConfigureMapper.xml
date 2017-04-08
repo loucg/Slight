@@ -403,7 +403,25 @@
 		insert into <include refid="clientAttr2Table"/>(
 			<include refid="clientAttr2Field"/>
 		) values (
-			<include refid="clientAttr2FieldValue"/>
+			#{id, jdbcType=BIGINT},
+			<if test="power==''">
+				null,
+			</if>
+			<if test="power!=''">
+				#{power, jdbcType=INTEGER},
+			</if>
+			<if test="pole==''">
+				null,
+			</if>
+			<if test="pole!=''">
+				#{pole,jdbcType=INTEGER},
+			</if>
+			<if test="lamp==''">
+				null
+			</if>
+			<if test="lamp!=''">
+				#{lamp,jdbcType=INTEGER}
+			</if>
 		)
 	</insert>
 	
@@ -458,7 +476,26 @@
 		insert into <include refid="gatewayAttr2Table"/>(
 			<include refid="gatewayAttr2Field"/>
 		) values (
-			<include refid="gatewayAttr2FieldValue"/>
+			
+			#{id, jdbcType=BIGINT},
+			<if test="sim==''">
+				null,
+			</if>
+			<if test="sim!=''">
+				#{sim, jdbcType=INTEGER},
+			</if>
+			<if test="pole==''">
+				null,
+			</if>
+			<if test="pole!=''">
+				#{pole,jdbcType=INTEGER},
+			</if>
+			<if test="sensor==''">
+				null
+			</if>
+			<if test="sensor!=''">
+				#{sensor,jdbcType=INTEGER}
+			</if> 
 		)
 	</insert>
 	
@@ -570,7 +607,11 @@
 		FROM c_client
 		WHERE client_code = #{number}
 	</select>
-	
+	<select id="getGatewayByNumber" resultType="pd">
+		SELECT COUNT(*) AS count
+		FROM c_gateway
+		WHERE gateway_code = #{number}
+	</select>
 	<!-- end -->
 	
 	
