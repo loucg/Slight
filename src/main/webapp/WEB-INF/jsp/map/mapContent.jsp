@@ -125,7 +125,7 @@
 	$(top.hangge());
 </script>
 <script type="text/javascript">
-var pagedata={page:1,rows:2,begin:0,end:0,havenest:true,termid:null};//分页的全局变量，很重要 
+var pagedata={page:1,rows:20,begin:0,end:0,havenest:true,termid:null};//分页的全局变量，很重要 
 var mapTermpage= new Object();//分页的全局变量，很重要 
 var mapTermpagein= new Object();//分页的全局变量，很重要 
 function getmapTermpage()
@@ -246,8 +246,8 @@ function getChosetermid(){
 			if (data != null) {
 				//console.log(data);
 				 for(var key in data)   {
-					 var pagedata1={page:1,rows:2,begin:0,end:0,havenest:false,termid:data[key][0].termid};///////////
-					 var pagedata2={page:1,rows:2,begin:0,end:0,havenest:false,termid:data[key][0].termid};///////////
+					 var pagedata1={page:1,rows:20,begin:0,end:0,havenest:false,termid:data[key][0].termid};///////////
+					 var pagedata2={page:1,rows:20,begin:0,end:0,havenest:false,termid:data[key][0].termid};///////////
 					 mapTermpage[data[key][0].termid]=pagedata2;
 					 mapTermpagein[data[key][0].termid]=pagedata1;
 					 gpsTObbdLfet_c(data[key]);
