@@ -77,10 +77,18 @@
 									<th class="center"><%=device_type%></th>
 									<th class="center"><%=location%></th>
 									<th class="center"><%=coordinate%></th>
-									<th class="center"><%=phone_number%></th>
-									<th class="center"><%=power_standard%></th>
-									<th class="center"><%=light_standard%></th>
-									<th class="center"><%=sensor_standard%></th>
+									<c:if test="${pd.itype==3 }">
+										<th class="center"><%=phone_number%></th>
+									</c:if>
+									<c:if test="${pd.itype==2 or pd.itype==4}">
+										<th class="center"><%=power_standard%></th>
+									</c:if>
+									<c:if test="${pd.itype==1 or pd.itype==2 or pd.itype==4}">
+										<th class="center"><%=light_standard%></th>
+									</c:if>
+									<c:if test="${pd.itype==3}">
+										<th class="center"><%=sensor_standard%></th>
+									</c:if>
 									<th class="center"><%=pole%></th>
 									<th class="center"><%=pole_number%></th>
 									<th class="center"><%=password%></th>
@@ -98,15 +106,23 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${deviceList}" var="var" varStatus="vs">
 										<tr>
-											<td class="center" style="width:50px">${var.number}</td>
+											<td class="center">${var.number}</td>
 											<td class="center">${var.name}</td>
 											<td class="center">${var.type}</td>
 											<td class="center">${var.location}</td>
 											<td class="center">${var.coordinate}</td>
-											<td class="center">${var.mobile}</td>
-											<td class="center">${var.power}</td>
-											<td class="center">${var.lamp}</td>
-											<td class="center">${var.sensor}</td>
+											<c:if test="${pd.itype==3 }">
+												<td class="center">${var.mobile}</td>
+											</c:if>
+											<c:if test="${pd.itype==2 or pd.itype==4}">
+												<td class="center">${var.power}</td>
+											</c:if>
+											<c:if test="${pd.itype==1 or pd.itype==2 or pd.itype==4}">
+												<td class="center">${var.lamp}</td>
+											</c:if>	
+											<c:if test="${pd.itype==3}">
+												<td class="center">${var.sensor}</td>
+											</c:if>
 											<td class="center">${var.pole}</td>
 											<td class="center">${var.polenumber}</td>
 											<td class="center">${var.password}</td>

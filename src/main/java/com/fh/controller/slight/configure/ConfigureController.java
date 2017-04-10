@@ -154,6 +154,7 @@ public class ConfigureController extends BaseController{
 		pd.put("userids", departmentService.getUseridsInDepartment(pd));
 		page.setPd(pd);
 		List<PageData> deviceList = configureService.getDeviceList(page);
+		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		mv.addObject("deviceList", deviceList);
 		mv.setViewName(deviceJsp);

@@ -210,6 +210,7 @@
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=latitude%>:</td>
 								<td><input style="width:95%;" type="number" name="latitude" id="latitude" value="${pd.latitude}" /></td>
 							</tr>
+							<c:if test="${pd.typeid==3 or pd.typeid==4 or pd.typeid==5}">
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=phone_number%>:</td>
 								<td>
@@ -226,6 +227,8 @@
 								  	</select>
 								</td>
 							</tr>
+							</c:if>
+							<c:if test="${pd.typeid==2 or pd.typeid==6}">
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=power_standard%>:</td>
 								<td>
@@ -237,6 +240,8 @@
 								  	</select>
 								</td>
 							</tr>
+							</c:if>
+							<c:if test="${pd.typeid==1 or pd.typeid==2 or pd.typeid==6}">
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=light_standard%>:</td>
 								<td>
@@ -248,6 +253,8 @@
 								  	</select>
 								</td>
 							</tr>
+							</c:if>
+							<c:if test="${pd.typeid==3 or pd.typeid==4 or pd.typeid==5}">
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=sensor_standard%>:</td>
 								<td>
@@ -259,6 +266,7 @@
 								  	</select>
 								</td>
 							</tr>
+							</c:if>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;"><%=pole%>:</td>
 								<td>
