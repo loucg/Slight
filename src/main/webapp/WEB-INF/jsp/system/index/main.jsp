@@ -34,7 +34,7 @@
 		<%@ include file="head.jsp"%>
 		<div id="websocket_button"></div><!-- 少了此处，聊天窗口就无法关闭 -->
 		<!-- /section:basics/navbar.layout -->
-		<div class="main-container" id="main-container">
+		<div class="main-container" id="main-container" style="padding-top: 0px;">
 			<script type="text/javascript">
 				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
 			</script>
@@ -42,7 +42,7 @@
 			<!-- 左侧菜单 -->
 			<%@ include file="left.jsp"%>
 			<!-- /section:basics/sidebar -->
-			<div class="main-content">
+			<div class="main-content" style="margin-top: 0px;">
 				<div class="main-content-inner">
 
 					<!-- /section:basics/content.breadcrumbs -->
