@@ -412,7 +412,6 @@ public class ConfigureController extends BaseController{
 		pd = configureService.getGatewayByNumber(pd);
 		long g = (long)pd.get("count");
 		pd.put("count", d+g);
-		System.out.println(pd.get("count"));
 		return pd;
 		
 	}
