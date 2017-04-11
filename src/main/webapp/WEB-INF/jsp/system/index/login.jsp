@@ -246,6 +246,15 @@
 							});
 							showfh();
 							$("#loginname").focus();
+						}else if("statuserror" == data.result){
+							$("#loginname").tips({
+								side : 1,
+								msg : "用户无效，无法登陆",
+								bg : '#FF5080',
+								time : 15
+							});
+							showfh();
+							$("#loginname").focus();
 						}else if("codeerror" == data.result){
 							$("#code").tips({
 								side : 1,

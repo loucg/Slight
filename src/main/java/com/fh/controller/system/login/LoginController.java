@@ -118,6 +118,9 @@ public class LoginController extends BaseController {
 					pd.put("PASSWORD", passwd);
 					pd = userService.getUserByNameAndPwd(pd);	//根据用户名和密码去读取用户信息
 					if(pd != null){
+						if(pd.getString("STATUS").equals("2")){
+							errInfo = "statuserror";
+						}
 						pd.put("LAST_LOGIN",DateUtil.getTime().toString());
 						userService.updateLastLogin(pd);
 						User user = new User();

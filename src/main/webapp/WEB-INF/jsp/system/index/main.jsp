@@ -42,7 +42,7 @@
 			<!-- 左侧菜单 -->
 			<%@ include file="left.jsp"%>
 			<!-- /section:basics/sidebar -->
-			<div class="main-content" style="margin-top: 0px;">
+			<div class="main-content" style="margin-top: -18px;">
 				<div class="main-content-inner">
 
 					<!-- /section:basics/content.breadcrumbs -->
