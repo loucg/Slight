@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
+import com.fh.hzy.util.UserUtils;
+import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.PageData;
 import com.fh.util.Tools;
 import com.fh.util.UuidUtil;
-import com.fh.service.system.fhlog.FHlogManager;
 
 /** 
  * 说明： 操作日志记录
@@ -30,15 +31,14 @@ public class FHlogService implements FHlogManager{
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void save(String USERNAME, String CONTENT, String TYPE)throws Exception{
-		PageData pd = new PageData();
-		pd.put("USERNAME", USERNAME);					//用户名
-		pd.put("CONTENT", CONTENT);						//事件
-		pd.put("TYPE", TYPE);
-		pd.put("FHLOG_ID", UuidUtil.get32UUID());		//主键
-		pd.put("CZTIME", Tools.date2Str(new Date()));	//操作时间
+	public void save(String userid, String comment, int type)throws Exception{
 		
-		dao.save("FHlogMapper.save", pd);
+		PageData pd = new PageData();
+		pd.put("userid", userid);
+		pd.put("type", type);
+		pd.put("comment", comment);
+		pd.put("time", Tools.date2Str(new Date()));
+		dao.save("LogMapper.insertLog", pd);
 	}
 	
 	/**删除
@@ -55,7 +55,16 @@ public class FHlogService implements FHlogManager{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<PageData> list(Page page)throws Exception{
-		return (List<PageData>)dao.findForList("FHlogMapper.datalistPage", page);
+		PageData pd = page.getPd();
+		pd.put("userid", UserUtils.getUserid());
+		pd = (PageData)dao.findForObject("RoleMapper.getRoleNameByUserid", pd);
+		if(pd.getString("rolename").equals("超级管理员")){
+			pd.put("userid", null);
+		}else{
+			pd.put("userid", UserUtils.getUserid());
+		}
+		
+		return (List<PageData>)dao.findForList("LogMapper.getLoglistPage", page);
 	}
 	
 	/**列表(全部)
@@ -64,7 +73,15 @@ public class FHlogService implements FHlogManager{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<PageData> listAll(PageData pd)throws Exception{
-		return (List<PageData>)dao.findForList("FHlogMapper.listAll", pd);
+		pd.put("userid", UserUtils.getUserid());
+		pd = (PageData)dao.findForObject("RoleMapper.getRoleNameByUserid", pd);
+		if(pd.getString("rolename").equals("超级管理员")){
+			pd.put("userid", null);
+		}else{
+			pd.put("userid", UserUtils.getUserid());
+		}
+		
+		return (List<PageData>)dao.findForList("LogMapper.getLogAllPage", pd);
 	}
 	
 	/**通过id获取数据
@@ -82,6 +99,13 @@ public class FHlogService implements FHlogManager{
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("FHlogMapper.deleteAll", ArrayDATA_IDS);
 	}
+
+	@Override
+	public List<PageData> getLogTypeList(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<PageData>)dao.findForList("LogMapper.getLogTypeList", pd);
+	}
+	
 	
 }
 

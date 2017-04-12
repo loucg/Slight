@@ -14,6 +14,7 @@ import com.fh.controller.base.BaseController;
 import com.fh.controller.slight.configure.ConfigureUtils;
 import com.fh.entity.Page;
 import com.fh.hzy.util.LogType;
+import com.fh.hzy.util.UserUtils;
 import com.fh.service.analysis.repair.RepairanalysisManager;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.system.fhlog.FHlogManager;
@@ -95,7 +96,7 @@ public class RepairController extends BaseController{
 		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){
 			ObjectExcelView erv = new ObjectExcelView();					//执行excel操作
 			mv = new ModelAndView(erv,FaultUtils.exportRepair(varList));
-			FHLOG.save(Jurisdiction.getUsername(), "导出维修统计excel", LogType.repairexport);
+			FHLOG.save(UserUtils.getUserid(), "导出维修统计excel", LogType.repairexport);
 			return mv;
 		}else{
 			mv.addObject("pd", pd);		//传入上级所有信息

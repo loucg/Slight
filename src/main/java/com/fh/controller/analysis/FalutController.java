@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
-import com.fh.controller.slight.configure.ConfigureUtils;
 import com.fh.entity.Page;
 import com.fh.hzy.util.LogType;
+import com.fh.hzy.util.UserUtils;
 import com.fh.service.analysis.fault.FaultanalysisManager;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.system.fhlog.FHlogManager;
@@ -95,7 +95,7 @@ public class FalutController extends BaseController{
 		if(pd.get("excel")!=null&&pd.getString("excel").equals("1")){
 			ObjectExcelView erv = new ObjectExcelView();					//执行excel操作
 			mv = new ModelAndView(erv,FaultUtils.exportFault(varList));
-			FHLOG.save(Jurisdiction.getUsername(), "导出故障统计excel",LogType.faultexport);
+			FHLOG.save(UserUtils.getUserid(), "导出故障统计excel", LogType.getFaultexport());
 			return mv;
 		}else{
 			mv.addObject("pd", pd);		//传入上级所有信息

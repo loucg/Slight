@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LogMapper">
+	<select id="getLoglistPage" parameterType="page" resultType="pd">
+		SELECT a.`comment`, DATE_FORMAT(a.tdate,'%Y-%m-%d %H:%i:%S') AS time, b.USERNAME AS `name`, c.`name` AS type
+		FROM `b_user_log` AS a
+		LEFT JOIN sys_user AS b ON a.sys_user_id = b.USER_ID
+		LEFT JOIN b_log_type AS c ON a.b_log_type_id = c.id
+		WHERE 1=1
+		<if test="pd.userid!=null">
+			AND a.sys_user_id = #{pd.userid}
+		</if>
+		<if test="pd.id!=null and pd.id!=''">
+			AND c.id = #{pd.id}
+		</if>
+		<if test="pd.starttime!=null and pd.starttime!=''">
+			AND a.tdate &gt; #{pd.lastStart}
+		</if>
+		<if test="pd.endtime!=null and pd.endtime!=''">
+			AND a.tdate &lt; #{pd.lastEnd}
+		</if>
+		<if test="pd.type!=null and pd.type!=''">
+			AND a.b_log_type_id = #{pd.type}
+		</if>
+		<if test="pd.username!=null and pd.username!=''">
+			AND b.USERNAME LIKE CONCAT(CONCAT('%', #{pd.username}),'%')
+		</if>
+		ORDER BY a.id DESC
+	</select>
+
+	<select id="getLogAllPage" parameterType="pd" resultType="pd">
+		SELECT a.`comment`, DATE_FORMAT(a.tdate,'%Y-%m-%d %H:%i:%S') AS time, b.USERNAME AS `name`, c.`name` AS type
+		FROM `b_user_log` AS a
+		LEFT JOIN sys_user AS b ON a.sys_user_id = b.USER_ID
+		LEFT JOIN b_log_type AS c ON a.b_log_type_id = c.id
+		WHERE 1=1
+		<if test="userid!=null">
+			AND a.sys_user_id = #{userid}
+		</if>
+		<if test="id!=null and id!=''">
+			AND c.id = #{id}
+		</if>
+		<if test="starttime!=null and starttime!=''">
+			AND a.tdate &gt; #{lastStart}
+		</if>
+		<if test="endtime!=null and endtime!=''">
+			AND a.tdate &lt; #{lastEnd}
+		</if>
+		<if test="type!=null and type!=''">
+			AND a.b_log_type_id = #{type}
+		</if>
+		<if test="username!=null and username!=''">
+			AND b.USERNAME LIKE CONCAT(CONCAT('%', #{username}),'%')
+		</if>
+		ORDER BY a.id DESC
+	</select>
+
+	<insert id="insertLog" parameterType="pd">
+		INSERT INTO b_user_log(b_log_type_id, sys_user_id, comment, tdate)
+		VALUES (#{type}, #{userid}, #{comment}, #{time})
+	</insert>
+	
+	<select id="getLogTypeList" parameterType="pd" resultType="pd">
+		SELECT * 
+		FROM b_log_type
+	</select>
+</mapper>

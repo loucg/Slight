@@ -163,7 +163,7 @@ public class UserInfoController extends BaseController {
 */		
 		Jurisdiction.getSession().setAttribute(Const.SESSION_LANGUAGE, language);
 		//Jurisdiction.getSession().setAttribute(Const.SESSION_USER, name);
-		FHLOG.save(Jurisdiction.getUsername(), "修改用户信息："+pd.getString("USERNAME"), LogType.edituserinfo);
+		FHLOG.save(UserUtils.getUserid(), "修改用户信息："+pd.getString("USERNAME"), LogType.edituserinfo);
 		mv.addObject("msg","editSuccess");
 		mv.setViewName("save_result");
 		return mv;
@@ -189,7 +189,7 @@ public class UserInfoController extends BaseController {
 		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//密码加密
 		if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 			userService.saveU(pd); 					//执行保存
-			FHLOG.save(Jurisdiction.getUsername(), "新增系统用户："+pd.getString("USERNAME"), LogType.createaccount);
+			FHLOG.save(UserUtils.getUserid(), "新增系统用户："+pd.getString("USERNAME"), LogType.createaccount);
 			mv.addObject("msg","success");
 		}else{
 			mv.addObject("msg","failed");

@@ -8,88 +8,84 @@ import java.util.List;
  *
  */
 public class LogType {
-	public static final String login = "账号登录";
-	public static final String logout = "账号退出";
-	public static final String edituserinfo = "修改个人信息";
-	public static final String groupdivide = "新组分组";
-	public static final String editgroup = "修改分组";
-	public static final String editgroupmember = "修改分组成员";
-	public static final String newgroupstrategy = "新组策略";
-	public static final String editstrategy = "修改策略";
-	public static final String editstrategyapp = "修改策略应用";
-	public static final String repairlogin = "维修登记";
-	public static final String devicecontrol= "终端控制";
-	public static final String powerexport = "能耗导出";
-	public static final String lightexport = "亮灯导出";
-	public static final String faultexport = "故障导出";
-	public static final String repairexport = "维修导出";
-	public static final String createaccount = "创建用户";
-	public static final String editaccount = "修改用户";
-	public static final String resetpassword = "重置密码";
-	public static final String editrole = "修改角色";
-	public static final String assignrole = "分配角色";
-	public static final String system = "系统配置";
-	public static String getLogin() {
+	public static final int login = 1;
+	public static final int logout = 2;
+	public static final int edituserinfo = 3;
+	public static final int groupdivide = 4;
+	public static final int editgroup = 5;
+	public static final int editgroupmember = 6;
+	public static final int newgroupstrategy = 7;
+	public static final int editstrategy = 8;
+	public static final int editstrategyapp = 9;
+	public static final int repairlogin = 10;
+	public static final int devicecontrol= 11;
+	public static final int powerexport = 12;
+	public static final int lightexport = 13;
+	public static final int faultexport = 14;
+	public static final int repairexport = 15;
+	public static final int createaccount = 16;
+	public static final int resetpassword = 17;
+	public static final int editrole = 18;
+	public static final int assignrole = 19;
+	public static final int system = 20;
+	public static int getLogin() {
 		return login;
 	}
-	public static String getLogout() {
+	public static int getLogout() {
 		return logout;
 	}
-	public static String getEdituserinfo() {
+	public static int getEdituserinfo() {
 		return edituserinfo;
 	}
-	public static String getGroupdivide() {
+	public static int getGroupdivide() {
 		return groupdivide;
 	}
-	public static String getEditgroup() {
+	public static int getEditgroup() {
 		return editgroup;
 	}
-	public static String getEditgroupmember() {
+	public static int getEditgroupmember() {
 		return editgroupmember;
 	}
-	public static String getNewgroupstrategy() {
+	public static int getNewgroupstrategy() {
 		return newgroupstrategy;
 	}
-	public static String getEditstrategy() {
+	public static int getEditstrategy() {
 		return editstrategy;
 	}
-	public static String getEditstrategyapp() {
+	public static int getEditstrategyapp() {
 		return editstrategyapp;
 	}
-	public static String getRepairlogin() {
+	public static int getRepairlogin() {
 		return repairlogin;
 	}
-	public static String getDevicecontrol() {
+	public static int getDevicecontrol() {
 		return devicecontrol;
 	}
-	public static String getPowerexport() {
+	public static int getPowerexport() {
 		return powerexport;
 	}
-	public static String getLightexport() {
+	public static int getLightexport() {
 		return lightexport;
 	}
-	public static String getFaultexport() {
+	public static int getFaultexport() {
 		return faultexport;
 	}
-	public static String getRepairexport() {
+	public static int getRepairexport() {
 		return repairexport;
 	}
-	public static String getCreateaccount() {
+	public static int getCreateaccount() {
 		return createaccount;
 	}
-	public static String getEditaccount() {
-		return editaccount;
-	}
-	public static String getResetpassword() {
+	public static int getResetpassword() {
 		return resetpassword;
 	}
-	public static String getEditrole() {
+	public static int getEditrole() {
 		return editrole;
 	}
-	public static String getAssignrole() {
+	public static int getAssignrole() {
 		return assignrole;
 	}
-	public static String getSystem() {
+	public static int getSystem() {
 		return system;
 	}
 	

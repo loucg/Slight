@@ -46,7 +46,7 @@
 										<option value=""></option>
 										<option value="" selected>全部</option>
 										<c:forEach items="${logtypeList}" var="item" varStatus="vs">
-											<option value="${item}" <c:if test="${pd.type == item}">selected</c:if> >${item}</option>
+											<option value="${item.id}" <c:if test="${pd.type == item.id}">selected</c:if> >${item.name}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -99,14 +99,10 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
-											<%-- <td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.FHLOG_ID}" class="ace" /><span class="lbl"></span></label>
-											</td>
-											<td class='center' style="width: 30px;">${vs.index+1}</td> --%>
-											<td class='center' style="width: 200px;">${var.USERNAME}</td>
-											<td class='center' style="width:100px";">${var.TYPE}</td>
-											<td class='center'>${var.CONTENT}</td>
-											<td class='center' style="width: 150px;">${var.CZTIME}</td>
+											<td class='center' style="width: 200px;">${var.name}</td>
+											<td class='center' style="width:100px";">${var.type}</td>
+											<td class='center'>${var.comment}</td>
+											<td class='center' style="width: 150px;">${var.time}</td>
 											<%-- <td class="center" style="width: 50px;">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>

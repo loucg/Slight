@@ -34,6 +34,7 @@ import com.fh.entity.system.Role;
 import com.fh.entity.system.User;
 import com.fh.hzy.util.InternationalUtils;
 import com.fh.hzy.util.LogType;
+import com.fh.hzy.util.UserUtils;
 import com.fh.service.system.role.RoleManager;
 import com.fh.service.system.user.UserManager;
 import com.fh.util.AppUtil;
@@ -153,7 +154,6 @@ public class LoginController extends BaseController {
 					}else{
 						errInfo = "usererror"; 				//用户名或密码有误
 						logBefore(logger, USERNAME+"登录系统密码或用户名错误");
-						FHLOG.save(USERNAME, "登录系统密码或用户名错误", LogType.login);
 					}
 				}else{
 					errInfo = "codeerror";				 	//验证码输入有误
@@ -161,7 +161,7 @@ public class LoginController extends BaseController {
 				if(Tools.isEmpty(errInfo)){
 					errInfo = "success";					//验证成功
 					logBefore(logger, USERNAME+"登录系统");
-					FHLOG.save(USERNAME, "登录系统", LogType.login);
+					FHLOG.save(UserUtils.getUserid(), "登录系统", LogType.login);
 				}
 			}
 		}else{
@@ -355,7 +355,7 @@ public class LoginController extends BaseController {
 	public ModelAndView logout() throws Exception{
 		String USERNAME = Jurisdiction.getUsername();	//当前登录的用户名
 		logBefore(logger, USERNAME+"退出系统");
-		FHLOG.save(USERNAME, "退出", LogType.logout);
+		FHLOG.save(UserUtils.getUserid(), "退出", LogType.logout);
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		Session session = Jurisdiction.getSession();	//以下清除session缓存

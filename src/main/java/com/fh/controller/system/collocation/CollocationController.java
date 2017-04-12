@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.hzy.util.LogType;
+import com.fh.hzy.util.UserUtils;
 import com.fh.service.system.collocation.CollocationManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Jurisdiction;
@@ -56,7 +57,7 @@ public class CollocationController extends BaseController{
 		mv.addObject("varList", varList);
 		mv.addObject("QX",Jurisdiction.getHC());				//按钮权限
 */		
-		FHLOG.save(Jurisdiction.getUsername(), "查看配置", LogType.system);
+		FHLOG.save(UserUtils.getUserid(), "查看配置", LogType.system);
 		return mv;
 	}
 	

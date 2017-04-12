@@ -79,7 +79,7 @@ public class FHlogController extends BaseController {
 		List<PageData>	varList = fhlogService.list(page);		//列出FHlog列表
 		mv.setViewName("system/fhlog/fhlog_list");
 		mv.addObject("varList", varList);
-		mv.addObject("logtypeList", LogUtils.getTypeList());
+		mv.addObject("logtypeList", fhlogService.getLogTypeList(pd));
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());				//按钮权限
 		return mv;
@@ -126,15 +126,17 @@ public class FHlogController extends BaseController {
 		List<String> titles = new ArrayList<String>();
 		titles.add("用户名");	//1
 		titles.add("操作时间");	//2
-		titles.add("事件");	//3
+		titles.add("类型");  //3
+		titles.add("内容");	//4
 		dataMap.put("titles", titles);
 		List<PageData> varOList = fhlogService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
-			vpd.put("var1", varOList.get(i).getString("USERNAME"));	    //1
-			vpd.put("var2", varOList.get(i).getString("CZTIME"));	    //2
-			vpd.put("var3", varOList.get(i).getString("CONTENT"));	    //3
+			vpd.put("var1", varOList.get(i).getString("name"));	    //1
+			vpd.put("var2", varOList.get(i).getString("time"));	    //2
+			vpd.put("var3", varOList.get(i).getString("type"));
+			vpd.put("var4", varOList.get(i).getString("comment"));	    //3
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);

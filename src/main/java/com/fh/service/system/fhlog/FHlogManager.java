@@ -17,7 +17,7 @@ public interface FHlogManager{
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void save(String USERNAME, String CONTENT, String TYPE)throws Exception;
+	public void save(String userid, String comment, int type)throws Exception;
 	
 	/**删除
 	 * @param pd
@@ -49,5 +49,12 @@ public interface FHlogManager{
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
 	
+	/**
+	 * 获取所有日志类型
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> getLogTypeList(PageData pd) throws Exception;
 }
 

@@ -145,5 +145,14 @@
 		FROM sys_role AS a
 		WHERE a.ROLE_NAME = #{rolename}
 	</select>
+	<select id="getRoleNameByUserid" parameterType="pd" resultType="pd">
+		SELECT b.ROLE_NAME AS rolename
+		FROM sys_user AS a
+		LEFT JOIN sys_role AS b ON a.ROLE_ID = b.ROLE_ID 
+		WHERE 1=1
+		<if test="userid!=null">
+			AND a.USER_ID = #{userid}
+		</if>	
+	</select>
 	<!-- end -->
 </mapper>
