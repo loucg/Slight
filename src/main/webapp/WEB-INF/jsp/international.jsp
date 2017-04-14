@@ -25,6 +25,7 @@
 	String bigest_electricity = properties.getProperty("bigest_electricity");
 	String light_operating_err = properties.getProperty("light_operating_err");
 	String wait_start_use = properties.getProperty("wait_start_use");
+	String please_choose_phone_number = properties.getProperty("please_choose_phone_number");
 	String please_enter_name = properties.getProperty("please_enter_name");
 	String userinfo = properties.getProperty("userinfo");
 	String make_sure = properties.getProperty("make_sure");
@@ -103,6 +104,7 @@
 	String type = properties.getProperty("type");
 	String welcome = properties.getProperty("welcome");
 	String please_enter_group_explain = properties.getProperty("please_enter_group_explain");
+	String device = properties.getProperty("device");
 	String up_and_down_time_not_equal = properties.getProperty("up_and_down_time_not_equal");
 	String none_this_department_is_top = properties.getProperty("none_this_department_is_top");
 	String return1 = properties.getProperty("return1");
@@ -140,6 +142,7 @@
 	String road_light_brightness_update_success = properties.getProperty("road_light_brightness_update_success");
 	String please_enter_group_name = properties.getProperty("please_enter_group_name");
 	String the_packet_has_no_terminal = properties.getProperty("the_packet_has_no_terminal");
+	String user = properties.getProperty("user");
 	String function_Brief = properties.getProperty("function_Brief");
 	String device_number2 = properties.getProperty("device_number2");
 	String please_enter_strategy_name = properties.getProperty("please_enter_strategy_name");
@@ -155,6 +158,7 @@
 	String this_group_can_not_divide_odd_and_even = properties.getProperty("this_group_can_not_divide_odd_and_even");
 	String please_choose_end_time = properties.getProperty("please_choose_end_time");
 	String road_light_shut_down_success = properties.getProperty("road_light_shut_down_success");
+	String make_sure_delete_data = properties.getProperty("make_sure_delete_data");
 	String please_choose = properties.getProperty("please_choose");
 	String blockout = properties.getProperty("blockout");
 	String exception_status = properties.getProperty("exception_status");
@@ -170,6 +174,7 @@
 	String add_device_tips = properties.getProperty("add_device_tips");
 	String please_choose_the_superior_department = properties.getProperty("please_choose_the_superior_department");
 	String time_and_brightness_2 = properties.getProperty("time_and_brightness_2");
+	String rest_money = properties.getProperty("rest_money");
 	String edit = properties.getProperty("edit");
 	String smart_divide_group_by_power = properties.getProperty("smart_divide_group_by_power");
 	String department_description = properties.getProperty("department_description");
@@ -210,6 +215,7 @@
 	String enter_new_password = properties.getProperty("enter_new_password");
 	String location = properties.getProperty("location");
 	String make_sure_delete_app_group = properties.getProperty("make_sure_delete_app_group");
+	String content = properties.getProperty("content");
 	String repair_time = properties.getProperty("repair_time");
 	String strategy = properties.getProperty("strategy");
 	String function_key = properties.getProperty("function_key");
@@ -264,6 +270,7 @@
 	String please_choose_odd_even_day = properties.getProperty("please_choose_odd_even_day");
 	String light_operating_successfully = properties.getProperty("light_operating_successfully");
 	String please_enter_repire_explain = properties.getProperty("please_enter_repire_explain");
+	String this_number_has_exist = properties.getProperty("this_number_has_exist");
 	String exception = properties.getProperty("exception");
 	String detail = properties.getProperty("detail");
 	String road_light_list_2 = properties.getProperty("road_light_list_2");
@@ -273,6 +280,7 @@
 	String serial_number = properties.getProperty("serial_number");
 	String circuit_breaker = properties.getProperty("circuit_breaker");
 	String please_choose_department = properties.getProperty("please_choose_department");
+	String please_enter_iccid = properties.getProperty("please_enter_iccid");
 	String voltage = properties.getProperty("voltage");
 	String lamp_open_circuit = properties.getProperty("lamp_open_circuit");
 	String add_strategy = properties.getProperty("add_strategy");
@@ -300,12 +308,14 @@
 	String light_rate = properties.getProperty("light_rate");
 	String address = properties.getProperty("address");
 	String road_light_exception = properties.getProperty("road_light_exception");
+	String feedback_time = properties.getProperty("feedback_time");
 	String enter_old_password = properties.getProperty("enter_old_password");
-	String end_time = properties.getProperty("end_time");
-	String group_member = properties.getProperty("group_member");
 	String odd = properties.getProperty("odd");
+	String group_member = properties.getProperty("group_member");
+	String end_time = properties.getProperty("end_time");
 	String please_enter_company_location = properties.getProperty("please_enter_company_location");
 	String enter_company_name_here = properties.getProperty("enter_company_name_here");
+	String command_type = properties.getProperty("command_type");
 	String normal_cutoff_device = properties.getProperty("normal_cutoff_device");
 	String blockout_time = properties.getProperty("blockout_time");
 	String cancel = properties.getProperty("cancel");
@@ -348,6 +358,7 @@
 	String road_light_has_open_status = properties.getProperty("road_light_has_open_status");
 	String destroy = properties.getProperty("destroy");
 	String electricity_time = properties.getProperty("electricity_time");
+	String light = properties.getProperty("light");
 	String please_choose_device_type = properties.getProperty("please_choose_device_type");
 	String none = properties.getProperty("none");
 	String circuit_breaker_abnormality = properties.getProperty("circuit_breaker_abnormality");
@@ -396,10 +407,12 @@
 	String open_road = properties.getProperty("open_road");
 	String even = properties.getProperty("even");
 	String please_type_device_number = properties.getProperty("please_type_device_number");
-	String this_number_has_exist = properties.getProperty("this_number_has_exist");
-	String rest_money = properties.getProperty("rest_money");
-	String please_enter_iccid = properties.getProperty("please_enter_iccid");
-	String please_choose_phone_number = properties.getProperty("please_choose_phone_number");
+	String operate_time = properties.getProperty("operate_time");
+
+
+
+
+
 
 
 %>

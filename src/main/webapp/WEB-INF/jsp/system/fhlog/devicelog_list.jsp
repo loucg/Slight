@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -32,7 +32,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="fhlog/list.do" method="post" name="Form" id="Form">
+						<form action="fhlog/deviceLogList" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -76,8 +76,12 @@
 								<tr>
 									<th class="center"><%=user%></th>
 									<th class="center"><%=operate_time%></th>
-									<th class="center"><%=type%></th>
+									<th class="center"><%=command_type%></th>
+									<th class="center"><%=gateway%>/<%=circuit_breaker%></th>
+									<th class="center"><%=light%>/<%=device%></th>
 									<th class="center"><%=content%></th>
+									<th class="center"><%=status%></th>
+									<th class="center"><%=feedback_time%></th>
 									
 								</tr>
 							</thead>
@@ -90,9 +94,13 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center'>${var.name}</td>
-											<td class='center'>${var.time}</td>
-											<td class='center'>${var.type}</td>
-											<td class='center'>${var.comment}</td>
+											<td class='center'>${var.operate_time}</td>
+											<td class='center'>${var.cmd_type}</td>
+											<td class='center'>${var.gateway}</td>
+											<td class='center'>${var.device}</td>
+											<td class='center' style="width:200px;text-overflow: ellipsis;-moz-text-overflow: ellipsis;">${var.comment}</td>
+											<td class='center'>${var.status}</td>
+											<td class='center'>${var.feedback_time}</td>
 										</tr>
 									
 									</c:forEach>
@@ -197,7 +205,7 @@
 		
 		//导出excel
 		function toExcel(){
-			window.location.href='<%=basePath%>fhlog/excel.do';
+			window.location.href='<%=basePath%>fhlog/excelDevice';
 		}
 	</script>
 

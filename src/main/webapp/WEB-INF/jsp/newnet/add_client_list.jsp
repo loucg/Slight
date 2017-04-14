@@ -9,6 +9,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@include file="../international.jsp"%>  <!--国际化标签  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -191,7 +192,7 @@
 						bootbox.dialog({
 							message: "<span class='bigger-110'><%=you_have_not_choose_anything%>!</span>",
 							buttons: 			
-							{ "button":{ "label":"<%=sure%>", "className":"btn-sm btn-success"}}
+							{ "button":{ "label":"<%=make_sure%>", "className":"btn-sm btn-success"}}
 						});
 						$("#zcheckbox").tips({
 							side:1,

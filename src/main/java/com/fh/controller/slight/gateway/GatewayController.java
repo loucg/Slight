@@ -12,9 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.hzy.util.LogType;
 import com.fh.hzy.util.UserUtils;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.slight.gateway.GatewayService;
+import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.role.RoleManager;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
@@ -30,6 +32,8 @@ public class GatewayController extends BaseController{
 	private RoleManager roleService;
 	@Resource(name="departmentService")
 	private DepartmentManager departmentService;
+	@Resource(name="fhlogService")
+	private FHlogManager FHLOG;
 	
 	private String gatewayJsp = "repair/gateway/gateway_list";  						//网关维修记录查询jsp
 	private String gatewayEditJsp = "repair/gateway/gateway_edit";  					//网关维修登记修改jsp
@@ -96,6 +100,7 @@ public class GatewayController extends BaseController{
 		pd.put("tdate", new Date());//创建时间
 		gatewayService.editGateway(pd);
 		mv.addObject("msg", "success");
+		FHLOG.save(UserUtils.getUserid(), "修改网关维修登记记录", LogType.repairlogin);
 		mv.setViewName(saveRsultJsp);
 		return mv;
 
@@ -134,6 +139,7 @@ public class GatewayController extends BaseController{
 		pd.put("tdate", Calendar.getInstance().getTime());//创建时间
 		gatewayService.createGateway(pd);
 		mv.addObject("msg", "success");
+		FHLOG.save(UserUtils.getUserid(), "登记网关维修记录", LogType.repairlogin);
 		mv.setViewName(saveRsultJsp);
 		return mv;
 

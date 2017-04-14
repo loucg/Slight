@@ -12,9 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.hzy.util.LogType;
 import com.fh.hzy.util.UserUtils;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.slight.weixiu.WeixiuService;
+import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.role.RoleManager;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
@@ -36,6 +38,8 @@ public class WeixiuController extends BaseController {
 	private DepartmentManager departmentService;
 	@Resource(name="roleService")
 	private RoleManager roleService;
+	@Resource(name="fhlogService")
+	private FHlogManager FHLOG;
 	
 	private String weixiuJsp = "repair/weixiu/weixiu_list";  						//终端维修记录查询jsp
 	private String weixiuEditJsp = "repair/weixiu/weixiu_edit";  					//终端维修登记修改jsp
@@ -126,6 +130,7 @@ public class WeixiuController extends BaseController {
 		/*pd.put("tdate", Tools.date2Str(new Date()));//创建时间
 */		mv.addObject("pd", pd);
 		mv.addObject("msg", "createWeixiu");
+		FHLOG.save(UserUtils.getUserid(), "修改终端登记记录", LogType.repairlogin);
 		mv.setViewName(weixiuEditJsp);
 		return mv;
 	}
@@ -144,6 +149,7 @@ public class WeixiuController extends BaseController {
 		weixiuService.createWeixiu(pd);
 		mv.addObject("msg", "success");
 		mv.setViewName(saveRsultJsp);
+		FHLOG.save(UserUtils.getUserid(), "登记终端维修记录", LogType.repairlogin);
 		return mv;
 
 	} 

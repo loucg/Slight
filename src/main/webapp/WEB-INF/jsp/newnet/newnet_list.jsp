@@ -202,7 +202,7 @@
 			top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="<%delete_device%>";
+			 diag.Title ="<%=delete_device%>";
 			 diag.URL = '<%=basePath%>newnet/goOwnClientList?id='+id;
 			 diag.Width = 1200;
 			 diag.Height = 600;

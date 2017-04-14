@@ -14,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.hzy.util.CMDType;
 import com.fh.hzy.util.UserUtils;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.slight.newnet.NewnetService;
+import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.role.RoleManager;
 import com.fh.util.AppUtil;
 import com.fh.util.Jurisdiction;
@@ -38,6 +40,8 @@ public class NewnetController extends BaseController {
 	private DepartmentManager departmentService;
 	@Resource(name="roleService")
 	private RoleManager roleService;
+	@Resource(name="fhlogService")
+	private FHlogManager fhlogService;
 	
 	private String newnetJsp = "newnet/newnet_list";                 //网关列表jsp
 	private String newnetAddJsp = "newnet/add_client_list";  					//添加终端jsp
@@ -140,6 +144,8 @@ public class NewnetController extends BaseController {
 				newnetService.addClients(pd);
 				pd.put("msg", "ok");
 			}
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "添加终端进入网关", ArrayDATA_IDS,pd.getString("id")
+						, CMDType.ADD_DEVICE_TO_GATEWAY, null);
 		}else{
 			pd.put("msg", "no");
 		}
@@ -168,6 +174,7 @@ public class NewnetController extends BaseController {
 				newnetService.deleteClients(pd);
 				pd.put("msg", "ok");
 			}
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "从网关踢删终端", ArrayDATA_IDS,pd.getString("id"), CMDType.REMOVE_DEVICE_TO_GATEWAY, null);
 		}else{
 			pd.put("msg", "no");
 		}

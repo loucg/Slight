@@ -85,6 +85,32 @@ public class FHlogController extends BaseController {
 		return mv;
 	}
 	
+	
+	@RequestMapping(value="/deviceLogList")
+	public ModelAndView deviceLogList(Page page) throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"列表FHlog");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String lastStart = pd.getString("starttime");	//开始时间
+		String lastEnd = pd.getString("endtime");		//结束时间
+		if(lastStart != null && !"".equals(lastStart)){
+			pd.put("lastStart", lastStart+" 00:00:00");
+		}
+		if(lastEnd != null && !"".equals(lastEnd)){
+			pd.put("lastEnd", lastEnd+" 00:00:00");
+		}
+		page.setPd(pd);
+		List<PageData>	varList = fhlogService.getDeviceLogList(page);		//列出FHlog列表
+		mv.setViewName("system/fhlog/devicelog_list");
+		mv.addObject("varList", varList);
+		mv.addObject("logtypeList", fhlogService.getDeviceTypeList(pd));
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());				//按钮权限
+		return mv;
+	}
+	
 	 /**批量删除
 	 * @param
 	 * @throws Exception
@@ -124,7 +150,7 @@ public class FHlogController extends BaseController {
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("用户名");	//1
+		titles.add("用户");	//1
 		titles.add("操作时间");	//2
 		titles.add("类型");  //3
 		titles.add("内容");	//4
@@ -144,6 +170,48 @@ public class FHlogController extends BaseController {
 		mv = new ModelAndView(erv,dataMap);
 		return mv;
 	}
+	
+	 /**导出到终端日志
+		 * @param
+		 * @throws Exception
+		 */
+		@RequestMapping(value="/excelDevice")
+		public ModelAndView exportExcelDevice() throws Exception{
+			logBefore(logger, Jurisdiction.getUsername()+"导出FHlog到excel");
+			if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
+			ModelAndView mv = new ModelAndView();
+			PageData pd = new PageData();
+			pd = this.getPageData();
+			Map<String,Object> dataMap = new HashMap<String,Object>();
+			List<String> titles = new ArrayList<String>();
+			titles.add("用户");	//1
+			titles.add("操作时间");	//2
+			titles.add("命令类型");  //3
+			titles.add("网关/断路器");	//4
+			titles.add("灯/终端");	
+			titles.add("内容");
+			titles.add("状态");	
+			titles.add("反馈时间");	
+			dataMap.put("titles", titles);
+			List<PageData> varOList = fhlogService.getAllDeviceList(pd);
+			List<PageData> varList = new ArrayList<PageData>();
+			for(int i=0;i<varOList.size();i++){
+				PageData vpd = new PageData();
+				vpd.put("var1", varOList.get(i).getString("name"));	    //1
+				vpd.put("var2", varOList.get(i).getString("operate_time"));	    //2
+				vpd.put("var3", varOList.get(i).getString("cmd_type"));
+				vpd.put("var4", varOList.get(i).getString("gateway"));	    //3
+				vpd.put("var5", varOList.get(i).getString("device"));
+				vpd.put("var6", varOList.get(i).getString("comment"));
+				vpd.put("var7", varOList.get(i).getString("status"));
+				vpd.put("var8", varOList.get(i).getString("feedback_time"));
+				varList.add(vpd);
+			}
+			dataMap.put("varList", varList);
+			ObjectExcelView erv = new ObjectExcelView();
+			mv = new ModelAndView(erv,dataMap);
+			return mv;
+		}
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
