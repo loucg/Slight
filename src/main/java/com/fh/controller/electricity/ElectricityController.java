@@ -12,7 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.system.User;
+import com.fh.hzy.util.CMDType;
+import com.fh.hzy.util.UserUtils;
 import com.fh.service.electricity.ElectricityService;
+import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Const;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
@@ -29,6 +32,8 @@ public class ElectricityController extends BaseController{
 	String menuUrl = "electricity/retrieve.do";  //页面配置的菜单地址
 	@Resource(name="electricityService")
 	private ElectricityService electricityService;
+	@Resource(name="fhlogService")
+	private FHlogManager fhlogService;
 	
 	/**
 	 * 显示用户拥有的终端（单灯控制器、一体化电源、断路器、网关、普通断路器）
@@ -107,6 +112,12 @@ public class ElectricityController extends BaseController{
 		System.out.println(tdate);
 		electricityService.update(pd);
 		
+		
+		
+		//日志的添加 2017-4-15
+		fhlogService.saveDeviceLog(UserUtils.getUserid(), "修改上电/断电时间", 
+				null, pd.getString("id"), CMDType.CUTOFF_CONTROL, null);
+		
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -153,16 +164,23 @@ public class ElectricityController extends BaseController{
 		String sys_user_id = user.getUSER_ID();
 		pd.put("sys_user_id", sys_user_id);
 		String DATA_IDS = pd.getString("DATA_IDS");
+		String ArrayDATA_IDS[] = null;
 		if(null !=DATA_IDS && !"".equals(DATA_IDS)){
-			String ArrayDATA_IDS[] = DATA_IDS.split(",");
+			ArrayDATA_IDS = DATA_IDS.split(",");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
 				pd.put("id", ArrayDATA_IDS[i]);
 				electricityService.update(pd);
+				
+				//日志的添加 2017-4-15
+				fhlogService.saveDeviceLog(UserUtils.getUserid(), "批量修改上电/断电时间", 
+						null, ArrayDATA_IDS[i], CMDType.CUTOFF_CONTROL, null);
+				System.out.println();
 			}
 		}else{
 			System.out.println();
 			System.out.println("mei you shu ju ");
 		}
+		
 		
 		
 		mv.addObject("msg","success");

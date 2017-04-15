@@ -13,18 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
-import com.fh.entity.system.Dictionaries;
 import com.fh.entity.system.User;
+import com.fh.hzy.util.CMDType;
+import com.fh.hzy.util.UserUtils;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.street.state.LampStateService;
+import com.fh.service.system.fhlog.FHlogManager;
+import com.fh.service.system.fhlog.impl.FHlogService;
 import com.fh.util.AppUtil;
 import com.fh.util.Const;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
-import com.fh.util.Tools;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -43,6 +44,8 @@ public class LampStateController extends BaseController{
     private LampStateService lampStateService;
     @Resource(name="departmentService")
     private DepartmentManager departmentService;
+    @Resource(name="fhlogService")
+	private FHlogManager fhlogService;
 	
 	/**
 	 * 显示路灯状态列表
@@ -254,8 +257,9 @@ public class LampStateController extends BaseController{
 		pd.put("userids", userids);
 		
 		String DATA_IDS = pd.getString("DATA_IDS");
+		String ArrayDATA_IDS[] = null;
 		if(null !=DATA_IDS && !"".equals(DATA_IDS)){
-			String ArrayDATA_IDS[] = DATA_IDS.split(";");
+			ArrayDATA_IDS = DATA_IDS.split(";");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
 				pd.put("id", ArrayDATA_IDS[i]);
 				lampStateService.upTermStrid(pd);
@@ -264,6 +268,10 @@ public class LampStateController extends BaseController{
 			System.out.println();
 			System.out.println("mei you shu ju ");
 		}
+		
+		//日志的添加 2017-4-15
+				fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节策略", 
+						ArrayDATA_IDS, null, CMDType.STRATEGY, null);
 		
 		mv.setViewName("street/state/strategy_edit");
 		
@@ -314,8 +322,9 @@ public class LampStateController extends BaseController{
 		pd.put("userids", userids);
 		
 		String DATA_IDS = pd.getString("DATA_IDS");
+		String ArrayDATA_IDS[] = null;
 		if(null !=DATA_IDS && !"".equals(DATA_IDS)){
-			String ArrayDATA_IDS[] = DATA_IDS.split(";");
+			ArrayDATA_IDS = DATA_IDS.split(";");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
 				pd.put("id", ArrayDATA_IDS[i]);
 				lampStateService.adjustBrt(pd);
@@ -325,6 +334,9 @@ public class LampStateController extends BaseController{
 			System.out.println("mei you shu ju ");
 		}
 		
+		//日志的添加 2017-4-15
+		fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节亮度", 
+				ArrayDATA_IDS, null, CMDType.ADJUST_BRIGHTNESS, pd.getString("brightness"));
 		
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -348,8 +360,9 @@ public class LampStateController extends BaseController{
 		Date tdate = new Date();
 		pd.put("tdate", tdate);
 		String DATA_IDS = pd.getString("DATA_IDS");
+		String ArrayDATA_IDS[] = null;
 		if(null != DATA_IDS && !"".equals(DATA_IDS)){
-			String ArrayDATA_IDS[] = DATA_IDS.split(";");
+			ArrayDATA_IDS = DATA_IDS.split(";");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
 				pd.put("id", ArrayDATA_IDS[i]);
 				pd.put("brightness", "100");
@@ -359,6 +372,11 @@ public class LampStateController extends BaseController{
 		}else{
 			pd.put("msg", "no");
 		}
+		
+		//日志的添加 2017-4-15
+				fhlogService.saveDeviceLog(UserUtils.getUserid(), "开灯", 
+						ArrayDATA_IDS, null, CMDType.TURN_ON, "100");
+				
 		pdList.add(pd);
 		map.put("list", pdList);
 		return AppUtil.returnObject(pd, map);
@@ -380,8 +398,9 @@ public class LampStateController extends BaseController{
 		Date tdate = new Date();
 		pd.put("tdate", tdate);
 		String DATA_IDS = pd.getString("DATA_IDS");
+		String ArrayDATA_IDS[] = null;
 		if(null != DATA_IDS && !"".equals(DATA_IDS)){
-			String ArrayDATA_IDS[] = DATA_IDS.split(";");
+			ArrayDATA_IDS = DATA_IDS.split(";");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
 				pd.put("id", ArrayDATA_IDS[i]);
 				pd.put("brightness", "0");
@@ -391,6 +410,11 @@ public class LampStateController extends BaseController{
 		}else{
 			pd.put("msg", "no");
 		}
+		//日志的添加 2017-4-15
+		fhlogService.saveDeviceLog(UserUtils.getUserid(), "关灯", 
+				ArrayDATA_IDS, null, CMDType.TURN_OFF, "0");
+		
+		
 		pdList.add(pd);
 		map.put("list", pdList);
 		return AppUtil.returnObject(pd, map);
