@@ -98,7 +98,7 @@
 											<td class='center'>${var.cmd_type}</td>
 											<td class='center'>${var.gateway}</td>
 											<td class='center'>${var.device}</td>
-											<td class='center' style="width:200px;text-overflow: ellipsis;-moz-text-overflow: ellipsis;">${var.comment}</td>
+											<td class='center' style='width:200px;'>${var.comment}</span></td>
 											<td class='center'>${var.status}</td>
 											<td class='center'>${var.feedback_time}</td>
 										</tr>
