@@ -217,11 +217,13 @@ public class LampStateController extends BaseController{
 		System.out.println("str_id:"+str_id);
 		page.setPd(pd);
 		//获取策略并解析
-		List<PageData> strategyList = new ArrayList<PageData>();;
+		List<PageData> strategyList = new ArrayList<PageData>();
+		String value = "";
 		try {
 			strategyList = lampStateService.getStrategy(page);
 			pd.put("str_name", strategyList.get(0).getString("name"));
 			//列出策略列表
+			
 			JsonParser parse =new JsonParser();                                 //创建json解析器
 			for(int i = 0 ; i < strategyList.size(); i++){
 				List<Object> t_i = new ArrayList<Object>();
@@ -235,18 +237,29 @@ public class LampStateController extends BaseController{
 						t_i.add(temp.get(j).getAsJsonObject());
 						timestamp.add(temp.get(j).getAsJsonObject().get("timestamp").getAsString());
 						intensity.add(temp.get(j).getAsJsonObject().get("intensity").getAsString());
+						
+						String times = temp.get(j).getAsJsonObject().get("timestamp").getAsString();
+						String inten = temp.get(j).getAsJsonObject().get("intensity").getAsString();
+						times = times.replace(":", "");
+						if(times.length()==4){times = "0"+times; }
+						value += times+":"+ inten+"、";
+						
 					}	
 				}
 				strategyList.get(i).put("t_i", t_i);
 				strategyList.get(i).put("timestamp", timestamp);
 				strategyList.get(i).put("intensity", intensity);
+				
+				
 			}
-			System.out.println(strategyList);
+			System.out.println("---------------------"+strategyList);
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}
-		
+		value = value.substring(0, value.length()-1);
+		System.out.println(value);
+		//{"odd_even":"1","t_i":[{"timestamp":"1:03","intensity":"20"},{"timestamp":"1:04","intensity":"20"}]}
 		
 		//保存策略（修改c_term表中的b_strl_strategy_id字段）
 		User user = (User)Jurisdiction.getSession().getAttribute(Const.SESSION_USER);
@@ -257,21 +270,19 @@ public class LampStateController extends BaseController{
 		pd.put("userids", userids);
 		
 		String DATA_IDS = pd.getString("DATA_IDS");
-		String ArrayDATA_IDS[] = null;
 		if(null !=DATA_IDS && !"".equals(DATA_IDS)){
-			ArrayDATA_IDS = DATA_IDS.split(";");
+			String[] ArrayDATA_IDS = DATA_IDS.split(";");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
 				pd.put("id", ArrayDATA_IDS[i]);
 				lampStateService.upTermStrid(pd);
 			}
+			//日志的添加 2017-4-15
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节策略", ArrayDATA_IDS, null, CMDType.STRATEGY, value);
 		}else{
 			System.out.println();
 			System.out.println("mei you shu ju ");
 		}
 		
-		//日志的添加 2017-4-15
-				fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节策略", 
-						ArrayDATA_IDS, null, CMDType.STRATEGY, null);
 		
 		mv.setViewName("street/state/strategy_edit");
 		
@@ -322,21 +333,25 @@ public class LampStateController extends BaseController{
 		pd.put("userids", userids);
 		
 		String DATA_IDS = pd.getString("DATA_IDS");
-		String ArrayDATA_IDS[] = null;
+		
 		if(null !=DATA_IDS && !"".equals(DATA_IDS)){
-			ArrayDATA_IDS = DATA_IDS.split(";");
+			String ArrayDATA_IDS[] = DATA_IDS.split(";");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
 				pd.put("id", ArrayDATA_IDS[i]);
 				lampStateService.adjustBrt(pd);
 			}
+			System.out.println(DATA_IDS);
+			System.out.println(ArrayDATA_IDS.toString());
+			//日志的添加 2017-4-15
+			//fhlogService.saveDeviceLog(userid, comment, deviceids, gatewayid, cmdType, value);
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节亮度", ArrayDATA_IDS, null, CMDType.ADJUST_BRIGHTNESS, pd.getString("brightness"));
+			
 		}else{
 			System.out.println();
 			System.out.println("mei you shu ju ");
 		}
 		
-		//日志的添加 2017-4-15
-		fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节亮度", 
-				ArrayDATA_IDS, null, CMDType.ADJUST_BRIGHTNESS, pd.getString("brightness"));
+		
 		
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -360,22 +375,22 @@ public class LampStateController extends BaseController{
 		Date tdate = new Date();
 		pd.put("tdate", tdate);
 		String DATA_IDS = pd.getString("DATA_IDS");
-		String ArrayDATA_IDS[] = null;
 		if(null != DATA_IDS && !"".equals(DATA_IDS)){
-			ArrayDATA_IDS = DATA_IDS.split(";");
+			String ArrayDATA_IDS[] = DATA_IDS.split(";");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
 				pd.put("id", ArrayDATA_IDS[i]);
 				pd.put("brightness", "100");
 				lampStateService.adjustBrt(pd);
 			}
 			pd.put("msg", "ok");
+			System.out.println(ArrayDATA_IDS);
+			//日志的添加 2017-4-15
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "开灯", ArrayDATA_IDS, null, CMDType.TURN_ON, "100");
 		}else{
 			pd.put("msg", "no");
 		}
 		
-		//日志的添加 2017-4-15
-				fhlogService.saveDeviceLog(UserUtils.getUserid(), "开灯", 
-						ArrayDATA_IDS, null, CMDType.TURN_ON, "100");
+		
 				
 		pdList.add(pd);
 		map.put("list", pdList);
@@ -398,22 +413,19 @@ public class LampStateController extends BaseController{
 		Date tdate = new Date();
 		pd.put("tdate", tdate);
 		String DATA_IDS = pd.getString("DATA_IDS");
-		String ArrayDATA_IDS[] = null;
 		if(null != DATA_IDS && !"".equals(DATA_IDS)){
-			ArrayDATA_IDS = DATA_IDS.split(";");
+			String ArrayDATA_IDS[] = DATA_IDS.split(";");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
 				pd.put("id", ArrayDATA_IDS[i]);
 				pd.put("brightness", "0");
 				lampStateService.adjustBrt(pd);
 			}
+			//日志的添加 2017-4-15
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "关灯", ArrayDATA_IDS, null, CMDType.TURN_OFF, "0");
 			pd.put("msg", "ok");
 		}else{
 			pd.put("msg", "no");
 		}
-		//日志的添加 2017-4-15
-		fhlogService.saveDeviceLog(UserUtils.getUserid(), "关灯", 
-				ArrayDATA_IDS, null, CMDType.TURN_OFF, "0");
-		
 		
 		pdList.add(pd);
 		map.put("list", pdList);
