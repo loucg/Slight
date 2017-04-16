@@ -123,7 +123,7 @@ public class ElectricityController extends BaseController{
 		String value = powerup.replace(":", "")+powerdown.replace(":", "");
 		
 		
-		//日志的添加 2017-4-15
+		//日志的添加 2017-4-15 啊
 		fhlogService.saveDeviceLog(UserUtils.getUserid(), "修改上电/断电时间", 
 				null, pd.getString("id"), CMDType.CUTOFF_CONTROL, value);
 		

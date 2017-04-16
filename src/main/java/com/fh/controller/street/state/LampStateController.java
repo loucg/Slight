@@ -276,7 +276,7 @@ public class LampStateController extends BaseController{
 				pd.put("id", ArrayDATA_IDS[i]);
 				lampStateService.upTermStrid(pd);
 			}
-			//日志的添加 2017-4-15
+			//日志的添加 2017-4-15 啊
 			fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节策略", ArrayDATA_IDS, null, CMDType.STRATEGY, value);
 		}else{
 			System.out.println();
