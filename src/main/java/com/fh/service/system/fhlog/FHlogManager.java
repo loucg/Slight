@@ -24,7 +24,6 @@ public interface FHlogManager{
 	 * 新增终端日志
 	 * @param userid 用户id
 	 * @param comment 详细内容
-	 * @param type  在LogType类中
 	 * @param deviceid 终端id的数组，没有则为null
 	 * @param gatewayid 网关断路器id的如果没有gatewayid,则为null
 	 * @param cmdType 在CMDType类中
