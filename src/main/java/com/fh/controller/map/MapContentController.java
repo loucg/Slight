@@ -22,6 +22,7 @@ import com.fh.entity.map.c_client;
 import com.fh.entity.map.c_term;
 import com.fh.entity.map.draw_client;
 import com.fh.service.map.C_clientManager;
+import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
 
@@ -32,6 +33,11 @@ public class MapContentController extends BaseController{
 	String menuUrl = "gomap/content.do"; //菜单地址(权限用)
 	@Resource(name="c_clientService")
 	private C_clientManager c_clientService;
+	
+	 @Resource(name="fhlogService")
+		private FHlogManager fhlogService;
+	
+	
 	
 	@RequestMapping(value="/content")
 	public ModelAndView content()throws Exception{
@@ -219,7 +225,7 @@ public class MapContentController extends BaseController{
 						if(cc.getDrawid().size()!=0){
 							System.out.println(cc.getDrawid().size());
 							List<c_client> cd = c_clientService.getClientByDraw(cc.getDrawid());
-							System.out.println("1111111111111111111111");
+							//System.out.println("1111111111111111111111");
 							System.out.println(cd.size());
 							return cd;
 						}else{
@@ -259,6 +265,8 @@ public class MapContentController extends BaseController{
 			}
 		}
 
+		
+		
 		// 改变终端通断电
 		@RequestMapping(value = "/updateClientAttr_status", method = RequestMethod.POST)
 		public @ResponseBody JsonResultBean updateClientAttr_status(HttpServletRequest request, @RequestBody c_client cc) throws Exception {
