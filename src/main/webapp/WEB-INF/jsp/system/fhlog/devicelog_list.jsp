@@ -20,6 +20,9 @@
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
+<style type="text/css">
+	.ellipse{width:200px;}
+</style>
 <body class="no-skin">
 
 	<!-- /section:basics/navbar.layout -->
@@ -98,7 +101,7 @@
 											<td class='center'>${var.cmd_type}</td>
 											<td class='center'>${var.gateway}</td>
 											<td class='center'>${var.device}</td>
-											<td class='center' style='width:200px;'>${var.comment}</span></td>
+											<td class='center ellipse'" title="${var.comment}">${var.comment}</td>
 											<td class='center'>${var.status}</td>
 											<td class='center'>${var.feedback_time}</td>
 										</tr>
@@ -161,13 +164,22 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
+		
+		var tds = $("td.ellipse");
+		for(var i=0;i<tds.length;i++){
+			var comment = tds[i].innerHTML
+			if(comment.length>=20){
+				tds[i].innerHTML = comment.substring(0,20)+"…" 
+			}
+		}
+		
 		//检索
 		function tosearch(){
 			top.jzts();
 			$("#Form").submit();
 		}
 		$(function() {
-		
+			$("td.ellipse").val("哈哈");
 			//日期框
 			$('.date-picker').datepicker({
 				autoclose: true,
