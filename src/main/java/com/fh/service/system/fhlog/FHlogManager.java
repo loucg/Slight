@@ -25,7 +25,7 @@ public interface FHlogManager{
 	 * @param userid 用户id
 	 * @param comment 详细内容
 	 * @param deviceid 终端id的数组，没有则为null
-	 * @param gatewayid 网关断路器id的如果没有gatewayid,则为null
+	 * @param gatewayid 网关断路器id的,如果没有则为null
 	 * @param cmdType 在CMDType类中
 	 * @param value 参考命令表规范文档,终端列表逗号后的值
 	 */
