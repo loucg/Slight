@@ -12,7 +12,10 @@ import com.fh.entity.map.c_client;
 import com.fh.entity.map.c_term;
 import com.fh.entity.map.draw_client;
 import com.fh.entity.system.Status;
+import com.fh.hzy.util.CMDType;
+import com.fh.hzy.util.UserUtils;
 import com.fh.service.map.C_clientManager;
+import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.status.StatusManager;
 import com.fh.util.PageData;
 
@@ -25,6 +28,9 @@ public class C_clientService implements C_clientManager{
 
 	@Resource(name = "daoSupport")
 	private DaoSupport dao;
+	
+    @Resource(name="fhlogService")
+	private FHlogManager fhlogService;
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
@@ -117,7 +123,12 @@ public class C_clientService implements C_clientManager{
 	@Override
 	@SuppressWarnings("unchecked")
 	public void updateClientAttr_brightness(c_client cc) throws Exception  {
+		String[] ids=new String[1];
+		ids[0]=String.valueOf(cc.getId());
 		dao.update("C_clientMapper.updateClientAttr_brightness", cc);
+		fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节亮度", 
+				ids, null, CMDType.ADJUST_BRIGHTNESS, null);
+		
 		
 	}
 	@Override
@@ -128,11 +139,17 @@ public class C_clientService implements C_clientManager{
 	
 	@Override
 	public void updateClientAttr_status(c_client cc) throws Exception {
+		String[] ids=new String[1];
+		ids[0]=String.valueOf(cc.getId());
 		if(cc.getBrightness()!=0){
 			updateClientAttr_statusOff(cc);
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "关灯", 
+					ids, null, CMDType.TURN_OFF, null);
 		}else
 		{
 			updateClientAttr_statusON(cc);	
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "开灯", 
+					ids, null, CMDType.TURN_ON, null);
 		}
 	}
 	@Override
@@ -294,22 +311,37 @@ public class C_clientService implements C_clientManager{
 	}
 	@Override
 	public void updateClientDraw_status(draw_client dc) throws Exception {
+		List  list=dc.getDrawid();
+		String strings[]=new String[list.size()];
+		for(int i=0,j=list.size();i<j;i++){
+		strings[i]=String.valueOf(list.get(i));
+		}
+		
+		
+		
+		
 		if(dc.getTakeid()==1){
-			List  list=dc.getDrawid();
+			//List  list=dc.getDrawid();
 			dao.update("C_clientMapper.updateClientDraw_statusON", list);
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "开灯", 
+					strings, null, CMDType.TURN_ON, null);
 		}
 		else if(dc.getTakeid()==2){
-			List  list=dc.getDrawid();
+			//List  list=dc.getDrawid();
 			dao.update("C_clientMapper.updateClientDraw_statusOFF", list);
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "关灯", 
+					strings, null, CMDType.TURN_OFF, null);
 		}
 		else{
-			List  list=dc.getDrawid();
+			//List  list=dc.getDrawid();
 			System.out.println("****************************************");
 			System.out.println(dc.getBright());
 			System.out.println("****************************************");
 			System.out.println("****************************************");
 			System.out.println("****************************************");
 			dao.update("C_clientMapper.updateClientDraw_Bright", dc);
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节亮度", 
+					strings, null, CMDType.ADJUST_BRIGHTNESS, null);
 		}
 		
 	}
