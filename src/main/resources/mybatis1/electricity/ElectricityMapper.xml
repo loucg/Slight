@@ -80,6 +80,19 @@
 	
 	<!-- 修改一条上电断电时间 -->
 	<update id="update" parameterType="pd" >
+		INSERT INTO 
+			b_powerup (c_gateway_id, sys_user_id, tdate, powerup, powerdown)
+		VALUES 
+			(#{id}, #{sys_user_id}, #{tdate}, #{powerup},#{powerdown})
+		ON DUPLICATE KEY UPDATE 
+		c_gateway_id  = #{id}, 
+		sys_user_id   = #{sys_user_id},
+		tdate         = #{tdate},	
+		powerup 	  = #{powerup},
+		powerdown	  = #{powerdown}
+			
+	</update>
+<!-- 	<update id="update" parameterType="pd" >
 		update b_powerup
 			set 
 			c_gateway_id  = #{id}, 
@@ -94,6 +107,6 @@
 			</if> 
 			where 
 				c_gateway_id = #{id}
-	</update>
+	</update> -->
 	
 </mapper>
