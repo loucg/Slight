@@ -112,11 +112,20 @@ public class ElectricityController extends BaseController{
 		System.out.println(tdate);
 		electricityService.update(pd);
 		
+		String powerup = pd.getString("powerup");
+		if(powerup.length()==4){
+			powerup = "0"+powerup;
+		}
+		String powerdown = pd.getString("powerdown");
+		if(powerdown.length()==4){
+			powerdown = "0"+powerdown;
+		}
+		String value = powerup.replace(":", "")+powerdown.replace(":", "");
 		
 		
-		//日志的添加 2017-4-15
+		//日志的添加 2017-4-15 啊
 		fhlogService.saveDeviceLog(UserUtils.getUserid(), "修改上电/断电时间", 
-				null, pd.getString("id"), CMDType.CUTOFF_CONTROL, null);
+				null, pd.getString("id"), CMDType.CUTOFF_CONTROL, value);
 		
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -171,9 +180,19 @@ public class ElectricityController extends BaseController{
 				pd.put("id", ArrayDATA_IDS[i]);
 				electricityService.update(pd);
 				
+				String powerup = pd.getString("powerup");
+				if(powerup.length()==4){
+					powerup = "0"+powerup;
+				}
+				String powerdown = pd.getString("powerdown");
+				if(powerdown.length()==4){
+					powerdown = "0"+powerdown;
+				}
+				String value = powerup.replace(":", "")+powerdown.replace(":", "");
+				
 				//日志的添加 2017-4-15
 				fhlogService.saveDeviceLog(UserUtils.getUserid(), "批量修改上电/断电时间", 
-						null, ArrayDATA_IDS[i], CMDType.CUTOFF_CONTROL, null);
+						null, ArrayDATA_IDS[i], CMDType.CUTOFF_CONTROL, value);
 				System.out.println();
 			}
 		}else{

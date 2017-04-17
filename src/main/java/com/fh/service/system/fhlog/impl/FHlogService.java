@@ -101,7 +101,7 @@ public class FHlogService implements FHlogManager{
 				PageData result = (PageData)dao.findForObject("LogMapper.getDeviceCode", pd);
 				String cmd = result.getString("cmd");
 				pd.put("gateway", gatewayid);
-				pd.put("cmd", cmd);
+				pd.put("cmd", cmd+","+value);
 				pd.put("cmdid", cmdtype);
 				pd.put("logid", lastid);
 				dao.save("LogMapper.insertDeviceLog", pd);
