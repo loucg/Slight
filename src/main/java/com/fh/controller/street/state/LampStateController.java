@@ -240,8 +240,9 @@ public class LampStateController extends BaseController{
 						
 						String times = temp.get(j).getAsJsonObject().get("timestamp").getAsString();
 						String inten = temp.get(j).getAsJsonObject().get("intensity").getAsString();
+						if(times.length()==4){
+							times = "0"+times; }
 						times = times.replace(":", "");
-						if(times.length()==4){times = "0"+times; }
 						value += times+":"+ inten+"、";
 						
 					}	
