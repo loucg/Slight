@@ -62,7 +62,6 @@ public class FHlogService implements FHlogManager{
 		pd.put("time", Tools.date2Str(new Date()));
 		dao.save("LogMapper.insertLog", pd);
 		int lastid = (Integer)dao.findForObject("ConfigureMapper.lastInsertId", pd);
-		
 		if(deviceids==null){
 			pd.put("gateway", gatewayid);
 			pd.put("cmd", value);
@@ -86,7 +85,9 @@ public class FHlogService implements FHlogManager{
 				for(String deviceid: deviceids){
 					pd.put("client", deviceid);
 					PageData result = (PageData)dao.findForObject("LogMapper.getGatewayid", pd);
-					sets.add((Long)result.get("gateway"));
+					if(result!=null){
+						sets.add((Long)result.get("gateway"));
+					}
 				}
 				for(long gateway: sets){
 					pd.put("gateway", gateway);
