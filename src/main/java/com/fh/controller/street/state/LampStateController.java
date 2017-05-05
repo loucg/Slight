@@ -376,11 +376,14 @@ public class LampStateController extends BaseController{
 		Date tdate = new Date();
 		pd.put("tdate", tdate);
 		String DATA_IDS = pd.getString("DATA_IDS");
+		System.out.println(DATA_IDS);
+		System.out.println();
 		if(null != DATA_IDS && !"".equals(DATA_IDS)){
 			String ArrayDATA_IDS[] = DATA_IDS.split(";");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
 				pd.put("id", ArrayDATA_IDS[i]);
 				pd.put("brightness", "100");
+				System.out.println(ArrayDATA_IDS[i]);
 				lampStateService.adjustBrt(pd);
 			}
 			pd.put("msg", "ok");
