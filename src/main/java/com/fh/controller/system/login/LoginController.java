@@ -239,6 +239,9 @@ public class LoginController extends BaseController {
 		List<Menu> allmenuList = new ArrayList<Menu>();
 		if(null == session.getAttribute(USERNAME + Const.SESSION_allmenuList)){	
 			allmenuList = menuService.listAllMenuQx("0");							//获取所有菜单
+			for(Menu menu: allmenuList){
+				System.out.println("menuName :"+menu.getMENU_NAME());
+			}
 			if(Tools.notEmpty(roleRights)){
 				allmenuList = this.readMenu(allmenuList, roleRights);				//根据角色权限获取本权限的菜单列表
 			}

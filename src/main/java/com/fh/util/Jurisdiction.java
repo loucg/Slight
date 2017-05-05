@@ -40,6 +40,7 @@ public class Jurisdiction {
 	 */
 	@SuppressWarnings("unchecked")
 	public static boolean readMenu(List<Menu> menuList,String menuUrl,Session session,String USERNAME){
+		
 		for(int i=0;i<menuList.size();i++){
 			if(menuList.get(i).getMENU_URL().split(".do")[0].equals(menuUrl.split(".do")[0])){ //访问地址与菜单地址循环匹配，如何匹配到就进一步验证，如果没匹配到就不处理(可能是接口链接或其它链接)
 				if(!menuList.get(i).isHasMenu()){				//判断有无此菜单权限
