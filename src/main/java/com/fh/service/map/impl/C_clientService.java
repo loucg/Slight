@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.fh.dao.DaoSupport;
@@ -187,8 +188,8 @@ public class C_clientService implements C_clientManager{
 				 c.setCclientgateway(a);
 			 }else{
 				b=(ArrayList<c_client>) querGatewayPower(c);
-				c.setPowerup(b.get(0).getPowerup());
-				c.setPowerdown(b.get(0).getPowerdown());
+				if(!c.getPowerupisnull())c.setPowerup(b.get(0).getPowerup());
+				if(!c.getPowerdownisnull())c.setPowerdown(b.get(0).getPowerdown());
 			 }
 			 }
 		return qtg;

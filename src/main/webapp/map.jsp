@@ -300,6 +300,7 @@ body {
 					}
 					preMakerdata = clientdata;//记录当前展示的数据
 					gpsTObbd(arrpoints,clientdata,mapcenter,mapzoom);//////坐标转换
+					//addClientMaker(clientdata,mapcenter,mapzoom); 
 				} else {
 					//preMakerdata = [];
 					//map.centerAndZoom("杭州", 14);
@@ -362,16 +363,14 @@ body {
 	                    var base = ajaxId * 10; //本数组在原始大数组中的起始位。  
 	                    if(data.status === 0) {  
 	                        var dateLen = data.points.length;   
-	                        for(i=0;i <dateLen;i++){  
-	                            //marker = new BMap.Marker(data.points[i]);   
-	                           // map.addOverlay(marker);
+	                        for(i=0;i <dateLen;i++){
 	                           clientdata[base+i].coordinate=data.points[i].lng+","+data.points[i].lat;
         					   clientdata[base+i].xcoordinate=data.points[i].lng;
         		               clientdata[base+i].ycoordinate=data.points[i].lat;   
-	                           endPoints[base+i]=data.points[i];  
-	                            if(arrpoints.length == endPoints.length){//加载完毕。  
+	                           endPoints[base+i]=data.points[i];
+	                             if(clientdata.length == endPoints.length){//加载完毕。  
 	                            	addClientMaker(clientdata,mapcenter,mapzoom); 
-	                            }  
+	                            }   
 	                        }  
 	                    } else{
 	                    	alert("<%=coordinate_conversion_failed%>");
@@ -382,6 +381,7 @@ body {
 	                posTrans(points[j],callback);//坐标转换新的数据图标添加到地图上。  
 	            })();         
 	        }  
+	        
 	  
 		}
 	//坐标转换  

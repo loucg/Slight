@@ -28,6 +28,11 @@ public class c_client extends PageBean implements Serializable {
 	private String powerup;
 	private String powerdown;
 	private Date tdate;
+	
+	
+	
+	
+	
 	public c_client getSearchconditions() {
 		return searchconditions;
 	}
@@ -56,11 +61,19 @@ public class c_client extends PageBean implements Serializable {
 	public void setCclientgateway(ArrayList<String> cclientgateway) {
 		this.cclientgateway = cclientgateway;
 	}
+	public boolean getPowerupisnull() {
+		if( powerup==null) return true;
+		else return false;
+	}
 	public String getPowerup() {
 		return powerup;
 	}
 	public void setPowerup(String powerup) {
 		this.powerup = powerup;
+	}
+	public boolean getPowerdownisnull() {
+		if( powerdown==null) return true;
+		else return false;
 	}
 	public String getPowerdown() {
 		return powerdown;
