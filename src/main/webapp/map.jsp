@@ -368,8 +368,36 @@ body {
         					   clientdata[base+i].xcoordinate=data.points[i].lng;
         		               clientdata[base+i].ycoordinate=data.points[i].lat;   
 	                           endPoints[base+i]=data.points[i];
+	                            
+	                           var markerpoint = new BMap.Point(data.points[i].lng,data.points[i].lat);
+	                           var mySquare = new SquareOverlay(markerpoint, 16, clientdata[base+i]);
+	                           map.addOverlay(mySquare);
+	                           (function(k) {
+	                           mySquare.addEventListener('mouseover', function(e) {//这里是自定义覆盖物的事件   		
+	               				map.setDefaultCursor("pointer");
+	               				//myDrag.close();
+	               				});
+	               				mySquare.addEventListener('mouseout', function(e) {//这里是自定义覆盖物的事件   		
+	               				map.setDefaultCursor("default"); //设置地图默认的鼠标指针样式
+	               				//myDrag.open();
+	               				});
+	               				mySquare.addEventListener('click', function(e) {//这里是自定义覆盖物的事件
+	               				choseMakerdata = clientdata[base+k];
+	        					var sContent = getInfoContent(clientdata[base+k]);
+	        					var opts = {
+	        						width : 304, // 信息窗口宽度
+	        						height : 204, // 信息窗口高度
+	        					};
+	        					var infoWindow = new BMap.InfoWindow(sContent, opts); // 创建信息窗口对象
+	        					infoWindow.enableCloseOnClick();
+	        					var point = new BMap.Point(data.points[k].lng,data.points[k].lat);
+	        					map.openInfoWindow(infoWindow, point); //开启信息窗口   
+	               			});
+	                      }(i));
+
+	                           
 	                             if(clientdata.length == endPoints.length){//加载完毕。  
-	                            	addClientMaker(clientdata,mapcenter,mapzoom); 
+	                            	 addClientMaker(clientdata,mapcenter,mapzoom)
 	                            }   
 	                        }  
 	                    } else{
@@ -398,7 +426,7 @@ body {
 	//var infoWindow;//全局变量，相当重要/////////////////////////////////////////////////////
 	function addClientMaker(data,mapcenter,mapzoom) {
 		preMakerdata =data;//记录当前展示的数据
-		for (var i = 0; i < data.length; i++) {
+		/* for (var i = 0; i < data.length; i++) {
 			var markerpoint = new BMap.Point(data[i].xcoordinate,
 					data[i].ycoordinate);
 			var mySquare = new SquareOverlay(markerpoint, 16, data[i]);
@@ -427,7 +455,7 @@ body {
 					//map.addEventListener('click', fo);
 				});
 			}(i));
-		}
+		} */
 		var Xcoordinate = 0;
 		var Ycoordinate = 0;
 		var minXcoordinate = data[0].xcoordinate;
