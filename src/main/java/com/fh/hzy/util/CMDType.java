@@ -1,5 +1,9 @@
 package com.fh.hzy.util;
-
+/**
+ * 命令表类型
+ * @author dell
+ *
+ */
 public class CMDType {
 	
 	public static final int TURN_ON = 1;
@@ -11,4 +15,8 @@ public class CMDType {
 	public static final int REMOVE_DEVICE_TO_GATEWAY = 7;
 	public static final int CHECK_SELF = 8;
 	public static final int CONFIGURE = 9;
+	public static final int GROUP_TURN_ON = 10;
+	public static final int GROUP_TURN_OFF = 11;
+	public static final int GROUP_ADJUST_BRIGHTNESS = 12;
+	public static final int GROUP_STRATEGY = 13;
 }

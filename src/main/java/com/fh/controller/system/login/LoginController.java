@@ -139,6 +139,7 @@ public class LoginController extends BaseController {
 						pd.put("userid", user.getUSER_ID());
 						String language = InternationalUtils.getLanguage(internationalService, pd);
 						session.setAttribute(Const.SESSION_LANGUAGE, language);
+//						System.out.println("================="+Const.SESSION_LANGUAGE);
 						
 						session.removeAttribute(Const.SESSION_SECURITY_CODE);	//清除登录验证码的session
 						//shiro加入身份验证
@@ -191,6 +192,10 @@ public class LoginController extends BaseController {
 				}else{
 					user = userr;
 				}
+				
+				String strlangagu = (String) session.getAttribute(Const.SESSION_LANGUAGE);	//获取用户语言信息
+//				System.out.println("++++++++++++++++++++++++++++++++++++"+strlangagu);
+				
 				String USERNAME = user.getUSERNAME();
 				Role role = user.getRole();													//获取用户角色
 				String roleRights = role!=null ? role.getRIGHTS() : "";						//角色权限(菜单权限)
@@ -198,7 +203,10 @@ public class LoginController extends BaseController {
 				session.setAttribute(Const.SESSION_USERNAME, USERNAME);						//放入用户名到session
 				this.setAttributeToAllDEPARTMENT_ID(session, USERNAME);						//把用户的组织机构权限放到session里面
 				List<Menu> allmenuList = new ArrayList<Menu>();
+				
+				//就从这里下手
 				allmenuList = this.getAttributeMenu(session, USERNAME, roleRights);			//菜单缓存
+				
 				List<Menu> menuList = new ArrayList<Menu>();
 				menuList = this.changeMenuF(allmenuList, session, USERNAME, changeMenu);	//切换菜单
 				if(null == session.getAttribute(USERNAME + Const.SESSION_QX)){
@@ -241,6 +249,7 @@ public class LoginController extends BaseController {
 			allmenuList = menuService.listAllMenuQx("0");							//获取所有菜单
 			for(Menu menu: allmenuList){
 				System.out.println("menuName :"+menu.getMENU_NAME());
+//				System.out.println("menuName :"+menu.getMENU_NAME_EN());
 			}
 			if(Tools.notEmpty(roleRights)){
 				allmenuList = this.readMenu(allmenuList, roleRights);				//根据角色权限获取本权限的菜单列表

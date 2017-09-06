@@ -408,11 +408,135 @@
 	String even = properties.getProperty("even");
 	String please_type_device_number = properties.getProperty("please_type_device_number");
 	String operate_time = properties.getProperty("operate_time");
+	String ordinary_circuit_breaker = properties.getProperty("ordinary_circuit_breaker");
+	String Log_out = properties.getProperty("Log_out");//退出登录
+	String Modify_information = properties.getProperty("Modify_information");//修改信息
+	String background_home_page = properties.getProperty("background_home_page");//后台首页
+// 	String system_management = properties.getProperty("system_management");//系统管理
+// 	String privilege_management = properties.getProperty("privilege_management");//权限管理
+// 	String Menu_management = properties.getProperty("Menu_management");//菜单管理
+// 	String Button_management = properties.getProperty("Button_management");//按钮管理
+// 	String data_dictionary = properties.getProperty("data_dictionary");//数据字典
+// 	String Basic_configuration = properties.getProperty("Basic_configuration");//基础配置
+// 	String Common_power_supply = properties.getProperty("Common_power_supply");//普通电源
+// 	String configure_energization = properties.getProperty("configure_energization");//通电配置
+// 	String Power_on_setting = properties.getProperty("Power_on_setting");//通电设置
+// 	String Terminal_assembly = properties.getProperty("Terminal_assembly");//终端组合
+// 	String Gateway_and_circuit_breaker = properties.getProperty("gateway_and_circuit_breaker");//网关/断路器
+// 	String Integrated_power_supply = properties.getProperty("Integrated_power_supply");//一体化电源
+// 	String Single_light_controller = properties.getProperty("Single_light_controller");//单灯控制器
+// 	String telegraph_pole = properties.getProperty("telegraph_pole");//电线杆
+	String all = properties.getProperty("all");//全部设备
+	String signal_strength = properties.getProperty("signal_strength");
+	String Initialization = properties.getProperty("Initialization");//初始化
+	String viewConfig = properties.getProperty("viewConfig");//查看配置
+	
+	//
+	String effective_status = properties.getProperty("effective_status");
+	String period = properties.getProperty("period");
+	String apply_days = properties.getProperty("apply_days");
+	String adjust_value = properties.getProperty("adjust_value");
+	String start_date = properties.getProperty("start_date");
+	String end_date = properties.getProperty("end_date");
+	String description = properties.getProperty("description");
+	String please_choose_type = properties.getProperty("please_choose_type");
+	String please_choose_start_date = properties.getProperty("please_choose_start_date");
+	String please_choose_end_date = properties.getProperty("please_choose_end_date");
+	String please_enter_period = properties.getProperty("please_enter_period");
+	String please_enter_days = properties.getProperty("please_enter_days");
+	String please_choose_time = properties.getProperty("please_choose_time");
+	String please_choose_lightcolor = properties.getProperty("please_choose_lightcolor");
+	String please_choose_bright = properties.getProperty("please_choose_bright");
+	String please_enter_1_100 = properties.getProperty("please_enter_1_100");
+	
+	String month_cycle = properties.getProperty("month_cycle");
+	String day_apply_days = properties.getProperty("day_apply_days");
+	String brightness = properties.getProperty("brightness");
+	String coloured_light = properties.getProperty("coloured_light");
+	String warn_cold = properties.getProperty("warn_cold");
+	String onoff = properties.getProperty("onoff");
+	String on = properties.getProperty("on");
+	String off = properties.getProperty("off");
+	String please_choose_onoff = properties.getProperty("please_choose_onoff");
+	
+	String add_strategy_set = properties.getProperty("add_strategy_set");
+	String kick_delete_strategy = properties.getProperty("kick_delete_strategy");
+	String strategyset_name = properties.getProperty("strategyset_name");
+	String strategyset_explain = properties.getProperty("strategyset_explain");
+	String please_enter_strategyset_name = properties.getProperty("please_enter_strategyset_name");
+	String please_enter_strategyset_explain = properties.getProperty("please_enter_strategyset_explain");
+	String select_strategy = properties.getProperty("select_strategy");
+	String modify_strategy_set = properties.getProperty("modify_strategy_set");
+	String term_num_in_strategy = properties.getProperty("term_num_in_strategy");
+	String make_sure_add_strategy = properties.getProperty("make_sure_add_strategy");
+	String make_sure_del_strategy = properties.getProperty("make_sure_del_strategy");
+	
+	String add_group = properties.getProperty("add_group");
+	String keck_delete_group = properties.getProperty("keck_delete_group");
+	String send_strategy = properties.getProperty("send_strategy");
+	String cancel_strategy = properties.getProperty("cancel_strategy");
+	String send_status = properties.getProperty("send_status");
 
-
-
-
-
-
+	String please_choose_month = properties.getProperty("please_choose_month");
+	String please_choose_day = properties.getProperty("please_choose_day");
+	String please_choose_futureday = properties.getProperty("please_choose_futureday");
+	String totm_less_fromtm = properties.getProperty("totm_less_fromtm");
+	String make_sure_send_strategy = properties.getProperty("make_sure_send_strategy");
+	String make_sure_cancel_strategy = properties.getProperty("make_sure_cancel_strategy");
+	String strategy_is_sent = properties.getProperty("strategy_is_sent");
+	String strategy_is_not_sent = properties.getProperty("strategy_is_not_sent");
+	
+	String decive_name = properties.getProperty("device_name");
+	String lamp = properties.getProperty("lamp");
+	String sensor = properties.getProperty("sensor");
+	String breaker = properties.getProperty("breaker");
+	
+	String delete_strategy = properties.getProperty("delete_strategy");
+	String days_morethan_cycle = properties.getProperty("days_morethan_cycle");
+	
+	String view_assigned_app_group = properties.getProperty("view_assigned_app_group");
+	String please_enter_client_name = properties.getProperty("please_enter_client_name");
+	String please_enter_client_code = properties.getProperty("please_enter_client_code");
+	String make_sure_add_client = properties.getProperty("make_sure_add_client");
+	String please_choose_client_by_gateway = properties.getProperty("please_choose_client_by_gateway");
+	String device_comment = properties.getProperty("device_comment");
+	String device_temperature = properties.getProperty("device_temperature");
+	String device_gatewayname = properties.getProperty("device_gatewayname");
+	String print_current = properties.getProperty("print_current");
+	String print_voltagec = properties.getProperty("print_voltagec");
+	String fault_Device_name =properties.getProperty("fault_Device_name");
+	String fault_Device_time =properties.getProperty("fault_Device_time");
+	String fault_Device_type =properties.getProperty("fault_Device_type");
+	String fault_Device_code =properties.getProperty("fault_Device_code");
+	String fault_Device_comment =properties.getProperty("fault_Device_comment");
+	String pole_nums =properties.getProperty("pole_nums");
+	
+	String equip_day_week0 =properties.getProperty("equip_day_week0");
+	String equip_day_week1=	properties.getProperty("equip_day_week1");
+	String equip_day_week2=	properties.getProperty("equip_day_week2");
+	String equip_day_week3=properties.getProperty("equip_day_week3");
+	String equip_day_week4=properties.getProperty("equip_day_week4");
+	String	equip_day_week5=properties.getProperty("equip_day_week5");
+	String	equip_day_week6=properties.getProperty("equip_day_week6");
+	String	equip_gateway_onlinenum=properties.getProperty("equip_gateway_onlinenum");
+	String	equip_gateway_num=properties.getProperty("equip_gateway_num");
+	String	equip_gateway_onlinerate=properties.getProperty("equip_gateway_onlinerate");
+	String	equip_light_onlinnum=properties.getProperty("equip_gateway_onlinerate");
+	String	equip_light_onlinrate=properties.getProperty("equip_light_onlinrate");
+	String	equip_faultnum=properties.getProperty("equip_faultnum");
+	String	equip_num=properties.getProperty("equip_num");
+	String	equip_fault_rate=properties.getProperty("equip_fault_rate");
+	String	equip_unit1=properties.getProperty("equip_unit1");
+	String	equip_unit2=properties.getProperty("equip_unit2");
+	String	equip_collect=properties.getProperty("equip_collect");
+	String	equip_currentdate=properties.getProperty("equip_currentdate");
+	String	equip_year=properties.getProperty("equip_year");
+	String	equip_month=properties.getProperty("equip_month");
+	String  equip_light_num = properties.getProperty("equip_light_num");
+	String  equip_7days=properties.getProperty("equip_7days");
+	String	equip_7week=properties.getProperty("equip_7week");
+	String	equip_7month=properties.getProperty("equip_7month");
+	String  sequenceselect =properties.getProperty("sequenceselect");
+	String  equip_light_onlinenum = properties.getProperty("equip_light_onlinenum");//在线设备编码？
 
 %>

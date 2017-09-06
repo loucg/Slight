@@ -91,12 +91,15 @@ public class FHlogService implements FHlogManager{
 				}
 				for(long gateway: sets){
 					pd.put("gateway", gateway);
-					PageData result = (PageData)dao.findForObject("LogMapper.getDeviceListString", pd);
-					String cmd = result.getString("cmd");
-					pd.put("cmd", cmd+","+value);
+//					PageData result = (PageData)dao.findForObject("LogMapper.getDeviceListString", pd);
+					PageData result = (PageData)dao.findForObject("LogMapper.getDeviceListString2", pd);
+					String param1 = result.getString("param1");
+					String param2 = result.getString("param2");
+					pd.put("cmd", param1+"."+param2+","+value);
 					pd.put("cmdid", cmdtype);
 					pd.put("logid", lastid);
 					dao.save("LogMapper.insertDeviceLog", pd);
+					System.out.println("生成了指令");
 				}
 			}else{
 				PageData result = (PageData)dao.findForObject("LogMapper.getDeviceCode", pd);

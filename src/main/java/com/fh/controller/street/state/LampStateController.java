@@ -21,7 +21,6 @@ import com.fh.hzy.util.UserUtils;
 import com.fh.service.fhoa.department.DepartmentManager;
 import com.fh.service.street.state.LampStateService;
 import com.fh.service.system.fhlog.FHlogManager;
-import com.fh.service.system.fhlog.impl.FHlogService;
 import com.fh.util.AppUtil;
 import com.fh.util.Const;
 import com.fh.util.Jurisdiction;
@@ -46,6 +45,7 @@ public class LampStateController extends BaseController{
     private DepartmentManager departmentService;
     @Resource(name="fhlogService")
 	private FHlogManager fhlogService;
+    
 	
 	/**
 	 * 显示路灯状态列表
@@ -345,7 +345,7 @@ public class LampStateController extends BaseController{
 			System.out.println(ArrayDATA_IDS.toString());
 			//日志的添加 2017-4-15
 			//fhlogService.saveDeviceLog(userid, comment, deviceids, gatewayid, cmdType, value);
-			fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节亮度", ArrayDATA_IDS, null, CMDType.ADJUST_BRIGHTNESS, pd.getString("brightness"));
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "调节亮度", ArrayDATA_IDS, null, 7, pd.getString("brightness"));
 			
 		}else{
 			System.out.println();
@@ -377,7 +377,6 @@ public class LampStateController extends BaseController{
 		pd.put("tdate", tdate);
 		String DATA_IDS = pd.getString("DATA_IDS");
 		System.out.println(DATA_IDS);
-		System.out.println();
 		if(null != DATA_IDS && !"".equals(DATA_IDS)){
 			String ArrayDATA_IDS[] = DATA_IDS.split(";");
 			for(int i=0;i<ArrayDATA_IDS.length;i++){
@@ -389,7 +388,7 @@ public class LampStateController extends BaseController{
 			pd.put("msg", "ok");
 			System.out.println(ArrayDATA_IDS);
 			//日志的添加 2017-4-15
-			fhlogService.saveDeviceLog(UserUtils.getUserid(), "开灯", ArrayDATA_IDS, null, CMDType.TURN_ON, "100");
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "开灯", ArrayDATA_IDS, null, 6, "100");
 		}else{
 			pd.put("msg", "no");
 		}
@@ -425,7 +424,7 @@ public class LampStateController extends BaseController{
 				lampStateService.adjustBrt(pd);
 			}
 			//日志的添加 2017-4-15
-			fhlogService.saveDeviceLog(UserUtils.getUserid(), "关灯", ArrayDATA_IDS, null, CMDType.TURN_OFF, "0");
+			fhlogService.saveDeviceLog(UserUtils.getUserid(), "关灯", ArrayDATA_IDS, null, 6, "0");
 			pd.put("msg", "ok");
 		}else{
 			pd.put("msg", "no");
@@ -435,9 +434,7 @@ public class LampStateController extends BaseController{
 		map.put("list", pdList);
 		return AppUtil.returnObject(pd, map);
 	}
-	
-	
-	
+
 	
 	/**
 	 * 去新增分组页面

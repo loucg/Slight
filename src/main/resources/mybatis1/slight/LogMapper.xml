@@ -158,6 +158,14 @@
 		AND a.c_client_id IN ${ids}
 	</select>
 	
+	<select id="getDeviceListString2" parameterType="pd" resultType="pd">
+		SELECT node AS param1, node2 AS param2
+		FROM c_client_gateway AS a
+		LEFT JOIN c_client_attr1 AS b ON a.c_client_id = b.id
+		WHERE a.c_gateway_id = #{gateway}
+		AND a.c_client_id IN ${ids}
+	</select>
+	
 	<select id="getDeviceCode" parameterType="pd" resultType="pd">
 		SELECT REPLACE(GROUP_CONCAT(client_code), ',','、') AS cmd
 		FROM c_client

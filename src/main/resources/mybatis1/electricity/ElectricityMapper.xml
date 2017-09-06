@@ -26,20 +26,24 @@
 		SELECT 
 		c_gateway.id,
 		c_gateway.gateway_code,
-		c_gateway_attr1.`name`,
+		c_gateway_attr1.name,
+		c_gateway_attr1.c_gateway_type_id,
 		c_gateway_attr1.location,
-		b_powerup.powerup,
-		b_powerup.powerdown
+		b_powerup.datetime1,
+		b_powerup.datetime2,
+		c_gateway_attr1.staus
 		FROM
 		c_gateway
-		LEFT JOIN 
+		LEFT JOIN
 		c_gateway_attr1
-		ON 
+		ON
 		c_gateway.id = c_gateway_attr1.c_gateway_id
 		LEFT JOIN
 		b_powerup
-		ON c_gateway.id = b_powerup.c_gateway_id
+		ON c_gateway.id = b_powerup.c_breaker_id
 		WHERE 1=1
+		AND
+		c_gateway_attr1.c_gateway_type_id != 3
 		AND
 		c_gateway_attr1.sys_user_id = #{pd.sys_user_id}
 		 <if test="pd.gateway_code!=null and pd.gateway_code!=''">

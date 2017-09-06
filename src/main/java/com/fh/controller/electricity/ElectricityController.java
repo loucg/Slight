@@ -133,7 +133,7 @@ public class ElectricityController extends BaseController{
 	}
 	
 	/**
-	 * 通电设置修改时间
+	 * 通电设置上电/断电
 	 * 去修改页面(批量修改)
 	 * @return
 	 * @throws Exception
